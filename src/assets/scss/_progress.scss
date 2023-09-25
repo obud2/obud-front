@@ -1,0 +1,47 @@
+$xs-layout: 'only screen and (max-width: 992px)';
+
+.loader {
+  width: 0%;
+  user-select: none;
+
+  transition: width 0.2s ease-out;
+  z-index: 9999999999999999;
+}
+
+.loader-progress {
+  background: rgb(0, 122, 255, 0.9);
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+
+  width: 33%;
+  height: 3px;
+  box-shadow: 0px 1px 3px 0px rgba(0, 122, 255, 0.5);
+
+  @media #{$xs-layout} {
+    height: 2.5px;
+  }
+}
+
+.loader-progress-complete {
+  width: 100%;
+}
+
+.loader_background {
+  display: none;
+
+  @media #{$xs-layout} {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.loader.loader-progress .loader_background {
+  display: block;
+
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  cursor: progress;
+}

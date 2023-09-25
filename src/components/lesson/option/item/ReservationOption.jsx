@@ -1,0 +1,263 @@
+import React, { useEffect, useState } from 'react';
+
+import _ from 'lodash';
+
+import moment from 'moment';
+
+import { addComma } from 'src/constants';
+import { Flex } from 'src/styled/CommonStyles';
+import { SReservationOption } from './ReservationOption.styled';
+
+import PlanCalendar from './PlanCalendar';
+import CustomSelect, { SelectItems } from '@components/common/select/CustomSelect';
+import PlanNumberOfPeopleCheck from './PlanNumberOfPeopleCheck';
+
+const DEFAULT_TIME = { id: '', label: '예약날짜를 선택해주세요.' };
+const DEFAULT_OPTION = { title: '선택안함', price: 0, maxMember: 0 };
+
+const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, onClear, scrollEle }) => {
+  const [selectDate, setSelectDate] = useState('');
+  const [selectTime, setSelectTime] = useState(DEFAULT_TIME);
+  const [selectCount, setSelectCount] = useState(0);
+  const [selectOption, setSelectOption] = useState(DEFAULT_OPTION);
+  const [selectOptionCount, setSelectOptionCount] = useState(0);
+
+  const [total, setTotal] = useState(0);
+
+  const [timeList, setTimeList] = useState([]);
+  const [optionList, setOptionList] = useState([]);
+
+  useEffect(() => {
+    onReturnData({
+      selectDate: selectDate || '',
+      selectTime: selectTime || '',
+      selectCount: selectCount || 0,
+      selectOption: selectOption || '',
+      selectOptionCount: selectOptionCount || 0,
+    });
+
+    let price = 0;
+
+    if (selectTime?.id) {
+      const basicPrice = Number(selectTime?.price || 0) * selectCount;
+      const optionPrice = Number(selectOption?.price || 0) * selectOptionCount;
+
+      price = basicPrice + optionPrice;
+    }
+
+    setTotal(price);
+  }, [selectDate, selectTime, selectCount, selectOption, selectOptionCount]);
+
+  useEffect(() => {
+    if (data?.day[selectDate]) {
+      const list = _.cloneDeep(data?.day[selectDate]);
+      const nowTime = moment().valueOf();
+
+      list?.forEach((a) => {
+        let isTimeOut = false;
+        const dataTime = moment(a?.startDate).valueOf();
+
+        if (nowTime > dataTime) isTimeOut = true;
+
+        a.isTimeOut = isTimeOut;
+
+        // 제목 Format
+        a.label = `${a?.format?.startTime}~${a?.format?.endTime}`;
+      });
+
+      setTimeList(list);
+    } else {
+      setTimeList([DEFAULT_TIME]);
+    }
+  }, [selectDate]);
+
+  useEffect(() => {
+    const options = [DEFAULT_OPTION];
+
+    if (selectTime?.payOption?.title) {
+      options.push(selectTime?.payOption);
+    }
+
+    setOptionList(options);
+  }, [selectTime]);
+
+  useEffect(() => {
+    if (scrollEle) {
+      scrollEle.scrollTo(0, scrollEle.scrollHeight);
+    }
+  }, [optionList]);
+
+  useEffect(() => {
+    if (onClear) {
+      clearState();
+    }
+  }, [onClear]);
+
+  // 옵션 초기화
+  const clearState = async () => {
+    await setSelectDate('');
+    await setSelectTime(DEFAULT_TIME);
+    await setSelectCount(0);
+    await setSelectOption(DEFAULT_OPTION);
+    await setSelectOptionCount(0);
+  };
+
+  // 날짜 선택
+  const onChangeDatePicker = async (e) => {
+    clearState();
+    setSelectDate(e);
+  };
+
+  // 시간 선택
+  const onChangeTime = (e) => {
+    const { value } = e.target;
+
+    const findIndex = timeList.findIndex((a) => a?.id === value);
+
+    if (timeList[findIndex]?.id) {
+      setSelectCount(1); // 시간 선택 시 인원 수 자동 1 부여.
+
+      setSelectOption(DEFAULT_OPTION);
+      setSelectOptionCount(0); // 옵션 초기화
+    }
+
+    setSelectTime(timeList[findIndex] || {});
+  };
+
+  // 인원수 선택
+  const onChangePlanCountPeople = (e) => {
+    setSelectCount(e);
+  };
+
+  // 옵션 선택
+  const onChangeOption = (e) => {
+    const { value } = e.target;
+    const findIndex = optionList.findIndex((a) => a?.title === value);
+
+    setSelectOption(optionList[findIndex] || {});
+  };
+
+  // 추가 옵션 수 선택
+  const onChangePlanCountOption = (e) => {
+    setSelectOptionCount(e);
+  };
+
+  return (
+    <SReservationOption>
+      {/* 예약날짜 */}
+      <PlanCalendar
+        value={selectDate}
+        onChange={onChangeDatePicker}
+        onChangeDate={onChangeDate}
+        selectList={data?.date || []}
+        disabled={isLoading}
+      />
+
+      {/* 예약시간 */}
+      <CustomSelect
+        className="reservation-time"
+        placeholder="예약시간"
+        value={selectTime?.id ? `${selectTime?.format?.startTime}~${selectTime?.format?.endTime}` : ''}
+        onChange={onChangeTime}
+        disabled={isLoading}
+        textPosition="center"
+      >
+        {timeList
+          ?.sort((a, b) => (a.startDate > b.startDate ? 1 : -1))
+          ?.map((item) => {
+            const isTimeOut = item?.isTimeOut;
+            const isImpossible = item?.reservationStatus === 'impossible' || item.maxMember - item.currentMember === 0;
+            const price = item?.price || 0;
+            const fakePrice = item?.fakePrice || 0;
+            const percent = Math.floor(((fakePrice - price) / fakePrice) * 100);
+
+            return (
+              <SelectItems key={item?.id} value={item?.id || ''} isDisabled={isImpossible || isTimeOut} isTimeOut={isTimeOut}>
+                <Flex
+                  fullWidth
+                  justifyContent="space-between"
+                  value={item?.id}
+                  data-value={item?.id}
+                  className={`${isImpossible || isTimeOut ? 'disabled' : ''} ${isImpossible ? 'impossible' : ''}`}
+                >
+                  <p>{item?.label}</p>
+
+                  <Flex>
+                    {isTimeOut && <div className="item-timeout">마감</div>}
+                    {isImpossible && <div className="item-impossible">품절</div>}
+                    <p>{item?.price ? `${addComma(item?.price || 0)}원` : ''}</p>
+                    {percent > 0 && (
+                      <div className="item-percent">
+                        (<p>{addComma(fakePrice)}원</p>/<b>{percent}%</b>)
+                      </div>
+                    )}
+                  </Flex>
+                </Flex>
+              </SelectItems>
+            );
+          })}
+      </CustomSelect>
+
+      {/* 인원수 */}
+      <PlanNumberOfPeopleCheck
+        placeholder="인원수"
+        disabled={!selectTime?.id || isLoading}
+        maxNumber={selectTime.maxMember - selectTime.currentMember}
+        value={selectCount}
+        onChange={onChangePlanCountPeople}
+      />
+
+      {/* 추가옵션 */}
+      {optionList?.length > 1 && (
+        <CustomSelect
+          className="option-list"
+          placeholder="추가옵션"
+          value={selectOption?.title || ''}
+          disabled={!selectTime?.id || isLoading}
+          onChange={onChangeOption}
+          textPosition="center"
+        >
+          {optionList?.map((item) => {
+            const impossible = item.maxMember - item.currentMember === 0;
+
+            return (
+              <SelectItems key={item?.title} value={item?.title || ''}>
+                <Flex
+                  fullWidth
+                  justifyContent="space-between"
+                  value={item?.title}
+                  data-value={item?.title}
+                  className={`${impossible ? 'disabled' : ''}`}
+                >
+                  <p>{item?.title}</p>
+
+                  <Flex>
+                    {impossible && <div className="item-impossible">품절</div>}
+                    <p>{`${addComma(item?.price || 0)}원`}</p>
+                  </Flex>
+                </Flex>
+              </SelectItems>
+            );
+          })}
+        </CustomSelect>
+      )}
+
+      {/* 추가 옵션수 */}
+      {optionList?.length > 1 && (
+        <PlanNumberOfPeopleCheck
+          placeholder="추가 옵션수"
+          disabled={selectOption?.title === '선택안함' || isLoading}
+          maxNumber={(selectOption.maxMember || 0) - (selectOption?.currentMember || 0)}
+          value={selectOptionCount}
+          onChange={onChangePlanCountOption}
+        />
+      )}
+
+      <p className="reservation-total">
+        총 상품금액 <b className="total-price">{`${addComma(total)}원`}</b>
+      </p>
+    </SReservationOption>
+  );
+};
+
+export default ReservationOption;

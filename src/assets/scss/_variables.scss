@@ -1,0 +1,43 @@
+.scrollbarRemove {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.scrollbarRemove::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
+
+.scrollbarCustom::-webkit-scrollbar {
+  width: 7px;
+}
+
+.scrollbarCustom::-webkit-scrollbar-thumb {
+  height: 15%; /* 스크롤바의 길이 */
+  background: #217af4; /* 스크롤바의 색상 */
+
+  border-radius: 10px;
+}
+
+.scrollbarCustom::-webkit-scrollbar-track {
+  background: rgba(155, 155, 155, 1); /*스크롤바 뒷 배경 색상*/
+}
+
+.hidden {
+  height: 100%;
+  min-height: 100%;
+  overflow: hidden !important;
+  touch-action: none;
+}
+
+.modal-hidden {
+  height: 100%;
+  min-height: 100%;
+  overflow: hidden !important;
+  touch-action: none;
+}
+
+.order-hidden {
+  height: 100%;
+  min-height: 100%;
+  overflow: hidden !important;
+  touch-action: none;
+}
