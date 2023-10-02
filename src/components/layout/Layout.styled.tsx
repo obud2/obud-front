@@ -13,7 +13,7 @@ export const NAVIGATION_HEIGHT = '8.5rem';
 /* ////////////////////////////////////////////
                   Header
 //////////////////////////////////////////// */
-export const HeaderContainer = styled.header`
+export const HeaderContainer = styled.header<{ headerPosition?: string; hide?: boolean }>`
   width: 100%;
 
   z-index: 999;
@@ -42,7 +42,7 @@ export const HeaderContainer = styled.header`
 /* ////////////////////////////////////////////
                   Topbar
 //////////////////////////////////////////// */
-export const TopbarContainer = styled.div`
+export const TopbarContainer = styled.div<{ topbarPosition?: string; topbarReverse?: boolean; theme: any }>`
   width: 100%;
   height: ${TopbarHeight};
 

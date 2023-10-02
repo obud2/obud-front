@@ -10,5 +10,6 @@
     "*.feature": "feature",
     "*.ttml": "xml",
     "*.ttss": "css"
-  }
+  },
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

@@ -23,6 +23,7 @@ import MobileNavigation from './menu/MobileNavigation';
  *
  * @returns Layout ( 모든 페이지에 감싸서 사용 )
  */
+
 const Layout = ({
   children,
   headerHide,
@@ -33,12 +34,12 @@ const Layout = ({
   mobileNavigationHide,
   footerHide,
   scrollBtnHide,
-}) => {
+}: any) => {
   useVisit();
   useSnsLoginCheck();
 
   return (
-    <React.Fragment>
+    <>
       <Header
         headerHide={headerHide}
         headerPosition={headerPosition}
@@ -48,7 +49,7 @@ const Layout = ({
         scrollBtnHide={scrollBtnHide}
       />
 
-      <Main headerPosition={headerPosition}>{children}</Main>
+      <Main>{children}</Main>
       <Footer footerHide={footerHide} />
 
       {/* 모바일 네비게이션 바 */}
@@ -59,7 +60,7 @@ const Layout = ({
 
       {/* 모바일 메뉴창 - 현재사용안함 */}
       <MobileDrawer />
-    </React.Fragment>
+    </>
   );
 };
 

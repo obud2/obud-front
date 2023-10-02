@@ -7,14 +7,14 @@ import { MENU } from './MobileNavigation.option';
 import { SMobileNavigation } from './MobileNavigation.styled';
 import { loginCheck } from 'src/constants';
 
-const MobileNavigation = ({ mobileNavigationHide }) => {
+const MobileNavigation = ({ mobileNavigationHide }: any) => {
   const router = useRouter();
 
   const { onClickOpenAuth } = useAuthModal((state) => ({
     onClickOpenAuth: state.onClickOpenAuth,
   }));
 
-  const onClickNaviItem = (item) => {
+  const onClickNaviItem = (item: any) => {
     if (item?.id === 'my' || item?.id === 'liked') {
       if (!loginCheck()) {
         onClickOpenAuth('login');
@@ -25,8 +25,8 @@ const MobileNavigation = ({ mobileNavigationHide }) => {
     router.push(item?.link);
   };
 
-  return (
-    !mobileNavigationHide && (
+  if (!mobileNavigationHide) {
+    return (
       <SMobileNavigation>
         <div className="navigation-items-container">
           {MENU?.map((item) => (
@@ -40,11 +40,13 @@ const MobileNavigation = ({ mobileNavigationHide }) => {
           ))}
         </div>
       </SMobileNavigation>
-    )
-  );
+    );
+  }
+
+  return null;
 };
 
-const MobileNavigationItem = ({ icon, label, active, onClick }) => {
+const MobileNavigationItem = ({ icon, label, active, onClick }: any) => {
   return (
     <div className={`navigation-item ${active ? 'active' : ''}`} onClick={onClick}>
       <i className={`icons menu_${icon} ${active ? 'active' : ''}`} />

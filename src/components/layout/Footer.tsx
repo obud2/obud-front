@@ -14,19 +14,23 @@ import SnsIcons from '@components/common/snsIcon/SnsIcons';
 import CustomImage from '@components/common/image/CustomImage';
 import PolicyModal from '@components/policy/PolicyModal';
 
-const Footer = ({ footerHide }) => {
+type Props = {
+  footerHide?: boolean;
+};
+
+const Footer = ({ footerHide }: Props) => {
+  const root = useContext(RootContext) as any;
   const router = useRouter();
 
-  const root = useContext(RootContext);
   const { matchese } = useContext(LayoutContext);
 
   const [isPolicyOpen, setIsPolicyOpen] = useState({ isOpen: false, type: '' });
 
-  const onClickRouter = (url) => {
+  const onClickRouter = (url: string) => {
     router.push(url);
   };
 
-  const onClickPolicyOpen = (type) => {
+  const onClickPolicyOpen = (type: string) => {
     setIsPolicyOpen({ isOpen: true, type });
   };
 
@@ -133,6 +137,8 @@ const Footer = ({ footerHide }) => {
       </React.Fragment>
     );
   }
+
+  return null;
 };
 
 export default Footer;

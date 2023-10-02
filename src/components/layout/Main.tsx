@@ -1,8 +1,10 @@
-import React from 'react';
-
 import { MainContainer } from './Layout.styled';
 
-const Main = ({ children }) => {
+type Props = {
+  children: React.ReactNode;
+};
+
+const Main = ({ children }: Props) => {
   return <MainContainer>{children}</MainContainer>;
 };
 

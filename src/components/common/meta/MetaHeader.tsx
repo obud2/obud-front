@@ -10,7 +10,16 @@ import Head from 'next/head';
  *  og:url - 사이트의 대표 url
  *
  */
-const MetaHeader = ({ url, title, type, image, description }) => {
+
+type Props = {
+  url?: string;
+  title?: string;
+  type?: string;
+  image?: string;
+  description?: string;
+};
+
+const MetaHeader = ({ url, title, type, image, description }: Props) => {
   return (
     <Head>
       {title && <title>{title}</title>}

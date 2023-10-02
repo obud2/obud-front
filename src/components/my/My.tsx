@@ -12,7 +12,12 @@ import MyEdit from './edit/MyEdit';
 import WishList from './wish/WishList';
 import MyOrder from './order/MyOrder';
 
-export const TAB = [
+type TabType = {
+  id: string;
+  title: string;
+};
+
+export const TAB: TabType[] = [
   { id: 'order', title: '예약내역' },
   { id: 'edit', title: '프로필 수정' },
   { id: 'wish', title: '위시 리스트' },
@@ -29,7 +34,7 @@ const My = () => {
     }
   }, []);
 
-  const onChangeTabValue = (_, data) => {
+  const onChangeTabValue = (_: TabType['title'], data: TabType) => {
     router.push(`/my/${data?.id}`);
   };
 

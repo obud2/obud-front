@@ -27,12 +27,12 @@ const CustomImage = ({
   loading = 'lazy',
   placeholder = 'blur',
   layout = 'intrinsic',
-}) => {
+}: any) => {
   const NO_IMG = `${IMG_PATH}/noImg.png`;
 
   const [isError, setIsError] = useState(false);
 
-  const loader = ({ src, width, quality }) => {
+  const loader = ({ src, width, quality }: any) => {
     return `${src}?w=${width}&q=${quality}`;
   };
 
@@ -47,15 +47,12 @@ const CustomImage = ({
       loading={loading}
       placeholder={placeholder}
       quality={quality}
-      style={{
-        WebkitUserDrag: 'none',
-      }}
+      style={{ WebkitUserSelect: 'none' }}
       onError={() => {
         setIsError(true);
       }}
       alt={alt || 'images'}
       blurDataURL="/img/blurDataUrl.png"
-      // blurDataURL={src || NO_IMG}
     />
   );
 };
