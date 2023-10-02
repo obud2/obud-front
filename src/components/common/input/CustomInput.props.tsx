@@ -4,7 +4,7 @@ export interface CustomInputProps extends SCustomInputProps {
   readonly label?: string;
   readonly point?: boolean;
 
-  readonly onChange?: any;
+  readonly onChange?: React.ChangeEventHandler<HTMLInputElement>;
   readonly onKeyDown?: any;
 
   readonly placeholder?: string;

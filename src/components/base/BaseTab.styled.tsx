@@ -24,8 +24,9 @@ export const SBaseTab = styled.div`
     font-size: 1.3rem;
     font-weight: 400;
     font-family: OpenSans !important;
+    word-break: keep-all;
 
-    line-height: 100%;
+    line-height: 1.2;
 
     display: flex;
     align-items: center;

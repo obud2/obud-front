@@ -18,7 +18,8 @@ type TabType = {
 };
 
 export const TAB: TabType[] = [
-  { id: 'order', title: '예약내역' },
+  { id: 'coupon', title: '쿠폰 관리' },
+  { id: 'order', title: '예약 내역' },
   { id: 'edit', title: '프로필 수정' },
   { id: 'wish', title: '위시 리스트' },
 ];
@@ -46,6 +47,10 @@ const My = () => {
         </section>
 
         <section className="my-list-container">
+          <TabPanel value={type} index="coupon">
+            쿠폰 관리
+          </TabPanel>
+
           <TabPanel value={type} index="order">
             <MyOrder />
           </TabPanel>
