@@ -76,6 +76,7 @@ module.exports = {
 
     'react/jsx-props-no-spreading': 'off', // JSX 속성에 대한 확산이 없도록 강제
     'react/jsx-one-expression-per-line': 'off',
+    'react/require-default-props': 'off',
 
     'import/no-cycle': 'off',
     'import/no-named-as-default': 'off',
@@ -110,16 +111,6 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'valid-typeof': 'off',
     'no-case-declarations': 'off',
-
-    // Functional
-    'functional/prefer-readonly-type': [
-      'error',
-      {
-        allowLocalMutation: true,
-        allowMutableReturnType: true,
-        ignoreClass: true,
-      },
-    ],
   },
   settings: {
     react: {
