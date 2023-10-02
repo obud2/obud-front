@@ -3,7 +3,7 @@ import { SCustomLabel } from './CustomLabel.styled';
 
 type Props = {
   label?: string;
-  point?: boolean;
+  point?: boolean | string;
 };
 
 const CustomLabel = ({ label, point }: Props) => {
