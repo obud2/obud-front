@@ -5,6 +5,7 @@ import { getCookie, setCookie, removeCookie } from '../helpers/cookies';
  * API 호출 URL
  */
 export const API_URL = 'https://api.obud.site';
+export const API_URL_V2 = 'https://api.v2.obud.site';
 export const APP_URL = 'https://www.obud.site';
 
 /**
