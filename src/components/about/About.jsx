@@ -1,15 +1,12 @@
-import React, { useContext } from 'react';
-
+import BaseTitle from '@/components/base/BaseTitle';
+import CustomImage from '@/components/common/image/CustomImage';
+import { IMG_PATH } from '@/constants';
+import { LayoutContext } from '@/context/LayoutContext';
+import BannerService from '@/service/BannerService';
+import { MOBILE_SIZE } from '@/styled/variablesStyles';
+import { useContext } from 'react';
 import { useQuery } from 'react-query';
-import BannerService from 'src/service/BannerService';
-
-import { MOBILE_SIZE } from 'src/styled/variablesStyles';
-import { LayoutContext } from 'src/context/LayoutContext';
-import { IMG_PATH } from 'src/constants';
-
 import { SAbout } from './About.styled';
-import BaseTitle from '@components/base/BaseTitle';
-import CustomImage from '@components/common/image/CustomImage';
 import AboutBanner from './banner/AboutBanner';
 
 const About = () => {

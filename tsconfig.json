@@ -2,18 +2,18 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@/*": [
+        "src/*"
+      ],
+      "@assets/*": [
+        "src/assets/*"
+      ],
       "@components/*": [
         "src/components/*"
       ],
       "@pages/*": [
         "pages/*"
       ],
-      "@api/*": [
-        "src/lib/api/*"
-      ],
-      "@assets/*": [
-        "src/assets/*"
-      ]
     },
     "target": "es5",
     "lib": [
