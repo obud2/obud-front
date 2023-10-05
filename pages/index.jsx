@@ -11,7 +11,7 @@ import MetaHeader from '@components/common/meta/MetaHeader';
 export const Index = ({ banner }) => {
   return (
     <Layout headerPosition="absolute" scrollBtnHide>
-      <MetaHeader title={APP_PREFIX} description="요가와 함꼐하는 웰니스 라이프" url={APP_URL} image={`${IMG_PATH}/obud_logo.png`} />
+      <MetaHeader title={APP_PREFIX} description="웰니스 생활을 편리하게" url={APP_URL} image={`${IMG_PATH}/obud_logo_img.png`} />
       <Main banner={banner} />
     </Layout>
   );
