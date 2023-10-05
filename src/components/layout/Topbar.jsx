@@ -87,7 +87,7 @@ const HeaderType = ({ type, reverse }) => {
 
   if (typeTemp === 'backTicWithHome') {
     return (
-      <Flex gap="10px">
+      <Flex gap="20px">
         <BackTic onClick={type?.onClick} />
 
         <HomeBtn onClick={type?.onClick} />
