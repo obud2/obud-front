@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { useQueryClient } from 'react-query';
+// import { useQueryClient } from 'react-query';
 import WishService from 'src/service/WishService';
 
 import { SStudioOption } from './StudioOption.styled';
-import Share from '@components/option/Share';
-import Like from '@components/option/Like';
+// import Share from '@components/option/Share';
+// import Like from '@components/option/Like';
 
 const OPTION = [
   { id: 'addr', icon: 'location' },
@@ -16,39 +16,10 @@ const OPTION = [
 ];
 
 const StudioOption = ({ data }) => {
-  const queryClient = useQueryClient();
-
-  const onClickWish = async (checked) => {
-    if (checked) {
-      await WishService.deleteWish(data?.wishInfo?.wishId);
-      queryClient.invalidateQueries(['my-wish-list'], { refetchInactive: true });
-    } else {
-      await WishService.setWish(data?.id);
-      queryClient.invalidateQueries(['my-wish-list'], { refetchInactive: true });
-    }
-  };
 
   return (
     <SStudioOption>
-      <div className="obut-studio-category-container">
-        {data &&
-          data?.category?.length > 0 &&
-          data?.category?.map((item) => (
-            <div key={item} className="studio-category-item">
-              <p>{item}</p>
-            </div>
-          ))}
-      </div>
-
-      <div className="obud-studio-header">
-        <h4 className="obud-studio-title">{data?.title || ''}</h4>
-
-        <div className="obud-studio-icons">
-          <Like value={data?.wishInfo?.isWish ?? false} onClick={onClickWish} />
-
-          <Share data={data} title={data?.title || ''} />
-        </div>
-      </div>
+   
 
       <div className="obud-studio-option">
         {OPTION?.map((item) => {

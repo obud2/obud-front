@@ -50,7 +50,6 @@ export const SStudioOption = styled.div`
   .obud-studio-header {
     width: 100%;
     padding-bottom: 16px;
-
     display: flex;
     align-items: center;
 
@@ -91,14 +90,16 @@ export const SStudioOption = styled.div`
     width: 100%;
 
     flex: 1;
-    border-top: 1px solid ${(props) => props.theme.main_color_slate_200};
+    /* border-top: 1px solid ${(props) => props.theme.main_color_slate_200}; */
 
     padding: 21px 0 0;
 
     display: flex;
     flex-direction: column;
     gap: 13px;
-
+    ${MOBILE} {
+      padding: 0 15px;
+    }
     .obud-option-item {
       width: 100%;
 

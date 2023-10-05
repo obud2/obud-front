@@ -8,7 +8,7 @@ export const SStudioDetail = styled.article`
   width: 100%;
 
   max-width: ${PRODUCT_MAX_WIDTH};
-  padding: 40px 15px 0;
+  padding-top: 40px;
 
   margin: 0 auto;
 
@@ -19,7 +19,7 @@ export const SStudioDetail = styled.article`
 
   ${MOBILE} {
     max-width: 100%;
-    padding: 24px 15px;
+    padding-top: 0;
   }
 
   .obud-line {
@@ -43,7 +43,114 @@ export const SStudioDetail = styled.article`
 
     ${MOBILE} {
       max-width: 100%;
-      padding: 0 0 8px 0;
+      padding: 0 0 8px 15px;
+    }
+  }
+
+  .obud-title-category-container {
+    display: flex;
+  }
+
+  .obud-studio-tab-container {
+    display: flex;
+    font-size: 1.5rem;
+    border-top: 0.5px solid rgb(217, 217, 217);
+    border-bottom: 0.5px solid rgb(217, 217, 217);
+    gap: 10px;
+    justify-content: space-evenly;
+    padding: 20px 0;
+
+    .tab-button.active::after {
+      content: '';
+      position: absolute;
+      bottom: -5px; /* Adjust this value to control the padding below the underline */
+      left: 0;
+      width: 100%;
+      height: 2px; /* Adjust this value to control the underline thickness */
+      background-color: blue; /* Change this to your preferred underline color */
+    }
+  }
+
+  .obud-studio-category-container {
+    /* width: 100%; */
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: 10px;
+
+    gap: 1px;
+    /* padding: 1px 0; */
+
+    /* margin-bottom: 10px; */
+    flex-wrap: wrap;
+
+    .studio-category-item {
+      width: auto;
+      height: auto;
+      display: flex;
+
+      /* padding: 1px 8px; */
+
+      font-size: 1.3rem;
+
+      color: ${(props) => props.theme.main_color_slate_300};
+      /* border: 1px solid ${(props) => props.theme.main_color_slate_300}; */
+
+      p {
+        position: relative;
+        top: 1px;
+      }
+
+      ${MOBILE} {
+        font-size: 1.1rem;
+        padding: 2px 1px;
+
+        /* border: 1px solid ${(props) => props.theme.main_color_slate_100}; */
+      }
+    }
+  }
+
+  .obud-studio-header {
+    width: 100%;
+    padding-bottom: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    ${MOBILE} {
+      border: none;
+      padding: 0 15px;
+      /* flex-direction: column; */
+    }
+
+    .obud-studio-title {
+      flex: 1;
+
+      font-size: 2.4rem;
+      font-weight: 700;
+      line-height: 140%;
+
+      color: #0d0d0d;
+
+      ${MOBILE} {
+        font-size: 1.8rem;
+      }
+    }
+
+    .obud-studio-icons {
+      display: flex;
+
+      gap: 20px;
+
+      margin-left: 5px;
+
+      ${MOBILE} {
+        /* width: 100%; */
+        margin: 15px 0 10px;
+        gap: 10px;
+      }
     }
   }
 
@@ -62,7 +169,7 @@ export const SStudioDetail = styled.article`
       flex-direction: column;
 
       max-width: 100%;
-      padding: 0;
+      /* padding: 0 ; */
 
       gap: 12px;
     }
@@ -95,7 +202,7 @@ export const SStudioDetail = styled.article`
 
     ${MOBILE} {
       width: 100%;
-      padding: 0;
+      padding: 0 15px;
 
       overflow: hidden;
     }
