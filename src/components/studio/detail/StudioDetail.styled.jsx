@@ -217,7 +217,7 @@ export const SStudioDetail = styled.article`
 
     ${MOBILE} {
       max-width: 100%;
-      padding: 24px 0px;
+      padding: 24px 15px;
     }
   }
 `;

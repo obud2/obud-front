@@ -47,6 +47,8 @@ export const SProductPolicy = styled.div`
 
       color: rgba(0, 0, 0, 0.5);
 
+      padding-top: 15px;
+
       ${MOBILE} {
         font-size: 1.6rem;
       }
@@ -73,6 +75,10 @@ export const SProductPolicy = styled.div`
       line-height: 140%;
 
       color: rgba(0, 0, 0, 0.5);
+
+      border-top: 1px solid ${(props) => props.theme.main_color_slate_200};
+
+      padding-top: 15px;
 
       ${MOBILE} {
         font-size: 1.4rem;
