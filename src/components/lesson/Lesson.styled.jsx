@@ -59,7 +59,7 @@ export const SLesson = styled.article`
       flex-direction: column;
 
       max-width: 100%;
-      padding: 0 15px;
+      padding: 0;
 
       gap: 16px;
     }
@@ -72,6 +72,9 @@ export const SLesson = styled.article`
     .obud-option-container {
       width: 100%;
       position: relative;
+      ${MOBILE} {
+        padding: 0 15px;
+      }
     }
   }
 
@@ -117,7 +120,7 @@ export const SLesson = styled.article`
     margin: 0 auto;
 
     ${MOBILE} {
-      max-width: 100%;
+      width: 100%;
       padding: 24px 0px;
     }
   }
