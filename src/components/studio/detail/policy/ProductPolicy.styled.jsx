@@ -7,10 +7,10 @@ export const SProductPolicy = styled.div`
 
   padding: 32px 40px;
 
-  border-top: 1px solid ${(props) => props.theme.main_color_slate_500};
-  border-bottom: 1px solid ${(props) => props.theme.main_color_slate_500};
+  border-top: 1px solid ${(props) => props.theme.main_color_slate_200};
+  border-bottom: 1px solid ${(props) => props.theme.main_color_slate_200};
 
-  background-color: ${(props) => props.theme.main_color_slate_100};
+  /* background-color: ${(props) => props.theme.main_color_slate_500}; */
 
   display: flex;
   flex-direction: column;
@@ -19,7 +19,7 @@ export const SProductPolicy = styled.div`
   ${MOBILE} {
     width: 100%;
 
-    padding: 16px 8px;
+    padding: 16px;
   }
 
   .product-policy-container {
@@ -40,14 +40,14 @@ export const SProductPolicy = styled.div`
 
       gap: 10px;
 
-      font-size: 1.6rem;
+      font-size: 1.7rem;
       font-weight: 700;
       line-height: 140%;
 
-      color: #565656;
+      color: rgba(0, 0, 0, 0.5);
 
       ${MOBILE} {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
       }
 
       .icons {
@@ -71,7 +71,7 @@ export const SProductPolicy = styled.div`
       font-weight: 400;
       line-height: 140%;
 
-      color: #565656;
+      color: rgba(0, 0, 0, 0.5);
       padding-left: 30px;
 
       ${MOBILE} {

@@ -9,7 +9,7 @@ export const SProductMap = styled.div`
     width: 100%;
     height: auto;
 
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1.5 / 1;
   }
 
   iframe {

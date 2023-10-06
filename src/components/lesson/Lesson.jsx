@@ -28,10 +28,6 @@ const Lesson = ({ lesson }) => {
 
   return (
     <SLesson>
-      <section className="obud-lesson-detail-step-container">
-        <Steps steps={steps} />
-      </section>
-
       <section className="obud-lesson-detail-option-container">
         <div className="obud-images-container">
           <ProductImages images={lesson?.images || []} />
@@ -48,10 +44,6 @@ const Lesson = ({ lesson }) => {
       <section className="obud-line" />
 
       <section className="obud-lesson-detail-contents-container" dangerouslySetInnerHTML={{ __html: lesson?.contents || '' }} />
-
-      <section className="obud-lesson-map">
-        <ProductMap addr={lesson?.studios?.addr || ''} />
-      </section>
 
       <section className="obud-lesson-policy">
         <ProductPolicy info={lesson?.studios?.information || ''} policy={lesson?.studios?.refundPolicy || ''} />

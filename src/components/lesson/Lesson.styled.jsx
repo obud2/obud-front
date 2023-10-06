@@ -17,7 +17,7 @@ export const SLesson = styled.article`
 
   ${MOBILE} {
     max-width: 100%;
-    padding: 24px 15px;
+    padding: 0;
   }
 
   .obud-line {
@@ -59,7 +59,7 @@ export const SLesson = styled.article`
       flex-direction: column;
 
       max-width: 100%;
-      padding: 0;
+      padding: 0 15px;
 
       gap: 16px;
     }
@@ -92,7 +92,7 @@ export const SLesson = styled.article`
 
     ${MOBILE} {
       width: 100%;
-      padding: 0;
+      padding: 0 15px;
     }
   }
 

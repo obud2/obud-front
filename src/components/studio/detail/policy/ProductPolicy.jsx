@@ -17,7 +17,7 @@ const PolicyContainer = ({ title, contents }) => {
     contents && (
       <div className="product-policy-container">
         <p className="product-policy-title">
-          <i className="icons info" />
+          {/* <i className="icons info" /> */}
           {title}
         </p>
 
