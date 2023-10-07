@@ -59,11 +59,9 @@ export const SStudioDetailList = styled.div<{ isShow: boolean }>`
         position: relative;
 
         margin-right: 24px;
-        margin-bottom: 50px;
 
         ${MOBILE} {
           margin-right: 12px;
-          margin-bottom: 24px;
         }
       }
 

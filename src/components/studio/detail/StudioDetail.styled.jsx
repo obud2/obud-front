@@ -1,14 +1,11 @@
 import styled from 'styled-components';
-
 import { MOBILE } from 'src/styled/variablesStyles';
 
 const PRODUCT_MAX_WIDTH = `${688 + 30}px`;
 
 export const SStudioDetail = styled.article`
   width: 100%;
-
   max-width: ${PRODUCT_MAX_WIDTH};
-  padding: 40px 15px 0;
 
   margin: 0 auto;
 
@@ -19,7 +16,14 @@ export const SStudioDetail = styled.article`
 
   ${MOBILE} {
     max-width: 100%;
-    padding: 24px 15px;
+  }
+
+  .obud-padding-container {
+    padding: 40px 15px 0;
+    
+    ${MOBILE} {
+      padding: 24px 15px;
+    }
   }
 
   .obud-line {
@@ -50,7 +54,6 @@ export const SStudioDetail = styled.article`
   .obud-studio-detail-option-container {
     width: 100%;
     max-width: ${PRODUCT_MAX_WIDTH};
-
     margin: 0 auto;
 
     display: flex;
@@ -70,13 +73,28 @@ export const SStudioDetail = styled.article`
     .obud-images-container {
       width: 100%;
       position: relative;
+
+      .studio-detail-list {
+        display: none;
+        ${MOBILE} {
+          display: block;
+        }
+      }
+
+      .product-images {
+        ${MOBILE} {
+          display: none;
+        }
+      }
+
     }
 
-    .obud-option-container {
+  }
+
+  .obud-option-container {
       width: 100%;
       position: relative;
     }
-  }
 
   .obud-studio-detail-contents-container {
     width: 100%;
