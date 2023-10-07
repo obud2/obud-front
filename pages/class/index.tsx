@@ -1,12 +1,10 @@
-import React from 'react';
-
 import Layout from '@components/layout/Layout';
 import Class from '@components/class/Class';
 import MetaHeader from '@components/common/meta/MetaHeader';
+import ProductService from '@/service/ProductService';
+import { GetServerSidePropsContext } from 'next';
 
-import ProductService from '../../src/service/ProductService';
-
-const Index = ({ studios }) => {
+const Index = ({ studios }: any) => {
   return (
     <Layout>
       <MetaHeader title="obud :: class" />
@@ -15,7 +13,7 @@ const Index = ({ studios }) => {
   );
 };
 
-export const getStaticProps = async (context) => {
+export const getStaticProps = async (context: GetServerSidePropsContext) => {
   const { sort } = context.query || {};
 
   const res = await Promise.all([ProductService.getSpecialList(), ProductService.getStudios(sort)]);

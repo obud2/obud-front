@@ -9,8 +9,8 @@ import ProductMap from './map/ProductMap';
 
 import ClassListBox from './option/ClassListBox';
 
-const StudioDetail = ({ studio }) => {
-  const [steps, setSteps] = useState([]);
+const StudioDetail = ({ studio }: any) => {
+  const [steps, setSteps] = useState<any[]>([]);
 
   useEffect(() => {
     const temp = [{ label: 'Class', link: '/class' }];

@@ -1,12 +1,11 @@
-import React from 'react';
-
-import ProductService from 'src/service/ProductService';
-
+import ProductService from '@/service/ProductService';
 import Layout from '@components/layout/Layout';
 import StudioDetail from '@components/studio/detail/StudioDetail';
 import MetaHeader from '@components/common/meta/MetaHeader';
+import { GetServerSidePropsContext } from 'next';
 
-const Index = ({ studio }) => {
+// TODO: studio type
+const Index = ({ studio }: any) => {
   return (
     <Layout addonBeforeHeader="backTicWithHome" headerTitle={studio?.title || ''} mobileNavigationHide>
       <MetaHeader title={studio?.title || ''} description={studio?.title || ''} image={studio?.images?.[0]?.url || ''} />
@@ -15,7 +14,7 @@ const Index = ({ studio }) => {
   );
 };
 
-export const getServerSideProps = async (context) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const { id } = context.query;
   const cookies = context?.req?.cookies;
 
