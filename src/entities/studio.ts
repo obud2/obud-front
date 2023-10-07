@@ -27,7 +27,7 @@ export type Studio = {
   updatedIP: string;
   viewCnt: number;
   wishCount: number;
-  withInfo: any; // TODO:
+  wishInfo: any; // TODO:
 };
 
 // TODO: Image Name 이름을 조금 더 General하게 바꿀 수도 있음.

@@ -1,11 +1,9 @@
-import React from 'react';
-
+import Like from '@/components/option/Like';
+import Share from '@/components/option/Share';
+import { Studio } from '@/entities/studio';
+import WishService from '@/service/WishService';
 import { useQueryClient } from 'react-query';
-import WishService from 'src/service/WishService';
-
 import { SStudioOption } from './StudioOption.styled';
-import Share from '@components/option/Share';
-import Like from '@components/option/Like';
 
 const OPTION = [
   { id: 'addr', icon: 'location' },
@@ -15,38 +13,39 @@ const OPTION = [
   { id: 'serviceCenter', icon: 'home' },
 ];
 
-const StudioOption = ({ data }) => {
+type Props = {
+  studio: Studio;
+};
+
+const StudioOption = ({ studio }: Props) => {
   const queryClient = useQueryClient();
 
-  const onClickWish = async (checked) => {
+  const onClickWish = async (checked: boolean) => {
     if (checked) {
-      await WishService.deleteWish(data?.wishInfo?.wishId);
+      await WishService.deleteWish(studio?.wishInfo?.wishId);
       queryClient.invalidateQueries(['my-wish-list'], { refetchInactive: true });
     } else {
-      await WishService.setWish(data?.id);
+      await WishService.setWish(studio?.id);
       queryClient.invalidateQueries(['my-wish-list'], { refetchInactive: true });
     }
   };
 
   return (
     <SStudioOption>
-      <div className="obut-studio-category-container">
-        {data &&
-          data?.category?.length > 0 &&
-          data?.category?.map((item) => (
-            <div key={item} className="studio-category-item">
-              <p>{item}</p>
-            </div>
-          ))}
-      </div>
-
       <div className="obud-studio-header">
-        <h4 className="obud-studio-title">{data?.title || ''}</h4>
-
+        <h4 className="obud-studio-title">{studio?.title || ''}</h4>
+        <div className="obud-studio-category-container">
+          {studio &&
+            studio?.category?.length > 0 &&
+            studio?.category?.map((item) => (
+              <div key={item} className="studio-category-item">
+                <p>{item}</p>
+              </div>
+            ))}
+        </div>
         <div className="obud-studio-icons">
-          <Like value={data?.wishInfo?.isWish ?? false} onClick={onClickWish} />
-
-          <Share data={data} title={data?.title || ''} />
+          <Like value={studio?.wishInfo?.isWish ?? false} onClick={onClickWish} />
+          <Share isHide={false} data={studio} title={studio?.title || ''} />
         </div>
       </div>
 
@@ -54,10 +53,9 @@ const StudioOption = ({ data }) => {
         {OPTION?.map((item) => {
           let active = false;
 
-          if (data?.[item?.id]) active = true;
           if (item?.id === 'parking') active = true;
           if (item?.id === 'convenience') {
-            if (data?.convenience?.length > 0) active = true;
+            if (studio?.convenience?.length > 0) active = true;
             else active = false;
           }
 
@@ -67,7 +65,7 @@ const StudioOption = ({ data }) => {
                 <i className={`icons ${item?.icon}`} />
               </div>
 
-              <OptionTextRender id={item?.id || ''} data={data} />
+              <OptionTextRender id={item?.id || ''} data={studio} />
             </div>
           );
         })}
@@ -76,7 +74,7 @@ const StudioOption = ({ data }) => {
   );
 };
 
-export const OptionTextRender = ({ id, data }) => {
+export const OptionTextRender = ({ id, data }: any) => {
   if (id === 'addr') {
     return <p>{data?.addr || ''}</p>;
   }
@@ -103,13 +101,12 @@ export const OptionTextRender = ({ id, data }) => {
   }
 
   if (id === 'convenience') {
-    // 편의시설
     return (
       <div className="option-deps">
         <p>편의시설</p>
 
         <div>
-          {data?.convenience?.map((item) => (
+          {data?.convenience?.map((item: string) => (
             <span className="convenience-item" key={item}>
               {item}
             </span>
@@ -128,6 +125,8 @@ export const OptionTextRender = ({ id, data }) => {
       </div>
     );
   }
+
+  return null;
 };
 
 export default StudioOption;

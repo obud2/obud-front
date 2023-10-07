@@ -9,17 +9,12 @@ export const SStudioOption = styled.div`
   display: flex;
   flex-direction: column;
 
-  .obut-studio-category-container {
-    width: 100%;
-
+  .obud-studio-category-container {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-
     gap: 8px;
     padding: 1px 0;
-
-    margin-bottom: 10px;
     flex-wrap: wrap;
 
     .studio-category-item {
@@ -50,21 +45,18 @@ export const SStudioOption = styled.div`
   .obud-studio-header {
     width: 100%;
     padding-bottom: 16px;
-
     display: flex;
     align-items: center;
 
     ${MOBILE} {
       border: none;
-      flex-direction: column;
     }
 
     .obud-studio-title {
-      flex: 1;
-
       font-size: 2.4rem;
       font-weight: 700;
       line-height: 140%;
+      margin-right: 12px;
 
       color: #0d0d0d;
 
@@ -75,14 +67,12 @@ export const SStudioOption = styled.div`
 
     .obud-studio-icons {
       display: flex;
-
       gap: 20px;
-
-      margin-left: 5px;
+      margin-left: auto;
 
       ${MOBILE} {
-        width: 100%;
         margin: 15px 0 10px;
+        margin-left: auto;
       }
     }
   }

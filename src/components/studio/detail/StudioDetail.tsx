@@ -19,7 +19,7 @@ const StudioDetail = ({ studio }: Props) => {
           </div>
 
           <div className="obud-option-container">
-            <StudioOption data={studio || {}} />
+            <StudioOption studio={studio || {}} />
           </div>
         </section>
 
