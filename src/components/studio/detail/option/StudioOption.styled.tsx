@@ -24,7 +24,8 @@ export const SStudioOption = styled.div`
 
   .obud-studio-header {
     width: 100%;
-    padding-bottom: 16px;
+    margin-top: 20px;
+    padding: 16px;
     display: flex;
     align-items: center;
 

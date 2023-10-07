@@ -1,8 +1,4 @@
-import Like from '@/components/option/Like';
-import Share from '@/components/option/Share';
 import { Studio } from '@/entities/studio';
-import WishService from '@/service/WishService';
-import { useQueryClient } from 'react-query';
 import { SStudioOption } from './StudioOption.styled';
 
 const OPTION = [
@@ -18,29 +14,8 @@ type Props = {
 };
 
 const StudioOption = ({ studio }: Props) => {
-  const queryClient = useQueryClient();
-
-  const onClickWish = async (checked: boolean) => {
-    if (checked) {
-      await WishService.deleteWish(studio?.wishInfo?.wishId);
-      queryClient.invalidateQueries(['my-wish-list'], { refetchInactive: true });
-    } else {
-      await WishService.setWish(studio?.id);
-      queryClient.invalidateQueries(['my-wish-list'], { refetchInactive: true });
-    }
-  };
-
   return (
     <SStudioOption>
-      <div className="obud-studio-header">
-        <h4 className="obud-studio-title">{studio?.title || ''}</h4>
-        <div className="obud-studio-category-container">{studio?.category.join(', ')}</div>
-        <div className="obud-studio-icons">
-          <Like value={studio?.wishInfo?.isWish ?? false} onClick={onClickWish} />
-          <Share isHide={false} data={studio} title={studio?.title || ''} />
-        </div>
-      </div>
-
       <div className="obud-studio-option">
         {OPTION?.map((item) => {
           let active = false;

@@ -57,6 +57,7 @@ module.exports = {
     'no-use-before-define': 'off',
     'arrow-body-style': 'off', // 에로우 펑션 중괄호 금지
     'react/function-component-definition': 'off', // 함수형 컴포넌트 선언
+    'react/no-unused-prop-types': 'off', // 사용하지 않는 prop-types 금지
     indent: 'off',
     'object-curly-newline': 'off',
     'jsx-a11y/label-has-associated-control': 'off', // 라벨 태그 컨트롤 강제
@@ -99,6 +100,7 @@ module.exports = {
     'react/display-name': 'off',
     'no-await-in-loop': 'off',
     'no-restricted-syntax': 'off',
+    'react/no-array-index-key': 'off',
 
     // React
     'react/jsx-boolean-value': 'error',
