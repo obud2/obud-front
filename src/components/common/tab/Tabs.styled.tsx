@@ -8,10 +8,19 @@ export const STabs = styled.div`
   }
 
   .tabs-header {
+    position: relative;
     display: flex;
     border-bottom: 1px solid;
     border-top: 1px solid;
     border-color: ${(props) => props.theme.core_color_slate_50};
+  }
+
+  .tabs-highlight {
+    position: absolute;
+    top: 38px;
+    height: 2px;
+    background-color: ${(props) => props.theme.main_color_slate_500};
+    transition: left 0.3s, width 0.3s;
   }
 
   .tab-wrapper {
@@ -26,9 +35,13 @@ export const STabs = styled.div`
     cursor: pointer;
   }
 
-  .tab.active {
-    font-weight: bold;
-    border-bottom: 2px solid;
-    border-color: ${(props) => props.theme.main_color_slate_500};
+  .hidden-tab {
+    visibility: hidden;
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .visible-tab {
+    visibility: visible;
   }
 `;

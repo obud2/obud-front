@@ -53,7 +53,7 @@ const StudioDetail = ({ studio }: Props) => {
         </div>
       </SStudioOption>
 
-      <Tabs defaultActiveKey="detail">
+      <Tabs defaultActiveKey="홈">
         <TabPane tab="홈">
           <div className="obud-padding-container">
             <div className="obud-option-container">
