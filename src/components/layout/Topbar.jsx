@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext, memo } from 'react';
 
 import { Flex } from 'src/styled/CommonStyles';
 
@@ -87,7 +87,7 @@ const HeaderType = ({ type, reverse }) => {
 
   if (typeTemp === 'backTicWithHome') {
     return (
-      <Flex gap="10px">
+      <Flex gap="20px">
         <BackTic onClick={type?.onClick} />
 
         <HomeBtn onClick={type?.onClick} />
@@ -100,4 +100,4 @@ const HeaderType = ({ type, reverse }) => {
   }
 };
 
-export default React.memo(Topbar);
+export default memo(Topbar);

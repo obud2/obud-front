@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { SProductPolicy } from './ProductPolicy.styled';
 
 const ProductPolicy = ({ info, policy }) => {
@@ -17,7 +15,6 @@ const PolicyContainer = ({ title, contents }) => {
     contents && (
       <div className="product-policy-container">
         <p className="product-policy-title">
-          <i className="icons info" />
           {title}
         </p>
 

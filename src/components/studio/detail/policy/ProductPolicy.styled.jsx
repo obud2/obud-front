@@ -2,15 +2,13 @@ import styled from 'styled-components';
 
 import { MOBILE } from 'src/styled/variablesStyles';
 
+const PRODUCT_MAX_WIDTH = `${688 + 30}px`;
+
 export const SProductPolicy = styled.div`
   width: 100%;
+  max-width: ${PRODUCT_MAX_WIDTH};
 
-  padding: 32px 40px;
-
-  border-top: 1px solid ${(props) => props.theme.main_color_slate_500};
-  border-bottom: 1px solid ${(props) => props.theme.main_color_slate_500};
-
-  background-color: ${(props) => props.theme.main_color_slate_100};
+  padding: 40px 16px;
 
   display: flex;
   flex-direction: column;
@@ -18,12 +16,11 @@ export const SProductPolicy = styled.div`
 
   ${MOBILE} {
     width: 100%;
-
-    padding: 16px 8px;
   }
 
   .product-policy-container {
     width: 100%;
+    max-width: ${PRODUCT_MAX_WIDTH};
     display: flex;
     flex-direction: column;
 
@@ -40,14 +37,15 @@ export const SProductPolicy = styled.div`
 
       gap: 10px;
 
-      font-size: 1.6rem;
+      font-size: 1.7rem;
       font-weight: 700;
       line-height: 140%;
 
-      color: #565656;
+      color: rgba(0, 0, 0, 0.5);
+      padding-top: 15px;
 
       ${MOBILE} {
-        font-size: 1.4rem;
+        font-size: 1.6rem;
       }
 
       .icons {
@@ -71,12 +69,12 @@ export const SProductPolicy = styled.div`
       font-weight: 400;
       line-height: 140%;
 
-      color: #565656;
-      padding-left: 30px;
+      color: rgba(0, 0, 0, 0.5);
+      border-top: 1px solid ${(props) => props.theme.main_color_slate_200};
+      padding-top: 15px;
 
       ${MOBILE} {
         font-size: 1.4rem;
-        padding-left: 24px;
       }
     }
   }
