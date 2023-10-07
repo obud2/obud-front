@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from 'react';
-
+import { Studio } from '@/entities/studio';
+import Steps from '@components/common/steps/Steps';
+import { useEffect, useState } from 'react';
+import ProductImages from './images/ProductImages';
+import ProductMap from './map/ProductMap';
+import ClassListBox from './option/ClassListBox';
+import StudioOption from './option/StudioOption';
 import { SStudioDetail } from './StudioDetail.styled';
 
-import Steps from '@components/common/steps/Steps';
-import ProductImages from './images/ProductImages';
-import StudioOption from './option/StudioOption';
-import ProductMap from './map/ProductMap';
+type Props = {
+  studio: Studio;
+};
 
-import ClassListBox from './option/ClassListBox';
-
-const StudioDetail = ({ studio }: any) => {
+const StudioDetail = ({ studio }: Props) => {
   const [steps, setSteps] = useState<any[]>([]);
 
   useEffect(() => {
@@ -23,7 +25,7 @@ const StudioDetail = ({ studio }: any) => {
   }, [studio]);
 
   return (
-    <React.Fragment>
+    <>
       <SStudioDetail>
         <section className="obud-studio-detail-step-container">
           <Steps steps={steps} />
@@ -50,7 +52,7 @@ const StudioDetail = ({ studio }: any) => {
 
       {/* 예약목록 */}
       <ClassListBox id={studio?.id || ''} />
-    </React.Fragment>
+    </>
   );
 };
 

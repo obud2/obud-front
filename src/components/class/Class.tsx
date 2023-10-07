@@ -1,8 +1,13 @@
-import { SClass } from './Class.styled';
-import StudioList from '@/components/studio/StudioList';
 import SpecialList from '@/components/studio/SpecialList';
+import StudioList from '@/components/studio/StudioList';
+import { Studio } from '@/entities/studio';
+import { SClass } from './Class.styled';
 
-const Class = ({ studios }: any) => {
+type Props = {
+  studios: Studio[];
+};
+
+const Class = ({ studios }: Props) => {
   return (
     <SClass>
       <article className="obud-class-article">
