@@ -7,11 +7,16 @@ import '@egjs/react-flicking/dist/flicking-inline.css';
 import CustomImage, { AutoHeightImageWrapper } from '@components/common/image/CustomImage';
 
 import { SProductImages } from './ProductImages.styled';
+import { ObudImage } from '@/entities/studio';
 
-const ProductImages = ({ images }) => {
-  const swiperRef = useRef();
+type Props = {
+  images: ObudImage[];
+};
 
-  const [panel, setPanel] = useState([]);
+const ProductImages = ({ images }: Props) => {
+  const swiperRef = useRef<any>();
+
+  const [panel, setPanel] = useState<ObudImage[]>([]);
 
   const [isAnimating, setIsAnimating] = useState(false);
   const [selectIndex, setSelectIndex] = useState(0);
@@ -20,7 +25,7 @@ const ProductImages = ({ images }) => {
     setPanel(images);
   }, [images]);
 
-  const onChanged = (e) => {
+  const onChanged = (e: any) => {
     if (swiperRef.current?.animating) return;
 
     setSelectIndex(e?.index);
@@ -34,7 +39,7 @@ const ProductImages = ({ images }) => {
     setIsAnimating(false);
   };
 
-  const onClickImageChange = async (e) => {
+  const onClickImageChange = async (e: any) => {
     if (swiperRef.current?.animating) return;
 
     if (swiperRef.current) {

@@ -10,12 +10,12 @@ export type Studio = {
   createdIP: string; // csv format
   homepage: string; // url
   id: string; // uuid
-  images: any[]; // TODO
+  images: ObudImage[];
   information: string;
   isShow: boolean;
   parking: string; // "true" | "false"
   parkingInfo: string;
-  refund: any[]; // TODO
+  refund: StudioRefund[];
   refundPolicy: string;
   serviceCenter: string; // tel
   sortOrder: number;
@@ -28,4 +28,21 @@ export type Studio = {
   viewCnt: number;
   wishCount: number;
   withInfo: any; // TODO:
+};
+
+// TODO: Image Name 이름을 조금 더 General하게 바꿀 수도 있음.
+export type ObudImage = {
+  key: string;
+  name: string;
+  size: number;
+  type: string;
+  upload: boolean;
+  url: string;
+};
+
+export type StudioRefund = {
+  day: number;
+  id: string;
+  percent: number; // 50 for 50%
+  studiosId: string;
 };

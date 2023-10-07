@@ -1,39 +1,21 @@
 import { Studio } from '@/entities/studio';
-import Steps from '@components/common/steps/Steps';
-import { useEffect, useState } from 'react';
-import ProductImages from './images/ProductImages';
 import ProductMap from './map/ProductMap';
 import ClassListBox from './option/ClassListBox';
 import StudioOption from './option/StudioOption';
 import { SStudioDetail } from './StudioDetail.styled';
+import StudioDetailList from './StudioDetailList';
 
 type Props = {
   studio: Studio;
 };
 
 const StudioDetail = ({ studio }: Props) => {
-  const [steps, setSteps] = useState<any[]>([]);
-
-  useEffect(() => {
-    const temp = [{ label: 'Class', link: '/class' }];
-
-    if (studio?.title) {
-      temp.push({ label: studio?.title, link: '' });
-    }
-
-    setSteps(temp);
-  }, [studio]);
-
   return (
     <>
       <SStudioDetail>
-        <section className="obud-studio-detail-step-container">
-          <Steps steps={steps} />
-        </section>
-
         <section className="obud-studio-detail-option-container">
           <div className="obud-images-container">
-            <ProductImages images={studio?.images || []} />
+            <StudioDetailList studio={studio} />
           </div>
 
           <div className="obud-option-container">
