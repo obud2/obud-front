@@ -9,65 +9,137 @@ export const SLessonOption = styled.div`
   display: flex;
   flex-direction: column;
 
-  .obud-lesson-header {
-    width: 100%;
-
-    position: relative;
-
+  .obud-lesson-category-container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
+    margin-top: 6px;
+    flex-wrap: wrap;
+    color: ${(props) => props.theme.main_color_slate_300};
+    font-size: 1.3rem;
+    ${MOBILE} {
+      font-size: 1.1rem;
+    }
+  }
+
+  .obud-lesson-header {
+    width: 100%;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
 
     ${MOBILE} {
       border: none;
-      flex-direction: column;
     }
 
-    .obud-lesson-title-container {
-      width: calc(100% - 20px);
+    .obud-lesson-title {
+      font-size: 2.4rem;
+      font-weight: 700;
+      line-height: 140%;
+      margin-right: 12px;
 
+      color: #0d0d0d;
+
+      ${MOBILE} {
+        font-size: 1.8rem;
+      }
+    }
+
+    .obud-lesson-icons {
       display: flex;
-      flex-direction: column;
       gap: 8px;
+      margin-left: auto;
 
       ${MOBILE} {
-        width: 100%;
-        gap: 4px;
-      }
-
-      .obud-lesson-subTitle {
-        font-size: 1.6rem;
-        font-weight: 700;
-        line-height: 100%;
-
-        color: #565656;
-
-        ${MOBILE} {
-          font-size: 1.3rem;
-        }
-      }
-
-      .obud-lesson-title {
-        width: 100%;
-
-        font-size: 2.4rem;
-        font-weight: 700;
-        line-height: 140%;
-
-        color: #0d0d0d;
-
-        ${MOBILE} {
-          font-size: 1.8rem;
-        }
+        margin: 15px 0 10px;
+        margin-left: auto;
       }
     }
+  }
 
-    .obud-lesson-option {
-      display: inline-block;
+  .obud-lesson-option {
+    width: 100%;
+    flex: 1;
+    padding: 21px 0 0;
 
-      ${MOBILE} {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+
+    ${MOBILE} {
+      padding: 0 15px;
+    }
+
+    .obud-option-item {
+      width: 100%;
+
+      display: none;
+      gap: 11px;
+
+      font-size: 1.5rem;
+      font-weight: 400;
+      line-height: 140%;
+
+      color: #565656;
+
+      a {
+        color: #565656;
+      }
+
+      &.active {
+        display: flex;
+      }
+
+      .icons-container {
+        width: 24px;
+        height: 24px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .location {
+          width: 17px;
+          height: 19.7px;
+        }
+        .url {
+          width: 17px;
+          height: 17px;
+        }
+        .parking {
+          width: 13px;
+          height: 18px;
+        }
+        .info {
+          width: 20px;
+          height: 20px;
+        }
+        .home {
+          width: 20px;
+          height: 17px;
+        }
+      }
+
+      .option-deps {
         width: 100%;
-        margin: 15px 0 10px;
+
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        white-space: pre-line;
+        word-break: break-word;
+
+        top: 2px;
+        position: relative;
+
+        ${MOBILE} {
+          font-size: 1.4rem;
+        }
+
+        .convenience-item {
+          margin-right: 16px;
+        }
       }
     }
   }

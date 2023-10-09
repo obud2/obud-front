@@ -3,7 +3,9 @@ import React from 'react';
 import { SLessonOption } from './LessonOption.styled';
 
 import Share from '@components/option/Share';
-
+/**
+ * @deprecated
+ */
 const LessonOption = ({ data, shareHide }) => {
   return (
     <SLessonOption>

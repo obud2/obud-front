@@ -1,9 +1,10 @@
 import ProductImages from '@/components/studio/detail/images/ProductImages';
 import ProductPolicy from '@/components/studio/detail/policy/ProductPolicy';
 import { Lesson } from '@/entities/lesson';
+import Share from '../option/Share';
 import { SLesson } from './LessonDetail.styled';
 import LessonDetailList from './LessonDetailList';
-import LessonOption from './option/LessonOption';
+import { SLessonOption } from './option/LessonOption.styled';
 import LessonReservation from './option/LessonReservation';
 
 type Props = {
@@ -23,9 +24,15 @@ const LessonDetail = ({ lesson }: Props) => {
           </div>
         </div>
 
-        <div className="obud-option-container">
-          <LessonOption shareHide={false} data={lesson || {}} />
-        </div>
+        <SLessonOption>
+          <div className="obud-lesson-header">
+            <h4 className="obud-lesson-title">{lesson?.title || ''}</h4>
+            <h5 className="obud-lesson-subtitle">{lesson?.studios?.title || ''}</h5>
+            <div className="obud-lesson-icons">
+              <Share data={lesson} title={lesson?.title || ''} isHide={false} />
+            </div>
+          </div>
+        </SLessonOption>
       </section>
 
       {/* 예약하기 버튼 */}
