@@ -65,6 +65,10 @@ export const SLessonDetailList = styled.div<{ isShow: boolean }>`
         }
       }
 
+      .flicking-viewport {
+        height: 60vw;
+      }
+
       .flicking-pagination {
         font-size: 1.4rem;
         font-weight: 500;
