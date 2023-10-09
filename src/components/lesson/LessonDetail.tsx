@@ -36,7 +36,7 @@ const LessonDetail = ({ lesson }: Props) => {
       </section>
 
       {/* 예약하기 버튼 */}
-      <LessonReservation data={lesson} />
+      <LessonReservation lesson={lesson} />
 
       <section className="obud-line" />
       <section className="obud-lesson-detail-contents-container" dangerouslySetInnerHTML={{ __html: lesson?.contents || '' }} />

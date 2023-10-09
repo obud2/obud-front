@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { MOBILE } from 'src/styled/variablesStyles';
+import { MOBILE } from '@/styled/variablesStyles';
 
 const PRODUCT_MAX_WIDTH = '688px';
 

@@ -87,3 +87,57 @@ export const SReservationOption = styled.article`
     }
   }
 `;
+
+export const SReservationTimeOption = styled.div`
+  .time-title {
+    font-size: 14px;
+    padding: 12px 0;
+  }
+
+  .time-option-list {
+    display: flex;
+    overflow: auto;
+    padding: 0 0;
+    margin-bottom: 16px;
+  }
+
+  .time-option-item {
+    position: relative;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: ${(props) => props.theme.main_color_slate_500};
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 8px 12px;
+    margin-right: 12px;
+    border: 1px solid ${(props) => props.theme.main_color_slate_300};
+    border-radius: 8px;
+    width: 120px;
+    height: 60px;
+
+    &.selected {
+      background-color: ${(props) => props.theme.main_color_slate_300};
+      color: #fff;
+    }
+
+    &.disabled {
+      pointer-events: none;
+      opacity: 0.5;
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 1px;
+        height: 100%;
+        background: ${(props) => props.theme.main_color_slate_300};
+        transform: skewX(60deg); /* 대각선의 각도를 조절 */
+      }
+    }
+  }
+`;

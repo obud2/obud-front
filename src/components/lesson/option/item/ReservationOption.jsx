@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import _ from 'lodash';
 
@@ -6,18 +6,17 @@ import moment from 'moment';
 
 import { addComma } from 'src/constants';
 import { Flex } from 'src/styled/CommonStyles';
-import { SReservationOption } from './ReservationOption.styled';
+import { SReservationOption, SReservationTimeOption } from './ReservationOption.styled';
 
 import PlanCalendar from './PlanCalendar';
 import CustomSelect, { SelectItems } from '@components/common/select/CustomSelect';
 import PlanNumberOfPeopleCheck from './PlanNumberOfPeopleCheck';
 
-const DEFAULT_TIME = { id: '', label: '예약날짜를 선택해주세요.' };
 const DEFAULT_OPTION = { title: '선택안함', price: 0, maxMember: 0 };
 
 const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, onClear, scrollEle }) => {
   const [selectDate, setSelectDate] = useState('');
-  const [selectTime, setSelectTime] = useState(DEFAULT_TIME);
+  const [selectTime, setSelectTime] = useState({ id: '', label: '' });
   const [selectCount, setSelectCount] = useState(0);
   const [selectOption, setSelectOption] = useState(DEFAULT_OPTION);
   const [selectOptionCount, setSelectOptionCount] = useState(0);
@@ -67,7 +66,7 @@ const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, onClea
 
       setTimeList(list);
     } else {
-      setTimeList([DEFAULT_TIME]);
+      setTimeList([]);
     }
   }, [selectDate]);
 
@@ -96,7 +95,7 @@ const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, onClea
   // 옵션 초기화
   const clearState = async () => {
     await setSelectDate('');
-    await setSelectTime(DEFAULT_TIME);
+    await setSelectTime();
     await setSelectCount(0);
     await setSelectOption(DEFAULT_OPTION);
     await setSelectOptionCount(0);
@@ -109,9 +108,8 @@ const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, onClea
   };
 
   // 시간 선택
-  const onChangeTime = (e) => {
-    const { value } = e.target;
-
+  const onChangeTime = (item) => {
+    const value = item.id;
     const findIndex = timeList.findIndex((a) => a?.id === value);
 
     if (timeList[findIndex]?.id) {
@@ -153,56 +151,37 @@ const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, onClea
         disabled={isLoading}
       />
 
-      {/* 예약시간 */}
-      <CustomSelect
-        className="reservation-time"
-        placeholder="예약시간"
-        value={selectTime?.id ? `${selectTime?.format?.startTime}~${selectTime?.format?.endTime}` : ''}
-        onChange={onChangeTime}
-        disabled={isLoading}
-        textPosition="center"
-      >
-        {timeList
+      {/* 예약 시간 */}
+      <SReservationTimeOption>
+        <h4 className="time-title">회차를 선택하세요</h4>
+        <div className="time-option-list">
+          {timeList
           ?.sort((a, b) => (a.startDate > b.startDate ? 1 : -1))
           ?.map((item) => {
             const isTimeOut = item?.isTimeOut;
             const isImpossible = item?.reservationStatus === 'impossible' || item.maxMember - item.currentMember === 0;
-            const price = item?.price || 0;
-            const fakePrice = item?.fakePrice || 0;
-            const percent = Math.floor(((fakePrice - price) / fakePrice) * 100);
 
             return (
-              <SelectItems key={item?.id} value={item?.id || ''} isDisabled={isImpossible || isTimeOut} isTimeOut={isTimeOut}>
-                <Flex
-                  fullWidth
-                  justifyContent="space-between"
-                  value={item?.id}
-                  data-value={item?.id}
-                  className={`${isImpossible || isTimeOut ? 'disabled' : ''} ${isImpossible ? 'impossible' : ''}`}
-                >
-                  <p>{item?.label}</p>
-
-                  <Flex>
-                    {isTimeOut && <div className="item-timeout">마감</div>}
-                    {isImpossible && <div className="item-impossible">품절</div>}
-                    <p>{item?.price ? `${addComma(item?.price || 0)}원` : ''}</p>
-                    {percent > 0 && (
-                      <div className="item-percent">
-                        (<p>{addComma(fakePrice)}원</p>/<b>{percent}%</b>)
-                      </div>
-                    )}
-                  </Flex>
-                </Flex>
-              </SelectItems>
+              <div
+                key={item?.id}
+                onClick={() => onChangeTime(item)}
+                className={`time-option-item ${item.id === selectTime?.id ? 'selected' : ''} ${isImpossible || isTimeOut ? 'disabled' : ''}`}
+              >
+                <p>{item?.label}</p>
+                {item.instructor && <p>{item.instructor}</p>}
+                {isTimeOut && <div className="item-timeout">마감</div>}
+                {isImpossible && <div className="item-impossible">품절</div>}
+              </div>
             );
           })}
-      </CustomSelect>
+        </div>
+      </SReservationTimeOption>
 
       {/* 인원수 */}
       <PlanNumberOfPeopleCheck
         placeholder="인원수"
         disabled={!selectTime?.id || isLoading}
-        maxNumber={selectTime.maxMember - selectTime.currentMember}
+        maxNumber={selectTime ? selectTime.maxMember - selectTime.currentMember : 0}
         value={selectCount}
         onChange={onChangePlanCountPeople}
       />

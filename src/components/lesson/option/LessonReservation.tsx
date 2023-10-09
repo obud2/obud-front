@@ -1,34 +1,35 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { RiArrowUpSFill } from 'react-icons/ri';
 import { SLessonReservation } from './LessonReservation.styled';
 
-import CustomButton from '@components/common/button/CustomButton';
+import CustomButton from '@/components/common/button/CustomButton';
+import { Lesson } from '@/entities/lesson';
 import LessonReservationDrawer from './LessonReservationDrawer';
 
-const LessonReservation = ({ data }) => {
+type Props = {
+  lesson: Lesson;
+};
+
+const LessonReservation = ({ lesson }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const onClickOpen = () => {
-    setIsOpen(true);
-  };
-
   return (
-    <React.Fragment>
+    <>
       <SLessonReservation>
         <nav className="lesson-bottombar-container">
-          <div className="lesson-bottombar-header" onClick={onClickOpen}>
+          <div className="lesson-bottombar-header" onClick={() => setIsOpen(true)}>
             <button className="lesson-drawer-close-button">
               <RiArrowUpSFill />
             </button>
           </div>
 
           <div className="lesson-bottombar-box">
-            <CustomButton fullWidth variant="outlined" onClick={onClickOpen}>
+            <CustomButton fullWidth variant="outlined" onClick={() => setIsOpen(true)}>
               장바구니
             </CustomButton>
 
-            <CustomButton fullWidth onClick={onClickOpen}>
+            <CustomButton fullWidth onClick={() => setIsOpen(true)}>
               예약하기
             </CustomButton>
           </div>
@@ -36,8 +37,8 @@ const LessonReservation = ({ data }) => {
       </SLessonReservation>
 
       {/* 버튼 누를 시 모달 업 */}
-      <LessonReservationDrawer lesson={data} isOpen={isOpen} isClose={() => setIsOpen(false)} />
-    </React.Fragment>
+      <LessonReservationDrawer lesson={lesson} isOpen={isOpen} isClose={() => setIsOpen(false)} />
+    </>
   );
 };
 
