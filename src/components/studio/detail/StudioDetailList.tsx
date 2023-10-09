@@ -1,20 +1,18 @@
 import { useContext, useEffect, useState } from 'react';
 
-import Flicking, { ViewportSlot } from '@egjs/react-flicking';
-import '@egjs/react-flicking/dist/flicking.css';
-import '@egjs/react-flicking/dist/flicking-inline.css';
 import '@egjs/flicking-plugins/dist/arrow.css';
 import '@egjs/flicking-plugins/dist/pagination.css';
+import Flicking, { ViewportSlot } from '@egjs/react-flicking';
+import '@egjs/react-flicking/dist/flicking-inline.css';
+import '@egjs/react-flicking/dist/flicking.css';
 
-import { AutoPlay } from '@egjs/flicking-plugins';
-import { Pagination } from '@egjs/flicking-plugins';
-import { Arrow } from '@egjs/flicking-plugins';
+import { Arrow, AutoPlay, Pagination } from '@egjs/flicking-plugins';
 
-import { LayoutContext } from 'src/context/LayoutContext';
-
-import { SStudioDetailList } from './StudioDetailList.styled';
-import { ObudImage, Studio } from '@/entities/studio';
+import { LayoutContext } from '@/context/LayoutContext';
+import { ObudImage } from '@/entities/common';
+import { Studio } from '@/entities/studio';
 import StudioDetailItem from './StudioDetailItem';
+import { SStudioDetailList } from './StudioDetailList.styled';
 
 type Props = {
   studio: Studio;

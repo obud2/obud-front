@@ -1,11 +1,15 @@
-import { SLesson } from './Lesson.styled';
-
-import ProductImages from '@components/studio/detail/images/ProductImages';
-import ProductPolicy from '@components/studio/detail/policy/ProductPolicy';
+import ProductImages from '@/components/studio/detail/images/ProductImages';
+import ProductPolicy from '@/components/studio/detail/policy/ProductPolicy';
+import { Lesson } from '@/entities/lesson';
+import { SLesson } from './LessonDetail.styled';
 import LessonOption from './option/LessonOption';
 import LessonReservation from './option/LessonReservation';
 
-const Lesson = ({ lesson }) => {
+type Props = {
+  lesson: Lesson;
+};
+
+const LessonDetail = ({ lesson }: Props) => {
   return (
     <SLesson>
       <section className="obud-lesson-detail-option-container">
@@ -14,7 +18,7 @@ const Lesson = ({ lesson }) => {
         </div>
 
         <div className="obud-option-container">
-          <LessonOption data={lesson || {}} />
+          <LessonOption shareHide={false} data={lesson || {}} />
         </div>
       </section>
 
@@ -30,4 +34,4 @@ const Lesson = ({ lesson }) => {
   );
 };
 
-export default Lesson;
+export default LessonDetail;

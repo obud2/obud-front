@@ -1,11 +1,15 @@
+import MetaHeader from '@/components/common/meta/MetaHeader';
+import Layout from '@/components/layout/Layout';
+import StudioDetail from '@/components/studio/detail/StudioDetail';
+import { Studio } from '@/entities/studio';
 import ProductService from '@/service/ProductService';
-import Layout from '@components/layout/Layout';
-import StudioDetail from '@components/studio/detail/StudioDetail';
-import MetaHeader from '@components/common/meta/MetaHeader';
 import { GetServerSidePropsContext } from 'next';
 
-// TODO: studio type
-const Index = ({ studio }: any) => {
+type Props = {
+  studio: Studio;
+};
+
+const Index = ({ studio }: Props) => {
   return (
     <Layout addonBeforeHeader="backTicWithHome" headerTitle={studio?.title || ''} mobileNavigationHide>
       <MetaHeader title={studio?.title || ''} description={studio?.title || ''} image={studio?.images?.[0]?.url || ''} />

@@ -7,7 +7,7 @@ import '@egjs/react-flicking/dist/flicking-inline.css';
 import CustomImage, { AutoHeightImageWrapper } from '@components/common/image/CustomImage';
 
 import { SProductImages } from './ProductImages.styled';
-import { ObudImage } from '@/entities/studio';
+import { ObudImage } from '@/entities/common';
 
 type Props = {
   images: ObudImage[];

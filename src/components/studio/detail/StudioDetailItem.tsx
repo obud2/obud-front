@@ -1,6 +1,6 @@
 import { SStudioDetailItem } from './StudioDetailItem.styled';
 import CustomImage from '@components/common/image/CustomImage';
-import { ObudImage } from '@/entities/studio';
+import { ObudImage } from '@/entities/common';
 
 type Props = {
   image: ObudImage;

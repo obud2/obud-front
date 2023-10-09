@@ -1,3 +1,5 @@
+import { ObudImage } from './common';
+
 export type Studio = {
   addr: string;
   addrDetail: string;
@@ -28,16 +30,6 @@ export type Studio = {
   viewCnt: number;
   wishCount: number;
   wishInfo: any; // TODO:
-};
-
-// TODO: Image Name 이름을 조금 더 General하게 바꿀 수도 있음.
-export type ObudImage = {
-  key: string;
-  name: string;
-  size: number;
-  type: string;
-  upload: boolean;
-  url: string;
 };
 
 export type StudioRefund = {
