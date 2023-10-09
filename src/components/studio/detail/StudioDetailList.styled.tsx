@@ -83,7 +83,7 @@ export const SStudioDetailList = styled.div<{ isShow: boolean }>`
 
           font-size: 1.3rem;
 
-          bottom: 40px;
+          bottom: 20px;
           right: 15px;
           left: auto;
 
