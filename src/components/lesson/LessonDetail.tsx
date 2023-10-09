@@ -2,6 +2,7 @@ import ProductImages from '@/components/studio/detail/images/ProductImages';
 import ProductPolicy from '@/components/studio/detail/policy/ProductPolicy';
 import { Lesson } from '@/entities/lesson';
 import { SLesson } from './LessonDetail.styled';
+import LessonDetailList from './LessonDetailList';
 import LessonOption from './option/LessonOption';
 import LessonReservation from './option/LessonReservation';
 
@@ -14,7 +15,12 @@ const LessonDetail = ({ lesson }: Props) => {
     <SLesson>
       <section className="obud-lesson-detail-option-container">
         <div className="obud-images-container">
-          <ProductImages images={lesson?.images || []} />
+          <div className="lesson-detail-list">
+            <LessonDetailList lesson={lesson} />
+          </div>
+          <div className="product-images">
+            <ProductImages images={lesson?.images || []} />
+          </div>
         </div>
 
         <div className="obud-option-container">

@@ -67,6 +67,19 @@ export const SLesson = styled.article`
     .obud-images-container {
       width: 100%;
       position: relative;
+
+      .lesson-detail-list {
+        display: none;
+        ${MOBILE} {
+          display: block;
+        }
+      }
+
+      .product-images {
+        ${MOBILE} {
+          display: none;
+        }
+      }
     }
 
     .obud-option-container {
