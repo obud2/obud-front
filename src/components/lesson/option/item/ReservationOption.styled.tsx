@@ -109,7 +109,9 @@ export const SReservationTimeOption = styled.div`
 
   .time-option-item {
     position: relative;
-    font-size: 14px;
+    text-align: center;
+    font-size: 12px;
+    word-break: keep-all;
     font-weight: 500;
     line-height: 1.4;
     color: ${(props) => props.theme.main_color_slate_500};

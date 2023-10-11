@@ -174,6 +174,7 @@ const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, onClea
               </div>
             );
           })}
+          {timeList?.length === 0 && <div className="time-option-item">날짜를 선택해주세요</div>}
         </div>
       </SReservationTimeOption>
 
