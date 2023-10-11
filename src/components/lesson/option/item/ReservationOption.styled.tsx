@@ -74,8 +74,14 @@ export const SReservationOption = styled.article`
     }
   }
 
+  .result-bottom {
+    display: flex;
+    align-items: center;
+  }
+
   .reservation-total {
     text-align: right;
+    margin-left: auto;
 
     font-size: 1.3rem;
     color: rgba(0, 0, 0, 0.35);
@@ -86,14 +92,14 @@ export const SReservationOption = styled.article`
       margin-left: 30px;
     }
   }
-`;
 
-export const SReservationTimeOption = styled.div`
-  .time-title {
+  .option-title {
     font-size: 14px;
     padding: 12px 0;
   }
+`;
 
+export const SReservationTimeOption = styled.div`
   .time-option-list {
     display: flex;
     overflow: auto;

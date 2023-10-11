@@ -5,11 +5,11 @@ import _ from 'lodash';
 import moment from 'moment';
 
 import { addComma } from 'src/constants';
-import { Flex } from 'src/styled/CommonStyles';
+// import { Flex } from 'src/styled/CommonStyles';
 import { SReservationOption, SReservationTimeOption } from './ReservationOption.styled';
 
 import PlanCalendar from './PlanCalendar';
-import CustomSelect, { SelectItems } from '@components/common/select/CustomSelect';
+// import CustomSelect, { SelectItems } from '@components/common/select/CustomSelect';
 import PlanNumberOfPeopleCheck from './PlanNumberOfPeopleCheck';
 
 const DEFAULT_OPTION = { title: '선택안함', price: 0, maxMember: 0 };
@@ -128,17 +128,17 @@ const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, onClea
   };
 
   // 옵션 선택
-  const onChangeOption = (e) => {
-    const { value } = e.target;
-    const findIndex = optionList.findIndex((a) => a?.title === value);
+  // const onChangeOption = (e) => {
+  //   const { value } = e.target;
+  //   const findIndex = optionList.findIndex((a) => a?.title === value);
 
-    setSelectOption(optionList[findIndex] || {});
-  };
+  //   setSelectOption(optionList[findIndex] || {});
+  // };
 
   // 추가 옵션 수 선택
-  const onChangePlanCountOption = (e) => {
-    setSelectOptionCount(e);
-  };
+  // const onChangePlanCountOption = (e) => {
+  //   setSelectOptionCount(e);
+  // };
 
   return (
     <SReservationOption>
@@ -153,7 +153,7 @@ const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, onClea
 
       {/* 예약 시간 */}
       <SReservationTimeOption>
-        <h4 className="time-title">회차를 선택하세요</h4>
+        <h4 className="option-title">회차를 선택하세요</h4>
         <div className="time-option-list">
           {timeList
           ?.sort((a, b) => (a.startDate > b.startDate ? 1 : -1))
@@ -177,17 +177,25 @@ const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, onClea
         </div>
       </SReservationTimeOption>
 
-      {/* 인원수 */}
-      <PlanNumberOfPeopleCheck
-        placeholder="인원수"
-        disabled={!selectTime?.id || isLoading}
-        maxNumber={selectTime ? selectTime.maxMember - selectTime.currentMember : 0}
-        value={selectCount}
-        onChange={onChangePlanCountPeople}
-      />
+      <h4 className="option-title">인원/수량을 선택하세요</h4>
+      <div className="result-bottom">
+        {/* 인원수 */}
+        <PlanNumberOfPeopleCheck
+          placeholder="인원"
+          disabled={!selectTime?.id || isLoading}
+          maxNumber={selectTime ? selectTime.maxMember - selectTime.currentMember : 0}
+          value={selectCount}
+          onChange={onChangePlanCountPeople}
+        />
+        <div className="reservation-total">
+          총 상품금액 <b className="total-price">{`${addComma(total)}원`}</b>
+        </div>
+      </div>
+
+      {/* TODO: 추가 옵션은 이후에 추가한다. 지금은 의도적으로 주석 처리해둔다 */}
 
       {/* 추가옵션 */}
-      {optionList?.length > 1 && (
+      {/* {optionList?.length > 1 && (
         <CustomSelect
           className="option-list"
           placeholder="추가옵션"
@@ -219,10 +227,10 @@ const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, onClea
             );
           })}
         </CustomSelect>
-      )}
+      )} */}
 
       {/* 추가 옵션수 */}
-      {optionList?.length > 1 && (
+      {/* {optionList?.length > 1 && (
         <PlanNumberOfPeopleCheck
           placeholder="추가 옵션수"
           disabled={selectOption?.title === '선택안함' || isLoading}
@@ -230,11 +238,8 @@ const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, onClea
           value={selectOptionCount}
           onChange={onChangePlanCountOption}
         />
-      )}
+      )} */}
 
-      <p className="reservation-total">
-        총 상품금액 <b className="total-price">{`${addComma(total)}원`}</b>
-      </p>
     </SReservationOption>
   );
 };

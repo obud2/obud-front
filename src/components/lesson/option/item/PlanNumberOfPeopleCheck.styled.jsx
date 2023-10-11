@@ -3,7 +3,6 @@ import styled, { css } from 'styled-components';
 const SELECT_HEIGHT = '40px';
 
 export const SPlanNumberOfPeopleCheck = styled.div`
-  width: 100%;
   height: ${SELECT_HEIGHT};
 
   margin: 3px 0;
@@ -36,6 +35,7 @@ export const SPlanNumberOfPeopleCheck = styled.div`
   .number-of-people-input {
     border: none;
     outline: none;
+    width: 50px;
 
     font-size: 1.5rem;
     color: #555555;
