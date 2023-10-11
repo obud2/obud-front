@@ -168,7 +168,7 @@ const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, onClea
                 className={`time-option-item ${item.id === selectTime?.id ? 'selected' : ''} ${isImpossible || isTimeOut ? 'disabled' : ''}`}
               >
                 <p>{item?.label}</p>
-                {item.instructor && <p>{item.instructor}</p>}
+                {item?.instructor !== 'x' && <p>{item.instructor}</p>}
                 {isTimeOut && <div className="item-timeout">마감</div>}
                 {isImpossible && <div className="item-impossible">품절</div>}
               </div>
