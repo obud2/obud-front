@@ -37,18 +37,12 @@ const StudioItem = ({ id, images, title, category, lessonType, addr }) => {
       </div>
 
       <div className="studio-category-container">
-        {category?.length > 0 &&
-          category?.map((item) => (
-            <div key={item} className="studio-category">
-              <p>{item}</p>
-            </div>
-          ))}
+        {category?.length > 0 && category.join(', ')}
+        {lessonType !== 'Special' && ' | ' + addrRender(addr || '')}
       </div>
 
       <div className="studio-item-contents-container">
         <p className="studio-item-title">{title || ''}</p>
-
-        <p className="studio-item-addr">{addrRender(addr || '')}</p>
       </div>
     </SStudioItem>
   );
