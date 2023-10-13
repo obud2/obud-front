@@ -20,7 +20,7 @@ export const SStudioDetail = styled.article`
 
   .obud-padding-container {
     padding: 40px 15px 0;
-    
+
     ${MOBILE} {
       padding: 24px 15px;
     }
@@ -86,15 +86,13 @@ export const SStudioDetail = styled.article`
           display: none;
         }
       }
-
     }
-
   }
 
   .obud-option-container {
-      width: 100%;
-      position: relative;
-    }
+    width: 100%;
+    position: relative;
+  }
 
   .obud-studio-detail-contents-container {
     width: 100%;
@@ -126,9 +124,33 @@ export const SStudioDetail = styled.article`
     padding: 40px 0 104px;
     margin: 0 auto;
 
+    font-size: 1.6rem;
+
     ${MOBILE} {
       max-width: 100%;
       padding: 24px 0px;
+    }
+
+    * {
+      color: rgba(0, 0, 0, 0.5);
+    }
+
+    .obud-map-title {
+      font-size: 1.7rem;
+      font-weight: 700;
+      line-height: 140%;
+
+      padding-top: 15px;
+      padding-bottom: 5px;
+
+      ${MOBILE} {
+        font-size: 1.6rem;
+      }
+    }
+
+    .obud-map-address {
+      font-size: 1.3rem;
+      padding-top: 5px;
     }
   }
 `;

@@ -62,7 +62,9 @@ const StudioDetail = ({ studio }: Props) => {
             <section className="obud-line" />
             <section className="obud-studio-detail-contents-container" dangerouslySetInnerHTML={{ __html: studio?.contents || '' }} />
             <section className="obud-studio-map">
+              <div className="obud-map-title">위치 정보</div>
               <ProductMap addr={studio?.addr || ''} />
+              <div className="obud-map-address">{studio?.addr || ''}</div>
             </section>
           </div>
         </TabPane>
