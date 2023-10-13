@@ -3,11 +3,12 @@ import Class from '@components/class/Class';
 import MetaHeader from '@components/common/meta/MetaHeader';
 import ProductService from '@/service/ProductService';
 import { GetServerSidePropsContext } from 'next';
+import { IMG_PATH } from 'src/constants';
 
 const Index = ({ studios }: any) => {
   return (
     <Layout>
-      <MetaHeader title="obud :: class" />
+      <MetaHeader title="obud :: class" image={`${IMG_PATH}/obud_logo_img.png`} />
       <Class studios={studios} />
     </Layout>
   );

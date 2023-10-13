@@ -17,7 +17,7 @@ export const GOOGLE_MAP_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAP_KEY;
 /**
  * 프로젝트 이름
  */
-export const APP_PREFIX = 'obud :: yoga everywhere';
+export const APP_PREFIX = 'obud :: book your journey to wellness';
 
 export const IMG_PATH = '/img';
 export const S3_BUCKET = process.env.NEXT_PUBLIC_AWS_USER_S3;
