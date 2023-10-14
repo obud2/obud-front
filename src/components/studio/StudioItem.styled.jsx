@@ -126,19 +126,20 @@ export const SStudioItem = styled.div`
     cursor: pointer;
     gap: 8px;
 
-    margin: 8px 1px;
+    margin: 8px 6px;
+
+    color: ${(props) => props.theme.main_color_slate_300};
 
     .studio-category {
       width: auto;
       height: auto;
 
-      padding: 1px 8px;
+      padding: 1px 0px;
       margin: 0 1px;
 
       font-size: 1.3rem;
 
       color: ${(props) => props.theme.main_color_slate_300};
-      border: 1px solid ${(props) => props.theme.main_color_slate_300};
 
       p {
         position: relative;
@@ -147,9 +148,6 @@ export const SStudioItem = styled.div`
 
       ${MOBILE} {
         font-size: 1.1rem;
-        padding: 1px 8px;
-
-        border: 1px solid ${(props) => props.theme.main_color_slate_100};
       }
     }
   }

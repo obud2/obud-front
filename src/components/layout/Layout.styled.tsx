@@ -5,7 +5,7 @@ import { MAX_WIDTH, TABLET_MAX_WIDTH, TABLET, MOBILE, PW, PM } from 'src/styled/
 export const TopbarHeight = '9.2rem';
 export const TopbarMobileHeight = '5.6rem';
 
-export const FooterHeight = '16.0rem';
+export const FooterHeight = '20.0rem';
 export const FooterMobileHeight = '38.1rem';
 
 export const NAVIGATION_HEIGHT = '8.5rem';
@@ -206,7 +206,7 @@ export const FooterContainer = styled.footer`
     margin: 0 auto;
 
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
 
     ${TABLET} {
@@ -228,7 +228,7 @@ export const FooterContainer = styled.footer`
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-
+    margin: 20px 0;
     gap: 16px;
 
     ${MOBILE} {
@@ -256,36 +256,38 @@ export const FooterContainer = styled.footer`
   .footer-contents-container {
     width: 75%;
     word-break: keep-all;
+    margin: 20px 0;
+
+    color: rgba(0, 0, 0, 0.5);
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
 
     ${MOBILE} {
       width: 100%;
     }
 
-    .footer-mobile-menu-items {
-      display: none;
-
-      ${MOBILE} {
-        display: block;
-        margin-bottom: 5px;
-      }
+    .footer-contact-menu-items {
+      gap: 10px;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 10px;
     }
 
     .footer-button {
       cursor: pointer;
     }
 
+    div {
+      font-size: 1.5rem;
+    }
+
     span {
-      font-size: 1.3rem;
+      font-size: 1.1rem;
       line-height: 140%;
 
       display: inline-flex;
       align-items: center;
-
-      color: ${(props) => props.theme.main_color_slate_300};
-
-      ${MOBILE} {
-        font-size: 1.3rem;
-      }
     }
 
     .obud-corp {
@@ -301,7 +303,7 @@ export const FooterContainer = styled.footer`
       display: inline-block;
 
       background-color: ${(props) => props.theme.main_color_slate_300};
-      margin: 0 8px;
+      margin: 0 4px;
     }
 
     .line-change {
