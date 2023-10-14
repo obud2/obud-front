@@ -17,7 +17,7 @@ const About = () => {
 
   return (
     <SAbout>
-      <BaseTitle title="About us" />
+      <BaseTitle title="About" />
 
       <article className="obud-about-article">
         <section className="about-section">

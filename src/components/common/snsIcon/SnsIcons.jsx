@@ -9,11 +9,11 @@ const SNS_ICONS = [
     icon: '/icons/ic_instagram.png',
     link: 'https://www.instagram.com/obudyoga/',
   },
-  {
-    id: 'kakao',
-    icon: '/icons/ic_kakao.png',
-    link: 'https://pf.kakao.com/_xaxaxdwxj/chat',
-  },
+  // {
+  //   id: 'kakao',
+  //   icon: '/icons/ic_kakao.png',
+  //   link: 'https://pf.kakao.com/_xaxaxdwxj/chat',
+  // },
   {
     id: 'youtube',
     icon: '/icons/ic_youtube.png',
