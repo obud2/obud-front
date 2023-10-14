@@ -1,7 +1,12 @@
 import { Studio } from '@/entities/studio';
 import { SStudioOption } from './StudioOption.styled';
 
-const OPTION = [
+type StudioItemOption = {
+  id: 'addr' | 'homepage' | 'parking' | 'convenience' | 'serviceCenter';
+  icon: string;
+};
+
+const OPTION: StudioItemOption[] = [
   { id: 'addr', icon: 'location' },
   { id: 'homepage', icon: 'url' },
   { id: 'parking', icon: 'parking' },
@@ -17,13 +22,11 @@ const StudioOption = ({ studio }: Props) => {
   return (
     <SStudioOption>
       <div className="obud-studio-option">
-        {OPTION?.map((item) => {
-          let active = false;
+        {OPTION.map((item) => {
+          let active = true;
 
-          if (item?.id === 'parking') active = true;
-          if (item?.id === 'convenience') {
-            if (studio?.convenience?.length > 0) active = true;
-            else active = false;
+          if (item.id === 'convenience') {
+            if (studio.convenience.length === 0) active = false;
           }
 
           return (
@@ -31,7 +34,6 @@ const StudioOption = ({ studio }: Props) => {
               <div className="icons-container">
                 <i className={`icons ${item?.icon}`} />
               </div>
-
               <OptionTextRender id={item?.id || ''} data={studio} />
             </div>
           );
@@ -41,7 +43,12 @@ const StudioOption = ({ studio }: Props) => {
   );
 };
 
-export const OptionTextRender = ({ id, data }: any) => {
+type OptionProps = {
+  id: StudioItemOption['id'];
+  data: Studio;
+};
+
+const OptionTextRender = ({ id, data }: OptionProps) => {
   if (id === 'addr') {
     return <p>{data?.addr || ''}</p>;
   }
