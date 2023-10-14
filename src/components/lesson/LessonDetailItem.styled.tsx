@@ -28,19 +28,13 @@ export const SLessonDetailItem = styled.div<{ isActive: boolean }>`
     overflow: hidden;
     cursor: pointer;
 
-    .lesson-item-image {
-      top: 0;
-      left: 0;
-      position: absolute;
-    }
-
-    .lesson-image-1 {
+    .lesson-image {
       z-index: 1;
-      transition: opacity 0.3s ease-in-out;
-    }
-
-    .lesson-image-2 {
-      opacity: 0;
+      /* 
+        lesson image is width 100vw, height 60vw. 
+        so 20vw would be appropriate to centerize the image.
+      */
+      transform: translateY(-20vw);
       transition: opacity 0.3s ease-in-out;
     }
 
@@ -48,21 +42,13 @@ export const SLessonDetailItem = styled.div<{ isActive: boolean }>`
       props.isActive &&
       css`
         &:hover {
-          .lesson-image-1 {
+          .lesson-image {
             opacity: 0;
           }
 
-          .lesson-image-2 {
-            opacity: 1;
-          }
-
           ${MOBILE} {
-            .lesson-image-1 {
+            .lesson-image {
               opacity: 1;
-            }
-
-            .lesson-image-2 {
-              opacity: 0;
             }
           }
         }

@@ -10,9 +10,7 @@ const LessonDetailItem = ({ image }: Props) => {
   return (
     <SLessonDetailItem isActive>
       <div className="lesson-item-images-container">
-        <div className="lesson-item-image">
-          <CustomImage className="lesson-image-1" src={image.url || ''} width={800} height={800} alt="studio-images" />
-        </div>
+        <CustomImage className="lesson-image" src={image.url || ''} width={800} height={800} alt="studio-images" />
       </div>
     </SLessonDetailItem>
   );
