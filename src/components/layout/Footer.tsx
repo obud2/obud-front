@@ -8,10 +8,9 @@ import { APP_PREFIX, IMG_PATH } from 'src/constants';
 import { FooterContainer } from './Layout.styled';
 
 import { RootContext } from 'src/context/RootContext';
-import { LayoutContext } from 'src/context/LayoutContext';
 
-import SnsIcons from '@components/common/snsIcon/SnsIcons';
 import CustomImage from '@components/common/image/CustomImage';
+import SnsIcons from '@components/common/snsIcon/SnsIcons';
 import PolicyModal from '@components/policy/PolicyModal';
 
 type Props = {
@@ -21,8 +20,6 @@ type Props = {
 const Footer = ({ footerHide }: Props) => {
   const root = useContext(RootContext) as any;
   const router = useRouter();
-
-  const { matchese } = useContext(LayoutContext);
 
   const [isPolicyOpen, setIsPolicyOpen] = useState({ isOpen: false, type: '' });
 

@@ -38,7 +38,7 @@ const StudioItem = ({ id, images, title, category, lessonType, addr }) => {
 
       <div className="studio-category-container">
         {category?.length > 0 && category.join(', ')}
-        {lessonType !== 'Special' && ' | ' + addrRender(addr || '')}
+        {lessonType !== 'Special' && ` | ${addrRender(addr || '')}`}
       </div>
 
       <div className="studio-item-contents-container">
