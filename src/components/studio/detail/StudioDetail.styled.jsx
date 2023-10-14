@@ -131,10 +131,6 @@ export const SStudioDetail = styled.article`
       padding: 24px 0px;
     }
 
-    * {
-      color: rgba(0, 0, 0, 0.5);
-    }
-
     .obud-map-title {
       font-size: 1.7rem;
       font-weight: 700;
