@@ -44,7 +44,7 @@ const LessonReservationDrawer = ({ lesson, isOpen, isClose }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchData = async () => {
-    await setIsLoading(true);
+    setIsLoading(true);
 
     const res = await ProductService.getMonthPlans(id, currentDate);
     const list = res?.value || [];
@@ -90,8 +90,8 @@ const LessonReservationDrawer = ({ lesson, isOpen, isClose }) => {
       if (day[a?.format?.date]) day[a?.format?.date].push(a);
     });
 
-    await setDate({ date, day });
-    await setIsLoading(false);
+    setDate({ date, day });
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -214,7 +214,7 @@ const LessonReservationDrawer = ({ lesson, isOpen, isClose }) => {
                 data={data}
                 isLoading={isAllLoading}
                 onChangeDate={onChangeDate}
-                onClear={isClear}
+                isClear={isClear}
                 onReturnData={onReturnData}
                 scrollEle={drawerMainRef.current}
               />

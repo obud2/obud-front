@@ -1,30 +1,31 @@
-import { useEffect, useState } from 'react';
-
 import _ from 'lodash';
-
 import moment from 'moment';
-
+import { SetStateAction, useEffect, useState } from 'react';
 import { addComma } from 'src/constants';
-// import { Flex } from 'src/styled/CommonStyles';
-import { SReservationOption, SReservationTimeOption } from './ReservationOption.styled';
-
 import PlanCalendar from './PlanCalendar';
-// import CustomSelect, { SelectItems } from '@components/common/select/CustomSelect';
 import PlanNumberOfPeopleCheck from './PlanNumberOfPeopleCheck';
+import { SReservationOption, SReservationTimeOption } from './ReservationOption.styled';
 
 const DEFAULT_OPTION = { title: '선택안함', price: 0, maxMember: 0 };
 
-const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, onClear, scrollEle }) => {
+type Props = {
+  data: { date: string[]; day: any };
+  isLoading: boolean;
+  onChangeDate: (e: SetStateAction<string>) => void;
+  onReturnData: (e: any) => void;
+  isClear: boolean;
+  scrollEle: any;
+};
+
+const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, isClear, scrollEle }: Props) => {
   const [selectDate, setSelectDate] = useState('');
-  const [selectTime, setSelectTime] = useState({ id: '', label: '' });
+  const [selectTime, setSelectTime] = useState<any>({ id: '', label: '' });
   const [selectCount, setSelectCount] = useState(0);
-  const [selectOption, setSelectOption] = useState(DEFAULT_OPTION);
+  const [selectOption, setSelectOption] = useState<any>(DEFAULT_OPTION);
   const [selectOptionCount, setSelectOptionCount] = useState(0);
-
   const [total, setTotal] = useState(0);
-
-  const [timeList, setTimeList] = useState([]);
-  const [optionList, setOptionList] = useState([]);
+  const [timeList, setTimeList] = useState<any[]>([]);
+  const [optionList, setOptionList] = useState<any[]>([]);
 
   useEffect(() => {
     onReturnData({
@@ -52,18 +53,11 @@ const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, onClea
       const list = _.cloneDeep(data?.day[selectDate]);
       const nowTime = moment().valueOf();
 
-      list?.forEach((a) => {
-        let isTimeOut = false;
+      list?.forEach((a: any) => {
         const dataTime = moment(a?.startDate).valueOf();
-
-        if (nowTime > dataTime) isTimeOut = true;
-
-        a.isTimeOut = isTimeOut;
-
-        // 제목 Format
+        a.isTimeOut = nowTime > dataTime;
         a.label = `${a?.format?.startTime}~${a?.format?.endTime}`;
       });
-
       setTimeList(list);
     } else {
       setTimeList([]);
@@ -87,28 +81,40 @@ const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, onClea
   }, [optionList]);
 
   useEffect(() => {
-    if (onClear) {
+    if (isClear) {
       clearState();
     }
-  }, [onClear]);
+  }, [isClear]);
+
+  useEffect(() => {
+    if (data.date?.length > 0) {
+      data.date
+        .sort((a, b) => (moment(a).isBefore(moment(b)) ? 1 : -1))
+        .forEach((date) => {
+          if (moment(date).isSameOrAfter(moment())) {
+            setSelectDate(date);
+          }
+        });
+    }
+  }, [data]);
 
   // 옵션 초기화
   const clearState = async () => {
     await setSelectDate('');
-    await setSelectTime();
+    await setSelectTime({});
     await setSelectCount(0);
     await setSelectOption(DEFAULT_OPTION);
     await setSelectOptionCount(0);
   };
 
   // 날짜 선택
-  const onChangeDatePicker = async (e) => {
+  const onChangeDatePicker = async (e: SetStateAction<string>) => {
     clearState();
     setSelectDate(e);
   };
 
   // 시간 선택
-  const onChangeTime = (item) => {
+  const onChangeTime = (item: any) => {
     const value = item.id;
     const findIndex = timeList.findIndex((a) => a?.id === value);
 
@@ -123,7 +129,7 @@ const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, onClea
   };
 
   // 인원수 선택
-  const onChangePlanCountPeople = (e) => {
+  const onChangePlanCountPeople = (e: SetStateAction<number>) => {
     setSelectCount(e);
   };
 
@@ -143,37 +149,33 @@ const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, onClea
   return (
     <SReservationOption>
       {/* 예약날짜 */}
-      <PlanCalendar
-        value={selectDate}
-        onChange={onChangeDatePicker}
-        onChangeDate={onChangeDate}
-        selectList={data?.date || []}
-        disabled={isLoading}
-      />
+      <PlanCalendar value={selectDate} onChange={onChangeDatePicker} onChangeDate={onChangeDate} selectList={data?.date || []} />
 
       {/* 예약 시간 */}
       <SReservationTimeOption>
         <h4 className="option-title">회차를 선택하세요</h4>
         <div className="time-option-list">
           {timeList
-          ?.sort((a, b) => (a.startDate > b.startDate ? 1 : -1))
-          ?.map((item) => {
-            const isTimeOut = item?.isTimeOut;
-            const isImpossible = item?.reservationStatus === 'impossible' || item.maxMember - item.currentMember === 0;
+            ?.sort((a, b) => (a.startDate > b.startDate ? 1 : -1))
+            ?.map((item) => {
+              const isTimeOut = item?.isTimeOut;
+              const isImpossible = item?.reservationStatus === 'impossible' || item.maxMember - item.currentMember === 0;
 
-            return (
-              <div
-                key={item?.id}
-                onClick={() => onChangeTime(item)}
-                className={`time-option-item ${item.id === selectTime?.id ? 'selected' : ''} ${isImpossible || isTimeOut ? 'disabled' : ''}`}
-              >
-                <p>{item?.label}</p>
-                {item?.instructor !== 'x' && <p>{item.instructor}</p>}
-                {isTimeOut && <div className="item-timeout">마감</div>}
-                {isImpossible && <div className="item-impossible">품절</div>}
-              </div>
-            );
-          })}
+              return (
+                <div
+                  key={item?.id}
+                  onClick={() => onChangeTime(item)}
+                  className={`time-option-item ${item.id === selectTime?.id ? 'selected' : ''} ${
+                    isImpossible || isTimeOut ? 'disabled' : ''
+                  }`}
+                >
+                  <p>{item?.label}</p>
+                  {item?.instructor !== 'x' && <p>{item.instructor}</p>}
+                  {isTimeOut && <div className="item-timeout">마감</div>}
+                  {isImpossible && <div className="item-impossible">품절</div>}
+                </div>
+              );
+            })}
           {timeList?.length === 0 && <div className="time-option-item">날짜를 선택해주세요</div>}
         </div>
       </SReservationTimeOption>
@@ -240,7 +242,6 @@ const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, onClea
           onChange={onChangePlanCountOption}
         />
       )} */}
-
     </SReservationOption>
   );
 };
