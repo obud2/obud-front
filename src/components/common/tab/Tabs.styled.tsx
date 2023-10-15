@@ -36,12 +36,11 @@ export const STabs = styled.div`
   }
 
   .hidden-tab {
-    visibility: hidden;
-    position: absolute;
-    pointer-events: none;
+    display: none;
   }
 
   .visible-tab {
     visibility: visible;
+    min-height: 300px;
   }
 `;

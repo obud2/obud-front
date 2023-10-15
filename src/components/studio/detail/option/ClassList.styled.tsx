@@ -22,10 +22,6 @@ export const SClassList = styled.div`
       justify-content: space-between;
       border-bottom: 1px solid ${(props) => props.theme.main_color_slate_100};
 
-      &:last-child {
-        border-bottom: none;
-      }
-
       cursor: pointer;
 
       &.isSoldOut {
