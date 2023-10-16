@@ -268,7 +268,7 @@ export const FooterContainer = styled.footer`
     }
 
     .footer-contact-menu-items {
-      gap: 10px;
+      gap: 15px;
       display: flex;
       flex-direction: column;
       margin-bottom: 10px;
@@ -276,6 +276,11 @@ export const FooterContainer = styled.footer`
 
     .footer-button {
       cursor: pointer;
+
+      .footer-service-hour {
+        font-size: 1.3rem;
+        padding-left: 5px;
+      }
     }
 
     div {
@@ -290,10 +295,7 @@ export const FooterContainer = styled.footer`
       align-items: center;
     }
 
-    .obud-corp {
-      ${MOBILE} {
-        margin-bottom: 24px;
-      }
+   
     }
 
     .line {
