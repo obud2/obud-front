@@ -295,9 +295,6 @@ export const FooterContainer = styled.footer`
       align-items: center;
     }
 
-   
-    }
-
     .line {
       width: 1px;
       height: 10px;
