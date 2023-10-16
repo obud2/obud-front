@@ -5,7 +5,7 @@ import { MAX_WIDTH, TABLET_MAX_WIDTH, TABLET, MOBILE, PW, PM } from 'src/styled/
 export const TopbarHeight = '9.2rem';
 export const TopbarMobileHeight = '5.6rem';
 
-export const FooterHeight = '20.0rem';
+export const FooterHeight = '25.0rem';
 export const FooterMobileHeight = '38.1rem';
 
 export const NAVIGATION_HEIGHT = '8.5rem';
@@ -226,7 +226,7 @@ export const FooterContainer = styled.footer`
 
     display: inline-flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: flex-end;
     justify-content: center;
     margin: 20px 0;
     gap: 16px;
@@ -234,6 +234,7 @@ export const FooterContainer = styled.footer`
     ${MOBILE} {
       width: 100%;
       margin-bottom: 30px;
+      align-items: flex-start;
     }
 
     .footer-logo {
@@ -268,7 +269,7 @@ export const FooterContainer = styled.footer`
     }
 
     .footer-contact-menu-items {
-      gap: 15px;
+      gap: 20px;
       display: flex;
       flex-direction: column;
       margin-bottom: 10px;
