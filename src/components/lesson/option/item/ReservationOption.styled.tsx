@@ -25,11 +25,11 @@ export const SReservationOption = styled.article`
 
   .item-impossible {
     color: #fff;
-    background: #ec3519;
-    border: 1px solid #ec3519;
+    background: #555555;
+    border: 1px solid #555555;
 
     padding: 2px 7px 2px 7px;
-    margin: 0 10px 0 0;
+    margin: 0;
 
     display: inline-block;
     text-align: center;
@@ -40,12 +40,12 @@ export const SReservationOption = styled.article`
   }
 
   .item-timeout {
-    color: #fff;
-    background: #555555;
-    border: 1px solid #555555;
+    color: #555555;
+    /* background: #555555; */
+    /* border: 1px solid #555555; */
 
     padding: 2px 7px 2px 7px;
-    margin: 0 10px 0 0;
+    margin: 0;
 
     display: inline-block;
     text-align: center;
@@ -124,9 +124,9 @@ export const SReservationTimeOption = styled.div`
     padding: 8px 12px;
     margin-right: 12px;
     border: 1px solid ${(props) => props.theme.main_color_slate_300};
-    border-radius: 8px;
-    width: 120px;
-    height: 60px;
+    border-radius: 4px;
+    width: 100px;
+    height: 40px;
 
     &.selected {
       background-color: ${(props) => props.theme.main_color_slate_300};
@@ -144,7 +144,7 @@ export const SReservationTimeOption = styled.div`
         width: 1px;
         height: 100%;
         background: ${(props) => props.theme.main_color_slate_300};
-        transform: skewX(60deg); /* 대각선의 각도를 조절 */
+        transform: skewX(70deg); /* 대각선의 각도를 조절 */
       }
     }
   }

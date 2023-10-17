@@ -55,19 +55,8 @@ const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, isClea
 
       list?.forEach((a: any) => {
         const dataTime = moment(a?.startDate).valueOf();
-
         a.isTimeOut = nowTime > dataTime;
-
-        const startTime = moment(a?.format?.startTime, 'HH:mm');
-
-        const endTime = moment(a?.format?.endTime, 'HH:mm');
-
-        // 두 시간 사이의 분 단위 간격 계산
-        const durationInMinutes = endTime.diff(startTime, 'minutes');
-
-        a.label = `${a?.format?.startTime} (${durationInMinutes}분)`;
-
-        // a.label = `${a?.format?.startTime} (${a?.duration.minutes()})`;
+        a.label = `${a?.format?.startTime} - ${a?.format?.endTime}`;
       });
       setTimeList(list);
     } else {
@@ -182,8 +171,8 @@ const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, isClea
                 >
                   <p>{item?.label}</p>
                   {item?.instructor !== 'x' && <p>{item.instructor}</p>}
-                  {isTimeOut && <div className="item-timeout">마감</div>}
-                  {isImpossible && <div className="item-impossible">품절</div>}
+                  {/* {isTimeOut && <div className="item-timeout">마감</div>} */}
+                  {/* {isImpossible && <div className="item-impossible">매진</div>} */}
                 </div>
               );
             })}
