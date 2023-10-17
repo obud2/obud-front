@@ -18,6 +18,7 @@ const getStudios = (sort) => {
       .then((response) => {
         const val = response?.data?.value;
 
+        /*
         const newData = [];
         const oldData = [];
         const nowDate = moment().subtract(14, 'days').valueOf(); // 2주 전 날짜 체크
@@ -35,6 +36,9 @@ const getStudios = (sort) => {
           newData,
           oldData,
         });
+        */
+
+        resolve(val);
       })
       .catch(() => {
         resolve([]);

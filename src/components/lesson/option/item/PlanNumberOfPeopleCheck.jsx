@@ -17,13 +17,11 @@ const PlanNumberOfPeopleCheck = ({ placeholder, disabled, value, onChange, maxNu
   const onClickChageCount = (type) => {
     let nowCount = _.cloneDeep(count);
 
-    if (nowCount === maxNumber) {
-      alert('', `최대 예약가능 정원은 ${maxNumber} 명입니다.`);
-    }
-
     if (type === 'plus') {
-      if (nowCount >= maxNumber) return;
-
+      if (nowCount >= maxNumber) {
+        alert('', `최대 예약가능 정원은 ${maxNumber} 명입니다.`);
+        return; // Exit the function early
+      }
       nowCount++;
     }
 

@@ -100,9 +100,10 @@ export const SStudioDetail = styled.article`
 
     margin: 0 auto;
 
-    * {
-      font-size: 1.6rem;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.5);
 
+    * {
       img {
         width: 100%;
         height: auto;
@@ -125,6 +126,7 @@ export const SStudioDetail = styled.article`
     margin: 0 auto;
 
     font-size: 1.6rem;
+    color: rgba(0, 0, 0, 0.5);
 
     ${MOBILE} {
       max-width: 100%;

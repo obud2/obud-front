@@ -5,7 +5,7 @@ import { IMG_PATH } from 'src/constants';
 
 const Index = () => {
   return (
-    <Layout addonBeforeHeader="backTic" addonAfterHeader="empty" headerTitle="About" mobileNavigationHide>
+    <Layout addonBeforeHeader="backTicWithHome" addonAfterHeader="empty" headerTitle="About" mobileNavigationHide>
       <MetaHeader title="obud :: about" image={`${IMG_PATH}/obud_logo_img.png`} />
       <About />
     </Layout>

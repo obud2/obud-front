@@ -15,12 +15,14 @@ const Class = ({ studios }: Props) => {
           <SpecialList list={studios[0] || []} />
         </section>
 
-        <section className="class-container">
+        {/* new class, old class 나누는거 잠시 원복하고 모든 클래스 우선 보여주기 */}
+
+        {/* <section className="class-container">
           <StudioList isSort={false} title="New Class" list={studios[1] || []} />
-        </section>
+        </section> */}
 
         <section className="class-container">
-          <StudioList title="All Class" list={studios[2] || []} isSort />
+          <StudioList title="All Class" list={studios[1] || []} isSort />
         </section>
       </article>
     </SClass>

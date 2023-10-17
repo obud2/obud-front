@@ -56,7 +56,7 @@ const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, isClea
       list?.forEach((a: any) => {
         const dataTime = moment(a?.startDate).valueOf();
         a.isTimeOut = nowTime > dataTime;
-        a.label = `${a?.format?.startTime}~${a?.format?.endTime}`;
+        a.label = `${a?.format?.startTime} - ${a?.format?.endTime}`;
       });
       setTimeList(list);
     } else {
@@ -171,8 +171,8 @@ const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, isClea
                 >
                   <p>{item?.label}</p>
                   {item?.instructor !== 'x' && <p>{item.instructor}</p>}
-                  {isTimeOut && <div className="item-timeout">마감</div>}
-                  {isImpossible && <div className="item-impossible">품절</div>}
+                  {/* {isTimeOut && <div className="item-timeout">마감</div>} */}
+                  {/* {isImpossible && <div className="item-impossible">매진</div>} */}
                 </div>
               );
             })}

@@ -59,7 +59,8 @@ const Footer = ({ footerHide }: Props) => {
                 </div>
 
                 <div className="footer-button" onClick={() => window.open('https://pf.kakao.com/_xaxaxdwxj/chat')}>
-                  고객 센터 (평일: 오전 9시 ~ 오후 5시)
+                  고객 센터: 카카오 채널
+                  <span className="footer-service-hour"> (평일: 오전 9시 ~ 오후 5시)</span>
                 </div>
               </div>
 
