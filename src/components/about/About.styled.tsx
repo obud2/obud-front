@@ -1,6 +1,6 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
-import { MAX_WIDTH, TABLET, TABLET_MAX_WIDTH, MOBILE } from 'src/styled/variablesStyles';
+import { MAX_WIDTH, MOBILE, TABLET, TABLET_MAX_WIDTH } from 'src/styled/variablesStyles';
 
 const ABOUT_MAX_WIDTH = `${1168 + 30}px`;
 const TABLET_ABOUT_MAX_WIDTH = `${1005 + 30}px`;

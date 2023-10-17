@@ -19,10 +19,10 @@ const About = () => {
           <h1 className="about-slogan-sub">{SLOGAN_SUB}</h1>
 
           <div className="app-download-section">
-            <CustomButton fullWidth backgroundColor="#344235" height="50px" width="180px">
+            <CustomButton onClick={() => null} fullWidth backgroundColor="#344235" height="50px" width="180px">
               Google Play
             </CustomButton>
-            <CustomButton fullWidth backgroundColor="#344235" height="50px" width="180px">
+            <CustomButton onClick={() => null} fullWidth backgroundColor="#344235" height="50px" width="180px">
               App Store
             </CustomButton>
           </div>
