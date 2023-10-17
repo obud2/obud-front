@@ -1,6 +1,5 @@
 import { API_URL } from '../constants';
 
-import moment from 'moment';
 import axiosInstance from 'src/constants/AxiosInstance';
 
 /**
