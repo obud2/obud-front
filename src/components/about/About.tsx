@@ -28,12 +28,11 @@ const About = () => {
           </div>
         </section>
 
-        <section className="about-section">
+        <section className="about-image-section">
           <CustomImage
             src={`${IMG_PATH}/about/about_app_screen.png`}
-            width={matchese ? MOBILE_SIZE : 400}
-            height={matchese ? MOBILE_SIZE : 590}
-            layout={matchese ? 'fill' : 'intrinsic'}
+            width={matchese ? MOBILE_SIZE : 410}
+            height={matchese ? MOBILE_SIZE : 400}
           />
         </section>
       </article>

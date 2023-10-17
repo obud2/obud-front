@@ -19,6 +19,7 @@ export const SAbout = styled.div`
 
   ${MOBILE} {
     max-width: 100%;
+    margin-top: 0;
     padding: 0;
   }
 
@@ -41,16 +42,15 @@ export const SAbout = styled.div`
 
     ${MOBILE} {
       max-width: 100%;
-      padding: 80px 15px 24px;
-
+      padding: 64px 16px 0;
       flex-direction: column;
+      align-items: center;
 
       gap: 36px;
     }
 
     .about-section {
-      width: 100%;
-      height: 100%;
+      flex: 1;
 
       position: relative;
 
@@ -82,12 +82,27 @@ export const SAbout = styled.div`
         ${MOBILE} {
           font-size: 1.2rem;
           letter-spacing: 2px;
+          margin-bottom: 40px;
         }
       }
 
       .app-download-section {
         display: flex;
+        flex-wrap: wrap;
         gap: 25px;
+
+        ${MOBILE} {
+          justify-content: center;
+        }
+      }
+    }
+
+    .about-image-section {
+      position: relative;
+      max-width: 500px;
+
+      ${MOBILE} {
+        max-width: 400px;
       }
     }
   }
