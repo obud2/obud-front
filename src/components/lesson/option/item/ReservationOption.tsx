@@ -55,8 +55,19 @@ const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, isClea
 
       list?.forEach((a: any) => {
         const dataTime = moment(a?.startDate).valueOf();
+
         a.isTimeOut = nowTime > dataTime;
-        a.label = `${a?.format?.startTime}~${a?.format?.endTime}`;
+
+        const startTime = moment(a?.format?.startTime, 'HH:mm');
+
+        const endTime = moment(a?.format?.endTime, 'HH:mm');
+
+        // 두 시간 사이의 분 단위 간격 계산
+        const durationInMinutes = endTime.diff(startTime, 'minutes');
+
+        a.label = `${a?.format?.startTime} (${durationInMinutes}분)`;
+
+        // a.label = `${a?.format?.startTime} (${a?.duration.minutes()})`;
       });
       setTimeList(list);
     } else {
