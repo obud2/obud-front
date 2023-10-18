@@ -75,8 +75,12 @@ const SearchForm = ({ onClickBack }) => {
       }}
     >
       <SSearchForm>
-        <div className="obut-search-container">
-          <button className="backTicIcon" onClick={onClickBack} disabled={isLoading} />
+        <div className="obud-search-container">
+          {isLoading ? (
+            <i className="icons svg-loading active" />
+          ) : (
+            <i className="icons search active" onClick={() => onSearch(value, '')} />
+          )}
 
           <input
             className="search-input"
@@ -87,12 +91,6 @@ const SearchForm = ({ onClickBack }) => {
             ref={inputRef}
             disabled={isLoading}
           />
-
-          {isLoading ? (
-            <i className="icons svg-loading active" />
-          ) : (
-            <i className="icons search active" onClick={() => onSearch(value, '')} />
-          )}
         </div>
 
         <div className="search-tab">

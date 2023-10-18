@@ -4,18 +4,19 @@ import styled from 'styled-components';
 export const SSearchForm = styled.div`
   width: 380px;
 
-  .obut-search-container {
+  .obud-search-container {
     width: 100%;
-    height: ${TopbarMobileHeight};
+    /* height: ${TopbarMobileHeight}; */
 
-    padding: 15px 13px;
-    margin: 0 auto;
+    margin: 20px auto;
+    padding: 8px;
+    border-radius: 20px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    border-bottom: 1px solid rgba(171, 182, 165, 0.2);
+    border: 1px solid rgba(171, 182, 165, 0.2);
 
     .search-input {
       flex: 1;
@@ -51,8 +52,8 @@ export const SSearchForm = styled.div`
     }
 
     .icons {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
 
       cursor: pointer;
     }
