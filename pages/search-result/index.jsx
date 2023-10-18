@@ -6,7 +6,7 @@ import SearchResult from '@components/serach/result/SearchResult';
 
 const Index = () => {
   return (
-    <Layout mobileNavigationHide>
+    <Layout addonBeforeHeader="backTic" addonAfterHeader="empty" mobileNavigationHide>
       <MetaHeader title="obud :: 검색 결과" />
       <SearchResult />
     </Layout>
