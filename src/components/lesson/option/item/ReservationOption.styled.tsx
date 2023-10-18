@@ -105,6 +105,7 @@ export const SReservationTimeOption = styled.div`
     overflow: auto;
     padding: 0 0;
     margin-bottom: 16px;
+    white-space: nowrap;
   }
 
   .time-option-item {
@@ -126,6 +127,7 @@ export const SReservationTimeOption = styled.div`
     border: 1px solid ${(props) => props.theme.main_color_slate_300};
     border-radius: 4px;
     width: 100px;
+    min-width: 100px;
     height: 40px;
 
     &.selected {
