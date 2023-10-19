@@ -8,7 +8,8 @@ export const SPlanNumberOfPeopleCheck = styled.div`
   margin: 3px 0;
   padding: 0 3px;
 
-  border: 1px solid ${(props) => props.theme.main_color_slate_200};
+  border: 1px solid ${(props) => props.theme.main_color_slate_400};
+  border-radius: 4px;
 
   display: flex;
   align-items: center;
