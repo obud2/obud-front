@@ -53,8 +53,8 @@ export const SCartItem = styled.div`
 
   .item-impossible {
     color: #fff;
-    background: #ec3519;
-    border: 1px solid #ec3519;
+    background: #a4a4a4;
+    border: 1px solid #a4a4a4;
 
     padding: 2px 7px;
     margin: 0 10px 0 0;

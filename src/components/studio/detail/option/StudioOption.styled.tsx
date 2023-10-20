@@ -118,6 +118,10 @@ export const SStudioOption = styled.div`
           width: 20px;
           height: 17px;
         }
+        .contact {
+          width: 20px;
+          height: 17px;
+        }
       }
 
       .option-deps {
