@@ -13,7 +13,7 @@ const TAB = [
   { id: 'date', label: '날짜로 검색' },
 ];
 
-const SearchForm = ({ onClickBack }) => {
+const SearchForm = () => {
   const inputRef = useRef();
   const router = useRouter();
 
