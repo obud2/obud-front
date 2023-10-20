@@ -121,8 +121,8 @@ export const SPlanCalendar = styled.div`
             position: relative;
 
             div {
-              width: 2.6rem;
-              height: 2.6rem;
+              width: 90%;
+              height: 90%;
 
               position: absolute;
               top: 50%;
@@ -134,7 +134,7 @@ export const SPlanCalendar = styled.div`
               display: flex;
               justify-content: center;
               align-items: center;
-              border-radius: 50%;
+              border-radius: 8px;
 
               color: ${(props) => props.theme.main_color_slate_500};
               background-color: #f9f9f9;
