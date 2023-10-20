@@ -15,7 +15,7 @@ const Index = () => {
     <Layout
       addonBeforeHeader={type !== 'order' ? 'backTic' : 'logo'}
       addonAfterHeader="empty"
-      headerTitle={TAB?.filter((a) => a?.id === type)?.[0]?.title}
+      headerTitle={type !== 'order' ? TAB?.filter((a) => a?.id === type)?.[0]?.title : ''}
       mobileNavigationHide={type !== 'order'}
     >
       <MetaHeader title="obud :: 마이페이지" />
