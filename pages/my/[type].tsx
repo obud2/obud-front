@@ -13,10 +13,10 @@ const Index = () => {
 
   return (
     <Layout
-      addonBeforeHeader="backTic"
+      // addonBeforeHeader="backTic"
       addonAfterHeader="empty"
       headerTitle={TAB?.filter((a) => a?.id === type)?.[0]?.title}
-      mobileNavigationHide={type !== 'wish'}
+      mobileNavigationHide={type !== 'order'}
     >
       <MetaHeader title="obud :: 마이페이지" />
       <My />

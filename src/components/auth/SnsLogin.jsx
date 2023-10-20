@@ -30,7 +30,7 @@ const SnsLogin = ({ disabled, setIsLoading }) => {
       </CustomButton>
       <Spacing spacing="8" />
 
-      <CustomButton
+      {/* <CustomButton
         fullWidth
         backgroundColor="#03C75A"
         textColor="#ffffff"
@@ -41,9 +41,9 @@ const SnsLogin = ({ disabled, setIsLoading }) => {
         <SnsIcon icon="naver_icon" />
         네이버로 시작하기
       </CustomButton>
-      <Spacing spacing="8" />
+      <Spacing spacing="8" /> */}
 
-      <CustomButton
+      {/* <CustomButton
         fullWidth
         variant="outlined"
         backgroundColor="#283544"
@@ -54,7 +54,7 @@ const SnsLogin = ({ disabled, setIsLoading }) => {
         <SnsIcon icon="apple_icon" width={18} height={21} />
         Apple로 시작하기
       </CustomButton>
-      <Spacing spacing="8" />
+      <Spacing spacing="8" /> */}
 
       <CustomButton
         fullWidth

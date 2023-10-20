@@ -25,7 +25,7 @@ export const SClassList = styled.div`
       cursor: pointer;
 
       &.isSoldOut {
-        font-style: italic;
+        /* font-style: italic; */
         color: #a4a4a4;
         text-decoration: line-through;
       }
@@ -44,8 +44,8 @@ export const SClassList = styled.div`
 
         .item-impossible {
           color: #fff;
-          background: #ec3519;
-          border: 1px solid #ec3519;
+          background: #a4a4a4;
+          border: 1px solid #a4a4a4;
 
           padding: 2px 7px 2px 7px;
           margin: 0 0 0 10px;
@@ -87,5 +87,9 @@ export const SClassList = styled.div`
         /* background-color: #565656; */
       }
     }
+  }
+  .empty-text {
+    font-size: 1.4rem;
+    margin: 1rem;
   }
 `;

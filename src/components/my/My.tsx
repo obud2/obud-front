@@ -18,8 +18,8 @@ type TabType = {
 };
 
 export const TAB: TabType[] = [
-  { id: 'coupon', title: '쿠폰 관리' },
-  { id: 'order', title: '예약 내역' },
+  // 쿠폰 기능 없으므로 잠시 disable
+  // { id: 'coupon', title: '쿠폰 관리' },
   { id: 'edit', title: '프로필 수정' },
   { id: 'wish', title: '위시 리스트' },
 ];

@@ -27,7 +27,7 @@ export const SPlanCalendar = styled.div`
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid rgba(5, 5, 5, 0.06);
+      /* border-bottom: 1px solid rgba(5, 5, 5, 0.06); */
 
       ${MOBILE} {
         height: 30px;
@@ -121,8 +121,8 @@ export const SPlanCalendar = styled.div`
             position: relative;
 
             div {
-              width: 90%;
-              height: 90%;
+              width: 2.6rem;
+              height: 2.6rem;
 
               position: absolute;
               top: 50%;
@@ -134,7 +134,7 @@ export const SPlanCalendar = styled.div`
               display: flex;
               justify-content: center;
               align-items: center;
-              border-radius: 8px;
+              border-radius: 50%;
 
               color: ${(props) => props.theme.main_color_slate_500};
               background-color: #f9f9f9;
@@ -167,14 +167,13 @@ export const SPlanCalendar = styled.div`
           /* 선택된 날짜 스타일 */
           .date-picker-days._active div {
             color: #ffffff;
-            border: ${(props) => props.theme.main_color_slate_500};
-            background-color: ${(props) => props.theme.main_color_slate_500};
+            border: ${(props) => props.theme.main_color_slate_400};
+            background-color: ${(props) => props.theme.main_color_slate_400};
           }
 
           /* 선택 불가 스타일 */
           .date-picker-days._disabled div {
             color: rgb(174, 174, 174) !important;
-            text-decoration: line-through !important;
             background-color: #ffffff;
 
             &:hover {

@@ -111,7 +111,7 @@ export const SReservationTimeOption = styled.div`
   .time-option-item {
     position: relative;
     text-align: center;
-    font-size: 12px;
+    font-size: 11px;
     word-break: keep-all;
     font-weight: 500;
     line-height: 1.4;
@@ -124,14 +124,14 @@ export const SReservationTimeOption = styled.div`
 
     padding: 8px 12px;
     margin-right: 12px;
-    border: 1px solid ${(props) => props.theme.main_color_slate_300};
+    border: 1px solid ${(props) => props.theme.main_color_slate_400};
     border-radius: 4px;
     width: 100px;
     min-width: 100px;
     height: 40px;
 
     &.selected {
-      background-color: ${(props) => props.theme.main_color_slate_300};
+      background-color: ${(props) => props.theme.main_color_slate_400};
       color: #fff;
     }
 

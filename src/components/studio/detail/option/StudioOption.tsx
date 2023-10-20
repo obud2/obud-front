@@ -11,7 +11,7 @@ const OPTION: StudioItemOption[] = [
   { id: 'homepage', icon: 'url' },
   { id: 'parking', icon: 'parking' },
   { id: 'convenience', icon: 'info' },
-  { id: 'serviceCenter', icon: 'home' },
+  { id: 'serviceCenter', icon: 'contact' },
 ];
 
 type Props = {
@@ -94,7 +94,7 @@ const OptionTextRender = ({ id, data }: OptionProps) => {
     // 센터 정보
     return (
       <div className="option-deps">
-        <p>센터 정보</p>
+        <p>연락처</p>
         <p>{data?.serviceCenter}</p>
       </div>
     );
