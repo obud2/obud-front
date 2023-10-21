@@ -1,8 +1,11 @@
-import React, { useState, ReactNode, useEffect, useRef } from 'react';
+import { StudioTabType } from '@/components/studio/detail/StudioDetail';
+import { useRouter } from 'next/router';
+import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import { STabs } from './Tabs.styled';
 
 type TabPaneProps = {
-  tab: string;
+  tab: StudioTabType;
+  tabName: string; // displayName
   children: ReactNode;
 };
 
@@ -11,26 +14,28 @@ export const TabPane = ({ children }: TabPaneProps) => {
 };
 
 type TabsProps = {
-  defaultActiveKey?: string;
   children: ReactNode[];
 };
 
-export const Tabs = ({ defaultActiveKey, children }: TabsProps) => {
-  const [activeKey, setActiveKey] = useState(defaultActiveKey || '');
+export const Tabs = ({ children }: TabsProps) => {
+  const router = useRouter();
+  const { query } = router;
+  const activeKey = query.tab || 'home';
+
   const [highlightWidth, setHighlightWidth] = useState(0);
   const [highlightLeft, setHighlightLeft] = useState(0);
 
-  const firstTabRef = useRef<HTMLDivElement | null>(null);
+  const initialTabRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (firstTabRef.current) {
-      setHighlightWidth(firstTabRef.current.offsetWidth);
-      setHighlightLeft(firstTabRef.current.offsetLeft);
+    if (initialTabRef.current) {
+      setHighlightWidth(initialTabRef.current.offsetWidth);
+      setHighlightLeft(initialTabRef.current.offsetLeft);
     }
   }, []);
 
   const handleTabClick = (key: string, event: React.MouseEvent) => {
-    setActiveKey(key);
+    router.replace({ query: { ...query, tab: key } }, undefined, { shallow: true });
     const target = event.currentTarget as HTMLElement;
     setHighlightWidth(target.offsetWidth);
     setHighlightLeft(target.offsetLeft);
@@ -44,11 +49,11 @@ export const Tabs = ({ defaultActiveKey, children }: TabsProps) => {
           {React.Children.map(children, (child: any, idx) => (
             <div key={idx} className="tab-wrapper">
               <div
-                ref={idx === 0 ? firstTabRef : null}
+                ref={child.props.tab === activeKey ? initialTabRef : null}
                 className={`tab ${activeKey === child.props.tab ? 'active' : ''}`}
                 onClick={(e) => handleTabClick(child.props.tab, e)}
               >
-                {child.props.tab}
+                {child.props.tabName}
               </div>
             </div>
           ))}

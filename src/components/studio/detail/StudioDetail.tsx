@@ -1,20 +1,22 @@
 import { TabPane, Tabs } from '@/components/common/tab/Tabs';
-import { Studio } from '@/entities/studio';
-import ProductImages from './images/ProductImages';
-import ProductMap from './map/ProductMap';
-import StudioOption from './option/StudioOption';
-import { SStudioDetail } from './StudioDetail.styled';
-import StudioDetailList from './StudioDetailList';
 import Like from '@/components/option/Like';
 import Share from '@/components/option/Share';
+import { Studio } from '@/entities/studio';
 import WishService from '@/service/WishService';
 import { useQueryClient } from 'react-query';
-import { SStudioOption } from './option/StudioOption.styled';
+import ProductImages from './images/ProductImages';
+import ProductMap from './map/ProductMap';
 import ClassList from './option/ClassList';
+import StudioOption from './option/StudioOption';
+import { SStudioOption } from './option/StudioOption.styled';
+import { SStudioDetail } from './StudioDetail.styled';
+import StudioDetailList from './StudioDetailList';
 
 type Props = {
   studio: Studio;
 };
+
+export type StudioTabType = 'home' | 'reservation';
 
 const StudioDetail = ({ studio }: Props) => {
   const queryClient = useQueryClient();
@@ -53,8 +55,8 @@ const StudioDetail = ({ studio }: Props) => {
         </div>
       </SStudioOption>
 
-      <Tabs defaultActiveKey="홈">
-        <TabPane tab="홈">
+      <Tabs>
+        <TabPane tab="home" tabName="홈">
           <div className="obud-padding-container">
             <div className="obud-option-container">
               <StudioOption studio={studio || {}} />
@@ -68,7 +70,7 @@ const StudioDetail = ({ studio }: Props) => {
             </section>
           </div>
         </TabPane>
-        <TabPane tab="예약">
+        <TabPane tab="reservation" tabName="예약">
           <ClassList studioId={studio?.id || ''} />
         </TabPane>
       </Tabs>
