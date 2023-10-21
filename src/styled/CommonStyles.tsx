@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 /* ////////////////////////////////////////////
                   Spacing
 //////////////////////////////////////////// */
-export const Spacing = styled.nav`
+export const Spacing = styled.nav<{ spacing?: string; width?: number }>`
   width: 100%;
   height: ${(props) => (props.spacing ? `${props.spacing}px` : '15px')};
   display: block;
@@ -18,7 +18,7 @@ export const Spacing = styled.nav`
 /* ////////////////////////////////////////////
                   Flex
 //////////////////////////////////////////// */
-export const Flex = styled.div`
+export const Flex = styled.div<any>`
   display: flex;
   align-items: center;
   justify-content: center;

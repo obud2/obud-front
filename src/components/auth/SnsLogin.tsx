@@ -8,23 +8,24 @@ import { SSnsIcon } from './SnsLogin.styled';
 import CustomImage from '@components/common/image/CustomImage';
 import CustomButton from '@components/common/button/CustomButton';
 
-const SnsLogin = ({ disabled, setIsLoading }) => {
-  const onClickSnsLoading = (sns) => {
+// TODO: move to entity
+type SnsType = 'kakao' | 'naver' | 'apple' | 'google';
+
+type Props = {
+  disabled: boolean;
+  setIsLoading: (isLoading: boolean) => void;
+};
+
+const SnsLogin = ({ disabled, setIsLoading }: Props) => {
+  const onClickSnsLoading = (sns: SnsType) => {
     setIsLoading(true);
 
     window.location.href = `${API_URL}/user/auth/${sns}`;
   };
 
   return (
-    <React.Fragment>
-      <CustomButton
-        fullWidth
-        backgroundColor="#FFEB00"
-        textColor="#3c1e1e"
-        disabled={disabled}
-        onClick={() => onClickSnsLoading('kakao')}
-        //
-      >
+    <>
+      <CustomButton fullWidth backgroundColor="#FFEB00" textColor="#3c1e1e" disabled={disabled} onClick={() => onClickSnsLoading('kakao')}>
         <SnsIcon icon="kakao_icon" />
         카카오로 시작하기
       </CustomButton>
@@ -67,11 +68,17 @@ const SnsLogin = ({ disabled, setIsLoading }) => {
         <SnsIcon icon="google_icon" />
         Google로 시작하기
       </CustomButton>
-    </React.Fragment>
+    </>
   );
 };
 
-const SnsIcon = ({ width = 20, height = 20, icon }) => {
+type SnsIconProps = {
+  width?: number;
+  height?: number;
+  icon: string;
+};
+
+const SnsIcon = ({ width = 20, height = 20, icon }: SnsIconProps) => {
   return (
     <SSnsIcon>
       <CustomImage src={`/icons/${icon}.png`} alt="sns-icon" width={width} height={height} />
