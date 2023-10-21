@@ -76,7 +76,7 @@ const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, isClea
 
   useEffect(() => {
     if (scrollEle) {
-      scrollEle.scrollTo(0, scrollEle.scrollHeight);
+      scrollEle.scrollTo(0, 0);
     }
   }, [optionList]);
 
