@@ -19,7 +19,6 @@ type Props = {
 const SnsLogin = ({ disabled, setIsLoading }: Props) => {
   const onClickSnsLoading = (sns: SnsType) => {
     setIsLoading(true);
-
     window.location.href = `${API_URL}/user/auth/${sns}`;
   };
 
