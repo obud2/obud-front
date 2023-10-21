@@ -31,7 +31,11 @@ const DEFAULT_BODY = {
   pwd: '',
 };
 
-const Login = ({ onClickOpenAuth }) => {
+type Props = {
+  onClickOpenAuth: (type: string) => void;
+};
+
+const Login = ({ onClickOpenAuth }: Props) => {
   const router = useRouter();
 
   const [body, setBody] = useState(DEFAULT_BODY);
@@ -55,30 +59,30 @@ const Login = ({ onClickOpenAuth }) => {
     }
   }, [router]);
 
-  const onChangeInputValue = (e) => {
+  const onChangeInputValue = (e: any) => {
     const { name, value } = e.target;
 
     setBody((prev) => ({ ...prev, [name]: value }));
   };
 
-  const onErrorCheck = (code) => {
+  const onErrorCheck = (code: any) => {
     setError({ isErorr: true, text: code?.text || '', type: code?.type || '' });
   };
 
-  const onKeyDownInput = (e) => {
+  const onKeyDownInput = (e: any) => {
     const KEY = e?.key;
     const ENTER = 'Enter';
 
     if (KEY === ENTER) onClickLogin();
   };
 
-  const onClickLogin = (check) => {
+  const onClickLogin = (check?: string) => {
     let ID = body?.id;
     let PWD = body?.pwd;
 
     if (check === 'SNS_LOGIN') {
-      ID = router?.query?.id;
-      PWD = router?.query?.code;
+      ID = (router?.query?.id as string) ?? '';
+      PWD = (router?.query?.code as string) ?? '';
     }
 
     if (!ID) {
@@ -92,7 +96,7 @@ const Login = ({ onClickOpenAuth }) => {
 
     setIsLoading(true);
     Auth.signIn(ID, PWD)
-      .then(async (user) => {
+      .then((user) => {
         const idToken = user.signInUserSession?.idToken || '';
         const getToken = idToken ? idToken?.getJwtToken() : '';
 
@@ -104,8 +108,8 @@ const Login = ({ onClickOpenAuth }) => {
       .catch(() => {
         setBody(DEFAULT_BODY);
         onErrorCheck(ERROR_CODE.ERROR);
-        setIsLoading(false);
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
 
   return (
