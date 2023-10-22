@@ -18,15 +18,15 @@ type Props = {
   studio: Studio;
 };
 
+const plugins = [
+  new Arrow(),
+  new Pagination({ type: 'fraction' }),
+  new AutoPlay({ duration: 6000, direction: 'NEXT', stopOnHover: false }),
+];
+
 const StudioDetailList = ({ studio }: Props) => {
   const { matchese } = useContext(LayoutContext);
   const [flicking, setFlicking] = useState<ObudImage[]>([]);
-
-  const plugins = [
-    new Arrow(),
-    new Pagination({ type: 'fraction' }),
-    new AutoPlay({ duration: 6000, direction: 'NEXT', stopOnHover: false }),
-  ];
 
   useEffect(() => {
     setFlicking(studio.images);
