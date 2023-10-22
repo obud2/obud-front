@@ -91,7 +91,7 @@ const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, isClea
       data.date
         .sort((a, b) => (moment(a).isBefore(moment(b)) ? 1 : -1))
         .forEach((date) => {
-          if (moment(date).isSameOrAfter(moment())) {
+          if (moment(date).startOf('day').isSameOrAfter(moment().startOf('day'))) {
             setSelectDate(date);
           }
         });
