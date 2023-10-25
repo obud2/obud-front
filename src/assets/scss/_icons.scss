@@ -61,7 +61,7 @@
 }
 
 $color: 'fdfdfd';
-$active: '758271';
+$active: '344235';
 
 .icons {
   display: inline-block;
@@ -119,38 +119,38 @@ $active: '758271';
   }
 
   &.info {
-    background-image: icon(info, '4E5C4F');
+    background-image: icon(info, '344235');
   }
   &.url {
-    background-image: icon(url, '4E5C4F');
+    background-image: icon(url, '344235');
   }
   &.parking {
-    background-image: icon(parking, '4E5C4F');
+    background-image: icon(parking, '344235');
   }
   &.help {
-    background-image: icon(help, '4E5C4F');
+    background-image: icon(help, '344235');
   }
   &.location {
-    background-image: icon(location, '4E5C4F');
+    background-image: icon(location, '344235');
   }
   &.home {
-    background-image: icon(home, '4E5C4F');
+    background-image: icon(home, '344235');
   }
 
   &.contact {
-    background-image: icon(contact, '4E5C4F');
+    background-image: icon(contact, '344235');
   }
 
   &.like {
-    background-image: icon(like, '4E5C4F');
+    background-image: icon(like, '344235');
   }
 
   &.like-full {
-    background-image: icon(like-full, '4E5C4F');
+    background-image: icon(like-full, '344235');
   }
 
   &.share {
-    background-image: icon(share, '4E5C4F');
+    background-image: icon(share, '344235');
   }
 
   &.menu_home {
@@ -161,28 +161,28 @@ $active: '758271';
     }
   }
   &.menu_search {
-    background-image: icon(menu_search, '4E5C4F');
+    background-image: icon(menu_search, '344235');
 
     &.active {
       background-image: icon(menu_search_active, $active);
     }
   }
   &.menu_like {
-    background-image: icon(menu_like, '4E5C4F');
+    background-image: icon(menu_like, '344235');
 
     &.active {
       background-image: icon(menu_like_active, $active);
     }
   }
   &.menu_my {
-    background-image: icon(menu_my, '4E5C4F');
+    background-image: icon(menu_my, '344235');
 
     &.active {
       background-image: icon(menu_my_active, $active);
     }
   }
   &.menu_ticket {
-    background-image: icon(menu_ticket, '4E5C4F');
+    background-image: icon(menu_ticket, '344235');
 
     &.active {
       background-image: icon(menu_ticket_active, $active);

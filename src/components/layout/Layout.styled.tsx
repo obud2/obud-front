@@ -83,7 +83,7 @@ export const TopbarContainer = styled.div<{ topbarPosition?: string; topbarRever
       border-bottom: 1px solid rgba(218, 219, 214, 0.5);
 
       &.reverse {
-        background-color: ${(props) => props.theme.main_color_slate_400};
+        background-color: ${(props) => props.theme.main_color_slate_500};
       }
     }
 
@@ -134,7 +134,7 @@ export const TopbarContainer = styled.div<{ topbarPosition?: string; topbarRever
       line-height: 150%;
       letter-spacing: -0.34px;
 
-      color: ${(props) => props.theme.main_color_slate_400};
+      color: ${(props) => props.theme.main_color_slate_500};
 
       left: 50%;
       position: absolute;

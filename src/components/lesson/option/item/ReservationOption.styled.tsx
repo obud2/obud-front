@@ -124,14 +124,14 @@ export const SReservationTimeOption = styled.div`
 
     padding: 8px 12px;
     margin-right: 12px;
-    border: 1px solid ${(props) => props.theme.main_color_slate_400};
+    border: 1px solid ${(props) => props.theme.main_color_slate_500};
     border-radius: 4px;
     width: 100px;
     min-width: 100px;
     height: 40px;
 
     &.selected {
-      background-color: ${(props) => props.theme.main_color_slate_400};
+      background-color: ${(props) => props.theme.main_color_slate_500};
       color: #fff;
     }
 

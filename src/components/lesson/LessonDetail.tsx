@@ -27,7 +27,7 @@ const LessonDetail = ({ lesson }: Props) => {
         <SLessonOption>
           <div className="obud-lesson-header">
             <h4 className="obud-lesson-title">{lesson?.title || ''}</h4>
-            <h5 className="obud-lesson-subtitle">{lesson?.studios?.title || ''}</h5>
+            {/* <h5 className="obud-lesson-subtitle">{lesson?.studios?.title || ''}</h5> */}
             <div className="obud-lesson-icons">
               <Share data={lesson} title={lesson?.title || ''} isHide={false} />
             </div>

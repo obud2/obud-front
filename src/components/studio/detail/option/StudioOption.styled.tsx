@@ -38,7 +38,7 @@ export const SStudioOption = styled.div`
       line-height: 140%;
       margin-right: 12px;
 
-      color: #0d0d0d;
+      color: ${(props) => props.theme.main_color_slate_500};
 
       ${MOBILE} {
         font-size: 1.8rem;
