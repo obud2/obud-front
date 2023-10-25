@@ -154,21 +154,21 @@ export const SPlanCalendar = styled.div`
           .date-picker-days._today div::after {
             content: '';
 
-            width: 100%;
-            height: 100%;
+            width: 3px;
+            height: 3px;
             position: absolute;
-            top: 0;
-            left: 0;
-
-            border-radius: 8px;
-            background-color: rgba(255, 220, 40, 0.15);
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 50%;
+            background-color: ${(props) => props.theme.main_color_slate_500};
           }
 
           /* 선택된 날짜 스타일 */
           .date-picker-days._active div {
             color: #ffffff;
-            border: ${(props) => props.theme.main_color_slate_400};
-            background-color: ${(props) => props.theme.main_color_slate_400};
+            border: ${(props) => props.theme.main_color_slate_500};
+            background-color: ${(props) => props.theme.main_color_slate_500};
           }
 
           /* 선택 불가 스타일 */

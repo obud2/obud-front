@@ -11,7 +11,7 @@ export const SMyOrderList = styled.div`
   .empty-text {
     font-size: 1.4rem;
 
-    color: ${(props) => props.theme.main_color_slate_200};
+    color: ${(props) => props.theme.main_color_slate_300};
   }
 
   .order-list-container {

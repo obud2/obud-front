@@ -89,7 +89,7 @@ export const SStudioItem = styled.div`
       align-items: center;
       cursor: pointer;
 
-      color: ${(props) => props.theme.main_color_slate_400};
+      color: ${(props) => props.theme.main_color_slate_500};
 
       ${MOBILE} {
         font-size: 1.4rem;
@@ -128,7 +128,7 @@ export const SStudioItem = styled.div`
 
     margin: 8px 6px;
 
-    color: ${(props) => props.theme.main_color_slate_300};
+    color: rgba(0, 0, 0, 0.5);
 
     .studio-category {
       width: auto;
@@ -139,8 +139,7 @@ export const SStudioItem = styled.div`
 
       font-size: 1.3rem;
 
-      color: ${(props) => props.theme.main_color_slate_300};
-
+      color: rgba(0, 0, 0, 0.5);
       p {
         position: relative;
         top: 1px;

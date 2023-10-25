@@ -33,7 +33,7 @@ export const SCustomButton = styled.button<SCustomButtonProps>`
   padding: 5px;
   height: ${BUTTON_HEIGHT};
   color: ${(props) => props?.theme?.sub_color_slate_50};
-  background-color: ${(props) => props?.theme?.main_color_slate_400};
+  background-color: ${(props) => props?.theme?.main_color_slate_500};
 
   /* Modile Click Event */
   -webkit-tap-highlight-color: transparent;

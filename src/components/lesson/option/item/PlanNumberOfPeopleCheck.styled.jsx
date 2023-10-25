@@ -8,7 +8,7 @@ export const SPlanNumberOfPeopleCheck = styled.div`
   margin: 3px 0;
   padding: 0 3px;
 
-  border: 1px solid ${(props) => props.theme.main_color_slate_400};
+  border: 1px solid ${(props) => props.theme.main_color_slate_500};
   border-radius: 4px;
 
   display: flex;
@@ -19,7 +19,7 @@ export const SPlanNumberOfPeopleCheck = styled.div`
   cursor: pointer;
 
   &:hover {
-    border-color: #3f3f3f;
+    border-color: ${(props) => props.theme.main_color_slate_400};
   }
 
   ${(props) =>
