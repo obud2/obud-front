@@ -1,4 +1,4 @@
-import { API_URL } from '../constants';
+import { API_URL } from '@/constants';
 import axiosInstance from 'src/constants/AxiosInstance';
 
 const getList = () => {

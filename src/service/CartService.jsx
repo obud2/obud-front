@@ -1,13 +1,10 @@
-import { API_URL } from '../constants';
-
-import axiosInstance from 'src/constants/AxiosInstance';
-
 import moment from 'moment';
+import axiosInstanceV2 from '@/constants/AxiosInstanceV2';
 
 const getCart = () => {
   return new Promise((resolve, reject) => {
-    axiosInstance
-      .get(`${API_URL}/cart`)
+    axiosInstanceV2
+      .get('cart')
       .then((res) => {
         const nowDate = moment().valueOf();
         const list = res?.data?.value || [];
@@ -41,8 +38,8 @@ const getCart = () => {
 
 const setCart = (param) => {
   return new Promise((resolve, reject) => {
-    axiosInstance
-      .post(`${API_URL}/cart`, param)
+    axiosInstanceV2
+      .post('cart', param)
       .then((res) => resolve(res?.data?.value || {}))
       .catch(reject);
   });
@@ -50,7 +47,7 @@ const setCart = (param) => {
 
 const deleteCart = (list) => {
   return new Promise((resolve) => {
-    axiosInstance.delete(`${API_URL}/cart`, { data: list }).then((response) => {
+    axiosInstanceV2.delete('cart', { data: list }).then((response) => {
       resolve(response?.data?.value || {});
     });
   });

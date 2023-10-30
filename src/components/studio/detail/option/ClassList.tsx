@@ -1,6 +1,6 @@
 import { addComma } from '@/constants';
 import { Studio } from '@/entities/studio';
-import ProductService from '@/service/ProductService';
+import StudioService from '@/service/StudioService';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 import { SClassList } from './ClassList.styled';
@@ -10,7 +10,7 @@ type Props = {
 };
 
 const ClassList = ({ studioId }: Props) => {
-  const { data, isLoading } = useQuery(['class-list', studioId], () => ProductService.getLessons(studioId));
+  const { data, isLoading } = useQuery(['class-list', studioId], () => StudioService.getLessons(studioId));
   const router = useRouter();
 
   const onClickGoLesson = (e: string) => {

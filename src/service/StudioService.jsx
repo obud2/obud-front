@@ -1,6 +1,4 @@
-import { API_URL } from '../constants';
-
-import axiosInstance from 'src/constants/AxiosInstance';
+import axiosInstanceV2 from 'src/constants/AxiosInstance';
 
 /**
  *
@@ -12,8 +10,8 @@ const getStudios = (sort) => {
   const sorted = sort ? `?sort=${sort}` : '';
 
   return new Promise((resolve) => {
-    axiosInstance
-      .get(`${API_URL}/studios${sorted}`)
+    axiosInstanceV2
+      .get(`studios${sorted}`)
       .then((response) => {
         const val = response?.data?.value;
 
@@ -47,8 +45,8 @@ const getStudios = (sort) => {
 
 const getSpecialList = () => {
   return new Promise((resolve) => {
-    axiosInstance
-      .get(`${API_URL}/studios/lesson/special`)
+    axiosInstanceV2
+      .get('studios/lesson/special')
       .then((response) => {
         const val = response?.data?.value?.sort((a, b) => (a.sortOrder > b.sortOrder ? -1 : 1));
 
@@ -64,8 +62,8 @@ const getStudio = (id, userId) => {
   const user = userId ? `?userId=${userId}` : '';
 
   return new Promise((resolve) => {
-    axiosInstance
-      .get(`${API_URL}/studios/${id}${user}`)
+    axiosInstanceV2
+      .get(`studios/${id}${user}`)
       .then((response) => {
         resolve(response?.data?.value || {});
       })
@@ -82,10 +80,10 @@ const getStudio = (id, userId) => {
  */
 const setStudio = (method, param) => {
   return new Promise((resolve, reject) => {
-    axiosInstance
+    axiosInstanceV2
       .request({
         method: method === 'new' ? 'post' : 'put',
-        url: `${API_URL}/studios`,
+        url: 'studios',
         data: param,
       })
       .then((response) => {
@@ -116,7 +114,7 @@ const getLessons = (studioId, cursor, keyword) => {
   const cursorTemp = cursor ? `&cursor=${cursor}` : '';
 
   return new Promise((resolve) => {
-    axiosInstance.get(`${API_URL}/studios/lesson?studiosId=${studioId}&limit=${limit}${cursorTemp}${keywordTemp}`).then((response) => {
+    axiosInstanceV2.get(`studios/lesson?studiosId=${studioId}&limit=${limit}${cursorTemp}${keywordTemp}`).then((response) => {
       resolve(response.data);
     });
   });
@@ -124,8 +122,8 @@ const getLessons = (studioId, cursor, keyword) => {
 
 const getLesson = (id) => {
   return new Promise((resolve) => {
-    axiosInstance
-      .get(`${API_URL}/studios/lesson/${id}`)
+    axiosInstanceV2
+      .get(`studios/lesson/${id}`)
       .then((response) => {
         resolve(response?.data?.value || {});
       })
@@ -154,7 +152,7 @@ const getPlans = (lessonId, cursor, keyword) => {
   const cursorTemp = cursor ? `&cursor=${cursor}` : '';
 
   return new Promise((resolve) => {
-    axiosInstance.get(`${API_URL}/studios/plan/all?lessonId=${lessonId}&limit=${limit}${cursorTemp}${keywordTemp}`).then((response) => {
+    axiosInstanceV2.get(`studios/plan/all?lessonId=${lessonId}&limit=${limit}${cursorTemp}${keywordTemp}`).then((response) => {
       resolve(response.data);
     });
   });
@@ -163,14 +161,14 @@ const getPlans = (lessonId, cursor, keyword) => {
 const getMonthPlans = (lessonId, month) => {
   if (lessonId && month) {
     return new Promise((resolve) => {
-      axiosInstance.get(`${API_URL}/studios/plan/month?lessonId=${lessonId}&date=${month}`).then((response) => {
+      axiosInstanceV2.get(`studios/plan/month?lessonId=${lessonId}&date=${month}`).then((response) => {
         resolve(response.data);
       });
     });
   }
 };
 
-const ProductService = {
+const StudioService = {
   getStudios,
   getStudio,
   setStudio,
@@ -185,4 +183,4 @@ const ProductService = {
   getMonthPlans,
 };
 
-export default ProductService;
+export default StudioService;

@@ -12,7 +12,7 @@ import useAuthModal from 'src/store/useAuthModal';
 
 import { loginCheck } from 'src/constants';
 
-import ProductService from 'src/service/ProductService';
+import StudioService from '@/service/StudioService';
 
 import Portal from 'src/Portal';
 import { SLessonReservationDrawer } from './LessonReservationDrawer.styled';
@@ -46,7 +46,7 @@ const LessonReservationDrawer = ({ lesson, isOpen, isClose }) => {
   const fetchData = async () => {
     setIsLoading(true);
 
-    const res = await ProductService.getMonthPlans(id, currentDate);
+    const res = await StudioService.getMonthPlans(id, currentDate);
     const list = res?.value || [];
 
     list?.forEach((a) => {

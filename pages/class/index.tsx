@@ -1,7 +1,7 @@
 import Layout from '@components/layout/Layout';
 import Class from '@components/class/Class';
 import MetaHeader from '@components/common/meta/MetaHeader';
-import ProductService from '@/service/ProductService';
+import StudioService from '@/service/StudioService';
 import { GetServerSidePropsContext } from 'next';
 import { IMG_PATH } from 'src/constants';
 
@@ -17,7 +17,7 @@ const Index = ({ studios }: any) => {
 export const getStaticProps = async (context: GetServerSidePropsContext) => {
   const { sort } = context.query || {};
 
-  const res = await Promise.all([ProductService.getSpecialList(), ProductService.getStudios(sort)]);
+  const res = await Promise.all([StudioService.getSpecialList(), StudioService.getStudios(sort)]);
   const studios = [];
 
   studios.push(res[0]); // Special 상품

@@ -1,6 +1,4 @@
-import { API_URL } from '../constants';
-
-import axiosInstance from 'src/constants/AxiosInstance';
+import axiosInstanceV2 from '@/constants/AxiosInstance';
 
 /**
  *
@@ -9,8 +7,8 @@ import axiosInstance from 'src/constants/AxiosInstance';
  */
 const setOrder = (param) => {
   return new Promise((resolve, reject) => {
-    axiosInstance
-      .post(`${API_URL}/order`, { orders: param })
+      axiosInstanceV2
+      .post('order', { orders: param })
       .then((res) => {
         if (res?.status === 200) {
           resolve(res?.data?.value);
@@ -24,8 +22,8 @@ const setOrder = (param) => {
 
 const orderComplete = (param) => {
   return new Promise((resolve, reject) => {
-    axiosInstance
-      .post(`${API_URL}/order/complete`, param)
+    axiosInstanceV2
+      .post('order/complete', param)
       .then((res) => {
         if (res?.status === 200) {
           resolve(res?.data?.value);
@@ -39,8 +37,8 @@ const orderComplete = (param) => {
 
 const orderFali = (param) => {
   return new Promise((resolve, reject) => {
-    axiosInstance
-      .post(`${API_URL}/order/payFail`, param)
+    axiosInstanceV2
+      .post('order/payFail', param)
       .then((res) => {
         if (res?.status === 200) {
           resolve(res?.data?.value);
@@ -54,8 +52,8 @@ const orderFali = (param) => {
 
 const payCancel = (param) => {
   return new Promise((resolve, reject) => {
-    axiosInstance
-      .post(`${API_URL}/order/payCancel`, param)
+    axiosInstanceV2
+      .post('order/payCancel', param)
       .then((res) => {
         resolve(res);
       })
@@ -65,8 +63,8 @@ const payCancel = (param) => {
 
 const reservationCancel = (id) => {
   return new Promise((resolve, reject) => {
-    axiosInstance
-      .put(`${API_URL}/reservation/cancel/${id}`)
+    axiosInstanceV2
+      .put(`reservation/cancel/${id}`)
       .then((res) => {
         resolve(res);
       })
@@ -76,8 +74,8 @@ const reservationCancel = (id) => {
 
 const cancelCheck = (id) => {
   return new Promise((resolve, reject) => {
-    axiosInstance
-      .get(`${API_URL}/reservation/cancel/check/${id}`)
+    axiosInstanceV2
+      .get(`reservation/cancel/check/${id}`)
       .then((res) => {
         resolve(res?.data?.value || {});
       })

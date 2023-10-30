@@ -1,11 +1,9 @@
-import { API_URL } from '../constants';
-
-import axiosInstance from 'src/constants/AxiosInstance';
+import axiosInstanceV2 from 'src/constants/AxiosInstance';
 
 const getSearch = (keyword, data) => {
   return new Promise((resolve, reject) => {
-    axiosInstance
-      .get(`${API_URL}/search?keyword=${keyword}&date=${data}`)
+    axiosInstanceV2
+      .get(`search?keyword=${keyword}&date=${data}`)
       .then((res) => {
         resolve(res?.data?.value || []);
       })
@@ -15,8 +13,8 @@ const getSearch = (keyword, data) => {
 
 const getKeyword = () => {
   return new Promise((resolve, reject) => {
-    axiosInstance
-      .get(`${API_URL}/search/keyword`)
+    axiosInstanceV2
+      .get('search/keyword')
       .then((res) => {
         resolve(res?.data?.value || []);
       })

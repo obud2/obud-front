@@ -1,4 +1,4 @@
-import ProductService from '@/service/ProductService';
+import StudioService from '@/service/StudioService';
 
 import MetaHeader from '@/components/common/meta/MetaHeader';
 import Layout from '@/components/layout/Layout';
@@ -22,7 +22,7 @@ const Index = ({ lesson }: Props) => {
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const { id } = context.query;
 
-  const lesson = await ProductService.getLesson(id);
+  const lesson = await StudioService.getLesson(id);
 
   return {
     props: { lesson },

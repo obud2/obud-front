@@ -1,11 +1,9 @@
-import { API_URL } from '../constants';
-
-import axiosInstance from 'src/constants/AxiosInstance';
+import axiosInstanceV2 from 'src/constants/AxiosInstance';
 
 const getUserList = () => {
   return new Promise((resolve) => {
-    axiosInstance
-      .get(`${API_URL}/user/`)
+    axiosInstanceV2
+        .get('user')
       .then((response) => {
         response?.data?.value.sort((a, b) => {
           return Number(b.endDate) < Number(a.endDate) ? 1 : -1;
@@ -21,7 +19,7 @@ const getUserList = () => {
 
 const getUser = (id) => {
   return new Promise((resolve) => {
-    axiosInstance.get(`${API_URL}/user/${id}`).then((response) => {
+    axiosInstanceV2.get(`user/${id}`).then((response) => {
       const res = response?.data?.value;
 
       if (res) {
@@ -35,10 +33,10 @@ const getUser = (id) => {
 
 const setUser = (method, param) => {
   return new Promise((resolve) => {
-    axiosInstance
+    axiosInstanceV2
       .request({
         method: method === 'new' ? 'post' : 'put',
-        url: `${API_URL}/user/`,
+        url: 'user',
         data: param,
       })
       .then((response) => {
@@ -52,7 +50,7 @@ const setUser = (method, param) => {
 
 const checkUser = ({ id }) => {
   return new Promise((resolve) => {
-    axiosInstance.get(`${API_URL}/user/check/${id}`).then((response) => {
+    axiosInstanceV2.get(`user/check/${id}`).then((response) => {
       resolve(response?.data?.Item);
     });
   });
@@ -61,7 +59,7 @@ const checkUser = ({ id }) => {
 const changePassword = (id, password) => {
   return new Promise((resolve) => {
     const param = { id, change: password };
-    axiosInstance.put(`${API_URL}/user/changePassword/`, param).then((response) => {
+    axiosInstanceV2.put('user/changePassword', param).then((response) => {
       resolve(response?.data?.Item);
     });
   });
@@ -69,7 +67,7 @@ const changePassword = (id, password) => {
 
 const findId = (name, hp) => {
   return new Promise((resolve) => {
-    axiosInstance.get(`${API_URL}/user/findId?name=${name}&hp=${hp}`).then((response) => {
+    axiosInstanceV2.get(`user/findId?name=${name}&hp=${hp}`).then((response) => {
       resolve(response?.data);
     });
   });
@@ -77,7 +75,7 @@ const findId = (name, hp) => {
 
 const visitUser = () => {
   return new Promise((resolve) => {
-    axiosInstance.put(`${API_URL}/user/visit`).then((response) => {
+    axiosInstanceV2.put('user/visit').then((response) => {
       resolve(response?.data);
     });
   });
@@ -85,7 +83,7 @@ const visitUser = () => {
 
 const leaveUser = () => {
   return new Promise((resolve) => {
-    axiosInstance.delete(`${API_URL}/user`).then((response) => {
+    axiosInstanceV2.delete('user').then((response) => {
       resolve(response?.data);
     });
   });
@@ -93,7 +91,7 @@ const leaveUser = () => {
 
 const myOrderList = () => {
   return new Promise((resolve) => {
-    axiosInstance.get(`${API_URL}/user/myPage`).then((response) => {
+    axiosInstanceV2.get('user/myPage').then((response) => {
       resolve(response?.data || {});
     });
   });
@@ -101,7 +99,7 @@ const myOrderList = () => {
 
 const myOrderItem = (id) => {
   return new Promise((resolve) => {
-    axiosInstance.get(`${API_URL}/user/myPage/${id}`).then((response) => {
+    axiosInstanceV2.get(`user/myPage/${id}`).then((response) => {
       resolve(response?.data || {});
     });
   });
