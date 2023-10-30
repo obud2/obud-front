@@ -61,7 +61,7 @@ export const tokenRefresh = async () => {
     const currentSession = await Auth.currentSession();
 
     return new Promise((resolve) => {
-      cognitoUser.refreshSession(currentSession.refreshToken, (err, session) => {
+      cognitoUser.refreshSession(currentSession.getRefreshToken(), (err, session) => {
         if (session) {
           const { idToken } = session;
 
