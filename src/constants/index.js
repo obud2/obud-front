@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { getCookie, setCookie, removeCookie } from '../helpers/cookies';
+import { getCookie, setCookie, removeCookie } from '@/helpers/cookies';
 
 /**
  * API 호출 URL

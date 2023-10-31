@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { API_URL } from 'src/constants';
+import { API_URL_V2 } from 'src/constants';
 
 import { Spacing } from 'src/styled/CommonStyles';
 import { SSnsIcon } from './SnsLogin.styled';
@@ -19,7 +19,7 @@ type Props = {
 const SnsLogin = ({ disabled, setIsLoading }: Props) => {
   const onClickSnsLoading = (sns: SnsType) => {
     setIsLoading(true);
-    window.location.href = `${API_URL}/user/auth/${sns}`;
+    window.location.href = `${API_URL_V2}/user/auth/${sns}`;
   };
 
   return (

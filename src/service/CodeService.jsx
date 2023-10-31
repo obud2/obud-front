@@ -1,10 +1,9 @@
-import { API_URL } from '@/constants';
-import axiosInstance from 'src/constants/AxiosInstance';
+import axiosInstanceV2 from 'src/constants/AxiosInstanceV2';
 
 const getList = () => {
   return new Promise((resolve, reject) => {
-    axiosInstance
-      .get(`${API_URL}/code`)
+    axiosInstanceV2
+      .get('/code')
       .then((res) => resolve(res?.data))
       .catch(reject);
   });
@@ -12,8 +11,8 @@ const getList = () => {
 
 const getItem = (id) => {
   return new Promise((resolve, reject) => {
-    axiosInstance
-      .get(`${API_URL}/code/${id}`)
+    axiosInstanceV2
+      .get(`/code/${id}`)
       .then((res) => resolve(res?.data?.value || {}))
       .catch(reject);
   });
@@ -21,8 +20,8 @@ const getItem = (id) => {
 
 const getListByGroup = (group) => {
   return new Promise((resolve, reject) => {
-    axiosInstance
-      .get(`${API_URL}/code/group/${group}`)
+    axiosInstanceV2
+      .get(`/code/group/${group}`)
       .then((res) => resolve(res.data?.value))
       .catch(reject);
   });
@@ -30,10 +29,10 @@ const getListByGroup = (group) => {
 
 const saveItem = (type, param) => {
   return new Promise((resolve, reject) => {
-    axiosInstance
+    axiosInstanceV2
       .request({
         method: type === 'new' ? 'post' : 'put',
-        url: `${API_URL}/code`,
+        url: '/code',
         data: param,
       })
       .then((response) => {

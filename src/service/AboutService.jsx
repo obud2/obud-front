@@ -1,10 +1,8 @@
-import { API_URL } from '../constants';
-
-import axiosInstance from 'src/constants/AxiosInstance';
+import axiosInstanceV2 from 'src/constants/AxiosInstanceV2';
 
 const getListByType = (type) => {
   return new Promise((resolve) => {
-    axiosInstance.get(`${API_URL}/bbs/contact/`).then((response) => {
+    axiosInstanceV2.get('bbs/contact/').then((response) => {
       if (response.data && response.data.value) {
         resolve(response.data.value.filter((d) => d?.type === type));
       }
@@ -14,7 +12,7 @@ const getListByType = (type) => {
 
 const info = (id) => {
   return new Promise((resolve) => {
-    axiosInstance.get(`${API_URL}/bbs/contact/${id}`).then((response) => {
+    axiosInstanceV2.get(`bbs/contact/${id}`).then((response) => {
       if (response.data && response.data.value) {
         resolve(response.data.value);
       }
@@ -24,10 +22,10 @@ const info = (id) => {
 
 const saveItem = (type, param) => {
   return new Promise((resolve, reject) => {
-    axiosInstance
+    axiosInstanceV2
       .request({
         method: type === 'new' ? 'post' : 'put',
-        url: `${API_URL}/bbs/contact/`,
+        url: 'bbs/contact/',
         data: param,
       })
       .then((response) => {

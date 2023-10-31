@@ -1,4 +1,4 @@
-import axiosInstanceV2 from '@/constants/AxiosInstance';
+import axiosInstanceV2 from '@/constants/AxiosInstanceV2';
 
 /**
  *

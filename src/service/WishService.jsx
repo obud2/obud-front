@@ -1,10 +1,8 @@
-import { API_URL } from '../constants';
-
-import axiosInstance from '../constants/AxiosInstance';
+import axiosInstanceV2 from '../constants/AxiosInstanceV2';
 
 const getWish = () => {
   return new Promise((resolve) => {
-    axiosInstance.get(`${API_URL}/user/wish`).then((response) => {
+    axiosInstanceV2.get('user/wish').then((response) => {
       resolve(response?.data?.value || []);
     });
   });
@@ -12,7 +10,7 @@ const getWish = () => {
 
 const setWish = (studio) => {
   return new Promise((resolve) => {
-    axiosInstance.post(`${API_URL}/user/wish/${studio}`).then((response) => {
+    axiosInstanceV2.post(`user/wish/${studio}`).then((response) => {
       resolve(response?.data?.value || {});
     });
   });
@@ -20,7 +18,7 @@ const setWish = (studio) => {
 
 const deleteWishs = (body) => {
   return new Promise((resolve) => {
-    axiosInstance.delete(`${API_URL}/user/wish`, { data: body }).then((response) => {
+    axiosInstanceV2.delete('user/wish', { data: body }).then((response) => {
       resolve(response?.data?.value || {});
     });
   });
@@ -28,7 +26,7 @@ const deleteWishs = (body) => {
 
 const deleteWish = (id) => {
   return new Promise((resolve) => {
-    axiosInstance.delete(`${API_URL}/user/wish/${id}`).then((response) => {
+    axiosInstanceV2.delete(`user/wish/${id}`).then((response) => {
       resolve(response?.data?.value || {});
     });
   });

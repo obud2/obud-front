@@ -1,10 +1,8 @@
-import { API_URL } from '../constants';
-
-import axiosInstance from 'src/constants/AxiosInstance';
+import axiosInstanceV2 from 'src/constants/AxiosInstanceV2';
 
 const getListAll = () => {
   return new Promise((resolve) => {
-    axiosInstance.get(`${API_URL}/bbs/info/`).then((response) => {
+    axiosInstanceV2.get('bbs/info/').then((response) => {
       if (response.data && response.data.value) {
         resolve(response.data.value);
       }
@@ -14,7 +12,7 @@ const getListAll = () => {
 
 const info = (id) => {
   return new Promise((resolve) => {
-    axiosInstance.get(`${API_URL}/bbs/info/${id}`).then((response) => {
+    axiosInstanceV2.get(`bbs/info/${id}`).then((response) => {
       if (response.data && response.data.value) {
         resolve(response.data.value);
       }

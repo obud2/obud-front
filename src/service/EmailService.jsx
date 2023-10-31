@@ -1,6 +1,4 @@
-import { API_URL } from '../constants';
-
-import axiosInstance from 'src/constants/AxiosInstance';
+import axiosInstanceV2 from 'src/constants/AxiosInstanceV2';
 
 /**
  *
@@ -12,8 +10,8 @@ import axiosInstance from 'src/constants/AxiosInstance';
  */
 const findPassword = (param) => {
   return new Promise((resolve) => {
-    axiosInstance
-      .post(`${API_URL}/email/findPassword`, param)
+    axiosInstanceV2
+      .post('email/findPassword', param)
       .then((response) => {
         resolve(response?.data);
       })
@@ -34,8 +32,8 @@ const findPassword = (param) => {
 
 const checkVerify = (toEmail, code) => {
   return new Promise((resolve) => {
-    axiosInstance
-      .get(`${API_URL}/email/checkVerify?toEmail=${toEmail}&code=${code}`)
+    axiosInstanceV2
+      .get(`email/checkVerify?toEmail=${toEmail}&code=${code}`)
       .then((response) => {
         resolve(response?.data);
       })
@@ -57,8 +55,8 @@ const checkVerify = (toEmail, code) => {
 
 const changePassword = (param) => {
   return new Promise((resolve) => {
-    axiosInstance
-      .post(`${API_URL}/email/changePassword`, param)
+    axiosInstanceV2
+      .post('email/changePassword', param)
       .then((response) => {
         resolve(response?.data);
       })

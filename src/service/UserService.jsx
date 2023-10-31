@@ -1,4 +1,4 @@
-import axiosInstanceV2 from 'src/constants/AxiosInstance';
+import axiosInstanceV2 from 'src/constants/AxiosInstanceV2';
 
 const getUserList = () => {
   return new Promise((resolve) => {
