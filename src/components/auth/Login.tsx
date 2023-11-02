@@ -50,14 +50,14 @@ const Login = ({ onClickOpenAuth }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (router?.query?.id && router?.query?.code) {
-      if (router?.query?.existType === 'email') {
+    if (router.isReady && router.query.id && router.query.code) {
+      if (router.query.existType === 'email') {
         setError({ isErorr: true, text: '이미 가입된 이메일이 존재합니다.', type: 'all' });
       } else {
         onClickLogin('SNS_LOGIN');
       }
     }
-  }, [router]);
+  }, [router.isReady, router.query.id, router.query.code]);
 
   const onChangeInputValue = (e: any) => {
     const { name, value } = e.target;
