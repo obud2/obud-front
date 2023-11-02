@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Auth } from 'aws-amplify';
 
-import { API_URL_V2, cookieRemove, getJwt, setJwt } from './index';
+import { API_URL, cookieRemove, getJwt, setJwt } from './index';
 
 import awsconfig from '../aws-exports';
 
@@ -10,7 +10,7 @@ Auth.configure(awsconfig);
 const TOKEN = getJwt();
 
 const axiosInstanceV2 = axios.create({
-  baseURL: API_URL_V2,
+  baseURL: API_URL,
   timeout: 1000 * 30,
   headers: {
     Pragma: 'no-cache',
