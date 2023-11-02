@@ -1,8 +1,8 @@
-import axiosInstanceV2 from 'src/constants/AxiosInstanceV2';
+import axiosInstance from '@/constants/AxiosInstance';
 
 const getListByType = (type) => {
   return new Promise((resolve) => {
-    axiosInstanceV2.get('bbs/contact/').then((response) => {
+    axiosInstance.get('bbs/contact/').then((response) => {
       if (response.data && response.data.value) {
         resolve(response.data.value.filter((d) => d?.type === type));
       }
@@ -12,7 +12,7 @@ const getListByType = (type) => {
 
 const info = (id) => {
   return new Promise((resolve) => {
-    axiosInstanceV2.get(`bbs/contact/${id}`).then((response) => {
+    axiosInstance.get(`bbs/contact/${id}`).then((response) => {
       if (response.data && response.data.value) {
         resolve(response.data.value);
       }
@@ -22,7 +22,7 @@ const info = (id) => {
 
 const saveItem = (type, param) => {
   return new Promise((resolve, reject) => {
-    axiosInstanceV2
+    axiosInstance
       .request({
         method: type === 'new' ? 'post' : 'put',
         url: 'bbs/contact/',

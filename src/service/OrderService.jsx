@@ -1,4 +1,4 @@
-import axiosInstanceV2 from '@/constants/AxiosInstanceV2';
+import axiosInstance from '@/constants/AxiosInstance';
 
 /**
  *
@@ -7,7 +7,7 @@ import axiosInstanceV2 from '@/constants/AxiosInstanceV2';
  */
 const setOrder = (param) => {
   return new Promise((resolve, reject) => {
-      axiosInstanceV2
+      axiosInstance
       .post('order', { orders: param })
       .then((res) => {
         if (res?.status === 200) {
@@ -22,7 +22,7 @@ const setOrder = (param) => {
 
 const orderComplete = (param) => {
   return new Promise((resolve, reject) => {
-    axiosInstanceV2
+    axiosInstance
       .post('order/complete', param)
       .then((res) => {
         if (res?.status === 200) {
@@ -37,7 +37,7 @@ const orderComplete = (param) => {
 
 const orderFali = (param) => {
   return new Promise((resolve, reject) => {
-    axiosInstanceV2
+    axiosInstance
       .post('order/payFail', param)
       .then((res) => {
         if (res?.status === 200) {
@@ -52,7 +52,7 @@ const orderFali = (param) => {
 
 const payCancel = (param) => {
   return new Promise((resolve, reject) => {
-    axiosInstanceV2
+    axiosInstance
       .post('order/payCancel', param)
       .then((res) => {
         resolve(res);
@@ -63,7 +63,7 @@ const payCancel = (param) => {
 
 const reservationCancel = (id) => {
   return new Promise((resolve, reject) => {
-    axiosInstanceV2
+    axiosInstance
       .put(`reservation/cancel/${id}`)
       .then((res) => {
         resolve(res);
@@ -74,7 +74,7 @@ const reservationCancel = (id) => {
 
 const cancelCheck = (id) => {
   return new Promise((resolve, reject) => {
-    axiosInstanceV2
+    axiosInstance
       .get(`reservation/cancel/check/${id}`)
       .then((res) => {
         resolve(res?.data?.value || {});

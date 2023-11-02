@@ -1,4 +1,4 @@
-import axiosInstanceV2 from 'src/constants/AxiosInstanceV2';
+import axiosInstance from '@/constants/AxiosInstance';
 
 /**
  *
@@ -10,7 +10,7 @@ import axiosInstanceV2 from 'src/constants/AxiosInstanceV2';
  */
 const findPassword = (param) => {
   return new Promise((resolve) => {
-    axiosInstanceV2
+    axiosInstance
       .post('email/findPassword', param)
       .then((response) => {
         resolve(response?.data);
@@ -32,7 +32,7 @@ const findPassword = (param) => {
 
 const checkVerify = (toEmail, code) => {
   return new Promise((resolve) => {
-    axiosInstanceV2
+    axiosInstance
       .get(`email/checkVerify?toEmail=${toEmail}&code=${code}`)
       .then((response) => {
         resolve(response?.data);
@@ -55,7 +55,7 @@ const checkVerify = (toEmail, code) => {
 
 const changePassword = (param) => {
   return new Promise((resolve) => {
-    axiosInstanceV2
+    axiosInstance
       .post('email/changePassword', param)
       .then((response) => {
         resolve(response?.data);

@@ -1,8 +1,8 @@
-import axiosInstanceV2 from 'src/constants/AxiosInstanceV2';
+import axiosInstance from '@/constants/AxiosInstance';
 
 const getSearch = (keyword, data) => {
   return new Promise((resolve, reject) => {
-    axiosInstanceV2
+    axiosInstance
       .get(`search?keyword=${keyword}&date=${data}`)
       .then((res) => {
         resolve(res?.data?.value || []);
@@ -13,7 +13,7 @@ const getSearch = (keyword, data) => {
 
 const getKeyword = () => {
   return new Promise((resolve, reject) => {
-    axiosInstanceV2
+    axiosInstance
       .get('search/keyword')
       .then((res) => {
         resolve(res?.data?.value || []);

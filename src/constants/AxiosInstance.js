@@ -9,7 +9,7 @@ Auth.configure(awsconfig);
 
 const TOKEN = getJwt();
 
-const axiosInstanceV2 = axios.create({
+const axiosInstance = axios.create({
   baseURL: API_URL,
   timeout: 1000 * 30,
   headers: {
@@ -21,7 +21,7 @@ const axiosInstanceV2 = axios.create({
   },
 });
 
-axiosInstanceV2.interceptors.request.use(
+axiosInstance.interceptors.request.use(
   (config) => {
     const configClone = config;
     configClone.headers.Authorization = TOKEN;
@@ -34,7 +34,7 @@ axiosInstanceV2.interceptors.request.use(
   },
 );
 
-axiosInstanceV2.interceptors.response.use(
+axiosInstance.interceptors.response.use(
   (response) => {
     return response;
   },
@@ -78,4 +78,4 @@ export const tokenRefresh = async () => {
   }
 };
 
-export default axiosInstanceV2;
+export default axiosInstance;

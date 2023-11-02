@@ -1,8 +1,8 @@
-import axiosInstanceV2 from '@/constants/AxiosInstanceV2';
+import axiosInstance from '@/constants/AxiosInstance';
 
 const info = (id) => {
   return new Promise((resolve) => {
-    axiosInstanceV2.get(`banner/${id}`).then((response) => {
+    axiosInstance.get(`banner/${id}`).then((response) => {
       resolve(response?.data?.value || {});
     });
   });

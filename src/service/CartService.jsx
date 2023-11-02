@@ -1,9 +1,9 @@
 import moment from 'moment';
-import axiosInstanceV2 from '@/constants/AxiosInstanceV2';
+import axiosInstance from '@/constants/AxiosInstance';
 
 const getCart = () => {
   return new Promise((resolve, reject) => {
-    axiosInstanceV2
+    axiosInstance
       .get('cart')
       .then((res) => {
         const nowDate = moment().valueOf();
@@ -38,7 +38,7 @@ const getCart = () => {
 
 const setCart = (param) => {
   return new Promise((resolve, reject) => {
-    axiosInstanceV2
+    axiosInstance
       .post('cart', param)
       .then((res) => resolve(res?.data?.value || {}))
       .catch(reject);
@@ -47,7 +47,7 @@ const setCart = (param) => {
 
 const deleteCart = (list) => {
   return new Promise((resolve) => {
-    axiosInstanceV2.delete('cart', { data: list }).then((response) => {
+    axiosInstance.delete('cart', { data: list }).then((response) => {
       resolve(response?.data?.value || {});
     });
   });
