@@ -50,9 +50,12 @@ const Footer = ({ footerHide }: Props) => {
           <div className="footer-info-container">
             <div className="footer-contents-container">
               <div className="footer-contact-menu-items">
-                <div className="footer-button" onClick={() => onClickRouter('/about')}>
-                  About
-                </div>
+                {/* TODO: fix later */}
+                {/* {!matchese && (
+                  <div className="footer-button" onClick={() => onClickRouter('/about')}>
+                    About
+                  </div>
+                )} */}
 
                 <div className="footer-button" onClick={() => onClickRouter('/contact')}>
                   Contact Us
