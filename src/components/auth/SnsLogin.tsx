@@ -43,7 +43,7 @@ const SnsLogin = ({ disabled, setIsLoading }: Props) => {
       </CustomButton>
       <Spacing spacing="8" /> */}
 
-      {/* <CustomButton
+      <CustomButton
         fullWidth
         variant="outlined"
         backgroundColor="#283544"
@@ -54,7 +54,7 @@ const SnsLogin = ({ disabled, setIsLoading }: Props) => {
         <SnsIcon icon="apple_icon" width={18} height={21} />
         Apple로 시작하기
       </CustomButton>
-      <Spacing spacing="8" /> */}
+      <Spacing spacing="8" />
 
       <CustomButton
         fullWidth
