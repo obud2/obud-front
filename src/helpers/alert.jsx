@@ -14,7 +14,7 @@
  *
  *
  */
-const alert = (header, text, cancelButtonText, confirmButtonText, _select) => {
+const alert = (header, text, cancelButtonText = undefined, confirmButtonText = undefined, _select = undefined) => {
   const select = _select;
 
   const alertCreate = (header, text, cancelButtonText, confirmButtonText) => {

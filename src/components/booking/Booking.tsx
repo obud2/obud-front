@@ -32,11 +32,11 @@ const Booking = () => {
 
   const router = useRouter();
 
-  const { order } = useContext(OrderContext);
+  const { order } = useContext<any>(OrderContext);
   const { user } = useContext(UserContext);
-  const { deleteCart } = useContext(CartContext);
+  const { deleteCart } = useContext<any>(CartContext);
 
-  const [userInfo, setUserInfo] = useState({});
+  const [userInfo, setUserInfo] = useState<{name?: string; hp?: string; email?: string}>({});
   const [totalPrice, setTotalPrice] = useState(0);
 
   const [payMethod, setPayMethod] = useState(PAYMENT_METHOD[0]?.id || 'card');
@@ -51,7 +51,7 @@ const Booking = () => {
 
   // 상품 없으면 장바구니로 이동.
   useEffect(() => {
-    if (order && !order?.length > 0) {
+    if (order && !order.length) {
       router.back();
     }
   }, [order]);
@@ -80,7 +80,7 @@ const Booking = () => {
   // 회원 정보 불러오기 토글
   const onClickUserInfoBring = (e) => {
     if (e) {
-      setUserInfo({ name: user?.name, hp: user?.hp, email: user?.email });
+      setUserInfo({ name: user?.name, hp: user?.phone, email: user?.email });
     } else {
       setUserInfo({});
     }
@@ -127,8 +127,19 @@ const Booking = () => {
     }
 
     setIsLoading(true);
-    const cart = [];
-    const param = [];
+    const cart: string[] = [];
+    const param: {
+      planId: string;
+      price: number;
+      startDate: string;
+      endDate: string;
+      instructor:string;
+      reservationer:string;
+      reservationerHp:string;
+      reservationCount:number
+      payOption:string;
+      payOptionCount:number;
+    }[] = [];
     const option = {
       payMethod,
       userInfo,
@@ -137,7 +148,9 @@ const Booking = () => {
     };
 
     order.forEach((a) => {
-      if (a?.cart) cart.push(a?.id);
+      if (a?.cart) {
+        cart.push(a?.id);
+      }
 
       param.push({
         planId: a?.planId || '',
@@ -187,7 +200,7 @@ const Booking = () => {
 
   return (
     <React.Fragment>
-      <BookingBase subTitle="예약 수업 정보" list={order} />
+      <BookingBase subTitle="예약 수업 정보" list={order} subDate={undefined} />
 
       <SBooking>
         {/* 예약자 정보 영역 */}
