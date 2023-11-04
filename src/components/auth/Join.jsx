@@ -74,8 +74,8 @@ const Join = ({ onClickOpenAuth }) => {
             alert('', res?.message || '회원가입 중 오류가 발생하였습니다. <br /> 잠시 후 다시시도해주세요.');
           }
         })
-        .catch(() => {
-          alert('', '회원가입 중 오류가 발생하였습니다. <br /> 잠시 후 다시시도해주세요.');
+        .catch((res) => {
+            alert('', res?.message || '회원가입 중 오류가 발생하였습니다. <br /> 잠시 후 다시시도해주세요.');
         })
         .finally(() => {
           setIsLoading(false);
