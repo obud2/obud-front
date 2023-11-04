@@ -41,7 +41,7 @@ const Login = ({ onClickOpenAuth }: Props) => {
   const [body, setBody] = useState(DEFAULT_BODY);
 
   const [error, setError] = useState({
-    isErorr: false,
+    isError: false,
     text: '',
     type: '',
   });
@@ -52,7 +52,7 @@ const Login = ({ onClickOpenAuth }: Props) => {
   useEffect(() => {
     if (router.isReady && router.query.id && router.query.code) {
       if (router.query.existType === 'email') {
-        setError({ isErorr: true, text: '이미 가입된 이메일이 존재합니다.', type: 'all' });
+        setError({ isError: true, text: '이미 가입된 이메일이 존재합니다.', type: 'all' });
       } else {
         onClickLogin('SNS_LOGIN');
       }
@@ -66,7 +66,7 @@ const Login = ({ onClickOpenAuth }: Props) => {
   };
 
   const onErrorCheck = (code: any) => {
-    setError({ isErorr: true, text: code?.text || '', type: code?.type || '' });
+    setError({ isError: true, text: code?.text || '', type: code?.type || '' });
   };
 
   const onKeyDownInput = (e: any) => {
@@ -144,7 +144,7 @@ const Login = ({ onClickOpenAuth }: Props) => {
       />
       <Spacing spacing="12" />
 
-      <HelpText text={error?.text} isError={error?.isErorr} />
+      <HelpText text={error?.text} isError={error?.isError} />
       <Spacing spacing="10" />
 
       <CustomCheckBox label="로그인상태유지" disabled={isLoading} value={isKeep} onClick={setIsKeep} />

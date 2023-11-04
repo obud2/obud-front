@@ -32,7 +32,7 @@ const getUser = (id) => {
 };
 
 const setUser = (method, param) => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     axiosInstance
       .request({
         method: method === 'new' ? 'post' : 'put',
@@ -40,10 +40,10 @@ const setUser = (method, param) => {
         data: param,
       })
       .then((response) => {
-        resolve(response?.data);
+        resolve(response.data);
       })
       .catch((err) => {
-        resolve(err);
+        reject(err);
       });
   });
 };

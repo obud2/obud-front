@@ -153,6 +153,7 @@ const Booking = () => {
       });
     });
 
+    console.log('param', param);
     impPay(param, option, setIsLoading)
       .then((res) => {
         const orderStatus = res?.val?.orderStatus || 'FAIL';
@@ -242,7 +243,7 @@ const Booking = () => {
               {PAYMENT_METHOD?.filter((a) => a?.isShow)?.map((item) => (
                 <CustomRadioItem
                   key={item?.id}
-                  isCheckd={item?.id === payMethod}
+                  isChecked={item?.id === payMethod}
                   value={item?.id}
                   label={item?.value}
                   disabled={isLoading}

@@ -27,7 +27,7 @@ const FindId = ({ onClickOpenAuth }) => {
     const temp = _.cloneDeep(error);
 
     if (temp[type]) {
-      temp[type].isErorr = false;
+      temp[type].isError = false;
     }
 
     setError(temp);
@@ -35,7 +35,7 @@ const FindId = ({ onClickOpenAuth }) => {
   };
 
   const onErrorCheck = (code) => {
-    setError({ isErorr: true, text: code?.text || '', type: code?.type || '' });
+    setError({ isError: true, text: code?.text || '', type: code?.type || '' });
   };
 
   const onClickFindId = () => {
@@ -92,7 +92,7 @@ const FindId = ({ onClickOpenAuth }) => {
           disabled={isLoading}
         />
         <Spacing spacing="8" />
-        <HelpText text={error?.text} isError={error?.isErorr} />
+        <HelpText text={error?.text} isError={error?.isError} />
         <Spacing spacing="8" />
 
         <CustomButton fullWidth disabled={isLoading} isLoading={isLoading} onClick={onClickFindId}>

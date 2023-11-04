@@ -21,30 +21,57 @@ import CustomRadio, { CustomRadioItem } from '@components/common/radio/CustomRad
 import CustomButton from '@components/common/button/CustomButton';
 import WithdrawModal from './WithdrawModal';
 
-const MyEditForm = ({ onStepChange }) => {
+type Props = {
+  onStepChange: (step: number) => void;
+}
+
+type UserForm = {
+  isSns?: boolean;
+  email?: string;
+  snsType?: string;
+  password?: string;
+  passwordCheck?: string;
+  name?: string;
+  hp?: string;
+  adr?: string;
+  adrDetail?: string;
+  gender?: string;
+  birthdate?: string;
+};
+const MyEditForm = ({ onStepChange }: Props) => {
   const { user, editUser, isLoading: isUserLoading } = useContext(UserContext);
 
-  const [body, setBody] = useState({});
+  const [body, setBody] = useState<UserForm>({});
 
-  const [error, setError] = useState(DEFALUT_ERROR);
+  const [error, setError] = useState<Partial<Record<keyof UserForm, { text: string; isError: boolean }> & { type?: string }>>(DEFALUT_ERROR);
   const [isLoading, setIsLoading] = useState(true);
 
   const [isWithdraw, setIsWithdraw] = useState(false);
 
   useEffect(() => {
     const initUser = async () => {
-      await setBody(user);
+      await setBody({
+        isSns: user?.isSns,
+        email: user?.email,
+        snsType: user?.snsType,
+        name: user?.name,
+        hp: user?.phone,
+        adr: user?.address,
+        adrDetail: user?.addressDetail,
+        gender: user?.gender,
+        birthdate: user?.birthDate,
+      });
       await setIsLoading(false);
     };
 
     initUser();
   }, [user]);
 
-  const onChangeInputValue = (type, e) => {
-    const temp = _.cloneDeep(error);
+  const onChangeInputValue = (type: keyof UserForm, e: any) => {
+    const temp: Partial<Record<keyof UserForm, { text: string; isError: boolean }>> = _.cloneDeep(error);
 
     if (temp[type]) {
-      temp[type].isErorr = false;
+      temp[type]!.isError = false;
     }
 
     setError(temp);
@@ -55,7 +82,7 @@ const MyEditForm = ({ onStepChange }) => {
     let check = true;
     const temp = editValidateCheck(body, error);
 
-    if (temp?.password?.isErorr || temp?.passwordCheck?.isErorr || temp?.name?.isErorr || temp?.hp?.isErorr) {
+    if (temp?.password?.isError || temp?.passwordCheck?.isError || temp?.name?.isError || temp?.hp?.isError) {
       check = false;
     }
 
@@ -69,16 +96,25 @@ const MyEditForm = ({ onStepChange }) => {
     if (validateCheck()) {
       setIsLoading(true);
 
-      editUser(body)
+      editUser({
+        id: user?.id || '',
+        name: body?.name,
+        hp: body?.hp,
+        password: body?.password,
+        adr: body?.adr,
+        adrDetail: body?.adrDetail,
+        birthdate: body?.birthdate,
+        gender: body?.gender,
+      })
         .then((res) => {
-          if (res?.status === 200) {
+          if (res.status === 200) {
             onStepChange(3);
           } else {
-            alert('', res?.message || '프로필 수정 중 오류가 발생하였습니다. <br /> 잠시 후 다시시도해주세요.');
+            alert('', res?.message || '프로필 수정 중 오류가 발생하였습니다. <br /> 잠시 후 다시시도해주세요.', undefined, undefined, undefined);
           }
         })
         .catch(() => {
-          alert('', '프로필 수정 중 오류가 발생하였습니다. <br /> 잠시 후 다시시도해주세요.');
+          alert('', '프로필 수정 중 오류가 발생하였습니다. <br /> 잠시 후 다시시도해주세요.', undefined, undefined, undefined);
         })
         .finally(() => {
           setIsLoading(false);
@@ -111,11 +147,11 @@ const MyEditForm = ({ onStepChange }) => {
               type="password"
               value={body?.password || ''}
               onChange={(e) => onChangeInputValue('password', e.target.value)}
-              isError={error?.password?.isErorr || error?.type === 'all'}
+              isError={error?.password?.isError || error?.type === 'all'}
               disabled={isAllLoading}
             />
             <Spacing spacing="4" />
-            <HelpText text={error?.password?.text} isError={error?.password?.isErorr} />
+            <HelpText text={error?.password?.text} isError={error?.password?.isError} />
             <Spacing spacing="4" />
 
             <CustomInput
@@ -126,11 +162,11 @@ const MyEditForm = ({ onStepChange }) => {
               type="password"
               value={body?.passwordCheck || ''}
               onChange={(e) => onChangeInputValue('passwordCheck', e.target.value)}
-              isError={error?.passwordCheck?.isErorr || error?.type === 'all'}
+              isError={error?.passwordCheck?.isError || error?.type === 'all'}
               disabled={isAllLoading}
             />
             <Spacing spacing="4" />
-            <HelpText text={error?.passwordCheck?.text} isError={error?.passwordCheck?.isErorr} />
+            <HelpText text={error?.passwordCheck?.text} isError={error?.passwordCheck?.isError} />
             <Spacing spacing="4" />
           </React.Fragment>
         )}
@@ -143,11 +179,11 @@ const MyEditForm = ({ onStepChange }) => {
           type="text"
           value={body?.name || ''}
           onChange={(e) => onChangeInputValue('name', e.target.value)}
-          isError={error?.name?.isErorr || error?.type === 'all'}
+          isError={error?.name?.isError || error?.type === 'all'}
           disabled={isAllLoading}
         />
         <Spacing spacing="4" />
-        <HelpText text={error?.name?.text} isError={error?.name?.isErorr} />
+        <HelpText text={error?.name?.text} isError={error?.name?.isError} />
         <Spacing spacing="4" />
 
         <CustomInput
@@ -158,30 +194,31 @@ const MyEditForm = ({ onStepChange }) => {
           type="tel"
           value={body?.hp || ''}
           onChange={(e) => onChangeInputValue('hp', e.target.value)}
-          isError={error?.hp?.isErorr || error?.type === 'all'}
+          isError={error?.hp?.isError || error?.type === 'all'}
           disabled={isAllLoading}
         />
         <Spacing spacing="4" />
-        <HelpText text={error?.hp?.text} isError={error?.hp?.isErorr} />
+        <HelpText text={error?.hp?.text} isError={error?.hp?.isError} />
         <Spacing spacing="4" />
 
         <AdressInput
-          name="adr"
+          // name="adr"
           label="주소(선택)"
           value={[body?.adr || '', body?.adrDetail || '']}
-          onChange={(e) => {
+          onChange={(e: any) => {
             onChangeInputValue('adr', e?.adr);
             onChangeInputValue('adrDetail', e?.detail);
           }}
           disabled={isAllLoading}
+          point={undefined}
         />
         <Spacing spacing="22" />
 
-        <CustomRadio label="성별(선택)" value={body?.gender || ''} onChange={(e) => onChangeInputValue('gender', e.target.value)}>
+        <CustomRadio label="성별(선택)" value={body?.gender || ''} onChange={(e: any) => onChangeInputValue('gender', e.target.value)}>
           {GENDER?.map((item) => (
             <CustomRadioItem
               key={item?.value}
-              isCheckd={body?.gender === item?.value}
+              isChecked={body?.gender === item?.value}
               value={item?.value}
               label={item?.label}
               disabled={isAllLoading}
@@ -193,12 +230,13 @@ const MyEditForm = ({ onStepChange }) => {
         <BirthForm
           label="생년월일(선택)"
           value={body?.birthdate || ''}
-          onChange={(e) => onChangeInputValue('birthdate', e)}
-          isError={error?.birthdate?.isErorr}
+          onChange={(e: any) => onChangeInputValue('birthdate', e)}
+          isError={error?.birthdate?.isError}
           disabled={isAllLoading}
+          point={undefined}
         />
         <Spacing spacing="4" />
-        <HelpText text={error?.birthdate?.text} isError={error?.birthdate?.isErorr} />
+        <HelpText text={error?.birthdate?.text} isError={error?.birthdate?.isError} />
         <Spacing spacing="22" />
 
         <CustomButton fullWidth variant="outlined" disabled={isLoading} isLoading={isLoading} onClick={onSubmit}>

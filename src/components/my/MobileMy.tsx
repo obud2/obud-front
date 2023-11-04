@@ -17,7 +17,7 @@ const MobileMy = () => {
 
   const { user } = useContext(UserContext);
 
-  const onClickMyPageItem = (id) => {
+  const onClickMyPageItem = (id: string) => {
     if (id === 'admin') {
       window.open('https://admin.obud.site/pages/auth/login');
     } else {
@@ -28,15 +28,15 @@ const MobileMy = () => {
   const adminPageShow = () => {
     let result = false;
 
-    if (user?.group === ADMIN) {
+    if (user?.userGroup === ADMIN) {
       result = true;
     }
 
-    if (user?.group === STUDIO) {
+    if (user?.userGroup === STUDIO) {
       result = true;
     }
 
-    if (user?.group === INSTRUCTOR) {
+    if (user?.userGroup === INSTRUCTOR) {
       result = true;
     }
 

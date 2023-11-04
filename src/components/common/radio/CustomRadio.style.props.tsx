@@ -2,7 +2,7 @@ export interface CustomRadioProps {
   readonly label?: string;
   readonly point?: boolean;
 
-  readonly value?: boolean;
+  readonly value?: string;
   readonly children: any;
   readonly onChange: any;
 }
@@ -17,6 +17,6 @@ export interface SCustomRadioItemProps {
   readonly value?: string;
   readonly label?: string;
 
-  readonly isCheckd?: boolean;
+  readonly isChecked?: boolean;
   readonly disabled?: boolean;
 }

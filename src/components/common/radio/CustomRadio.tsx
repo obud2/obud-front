@@ -71,10 +71,10 @@ const CustomRadio: React.FC<CustomRadioProps> = ({ label, point, children, value
   );
 };
 
-export const CustomRadioItem: React.FC<CustomRadioItemProps> = ({ value, isCheckd, label, disabled }) => {
+export const CustomRadioItem: React.FC<CustomRadioItemProps> = ({ value, isChecked, label, disabled }) => {
   return (
     <SCustomRadioItem
-      className={`${isCheckd ? 'active' : ''} ${disabled ? 'disabled' : ''}`}
+      className={`${isChecked ? 'active' : ''} ${disabled ? 'disabled' : ''}`}
       value={value}
       disabled={disabled}
       data-value={value}

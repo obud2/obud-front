@@ -20,21 +20,27 @@ const ERROR_CODE = {
   ERROR: { text: '비밀번호가 일치하지 않습니다.', type: 'pwd' },
 };
 
-const PasswordCheck = ({ onStepChange }) => {
-  const [body, setBody] = useState({});
+const PasswordCheck = ({ onStepChange }: {
+  onStepChange: (step: number) => void;
+}) => {
+  const [body, setBody] = useState<any>({});
 
-  const [error, setError] = useState({});
+  const [error, setError] = useState<{
+    text?: string;
+    isError?: boolean;
+    type?: string;
+  }>({});
   const [isLoading, setIsLoading] = useState(false);
 
-  const onChangeInputValue = (type, e) => {
-    setBody((prev) => ({ ...prev, [type]: e }));
+  const onChangeInputValue = (type: string, e: any) => {
+    setBody((prev: any) => ({ ...prev, [type]: e }));
   };
 
-  const onErrorCheck = (code) => {
-    setError({ isErorr: true, text: code?.text || '', type: code?.type || '' });
+  const onErrorCheck = (code: any) => {
+    setError({ isError: true, text: code?.text || '', type: code?.type || '' });
   };
 
-  const onKeyDownInput = (e) => {
+  const onKeyDownInput = (e: any) => {
     const KEY = e?.key;
     const ENTER = 'Enter';
 
@@ -75,11 +81,11 @@ const PasswordCheck = ({ onStepChange }) => {
           value={body?.password || ''}
           onChange={(e) => onChangeInputValue('password', e.target.value)}
           onKeyDown={onKeyDownInput}
-          isError={error?.isErorr}
+          isError={error?.isError}
           disabled={isLoading}
         />
         <Spacing spacing="6" />
-        <HelpText text={error?.text} isError={error?.isErorr} />
+        <HelpText text={error?.text} isError={error?.isError} />
         <Spacing spacing="14" />
 
         <CustomButton fullWidth variant="outlined" disabled={isLoading} isLoading={isLoading} onClick={onClickCheckPwd}>

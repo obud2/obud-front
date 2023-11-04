@@ -34,7 +34,7 @@ const Join = ({ onClickOpenAuth }) => {
     const temp = _.cloneDeep(error);
 
     if (temp[type]) {
-      temp[type].isErorr = false;
+      temp[type].isError = false;
     }
 
     setError(temp);
@@ -45,7 +45,7 @@ const Join = ({ onClickOpenAuth }) => {
     let check = true;
     const temp = joinValidateCheck(body, error);
 
-    if (temp?.id?.isErorr || temp?.password?.isErorr || temp?.passwordCheck?.isErorr || temp?.name?.isErorr || temp?.hp?.isErorr) {
+    if (temp?.id?.isError || temp?.password?.isError || temp?.passwordCheck?.isError || temp?.name?.isError || temp?.hp?.isError) {
       check = false;
     }
 
@@ -93,11 +93,11 @@ const Join = ({ onClickOpenAuth }) => {
         type="email"
         value={body?.email || ''}
         onChange={(e) => onChangeInputValue('email', e.target.value)}
-        isError={error?.email?.isErorr || error?.type === 'all'}
+        isError={error?.email?.isError || error?.type === 'all'}
         disabled={isLoading}
       />
       <Spacing spacing="4" />
-      <HelpText text={error?.email?.text} isError={error?.email?.isErorr} />
+      <HelpText text={error?.email?.text} isError={error?.email?.isError} />
       <Spacing spacing="4" />
 
       <CustomInput
@@ -108,11 +108,11 @@ const Join = ({ onClickOpenAuth }) => {
         type="password"
         value={body?.password || ''}
         onChange={(e) => onChangeInputValue('password', e.target.value)}
-        isError={error?.password?.isErorr || error?.type === 'all'}
+        isError={error?.password?.isError || error?.type === 'all'}
         disabled={isLoading}
       />
       <Spacing spacing="4" />
-      <HelpText text={error?.password?.text} isError={error?.password?.isErorr} />
+      <HelpText text={error?.password?.text} isError={error?.password?.isError} />
       <Spacing spacing="4" />
 
       <CustomInput
@@ -123,11 +123,11 @@ const Join = ({ onClickOpenAuth }) => {
         type="password"
         value={body?.passwordCheck || ''}
         onChange={(e) => onChangeInputValue('passwordCheck', e.target.value)}
-        isError={error?.passwordCheck?.isErorr || error?.type === 'all'}
+        isError={error?.passwordCheck?.isError || error?.type === 'all'}
         disabled={isLoading}
       />
       <Spacing spacing="4" />
-      <HelpText text={error?.passwordCheck?.text} isError={error?.passwordCheck?.isErorr} />
+      <HelpText text={error?.passwordCheck?.text} isError={error?.passwordCheck?.isError} />
       <Spacing spacing="4" />
 
       <CustomInput
@@ -138,11 +138,11 @@ const Join = ({ onClickOpenAuth }) => {
         type="text"
         value={body?.name || ''}
         onChange={(e) => onChangeInputValue('name', e.target.value)}
-        isError={error?.name?.isErorr || error?.type === 'all'}
+        isError={error?.name?.isError || error?.type === 'all'}
         disabled={isLoading}
       />
       <Spacing spacing="4" />
-      <HelpText text={error?.name?.text} isError={error?.name?.isErorr} />
+      <HelpText text={error?.name?.text} isError={error?.name?.isError} />
       <Spacing spacing="4" />
 
       <CustomInput
@@ -153,11 +153,11 @@ const Join = ({ onClickOpenAuth }) => {
         type="tel"
         value={body?.hp || ''}
         onChange={(e) => onChangeInputValue('hp', e.target.value)}
-        isError={error?.hp?.isErorr || error?.type === 'all'}
+        isError={error?.hp?.isError || error?.type === 'all'}
         disabled={isLoading}
       />
       <Spacing spacing="4" />
-      <HelpText text={error?.hp?.text} isError={error?.hp?.isErorr} />
+      <HelpText text={error?.hp?.text} isError={error?.hp?.isError} />
       <Spacing spacing="4" />
 
       <AdressInput
@@ -176,7 +176,7 @@ const Join = ({ onClickOpenAuth }) => {
         {GENDER?.map((item) => (
           <CustomRadioItem
             key={item?.value}
-            isCheckd={body?.gender === item?.value}
+            isChecked={body?.gender === item?.value}
             value={item?.value}
             label={item?.label}
             disabled={isLoading}
@@ -189,11 +189,11 @@ const Join = ({ onClickOpenAuth }) => {
         label="생년월일(선택)"
         value={body?.birthdate || ''}
         onChange={(e) => onChangeInputValue('birthdate', e)}
-        isError={error?.birthdate?.isErorr}
+        isError={error?.birthdate?.isError}
         disabled={isLoading}
       />
       <Spacing spacing="4" />
-      <HelpText text={error?.birthdate?.text} isError={error?.birthdate?.isErorr} />
+      <HelpText text={error?.birthdate?.text} isError={error?.birthdate?.isError} />
       <Spacing spacing="22" />
 
       <CustomButton fullWidth onClick={onClickJoin} isLoading={isLoading} disabled={isLoading}>

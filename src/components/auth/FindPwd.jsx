@@ -35,7 +35,7 @@ const FindPwd = ({ onClickOpenAuth }) => {
     const temp = _.cloneDeep(error);
 
     if (temp[type]) {
-      temp[type].isErorr = false;
+      temp[type].isError = false;
     }
 
     setError(temp);
@@ -43,7 +43,7 @@ const FindPwd = ({ onClickOpenAuth }) => {
   };
 
   const onErrorCheck = (code) => {
-    setError({ isErorr: true, text: code?.text || '', type: code?.type || '' });
+    setError({ isError: true, text: code?.text || '', type: code?.type || '' });
   };
 
   // 이메일 인증번호 발송
@@ -175,7 +175,7 @@ const FindPwd = ({ onClickOpenAuth }) => {
         />
 
         <Spacing spacing="8" />
-        <HelpText text={error?.text} isError={error?.isErorr} />
+        <HelpText text={error?.text} isError={error?.isError} />
         <Spacing spacing="8" />
 
         <CustomButton fullWidth disabled={isLoading} isLoading={isLoading} onClick={onClickFindPwd}>
@@ -199,7 +199,7 @@ const FindPwd = ({ onClickOpenAuth }) => {
           disabled={isLoading}
         />
         <Spacing spacing="8" />
-        <HelpText text={error?.text} isError={error?.isErorr} />
+        <HelpText text={error?.text} isError={error?.isError} />
         <Spacing spacing="8" />
 
         <CustomButton fullWidth disabled={isLoading} isLoading={isLoading} onClick={onClickCheckVerify}>
@@ -237,7 +237,7 @@ const FindPwd = ({ onClickOpenAuth }) => {
           disabled={isLoading}
         />
         <Spacing spacing="4" />
-        <HelpText text={error?.text} isError={error?.isErorr} />
+        <HelpText text={error?.text} isError={error?.isError} />
         <Spacing spacing="4" />
 
         <CustomButton fullWidth onClick={onChangePwd} isLoading={isLoading} disabled={isLoading}>
