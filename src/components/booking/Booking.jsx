@@ -153,7 +153,6 @@ const Booking = () => {
       });
     });
 
-    console.log('param', param);
     impPay(param, option, setIsLoading)
       .then((res) => {
         const orderStatus = res?.val?.orderStatus || 'FAIL';

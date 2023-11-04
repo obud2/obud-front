@@ -23,7 +23,7 @@ import WithdrawModal from './WithdrawModal';
 
 type Props = {
   onStepChange: (step: number) => void;
-}
+};
 
 type UserForm = {
   isSns?: boolean;
@@ -43,7 +43,8 @@ const MyEditForm = ({ onStepChange }: Props) => {
 
   const [body, setBody] = useState<UserForm>({});
 
-  const [error, setError] = useState<Partial<Record<keyof UserForm, { text: string; isError: boolean }> & { type?: string }>>(DEFALUT_ERROR);
+  const [error, setError] =
+    useState<Partial<Record<keyof UserForm, { text: string; isError: boolean }> & { type?: string }>>(DEFALUT_ERROR);
   const [isLoading, setIsLoading] = useState(true);
 
   const [isWithdraw, setIsWithdraw] = useState(false);
@@ -71,6 +72,7 @@ const MyEditForm = ({ onStepChange }: Props) => {
     const temp: Partial<Record<keyof UserForm, { text: string; isError: boolean }>> = _.cloneDeep(error);
 
     if (temp[type]) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       temp[type]!.isError = false;
     }
 
@@ -110,7 +112,13 @@ const MyEditForm = ({ onStepChange }: Props) => {
           if (res.status === 200) {
             onStepChange(3);
           } else {
-            alert('', res?.message || '프로필 수정 중 오류가 발생하였습니다. <br /> 잠시 후 다시시도해주세요.', undefined, undefined, undefined);
+            alert(
+              '',
+              res?.message || '프로필 수정 중 오류가 발생하였습니다. <br /> 잠시 후 다시시도해주세요.',
+              undefined,
+              undefined,
+              undefined,
+            );
           }
         })
         .catch(() => {
