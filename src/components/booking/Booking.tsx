@@ -36,10 +36,10 @@ const Booking = () => {
   const { user } = useContext(UserContext);
   const { deleteCart } = useContext<any>(CartContext);
 
-  const [userInfo, setUserInfo] = useState<{name?: string; hp?: string; email?: string}>({});
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [userInfo, setUserInfo] = useState<{ name?: string; hp?: string; email?: string }>({});
+  const [totalPrice, setTotalPrice] = useState<number>(0);
 
-  const [payMethod, setPayMethod] = useState(PAYMENT_METHOD[0]?.id || 'card');
+  const [payMethod, setPayMethod] = useState<typeof PAYMENT_METHOD[number]['id']>(PAYMENT_METHOD[0].id);
 
   const [isAgree, setIsAgree] = useState({
     policy: false,
@@ -78,14 +78,14 @@ const Booking = () => {
   }, [user]);
 
   // 회원 정보 불러오기 토글
-  const onClickUserInfoBring = (e) => {
-    if (e) {
+  const onClickUserInfoBring = (loadUser: boolean) => {
+    if (loadUser) {
       setUserInfo({ name: user?.name, hp: user?.phone, email: user?.email });
     } else {
       setUserInfo({});
     }
 
-    setIsUserInfoBring(e);
+    setIsUserInfoBring(loadUser);
   };
 
   // 예약자 정보 인풋
@@ -99,7 +99,7 @@ const Booking = () => {
   };
 
   // 결제수단
-  const onChangePayMethod = (type) => {
+  const onChangePayMethod = (type: typeof PAYMENT_METHOD[number]['id']) => {
     setPayMethod(type);
   };
 
@@ -127,47 +127,45 @@ const Booking = () => {
     }
 
     setIsLoading(true);
-    const cart: string[] = [];
-    const param: {
-      planId: string;
-      price: number;
-      startDate: string;
-      endDate: string;
-      instructor:string;
-      reservationer:string;
-      reservationerHp:string;
-      reservationCount:number
-      payOption:string;
-      payOptionCount:number;
-    }[] = [];
-    const option = {
+
+    const payOption = {
       payMethod,
-      userInfo,
+      userInfo: {
+        name: userInfo.name,
+        hp: userInfo.hp,
+        email: userInfo.email || '',
+      },
       title: `${order?.[0]?.lessonTitle}${order?.length > 1 ? order.length - 1 : ''}`,
       amount: totalPrice,
     };
 
-    order.forEach((a) => {
-      if (a?.cart) {
-        cart.push(a?.id);
-      }
+    const cart: string[] = order.filter((it) => it?.cart).map((it) => it?.id);
+    const createOrderParams: {
+      planId: string;
+      price: number;
+      startDate: string;
+      endDate: string;
+      instructor: string;
+      reservationer: string;
+      reservationerHp: string;
+      reservationCount: number
+      payOption: string;
+      payOptionCount: number;
+    }[] = order.map((it) => ({
+      planId: it?.planId || '',
+      price: it?.price || 0,
+      startDate: it?.startDate || '',
+      endDate: it?.endDate || '',
+      instructor: it?.instructor || '',
+      reservationer: userInfo?.name || '',
+      reservationerHp: userInfo?.hp || '',
+      reservationCount: it?.reservationCount || 0,
+      payOption: it?.payOption || '',
+      payOptionCount: it?.payOptionCount || 0,
+    }));
 
-      param.push({
-        planId: a?.planId || '',
-        price: a?.price || 0,
-        startDate: a?.startDate || '',
-        endDate: a?.endDate || '',
-        instructor: a?.instructor || '',
-        reservationer: userInfo?.name || '',
-        reservationerHp: userInfo?.hp || '',
-        reservationCount: a?.reservationCount || 0,
-        payOption: a?.payOption || '',
-        payOptionCount: a?.payOptionCount || 0,
-      });
-    });
-
-    impPay(param, option, setIsLoading)
-      .then((res) => {
+    impPay(createOrderParams, payOption, setIsLoading)
+      .then((res: any) => {
         const orderStatus = res?.val?.orderStatus || 'FAIL';
         const errorMsg = res?.error_msg || '';
 
@@ -182,11 +180,11 @@ const Booking = () => {
         if (orderStatus === 'FAIL') {
           if (errorMsg) {
             alert('', errorMsg, '', '', () => {
-              router.push('/');
+              router.push('/class');
             });
           } else {
             alert('', '예약을 취소하였습니다.', '', '', () => {
-              router.push('/');
+              router.push('/class');
             });
           }
         }
@@ -208,7 +206,12 @@ const Booking = () => {
           <header className="booking-header">
             <p className="booking-title">예약자 정보</p>
 
-            <CustomCheckBox label="회원 정보 불러오기" value={isUserInfoBring} onClick={onClickUserInfoBring} disabled={isLoading} />
+            <CustomCheckBox
+              label="회원 정보 불러오기"
+              value={isUserInfoBring}
+              onClick={onClickUserInfoBring}
+              disabled={isLoading}
+            />
           </header>
 
           <main className="booking-user-info">
@@ -251,13 +254,13 @@ const Booking = () => {
 
           {/* 결제수단 */}
           <div className="booking-paymethod-container">
-            <CustomRadio value={payMethod || ''} onChange={(e) => onChangePayMethod(e?.target?.value)}>
-              {PAYMENT_METHOD?.filter((a) => a?.isShow)?.map((item) => (
+            <CustomRadio value={payMethod || ''} onChange={(e) => onChangePayMethod(e.target.value)}>
+              {PAYMENT_METHOD.filter((a) => a.isShow).map((item) => (
                 <CustomRadioItem
-                  key={item?.id}
-                  isChecked={item?.id === payMethod}
-                  value={item?.id}
-                  label={item?.value}
+                  key={item.id}
+                  isChecked={item.id === payMethod}
+                  value={item.id}
+                  label={item.value}
                   disabled={isLoading}
                 />
               ))}
@@ -286,7 +289,13 @@ const Booking = () => {
             />
           </footer>
 
-          <CustomButton variant="outlined" fullWidth onClick={onClickPayOrder} disabled={isLoading} isLoading={isLoading}>
+          <CustomButton
+            variant="outlined"
+            fullWidth
+            onClick={onClickPayOrder}
+            disabled={isLoading}
+            isLoading={isLoading}
+          >
             결제하기
           </CustomButton>
         </section>

@@ -10,8 +10,8 @@ const setOrder = (param) => {
       axiosInstance
       .post('order', { orders: param })
       .then((res) => {
-        if (res?.status === 200) {
-          resolve(res?.data?.value);
+        if (res.status === 200 || res.status === 201) {
+          resolve(res.data.value);
         } else {
           reject(res);
         }
@@ -25,8 +25,8 @@ const orderComplete = (param) => {
     axiosInstance
       .post('order/complete', param)
       .then((res) => {
-        if (res?.status === 200) {
-          resolve(res?.data?.value);
+        if (res.status === 200 || res.status === 201) {
+          resolve(res.data.value);
         } else {
           reject(res);
         }

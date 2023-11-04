@@ -23,7 +23,7 @@ export const S3_BUCKET = process.env.NEXT_PUBLIC_AWS_USER_S3;
 export const BASE_IMG_URL = `https://s3.ap-northeast-2.amazonaws.com/${S3_BUCKET}/`;
 
 export const KAKAO_KEY = '71bde496bc9c376d57c6ddd6ca49e764';
-export const IMP_CODE = 'imp85674154';
+export const IMP_CODE = 'imp27153470';
 
 /**
  * GR0100 : 어드민 ( 모든 권한 )
