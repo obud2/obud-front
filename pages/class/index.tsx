@@ -14,11 +14,33 @@ const Index = ({ studios }: any) => {
   );
 };
 
+type Studio = {
+  isShow: boolean;
+  updatedAt: number;
+  category?: string[];
+  lessonType?: 'Special';
+  specialSort: number;
+  createdAt: number;
+  images: {
+      name: string;
+      size: number;
+      type: string;
+      upload: boolean;
+      key: string;
+      url: string;
+    }[];
+  id: string;
+  createdBy: string;
+  studiosId?: string;
+  sortOrder: number;
+  title: string;
+};
+
 export const getStaticProps = async (context: GetServerSidePropsContext) => {
   const { sort } = context.query || {};
 
   const res = await Promise.all([StudioService.getSpecialList(), StudioService.getStudios(sort)]);
-  const studios = [];
+  const studios: Studio[][] = [];
 
   studios.push(res[0]); // Special 상품
   studios.push(res[1] || []); // Regular 업로드한지 2주 안지난 상품
