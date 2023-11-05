@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
-import { API_URL } from 'src/constants';
+import { API_URL, APP_URL } from 'src/constants';
 
 import { Spacing } from 'src/styled/CommonStyles';
 import { SSnsIcon } from './SnsLogin.styled';
 
-import CustomImage from '@components/common/image/CustomImage';
-import CustomButton from '@components/common/button/CustomButton';
 import axiosInstance from '@/constants/AxiosInstance';
+import CustomButton from '@components/common/button/CustomButton';
+import CustomImage from '@components/common/image/CustomImage';
 
 // TODO: move to entity
 type SnsType = 'kakao' | 'naver' | 'apple' | 'google';
@@ -38,7 +38,8 @@ const SnsLogin = ({ disabled, setIsLoading }: Props) => {
   const handleAppleLogin = async (jwt: string) => {
     try {
       setIsLoading(true);
-      await axiosInstance.post('/user/auth/apple/callback', { id_token: jwt });
+      const { data } = await axiosInstance.post('/user/auth/apple/native/callback', { id_token: jwt });
+      window.location.href = `${APP_URL}/${data.path}${data.query}}`;
     } catch (err) {
       // eslint-disable-next-line no-console
       console.log(err);
