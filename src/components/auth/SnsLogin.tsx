@@ -27,6 +27,14 @@ const SnsLogin = ({ disabled, setIsLoading }: Props) => {
     window.location.href = `${API_URL}/user/auth/${sns}`;
   };
 
+  const onClickLogin = () => {
+    if (window.ReactNativeWebView) {
+      window?.ReactNativeWebView?.postMessage(JSON.stringify({ method: 'APPLE_SIGNIN' }));
+    } else {
+      onClickSnsLoading('apple');
+    }
+  };
+
   const handleAppleLogin = async (jwt: string) => {
     try {
       setIsLoading(true);
@@ -69,14 +77,7 @@ const SnsLogin = ({ disabled, setIsLoading }: Props) => {
         네이버로 시작하기
       </CustomButton>
       <Spacing spacing="8" /> */}
-      <CustomButton
-        fullWidth
-        variant="outlined"
-        backgroundColor="#283544"
-        textColor="#ffffff"
-        disabled={disabled || !window?.ReactNativeWebView}
-        onClick={() => window?.ReactNativeWebView?.postMessage(JSON.stringify({ method: 'APPLE_SIGNIN' }))}
-      >
+      <CustomButton fullWidth variant="outlined" backgroundColor="#283544" textColor="#ffffff" disabled={disabled} onClick={onClickLogin}>
         <SnsIcon icon="apple_icon" width={18} height={21} />
         Apple로 시작하기
       </CustomButton>
@@ -87,7 +88,7 @@ const SnsLogin = ({ disabled, setIsLoading }: Props) => {
         backgroundColor="transparent"
         textColor="#000000"
         disabled={disabled}
-        onClick={() => onClickSnsLoading('google')}
+        onClick={onClickLogin}
       >
         <SnsIcon icon="google_icon" />
         Google로 시작하기
