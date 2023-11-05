@@ -88,7 +88,7 @@ const SnsLogin = ({ disabled, setIsLoading }: Props) => {
         backgroundColor="transparent"
         textColor="#000000"
         disabled={disabled}
-        onClick={onClickLogin}
+        onClick={() => onClickSnsLoading('google')}
       >
         <SnsIcon icon="google_icon" />
         Google로 시작하기
