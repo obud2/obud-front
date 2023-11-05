@@ -39,7 +39,7 @@ const SnsLogin = ({ disabled, setIsLoading }: Props) => {
     try {
       setIsLoading(true);
       const { data } = await axiosInstance.post('/user/auth/apple/native/callback', { id_token: jwt });
-      window.location.href = `${APP_URL}/${data.path}${data.query}}`;
+      window.location.href = `${APP_URL}/${data.path}${data.query}`;
     } catch (err) {
       // eslint-disable-next-line no-console
       console.log(err);
