@@ -8,7 +8,7 @@ export const TopbarMobileHeight = '5.6rem';
 export const FooterHeight = '25.0rem';
 export const FooterMobileHeight = '38.1rem';
 
-export const NAVIGATION_HEIGHT = '8.5rem';
+export const NAVIGATION_HEIGHT = '5.5rem';
 
 /* ////////////////////////////////////////////
                   Header
