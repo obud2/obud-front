@@ -28,7 +28,7 @@ import FallBackLoading from '@components/loading/FallBackLoading';
 
 const Booking = () => {
   const queryClient = useQueryClient();
-  const { impPay } = useBookingSetting();
+  const { impPay, impPayNative } = useBookingSetting();
 
   const router = useRouter();
 
@@ -39,7 +39,7 @@ const Booking = () => {
   const [userInfo, setUserInfo] = useState<{ name?: string; hp?: string; email?: string }>({});
   const [totalPrice, setTotalPrice] = useState<number>(0);
 
-  const [payMethod, setPayMethod] = useState<typeof PAYMENT_METHOD[number]['id']>(PAYMENT_METHOD[0].id);
+  const [payMethod, setPayMethod] = useState<(typeof PAYMENT_METHOD)[number]['id']>(PAYMENT_METHOD[0].id);
 
   const [isAgree, setIsAgree] = useState({
     policy: false,
@@ -99,7 +99,7 @@ const Booking = () => {
   };
 
   // 결제수단
-  const onChangePayMethod = (type: typeof PAYMENT_METHOD[number]['id']) => {
+  const onChangePayMethod = (type: (typeof PAYMENT_METHOD)[number]['id']) => {
     setPayMethod(type);
   };
 
@@ -148,7 +148,7 @@ const Booking = () => {
       instructor: string;
       reservationer: string;
       reservationerHp: string;
-      reservationCount: number
+      reservationCount: number;
       payOption: string;
       payOptionCount: number;
     }[] = order.map((it) => ({
@@ -164,36 +164,40 @@ const Booking = () => {
       payOptionCount: it?.payOptionCount || 0,
     }));
 
-    impPay(createOrderParams, payOption, setIsLoading)
-      .then((res: any) => {
-        const orderStatus = res?.val?.orderStatus || 'FAIL';
-        const errorMsg = res?.error_msg || '';
+    if (window.ReactNativeWebView) {
+      impPayNative(createOrderParams, payOption);
+    } else {
+      impPay(createOrderParams, payOption, setIsLoading)
+        .then((res: any) => {
+          const orderStatus = res?.val?.orderStatus || 'FAIL';
+          const errorMsg = res?.error_msg || '';
 
-        queryClient.invalidateQueries(['my-order-list'], { refetchInactive: true });
+          queryClient.invalidateQueries(['my-order-list'], { refetchInactive: true });
 
-        if (orderStatus === 'COMPLETE') {
-          alert('', '감사합니다. <br /> 예약이 완료되었습니다.', '', '', () => {
-            deleteCart(cart);
-            router.push('/my/order');
-          });
-        }
-        if (orderStatus === 'FAIL') {
-          if (errorMsg) {
-            alert('', errorMsg, '', '', () => {
-              router.push('/class');
-            });
-          } else {
-            alert('', '예약을 취소하였습니다.', '', '', () => {
-              router.push('/class');
+          if (orderStatus === 'COMPLETE') {
+            alert('', '감사합니다. <br /> 예약이 완료되었습니다.', '', '', () => {
+              deleteCart(cart);
+              router.push('/my/order');
             });
           }
-        }
-      })
-      .catch(() => {
-        alert('', '예약 실패하였습니다. <br /> 잠시 후 다시시도해주세요.', '', '', () => {
-          router.push('/');
+          if (orderStatus === 'FAIL') {
+            if (errorMsg) {
+              alert('', errorMsg, '', '', () => {
+                router.push('/class');
+              });
+            } else {
+              alert('', '예약을 취소하였습니다.', '', '', () => {
+                router.push('/class');
+              });
+            }
+          }
+        })
+        .catch(() => {
+          alert('', '예약 실패하였습니다. <br /> 잠시 후 다시시도해주세요.', '', '', () => {
+            router.push('/');
+          });
         });
-      });
+    }
   };
 
   return (
@@ -205,13 +209,7 @@ const Booking = () => {
         <section className="booking-user-info-container">
           <header className="booking-header">
             <p className="booking-title">예약자 정보</p>
-
-            <CustomCheckBox
-              label="회원 정보 불러오기"
-              value={isUserInfoBring}
-              onClick={onClickUserInfoBring}
-              disabled={isLoading}
-            />
+            <CustomCheckBox label="회원 정보 불러오기" value={isUserInfoBring} onClick={onClickUserInfoBring} disabled={isLoading} />
           </header>
 
           <main className="booking-user-info">
@@ -256,13 +254,7 @@ const Booking = () => {
           <div className="booking-paymethod-container">
             <CustomRadio value={payMethod || ''} onChange={(e) => onChangePayMethod(e.target.value)}>
               {PAYMENT_METHOD.filter((a) => a.isShow).map((item) => (
-                <CustomRadioItem
-                  key={item.id}
-                  isChecked={item.id === payMethod}
-                  value={item.id}
-                  label={item.value}
-                  disabled={isLoading}
-                />
+                <CustomRadioItem key={item.id} isChecked={item.id === payMethod} value={item.id} label={item.value} disabled={isLoading} />
               ))}
             </CustomRadio>
           </div>
@@ -289,13 +281,7 @@ const Booking = () => {
             />
           </footer>
 
-          <CustomButton
-            variant="outlined"
-            fullWidth
-            onClick={onClickPayOrder}
-            disabled={isLoading}
-            isLoading={isLoading}
-          >
+          <CustomButton variant="outlined" fullWidth onClick={onClickPayOrder} disabled={isLoading} isLoading={isLoading}>
             결제하기
           </CustomButton>
         </section>

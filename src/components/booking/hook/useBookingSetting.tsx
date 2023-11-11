@@ -15,13 +15,13 @@ type CreateOrderParam = {
   instructor: string;
   reservationer: string;
   reservationerHp: string;
-  reservationCount: number
+  reservationCount: number;
   payOption: string;
   payOptionCount: number;
 };
 
 type PayOptions = {
-  payMethod: typeof PAYMENT_METHOD[number]['id'];
+  payMethod: (typeof PAYMENT_METHOD)[number]['id'];
   userInfo: { name: string; hp: string; email?: string };
   title: string;
   amount: number;
@@ -38,17 +38,78 @@ const useBookingSetting = () => {
     document.head.appendChild(jquery);
     document.head.appendChild(iamport);
 
+    const handleMessage = (event: MessageEvent) => {
+      const { data } = event;
+      const response = JSON.parse(data);
+      // eslint-disable-next-line no-console
+      console.log(response);
+      alert('response', data);
+    };
+
+    window.addEventListener('message', (event) => handleMessage(event));
+
     return () => {
       document.head.removeChild(jquery);
       document.head.removeChild(iamport);
+      window.removeEventListener('message', (event) => handleMessage(event));
     };
   }, []);
 
-  const impPay = (
-    createOrderParams: CreateOrderParam[],
-    payOptions: PayOptions,
-    setLoading: (loading: boolean) => void,
-  ) => {
+  const impPayNative = async (createOrderParams: CreateOrderParam[], payOptions: PayOptions) => {
+    if (typeof window === 'undefined' || !window.IMP) {
+      throw new Error('결제 준비가 되지 않았어요. 개발자에게 문의해주세요!');
+    }
+
+    const res = await OrderService.setOrder(createOrderParams);
+
+    if (res.result !== 'success') throw new Error();
+
+    const requestPayParams: RequestPayParams = {
+      app_scheme: 'obud',
+      pg: `${'danal_tpay'}.${9810030929}`,
+      pay_method: payOptions.payMethod,
+      merchant_uid: res.val.id,
+      amount: payOptions.amount,
+      name: payOptions.title,
+      buyer_name: payOptions.userInfo?.name,
+      buyer_email: payOptions.userInfo?.email,
+    };
+
+    if (requestPayParams.amount === 0) {
+      // 결제 금액 0원일 시
+      const merchant = {
+        merchant_uid: res.val.id || '',
+        imp_uid: 'atoz', // 0원 결제 시 impId  : atoz
+        payInfo: {},
+      };
+
+      const cancel = {
+        merchant_uid: res.val.id || '',
+        imp_uid: 'atoz',
+        cancelAmount: payOptions?.amount,
+        reason: '결제 중 취소',
+      };
+
+      // 결제 성공
+      try {
+        const orderRes = await OrderService.orderComplete(merchant);
+        return orderRes;
+      } catch (err) {
+        const cancelRes = await OrderService.payCancel(cancel);
+        return cancelRes;
+      }
+    }
+
+    const params = {
+      method: 'IAMPORT_PAYMENT',
+      userCode: IMP_CODE, // 가맹점 식별코드
+      payParams: requestPayParams,
+      type: 'payment', // 결제와 본인인증을 구분하기 위한 필드
+    };
+    window.ReactNativeWebView?.postMessage(JSON.stringify(params));
+  };
+
+  const impPay = (createOrderParams: CreateOrderParam[], payOptions: PayOptions, setLoading: (loading: boolean) => void) => {
     if (typeof window === 'undefined' || !window.IMP) {
       throw new Error('결제 준비가 되지 않았어요. 개발자에게 문의해주세요!');
     }
@@ -59,9 +120,8 @@ const useBookingSetting = () => {
       // 결제 테이블 추가작업.
       OrderService.setOrder(createOrderParams)
         .then((res) => {
-          if (res.result !== 'success') {
-            reject(res);
-          }
+          if (res.result !== 'success') reject(res);
+
           const requestPayParams: RequestPayParams = {
             app_scheme: 'obud',
             pg: `${'danal_tpay'}.${9810030929}`,
@@ -101,7 +161,8 @@ const useBookingSetting = () => {
 
           // 결제 모듈 띄우기 및 결제 처리
           setLoading(false);
-          window.IMP!.request_pay(requestPayParams, (rsp) => {
+
+          window.IMP?.request_pay(requestPayParams, (rsp) => {
             const merchant = {
               merchant_uid: res.val.id || '',
               imp_uid: rsp.imp_uid,
@@ -128,7 +189,7 @@ const useBookingSetting = () => {
                 });
             } else {
               // 결제 실패
-              OrderService.orderFali(merchant)
+              OrderService.orderFail(merchant)
                 .then(() => {
                   resolve(rsp);
                 })
@@ -148,7 +209,7 @@ const useBookingSetting = () => {
     });
   };
 
-  return { impPay };
+  return { impPay, impPayNative };
 };
 
 export default useBookingSetting;
