@@ -22,7 +22,7 @@ export const IMG_PATH = '/img';
 export const S3_BUCKET = process.env.NEXT_PUBLIC_AWS_USER_S3;
 export const BASE_IMG_URL = `https://s3.ap-northeast-2.amazonaws.com/${S3_BUCKET}/`;
 
-export const KAKAO_KEY = '71bde496bc9c376d57c6ddd6ca49e764';
+export const KAKAO_KEY = '1bc0b186ced3029a79848ac251cee6b9';
 export const IMP_CODE = 'imp27153470';
 
 /**
