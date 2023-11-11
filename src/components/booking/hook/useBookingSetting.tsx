@@ -63,6 +63,7 @@ const useBookingSetting = () => {
             reject(res);
           }
           const requestPayParams: RequestPayParams = {
+            app_scheme: 'obud',
             pg: `${'danal_tpay'}.${9810030929}`,
             pay_method: payOptions.payMethod,
             merchant_uid: res.val.id,
