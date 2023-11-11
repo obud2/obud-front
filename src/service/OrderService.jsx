@@ -35,7 +35,7 @@ const orderComplete = (param) => {
   });
 };
 
-const orderFali = (param) => {
+const orderFail = (param) => {
   return new Promise((resolve, reject) => {
     axiosInstance
       .post('order/payFail', param)
@@ -86,7 +86,7 @@ const cancelCheck = (id) => {
 const OrderService = {
   setOrder,
   orderComplete,
-  orderFali,
+  orderFail,
   payCancel,
   reservationCancel,
   cancelCheck,
