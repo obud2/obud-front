@@ -46,7 +46,6 @@ const Footer = ({ footerHide }: Props) => {
           <div className="footer-arrow-top-button" onClick={scrollTop}>
             <BiArrowToTop />
           </div>
-
           <div className="footer-info-container">
             <div className="footer-contents-container">
               <div className="footer-contact-menu-items">
@@ -56,37 +55,26 @@ const Footer = ({ footerHide }: Props) => {
                     About
                   </div>
                 )} */}
-
                 <div className="footer-button" onClick={() => onClickRouter('/contact')}>
                   Contact Us
                 </div>
-
                 <div className="footer-button" onClick={() => window.open('https://pf.kakao.com/_xaxaxdwxj/chat')}>
                   고객 센터: 카카오 채널
                   <span className="footer-service-hour"> (평일: 오전 9시 ~ 오후 5시)</span>
                 </div>
               </div>
-
               <div className="footer-general-info-items">
                 <span>회사 {root?.info?.companyName || 'obud 오붓'}</span>
                 <i className="line" />
-
                 <span>대표 {root?.info?.ceo || '노인혁'}</span>
                 <i className="line" />
-
-                {/* {matchese && <div className="line-change small" />} */}
-
                 <span>사업자번호 {root?.info?.companyRegistrationNumber || '828-08-02396'}</span>
                 <i className="line" />
                 <span>연락처 {root?.info?.contact || '010-7906-8481'}</span>
                 <i className="line" />
-
                 <span>통신판매업 {root?.info?.telecommunicationNumber || '제 2022-제주아라-0161'}</span>
                 <i className="line" />
-
-                {/* Line */}
                 <div className="line-change small" />
-
                 <span>
                   {root?.info?.address ||
                     '주소 제주특별자치도 제주시 중앙로 217 제주벤처마루 | 서울 사무실 서울 행당동 387, 집무실 왕십리점'}
