@@ -165,6 +165,8 @@ const Booking = () => {
     }));
 
     if (window.ReactNativeWebView) {
+      // eslint-disable-next-line no-console
+      console.log('HEY');
       impPayNative(createOrderParams, payOption);
     } else {
       impPay(createOrderParams, payOption, setIsLoading)

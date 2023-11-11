@@ -61,6 +61,8 @@ const useBookingSetting = () => {
     }
 
     const res = await OrderService.setOrder(createOrderParams);
+    // eslint-disable-next-line no-console
+    console.log('RES: ', res);
 
     if (res.result !== 'success') throw new Error();
 
@@ -74,6 +76,9 @@ const useBookingSetting = () => {
       buyer_name: payOptions.userInfo?.name,
       buyer_email: payOptions.userInfo?.email,
     };
+
+    // eslint-disable-next-line no-console
+    console.log('requestPayParams: ', requestPayParams);
 
     if (requestPayParams.amount === 0) {
       // 결제 금액 0원일 시
@@ -106,6 +111,8 @@ const useBookingSetting = () => {
       payParams: requestPayParams,
       type: 'payment', // 결제와 본인인증을 구분하기 위한 필드
     };
+    // eslint-disable-next-line no-console
+    console.log('params: ', params);
     window.ReactNativeWebView?.postMessage(JSON.stringify(params));
   };
 
