@@ -75,6 +75,7 @@ const useBookingSetting = () => {
       name: payOptions.title,
       buyer_name: payOptions.userInfo?.name,
       buyer_email: payOptions.userInfo?.email,
+      buyer_tel: payOptions.userInfo?.hp,
     };
 
     // eslint-disable-next-line no-console
