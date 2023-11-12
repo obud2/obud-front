@@ -24,18 +24,26 @@ const ClassList = ({ studioId }: Props) => {
           <ul className="class-item-list-container">
             {data?.value
               ?.sort((a: any, b: any) => (a.sortOrder < b.sortOrder ? 1 : -1))
-              ?.map((item: any) => (
-                <li key={item?.id} className={`class-item ${item?.isSoldOut ? 'isSoldOut' : ''}`} onClick={() => onClickGoLesson(item?.id)}>
-                  <div className="class-title-container">
-                    <p>{item?.title || ''}</p>
-                    {item?.isSoldOut && <div className="item-impossible">품절</div>}
-                  </div>
-                  <div className="class-price-container">
-                    <p>{addComma(item?.minPrice || 0)}원</p>
-                    <div className="class-arrow-icon" />
-                  </div>
-                </li>
-              ))}
+              ?.map((item: any) => {
+                const showMaxPrice = !!item?.maxPrice && item?.maxPrice !== item?.minPrice;
+                return (
+                  <li
+                    key={item?.id}
+                    className={`class-item ${item?.isSoldOut ? 'isSoldOut' : ''}`}
+                    onClick={() => onClickGoLesson(item?.id)}
+                  >
+                    <div className="class-title-container">
+                      <p>{item?.title || ''}</p>
+                      {item?.isSoldOut && <div className="item-impossible">품절</div>}
+                    </div>
+                    <div className="class-price-container">
+                      {!showMaxPrice && (<p>{addComma(item?.minPrice || 0)}원</p>)}
+                      {showMaxPrice && (<p>{addComma(item?.minPrice || 0)}원 - {addComma(item?.maxPrice)}원</p>)}
+                      <div className="class-arrow-icon" />
+                    </div>
+                  </li>
+                );
+              })}
           </ul>
         ) : (
           <p className="empty-text">등록된 수업이 없습니다.</p>
