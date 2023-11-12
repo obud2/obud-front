@@ -49,8 +49,8 @@ const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, isClea
   }, [selectDate, selectTime, selectCount, selectOption, selectOptionCount]);
 
   useEffect(() => {
-    if (data?.day[selectDate]) {
-      const list = _.cloneDeep(data?.day[selectDate]);
+    if (data?.day && selectDate && data.day[selectDate]) {
+      const list = _.cloneDeep(data.day[selectDate]);
       const nowTime = moment().valueOf();
 
       list?.forEach((a: any) => {
