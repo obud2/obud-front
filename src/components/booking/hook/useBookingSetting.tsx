@@ -56,13 +56,15 @@ const useBookingSetting = () => {
         payInfo: response,
       };
 
-      alert('', JSON.stringify(response, null, 2));
-
       if (response.imp_uid && response.status === 'paid') {
         alert('', 'HERE');
         try {
           const { val, error_msg: errorMsg } = await OrderService.orderComplete(merchant);
           const orderStatus = val.orderStatus || 'FAIL';
+
+          alert('', orderStatus);
+          alert('', errorMsg);
+          alert('', JSON.stringify(val));
           queryClient.invalidateQueries(['my-order-list'], { refetchInactive: true });
 
           if (orderStatus === 'COMPLETE') {
