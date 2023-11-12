@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable no-console */
 import { useContext, useEffect } from 'react';
 
@@ -56,7 +57,9 @@ const useBookingSetting = () => {
         payInfo: response,
       };
 
-      alert('', `response.imp_uid: ${response.imp_uid}\nresponse.status: ${response.status}`);
+      window.alert(data);
+      window.alert(JSON.stringify(response));
+      alert('specific field', `response.imp_uid: ${response.imp_uid}\nresponse.status: ${response.status}`);
 
       if (response.imp_uid && response.status === 'paid') {
         alert('', 'HERE');
