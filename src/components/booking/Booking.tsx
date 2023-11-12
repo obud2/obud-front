@@ -105,7 +105,7 @@ const Booking = () => {
   };
 
   // 예약하기
-  const onClickPayOrder = () => {
+  const onClickPayOrder = async () => {
     if (!userInfo?.name) {
       alert('', '예약자명은 필수입니다.');
       return;
@@ -167,39 +167,46 @@ const Booking = () => {
 
     if (window.ReactNativeWebView) {
       console.log('impPayNative', createOrderParams, payOption);
-      impPayNative(createOrderParams, payOption);
+      try {
+        await impPayNative(createOrderParams, payOption);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setIsLoading(false);
+      }
     } else {
-      impPay(createOrderParams, payOption, setIsLoading)
-        .then((res: any) => {
-          console.log('impPay res', res);
-          const orderStatus = res?.val?.orderStatus || 'FAIL';
-          const errorMsg = res?.error_msg || '';
+      try {
+        const res = (await impPay(createOrderParams, payOption, setIsLoading)) as any;
+        console.log('impPay res', res);
+        const orderStatus = res?.val?.orderStatus || 'FAIL';
+        const errorMsg = res?.error_msg || '';
 
-          queryClient.invalidateQueries(['my-order-list'], { refetchInactive: true });
+        queryClient.invalidateQueries(['my-order-list'], { refetchInactive: true });
 
-          if (orderStatus === 'COMPLETE') {
-            alert('', '감사합니다. <br /> 예약이 완료되었습니다.', '', '', () => {
-              deleteCart(cart);
-              router.push('/my/order');
+        if (orderStatus === 'COMPLETE') {
+          alert('', '감사합니다. <br /> 예약이 완료되었습니다.', '', '', () => {
+            deleteCart(cart);
+            router.push('/my/order');
+          });
+        }
+        if (orderStatus === 'FAIL') {
+          if (errorMsg) {
+            alert('', errorMsg, '', '', () => {
+              router.push('/class');
+            });
+          } else {
+            alert('', '예약을 취소하였습니다.', '', '', () => {
+              router.push('/class');
             });
           }
-          if (orderStatus === 'FAIL') {
-            if (errorMsg) {
-              alert('', errorMsg, '', '', () => {
-                router.push('/class');
-              });
-            } else {
-              alert('', '예약을 취소하였습니다.', '', '', () => {
-                router.push('/class');
-              });
-            }
-          }
-        })
-        .catch(() => {
-          alert('', '예약 실패하였습니다. <br /> 잠시 후 다시시도해주세요.', '', '', () => {
-            router.push('/');
-          });
+        }
+      } catch (err) {
+        alert('', '예약 실패하였습니다. <br /> 잠시 후 다시시도해주세요.', '', '', () => {
+          router.push('/');
         });
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
