@@ -65,9 +65,6 @@ const useBookingSetting = () => {
 
           queryClient.invalidateQueries(['my-order-list'], { refetchInactive: true });
 
-          window.alert(`결제가 완료되었습니다. orderStatus: ${orderStatus}`);
-          window.alert(JSON.stringify(val));
-
           if (orderStatus === 'COMPLETE') {
             alert('', '감사합니다. <br /> 예약이 완료되었습니다.', '', '', () => {
               deleteCart(cart);
