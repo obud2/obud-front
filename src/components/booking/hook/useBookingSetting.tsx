@@ -59,10 +59,13 @@ const useBookingSetting = () => {
       };
 
       if (response.imp_uid && response.status === 'paid') {
+        alert('HEY', '');
         try {
           const { val, error_msg: errorMsg } = await OrderService.orderComplete(merchant);
           const orderStatus = val.orderStatus || 'FAIL';
           queryClient.invalidateQueries(['my-order-list'], { refetchInactive: true });
+
+          alert('HEY2', val, errorMsg);
 
           if (orderStatus === 'COMPLETE') {
             alert('', '감사합니다. <br /> 예약이 완료되었습니다.', '', '', () => {
