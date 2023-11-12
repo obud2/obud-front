@@ -5,8 +5,10 @@ import CustomImage from '../common/image/CustomImage';
 import { MOBILE_SIZE } from '@/styled/variablesStyles';
 import { IMG_PATH } from '@/constants';
 import { LayoutContext } from '@/context/LayoutContext';
+import { useRouter } from 'next/router';
 
 const About = () => {
+  const router = useRouter();
   const { matchese } = useContext(LayoutContext);
   const SLOGAN = '웰니스 생활을 편리하게';
   const SLOGAN_SUB = 'Book Your Journey to Wellness';
@@ -19,10 +21,10 @@ const About = () => {
           <h1 className="about-slogan-sub">{SLOGAN_SUB}</h1>
 
           <div className="app-download-section">
-            <CustomButton onClick={() => null} fullWidth backgroundColor="#344235" height="50px" width="180px">
+            <CustomButton onClick={() => router.push('https://play.google.com/store/apps/details?id=co.obud')} fullWidth backgroundColor="#344235" height="50px" width="180px">
               Google Play
             </CustomButton>
-            <CustomButton onClick={() => null} fullWidth backgroundColor="#344235" height="50px" width="180px">
+            <CustomButton onClick={() => router.push('https://apps.apple.com/kr/app/obud/id6459364190')} fullWidth backgroundColor="#344235" height="50px" width="180px">
               App Store
             </CustomButton>
           </div>
