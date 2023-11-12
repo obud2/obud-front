@@ -65,7 +65,7 @@ const useBookingSetting = () => {
           const orderStatus = val.orderStatus || 'FAIL';
           queryClient.invalidateQueries(['my-order-list'], { refetchInactive: true });
 
-          alert('HEY2', val, errorMsg);
+          alert('HEY2', JSON.stringify(val, null, 2), errorMsg);
 
           if (orderStatus === 'COMPLETE') {
             alert('', '감사합니다. <br /> 예약이 완료되었습니다.', '', '', () => {
