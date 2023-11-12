@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useEffect } from 'react';
 
 import { IMP_CODE } from 'src/constants';
@@ -41,9 +42,7 @@ const useBookingSetting = () => {
     const handleMessage = (event: MessageEvent) => {
       const { data } = event;
       const response = JSON.parse(data);
-      // eslint-disable-next-line no-console
-      console.log(response);
-      alert('response', data);
+      console.log('handleMessage: ', response);
     };
 
     window.addEventListener('message', (event) => handleMessage(event));
@@ -61,8 +60,9 @@ const useBookingSetting = () => {
     }
 
     const res = await OrderService.setOrder(createOrderParams);
-    // eslint-disable-next-line no-console
     console.log('RES: ', res);
+    console.log('createOrderParams: ', createOrderParams);
+    console.log('payOptions: ', payOptions);
 
     if (res.result !== 'success') throw new Error();
 
@@ -166,10 +166,16 @@ const useBookingSetting = () => {
               });
           }
 
+          console.log('OrderService.setOrder(createOrderParams)');
+          console.log('createOrderParams: ', createOrderParams);
+          console.log('payOptions: ', payOptions);
+
           // 결제 모듈 띄우기 및 결제 처리
           setLoading(false);
 
           window.IMP?.request_pay(requestPayParams, (rsp) => {
+            console.log('Request Pay');
+            console.log('rsp: ', rsp);
             const merchant = {
               merchant_uid: res.val.id || '',
               imp_uid: rsp.imp_uid,
@@ -188,10 +194,12 @@ const useBookingSetting = () => {
               // 결제 성공
               OrderService.orderComplete(merchant)
                 .then((res) => {
+                  console.log('OrderService.orderComplete(merchant)', res);
                   resolve(res);
                 })
                 .catch(async () => {
                   const cancelRes = OrderService.payCancel(cancel);
+                  console.log('OrderService.payCancel(cancel)', cancelRes);
                   resolve(cancelRes);
                 });
             } else {

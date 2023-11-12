@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useContext, useEffect, useState } from 'react';
 
 import { useRouter } from 'next/router';
@@ -165,12 +166,12 @@ const Booking = () => {
     }));
 
     if (window.ReactNativeWebView) {
-      // eslint-disable-next-line no-console
-      console.log('HEY');
+      console.log('impPayNative', createOrderParams, payOption);
       impPayNative(createOrderParams, payOption);
     } else {
       impPay(createOrderParams, payOption, setIsLoading)
         .then((res: any) => {
+          console.log('impPay res', res);
           const orderStatus = res?.val?.orderStatus || 'FAIL';
           const errorMsg = res?.error_msg || '';
 
