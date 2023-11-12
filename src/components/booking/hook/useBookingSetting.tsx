@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 
 import { IMP_CODE } from 'src/constants';
 
@@ -7,6 +7,10 @@ import alert from 'src/helpers/alert';
 import OrderService from 'src/service/OrderService';
 import { RequestPayParams } from '@/portone';
 import { PAYMENT_METHOD } from '@components/booking/Booking.option';
+import { useQueryClient } from 'react-query';
+import { CartContext } from '@/context/CartContext';
+import cart from '@pages/cart';
+import router from 'next/router';
 
 type CreateOrderParam = {
   planId: string;
@@ -29,6 +33,9 @@ type PayOptions = {
 };
 
 const useBookingSetting = () => {
+  const queryClient = useQueryClient();
+  const { deleteCart } = useContext<any>(CartContext);
+
   useEffect(() => {
     const jquery = document.createElement('script');
     const iamport = document.createElement('script');
@@ -39,10 +46,45 @@ const useBookingSetting = () => {
     document.head.appendChild(jquery);
     document.head.appendChild(iamport);
 
-    const handleMessage = (event: MessageEvent) => {
+    const handleMessage = async (event: MessageEvent) => {
       const { data } = event;
       const response = JSON.parse(data);
       console.log('handleMessage: ', response);
+      alert('결제가 완료되었습니다.', data);
+
+      const merchant = {
+        merchant_uid: response.merchant_uid,
+        imp_uid: response.imp_uid,
+        payInfo: response,
+      };
+
+      if (response.imp_uid && response.status === 'paid') {
+        try {
+          const { val, error_msg: errorMsg } = await OrderService.orderComplete(merchant);
+          const orderStatus = val.orderStatus || 'FAIL';
+          queryClient.invalidateQueries(['my-order-list'], { refetchInactive: true });
+
+          if (orderStatus === 'COMPLETE') {
+            alert('', '감사합니다. <br /> 예약이 완료되었습니다.', '', '', () => {
+              deleteCart(cart);
+              router.push('/my/order');
+            });
+          }
+          if (orderStatus === 'FAIL') {
+            if (errorMsg) {
+              alert('', errorMsg, '', '', () => {
+                router.push('/class');
+              });
+            } else {
+              alert('', '예약을 취소하였습니다.', '', '', () => {
+                router.push('/class');
+              });
+            }
+          }
+        } catch (err) {
+          alert('', '예약 실패하였습니다. <br /> 잠시 후 다시시도해주세요.');
+        }
+      }
     };
 
     window.addEventListener('message', (event) => handleMessage(event));
@@ -111,6 +153,7 @@ const useBookingSetting = () => {
       userCode: IMP_CODE, // 가맹점 식별코드
       payParams: requestPayParams,
       type: 'payment', // 결제와 본인인증을 구분하기 위한 필드
+      returnUrl: window.location.href,
     };
     // eslint-disable-next-line no-console
     console.log('params: ', params);
