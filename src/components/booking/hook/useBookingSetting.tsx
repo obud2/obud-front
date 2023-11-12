@@ -49,7 +49,8 @@ const useBookingSetting = () => {
 
     const handleMessage = async (event: MessageEvent) => {
       const { data } = event;
-      const response = JSON.parse(data);
+      const parsedData = JSON.parse(data);
+      const response = parsedData.payResultParams;
 
       const merchant = {
         merchant_uid: response.merchant_uid,
@@ -57,12 +58,7 @@ const useBookingSetting = () => {
         payInfo: response,
       };
 
-      window.alert(data);
-      window.alert(JSON.stringify(response));
-      alert('specific field', `response.imp_uid: ${response.imp_uid}\nresponse.status: ${response.status}`);
-
       if (response.imp_uid && response.status === 'paid') {
-        alert('', 'HERE');
         try {
           const { val, error_msg: errorMsg } = await OrderService.orderComplete(merchant);
           const orderStatus = val.orderStatus || 'FAIL';
