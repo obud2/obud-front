@@ -63,15 +63,12 @@ const useBookingSetting = () => {
           const { val, error_msg: errorMsg } = await OrderService.orderComplete(merchant);
           const orderStatus = val.orderStatus || 'FAIL';
 
-          alert('', orderStatus);
-          alert('', errorMsg);
-          alert('', JSON.stringify(val));
           queryClient.invalidateQueries(['my-order-list'], { refetchInactive: true });
 
           if (orderStatus === 'COMPLETE') {
             alert('', '감사합니다. <br /> 예약이 완료되었습니다.', '', '', () => {
               deleteCart(cart);
-              router.push('/my/order');
+              router.replace('/my/order');
             });
           }
           if (orderStatus === 'FAIL') {
