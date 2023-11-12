@@ -56,6 +56,8 @@ const useBookingSetting = () => {
         payInfo: response,
       };
 
+      alert('', `response.imp_uid: ${response.imp_uid}\nresponse.status: ${response.status}`);
+
       if (response.imp_uid && response.status === 'paid') {
         alert('', 'HERE');
         try {
