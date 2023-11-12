@@ -166,7 +166,6 @@ const Booking = () => {
     }));
 
     if (window.ReactNativeWebView) {
-      console.log('impPayNative', createOrderParams, payOption);
       try {
         await impPayNative(createOrderParams, payOption);
       } catch (err) {
@@ -177,7 +176,6 @@ const Booking = () => {
     } else {
       try {
         const res = (await impPay(createOrderParams, payOption, setIsLoading)) as any;
-        console.log('impPay res', res);
         const orderStatus = res?.val?.orderStatus || 'FAIL';
         const errorMsg = res?.error_msg || '';
 
@@ -232,7 +230,6 @@ const Booking = () => {
               onChange={(e) => onChangeInputValue('name', e.target.value)}
               disabled={isLoading}
             />
-
             <CustomInput
               point
               label="휴대전화"

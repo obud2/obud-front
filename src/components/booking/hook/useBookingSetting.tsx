@@ -49,8 +49,6 @@ const useBookingSetting = () => {
     const handleMessage = async (event: MessageEvent) => {
       const { data } = event;
       const response = JSON.parse(data);
-      console.log('handleMessage: ', response);
-      alert('결제가 완료되었습니다.', data);
 
       const merchant = {
         merchant_uid: response.merchant_uid,
@@ -58,14 +56,14 @@ const useBookingSetting = () => {
         payInfo: response,
       };
 
+      alert('', JSON.stringify(response, null, 2));
+
       if (response.imp_uid && response.status === 'paid') {
-        alert('HEY', '');
+        alert('', 'HERE');
         try {
           const { val, error_msg: errorMsg } = await OrderService.orderComplete(merchant);
           const orderStatus = val.orderStatus || 'FAIL';
           queryClient.invalidateQueries(['my-order-list'], { refetchInactive: true });
-
-          alert('HEY2', JSON.stringify(val, null, 2), errorMsg);
 
           if (orderStatus === 'COMPLETE') {
             alert('', '감사합니다. <br /> 예약이 완료되었습니다.', '', '', () => {
@@ -105,9 +103,6 @@ const useBookingSetting = () => {
     }
 
     const res = await OrderService.setOrder(createOrderParams);
-    console.log('RES: ', res);
-    console.log('createOrderParams: ', createOrderParams);
-    console.log('payOptions: ', payOptions);
 
     if (res.result !== 'success') throw new Error();
 
@@ -122,9 +117,6 @@ const useBookingSetting = () => {
       buyer_email: payOptions.userInfo?.email,
       buyer_tel: payOptions.userInfo?.hp,
     };
-
-    // eslint-disable-next-line no-console
-    console.log('requestPayParams: ', requestPayParams);
 
     if (requestPayParams.amount === 0) {
       // 결제 금액 0원일 시
@@ -155,11 +147,10 @@ const useBookingSetting = () => {
       method: 'IAMPORT_PAYMENT',
       userCode: IMP_CODE, // 가맹점 식별코드
       payParams: requestPayParams,
-      type: 'payment', // 결제와 본인인증을 구분하기 위한 필드
+      type: 'payment', //     결제와 본인인증을 구분하기 위한 필드
       returnUrl: window.location.href,
     };
-    // eslint-disable-next-line no-console
-    console.log('params: ', params);
+
     window.ReactNativeWebView?.postMessage(JSON.stringify(params));
   };
 
@@ -213,16 +204,10 @@ const useBookingSetting = () => {
               });
           }
 
-          console.log('OrderService.setOrder(createOrderParams)');
-          console.log('createOrderParams: ', createOrderParams);
-          console.log('payOptions: ', payOptions);
-
           // 결제 모듈 띄우기 및 결제 처리
           setLoading(false);
 
           window.IMP?.request_pay(requestPayParams, (rsp) => {
-            console.log('Request Pay');
-            console.log('rsp: ', rsp);
             const merchant = {
               merchant_uid: res.val.id || '',
               imp_uid: rsp.imp_uid,
@@ -241,12 +226,10 @@ const useBookingSetting = () => {
               // 결제 성공
               OrderService.orderComplete(merchant)
                 .then((res) => {
-                  console.log('OrderService.orderComplete(merchant)', res);
                   resolve(res);
                 })
                 .catch(async () => {
                   const cancelRes = OrderService.payCancel(cancel);
-                  console.log('OrderService.payCancel(cancel)', cancelRes);
                   resolve(cancelRes);
                 });
             } else {
