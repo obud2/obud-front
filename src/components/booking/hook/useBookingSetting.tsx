@@ -49,7 +49,10 @@ const useBookingSetting = () => {
 
     const handleMessage = async (event: MessageEvent) => {
       const { data } = event;
+      console.log('event', event);
+      console.log('data', data);
       const parsedData = JSON.parse(data);
+      console.log('parsedData', parsedData);
       const response = parsedData.payResultParams;
 
       const merchant = {
