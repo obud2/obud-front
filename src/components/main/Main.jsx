@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { LayoutContext } from 'src/context/LayoutContext';
 
@@ -11,6 +11,14 @@ import CustomImage, { AutoHeightImageWrapper } from '@components/common/image/Cu
 const Main = ({ banner }) => {
   const CLASS_URL = '/class';
   const SLOGAN = 'Book your journey to wellness';
+
+  useEffect(() => {
+    const handleMessage = (event) => {
+      // eslint-disable-next-line no-console
+      console.log('event', event);
+    };
+    window.addEventListener('message', (event) => handleMessage(event));
+  }, []);
 
   return (
     <SMain>

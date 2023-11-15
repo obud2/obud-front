@@ -48,9 +48,6 @@ const useBookingSetting = () => {
     document.head.appendChild(iamport);
 
     const handleMessage = async (event: MessageEvent) => {
-      window.alert(event);
-      window.alert(typeof event);
-
       const { data } = event;
       console.log('event', event);
       console.log('data', data);
@@ -63,11 +60,6 @@ const useBookingSetting = () => {
         imp_uid: response.imp_uid,
         payInfo: response,
       };
-
-      window.alert(data);
-      window.alert(event);
-      window.alert(parsedData);
-      window.alert(`${response.imp_uid} - ${response.status}`);
 
       if (response.imp_uid && response.status === 'paid') {
         try {

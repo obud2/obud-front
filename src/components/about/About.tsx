@@ -21,10 +21,22 @@ const About = () => {
           <h1 className="about-slogan-sub">{SLOGAN_SUB}</h1>
 
           <div className="app-download-section">
-            <CustomButton onClick={() => router.push('https://play.google.com/store/apps/details?id=co.obud')} fullWidth backgroundColor="#344235" height="50px" width="180px">
+            <CustomButton
+              onClick={() => router.push('https://play.google.com/store/apps/details?id=co.obud')}
+              fullWidth
+              backgroundColor="#344235"
+              height="50px"
+              width="180px"
+            >
               Google Play
             </CustomButton>
-            <CustomButton onClick={() => router.push('https://apps.apple.com/kr/app/obud/id6459364190')} fullWidth backgroundColor="#344235" height="50px" width="180px">
+            <CustomButton
+              onClick={() => router.push('https://apps.apple.com/kr/app/obud/id6459364190')}
+              fullWidth
+              backgroundColor="#344235"
+              height="50px"
+              width="180px"
+            >
               App Store
             </CustomButton>
           </div>
