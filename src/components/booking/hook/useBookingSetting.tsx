@@ -48,6 +48,9 @@ const useBookingSetting = () => {
     document.head.appendChild(iamport);
 
     const handleMessage = async (event: MessageEvent) => {
+      window.alert(event);
+      window.alert(typeof event);
+
       const { data } = event;
       console.log('event', event);
       console.log('data', data);
@@ -96,14 +99,12 @@ const useBookingSetting = () => {
       }
     };
 
-    document.addEventListener('message', (event) => handleMessage(event as MessageEvent));
     window.addEventListener('message', (event) => handleMessage(event));
 
     return () => {
       document.head.removeChild(jquery);
       document.head.removeChild(iamport);
       window.removeEventListener('message', (event) => handleMessage(event));
-      document.removeEventListener('message', (event) => handleMessage(event as MessageEvent));
     };
   }, []);
 
