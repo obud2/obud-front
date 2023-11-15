@@ -61,6 +61,11 @@ const useBookingSetting = () => {
         payInfo: response,
       };
 
+      window.alert(data);
+      window.alert(event);
+      window.alert(parsedData);
+      window.alert(`${response.imp_uid} - ${response.status}`);
+
       if (response.imp_uid && response.status === 'paid') {
         try {
           const { val, error_msg: errorMsg } = await OrderService.orderComplete(merchant);
