@@ -92,11 +92,13 @@ const useBookingSetting = () => {
     };
 
     window.addEventListener('message', (event) => handleMessage(event));
+    document.addEventListener('message', (event) => handleMessage(event as MessageEvent));
 
     return () => {
       document.head.removeChild(jquery);
       document.head.removeChild(iamport);
       window.removeEventListener('message', (event) => handleMessage(event));
+      document.removeEventListener('message', (event) => handleMessage(event as MessageEvent));
     };
   }, []);
 
