@@ -91,14 +91,22 @@ const useBookingSetting = () => {
       }
     };
 
-    window.addEventListener('message', (event) => handleMessage(event));
-    document.addEventListener('message', (event) => handleMessage(event as MessageEvent));
+    const userAgent = navigator.userAgent;
+    if (/isIOS/.test(userAgent)) {
+      window.addEventListener('message', (event) => handleMessage(event));
+    } else if (/isAndroid/i.test(userAgent)) {
+      document.addEventListener('message', (event) => handleMessage(event as MessageEvent));
+    }
 
     return () => {
       document.head.removeChild(jquery);
       document.head.removeChild(iamport);
-      window.removeEventListener('message', (event) => handleMessage(event));
-      document.removeEventListener('message', (event) => handleMessage(event as MessageEvent));
+
+      if (/isIOS/.test(userAgent)) {
+        window.removeEventListener('message', (event) => handleMessage(event));
+      } else if (/isAndroid/i.test(userAgent)) {
+        document.removeEventListener('message', (event) => handleMessage(event as MessageEvent));
+      }
     };
   }, []);
 
