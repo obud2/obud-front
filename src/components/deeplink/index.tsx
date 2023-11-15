@@ -15,12 +15,12 @@ const DeepLink = () => {
       window.location.href = `${DEEP_LINK_SCHEME}/${path ?? ''}`;
       setTimeout(() => {
         window.location.href = 'https://apps.apple.com/kr/app/obud/id6459364190';
-      }, 3000);
+      }, 1000);
     } else if (/android/i.test(userAgent)) {
       window.location.href = `${DEEP_LINK_SCHEME}/${path ?? ''}`;
       setTimeout(() => {
         window.location.href = 'https://play.google.com/store/apps/details?id=co.obud';
-      }, 3000);
+      }, 1000);
     } else {
       window.location.href = `${APP_URL}/${path ?? ''}`;
     }
