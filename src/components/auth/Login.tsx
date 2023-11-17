@@ -17,6 +17,7 @@ import CustomInput from '@components/common/input/CustomInput';
 import CustomButton from '@components/common/button/CustomButton';
 import CustomCheckBox from '@components/common/checkbox/CustomCheckBox';
 import SnsLogin from './SnsLogin';
+import { StorageKey } from '@/constants/LocalStorage';
 
 Amplify.configure(awsmobile);
 
@@ -100,9 +101,19 @@ const Login = ({ onClickOpenAuth }: Props) => {
         const idToken = user.signInUserSession?.idToken || '';
         const getToken = idToken ? idToken?.getJwtToken() : '';
 
+        console.log(idToken);
         setJwt(getToken);
         setUserId(user.username);
 
+        console.log('hi');
+        console.log(check);
+        if (check === 'SNS_LOGIN') {
+          const redirectUrl = localStorage.getItem(StorageKey.SocialLoginReferrer) || '';
+          console.log('redirectUrl');
+          console.log(redirectUrl);
+          localStorage.removeItem(StorageKey.SocialLoginReferrer);
+          return redirectUrl ? window.location.replace(redirectUrl) : window.location.reload();
+        }
         window.location.reload();
       })
       .catch(() => {

@@ -8,6 +8,7 @@ import { SSnsIcon } from './SnsLogin.styled';
 import axiosInstance from '@/constants/AxiosInstance';
 import CustomButton from '@components/common/button/CustomButton';
 import CustomImage from '@components/common/image/CustomImage';
+import { StorageKey } from '@/constants/LocalStorage';
 
 // TODO: move to entity
 type SnsType = 'kakao' | 'naver' | 'apple' | 'google';
@@ -24,6 +25,7 @@ type AppleAuthResponse = {
 const SnsLogin = ({ disabled, setIsLoading }: Props) => {
   const onClickSnsLoading = (sns: SnsType) => {
     setIsLoading(true);
+    localStorage.setItem(StorageKey.SocialLoginReferrer, window.location.href || '');
     window.location.href = `${API_URL}/user/auth/${sns}?redirectUrl=${window.location.href}`;
   };
 
