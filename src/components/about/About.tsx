@@ -1,5 +1,5 @@
 import { SAbout } from './About.styled';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import CustomButton from '../common/button/CustomButton';
 import CustomImage from '../common/image/CustomImage';
 import { MOBILE_SIZE } from '@/styled/variablesStyles';
@@ -13,6 +13,14 @@ const About = () => {
   const SLOGAN = '웰니스 생활을 편리하게';
   const SLOGAN_SUB = 'Book Your Journey to Wellness';
 
+  const [device, setDevice] = useState<'ios' | 'android' | 'web'>();
+
+  useEffect(() => {
+  const userAgent = navigator.userAgent;
+  // eslint-disable-next-line no-nested-ternary
+  setDevice(/isIOS/i.test(userAgent) ? 'ios' : /isAndroid/i.test(userAgent) ? 'android' : 'web');
+  }, [device]);
+
   return (
     <SAbout>
       <article className="obud-about-article">
@@ -21,6 +29,7 @@ const About = () => {
           <h1 className="about-slogan-sub">{SLOGAN_SUB}</h1>
 
           <div className="app-download-section">
+            {device !== 'ios' && (
             <CustomButton
               onClick={() => router.push('https://play.google.com/store/apps/details?id=co.obud')}
               fullWidth
@@ -30,6 +39,8 @@ const About = () => {
             >
               Google Play
             </CustomButton>
+)}
+            {device !== 'android' && (
             <CustomButton
               onClick={() => router.push('https://apps.apple.com/kr/app/obud/id6459364190')}
               fullWidth
@@ -39,6 +50,7 @@ const About = () => {
             >
               App Store
             </CustomButton>
+)}
           </div>
         </section>
 
