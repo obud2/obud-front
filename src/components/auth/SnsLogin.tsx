@@ -24,7 +24,7 @@ type AppleAuthResponse = {
 const SnsLogin = ({ disabled, setIsLoading }: Props) => {
   const onClickSnsLoading = (sns: SnsType) => {
     setIsLoading(true);
-    window.location.href = `${API_URL}/user/auth/${sns}`;
+    window.location.href = `${API_URL}/user/auth/${sns}?redirectUrl=${window.location.href}`;
   };
 
   const onClickLogin = () => {
