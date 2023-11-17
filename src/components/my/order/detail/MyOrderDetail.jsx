@@ -86,7 +86,7 @@ const MyOrderDetail = () => {
                 router.push('/my/order');
               });
             } else {
-              alert('', res?.meta);
+              alert('', res?.message || '오류가 발생하였습니다. <br /> 잠시 후 다시시도해주세요.');
             }
 
             setUseLoading(false);
