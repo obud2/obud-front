@@ -1,5 +1,4 @@
 /* eslint-disable no-alert */
-/* eslint-disable no-console */
 import { useContext, useEffect } from 'react';
 
 import { IMP_CODE } from 'src/constants';

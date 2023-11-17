@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { useContext, useEffect, useState } from 'react';
 
 import { useRouter } from 'next/router';
@@ -169,7 +168,7 @@ const Booking = () => {
       try {
         await impPayNative(createOrderParams, payOption);
       } catch (err) {
-        console.log(err);
+        console.error(err);
       } finally {
         setIsLoading(false);
       }

@@ -13,13 +13,13 @@ const About = () => {
   const SLOGAN = '웰니스 생활을 편리하게';
   const SLOGAN_SUB = 'Book Your Journey to Wellness';
 
-  const [device, setDevice] = useState<'ios' | 'android' | 'web'>();
+  const [device, setDevice] = useState<'ios' | 'android' | 'web'>('web');
 
   useEffect(() => {
-  const userAgent = navigator.userAgent;
-  // eslint-disable-next-line no-nested-ternary
-  setDevice(/isIOS/i.test(userAgent) ? 'ios' : /isAndroid/i.test(userAgent) ? 'android' : 'web');
-  }, [device]);
+    const userAgent = navigator.userAgent;
+    // eslint-disable-next-line no-nested-ternary
+    setDevice(userAgent.indexOf('isIOS') !== -1 ? 'ios' : userAgent.indexOf('isAndroid') !== -1 ? 'android' : 'web');
+  }, []);
 
   return (
     <SAbout>
@@ -30,27 +30,27 @@ const About = () => {
 
           <div className="app-download-section">
             {device !== 'ios' && (
-            <CustomButton
-              onClick={() => router.push('https://play.google.com/store/apps/details?id=co.obud')}
-              fullWidth
-              backgroundColor="#344235"
-              height="50px"
-              width="180px"
-            >
-              Google Play
-            </CustomButton>
-)}
+              <CustomButton
+                onClick={() => router.push('https://play.google.com/store/apps/details?id=co.obud')}
+                fullWidth
+                backgroundColor="#344235"
+                height="50px"
+                width="180px"
+              >
+                Google Play
+              </CustomButton>
+            )}
             {device !== 'android' && (
-            <CustomButton
-              onClick={() => router.push('https://apps.apple.com/kr/app/obud/id6459364190')}
-              fullWidth
-              backgroundColor="#344235"
-              height="50px"
-              width="180px"
-            >
-              App Store
-            </CustomButton>
-)}
+              <CustomButton
+                onClick={() => router.push('https://apps.apple.com/kr/app/obud/id6459364190')}
+                fullWidth
+                backgroundColor="#344235"
+                height="50px"
+                width="180px"
+              >
+                App Store
+              </CustomButton>
+            )}
           </div>
         </section>
 

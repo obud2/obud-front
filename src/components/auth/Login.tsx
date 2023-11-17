@@ -101,16 +101,11 @@ const Login = ({ onClickOpenAuth }: Props) => {
         const idToken = user.signInUserSession?.idToken || '';
         const getToken = idToken ? idToken?.getJwtToken() : '';
 
-        console.log(idToken);
         setJwt(getToken);
         setUserId(user.username);
 
-        console.log('hi');
-        console.log(check);
         if (check === 'SNS_LOGIN') {
           const redirectUrl = localStorage.getItem(StorageKey.SocialLoginReferrer) || '';
-          console.log('redirectUrl');
-          console.log(redirectUrl);
           localStorage.removeItem(StorageKey.SocialLoginReferrer);
           return redirectUrl ? window.location.replace(redirectUrl) : window.location.reload();
         }
