@@ -10,6 +10,15 @@ import CustomButton from '@components/common/button/CustomButton';
 import CustomImage from '@components/common/image/CustomImage';
 import { StorageKey } from '@/constants/LocalStorage';
 
+type KakaoOAuthToken = {
+  accessToken: string;
+  refreshToken: string;
+  idToken: string;
+  accessTokenExpiresAt: Date;
+  refreshTokenExpiresAt: Date;
+  scopes: string[];
+};
+
 // TODO: move to entity
 type SnsType = 'kakao' | 'naver' | 'apple' | 'google';
 
@@ -26,14 +35,34 @@ const SnsLogin = ({ disabled, setIsLoading }: Props) => {
   const onClickSnsLoading = (sns: SnsType) => {
     setIsLoading(true);
     localStorage.setItem(StorageKey.SocialLoginReferrer, window.location.href || '');
+    // query param의 redirect url은 실제로는 사용하지 않음
     window.location.href = `${API_URL}/user/auth/${sns}?redirectUrl=${window.location.href}`;
   };
 
-  const onClickLogin = () => {
+  const onClickKakaoLogin = () => {
+    if (window.ReactNativeWebView) {
+      window?.ReactNativeWebView?.postMessage(JSON.stringify({ method: 'KAKAO_SIGNIN' }));
+    } else {
+      onClickSnsLoading('kakao');
+    }
+  };
+  const onClickAppleLogin = () => {
     if (window.ReactNativeWebView) {
       window?.ReactNativeWebView?.postMessage(JSON.stringify({ method: 'APPLE_SIGNIN' }));
     } else {
       onClickSnsLoading('apple');
+    }
+  };
+
+  const handleKakaoLogin = async (token: KakaoOAuthToken) => {
+    try {
+      setIsLoading(true);
+      const { data } = await axiosInstance.post('/user/auth/kakao/native/callback', token);
+      window.location.href = `${APP_URL}/${data.path}${data.query}`;
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -52,7 +81,13 @@ const SnsLogin = ({ disabled, setIsLoading }: Props) => {
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
       const { data } = event;
-      const response = JSON.parse(data) as AppleAuthResponse;
+      const message = JSON.parse(data) as { messageType: string };
+      if (message.messageType === 'KAKAO_SIGNIN') {
+        const token = message as unknown as KakaoOAuthToken;
+        handleKakaoLogin(token);
+        return;
+      }
+      const response = message as unknown as AppleAuthResponse;
       handleAppleLogin(response.identityToken);
     };
 
@@ -62,7 +97,7 @@ const SnsLogin = ({ disabled, setIsLoading }: Props) => {
 
   return (
     <>
-      <CustomButton fullWidth backgroundColor="#FFEB00" textColor="#3c1e1e" disabled={disabled} onClick={() => onClickSnsLoading('kakao')}>
+      <CustomButton fullWidth backgroundColor="#FFEB00" textColor="#3c1e1e" disabled={disabled} onClick={onClickKakaoLogin}>
         <SnsIcon icon="kakao_icon" />
         카카오로 시작하기
       </CustomButton>
@@ -79,7 +114,7 @@ const SnsLogin = ({ disabled, setIsLoading }: Props) => {
         네이버로 시작하기
       </CustomButton>
       <Spacing spacing="8" /> */}
-      <CustomButton fullWidth variant="outlined" backgroundColor="#283544" textColor="#ffffff" disabled={disabled} onClick={onClickLogin}>
+      <CustomButton fullWidth variant="outlined" backgroundColor="#283544" textColor="#ffffff" disabled={disabled} onClick={onClickAppleLogin}>
         <SnsIcon icon="apple_icon" width={18} height={21} />
         Apple로 시작하기
       </CustomButton>
