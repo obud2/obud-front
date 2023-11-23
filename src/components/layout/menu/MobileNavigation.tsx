@@ -15,7 +15,7 @@ const MobileNavigation = ({ mobileNavigationHide }: any) => {
   }));
 
   const onClickNaviItem = (item: any) => {
-    if (item?.id === 'my' || item?.id === 'ticket') {
+    if (item?.id === 'my' || item?.id === 'booking') {
       if (!loginCheck()) {
         onClickOpenAuth('login');
         return false;
