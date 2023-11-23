@@ -65,17 +65,13 @@ export const SProductPolicy = styled.div`
       white-space: pre-line;
       word-break: keep-all;
 
-      font-size: 1.6rem;
+      font-size: 14px;
       font-weight: 400;
       line-height: 140%;
 
       color: rgba(0, 0, 0, 0.5);
       border-top: 1px solid ${(props) => props.theme.main_color_slate_200};
       padding-top: 15px;
-
-      ${MOBILE} {
-        font-size: 1.4rem;
-      }
     }
   }
 `;
