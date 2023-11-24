@@ -48,7 +48,7 @@ const getSpecialList = () => {
     axiosInstance
       .get('studios/lesson/special')
       .then((response) => {
-        const val = response?.data?.value?.sort((a, b) => (a.sortOrder > b.sortOrder ? -1 : 1));
+        const val = response?.data?.value?.sort((a, b) => (a.specialSort > b.specialSort ? -1 : 1));
 
         resolve(val);
       })
