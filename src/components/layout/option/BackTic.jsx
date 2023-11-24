@@ -3,7 +3,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { SBackTic } from './BackTic.styled';
 
-import { SlArrowLeft } from 'react-icons/sl';
+import { MdArrowBackIosNew } from 'react-icons/md';
 
 const BackTic = ({ active, onClick }) => {
   const router = useRouter();
@@ -15,7 +15,7 @@ const BackTic = ({ active, onClick }) => {
 
   return (
     <SBackTic active={active} onClick={onClickBack} aria-label="뒤로가기 버튼">
-      <SlArrowLeft />
+      <MdArrowBackIosNew />
     </SBackTic>
   );
 };
