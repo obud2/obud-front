@@ -252,14 +252,14 @@ const MyEditForm = ({ onStepChange }: Props) => {
         </CustomButton>
 
         <div className="my-user-withdraw-container">
-          <button className="my-user-withdraw-button" onClick={() => setIsWithdraw(true)}>
-            회원탈퇴
+          <button className="my-user-withdraw-button" onClick={() => userLogout()}>
+            로그아웃
           </button>
         </div>
 
         <div className="my-user-withdraw-container">
-          <button className="my-user-withdraw-button" onClick={() => userLogout()}>
-            로그아웃
+          <button className="my-user-withdraw-button" onClick={() => setIsWithdraw(true)}>
+            회원탈퇴
           </button>
         </div>
       </SMyEditForm>

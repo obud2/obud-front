@@ -34,7 +34,7 @@ const SearchResult = () => {
           </div>
         </div>
 
-        <StudioList title="All Class" list={data || []} />
+        <StudioList title="All Place" list={data || []} />
       </SSearchResult>
 
       <FallBackLoading isLoading={isLoading} />

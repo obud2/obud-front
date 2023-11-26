@@ -21,7 +21,7 @@ const Erorr = () => {
         </section>
 
         <section className="error-img-container">
-          <CustomImage src={`${IMG_PATH}/obud_logo_move.gif`} width={300} height={300} />
+          <CustomImage src={`${IMG_PATH}/obud_logo_circle.png`} width={300} height={300} />
         </section>
       </article>
     </SErorr>

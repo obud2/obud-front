@@ -22,7 +22,7 @@ const Class = ({ studios }: Props) => {
         </section> */}
 
         <section className="class-container">
-          <StudioList title="All Class" list={studios[1] || []} isSort />
+          <StudioList title="All Place" list={studios[1] || []} isSort />
         </section>
       </article>
     </SClass>

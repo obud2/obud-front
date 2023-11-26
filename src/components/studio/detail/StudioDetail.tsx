@@ -58,11 +58,12 @@ const StudioDetail = ({ studio }: Props) => {
       <Tabs>
         <TabPane tab="home" tabName="홈">
           <div className="obud-padding-container">
+            <section className="obud-studio-detail-contents-container" dangerouslySetInnerHTML={{ __html: studio?.contents || '' }} />
+            <section className="obud-line" />
             <div className="obud-option-container">
               <StudioOption studio={studio || {}} />
             </div>
             <section className="obud-line" />
-            <section className="obud-studio-detail-contents-container" dangerouslySetInnerHTML={{ __html: studio?.contents || '' }} />
             <section className="obud-studio-map">
               <div className="obud-map-title">위치 정보</div>
               <ProductMap addr={studio?.addr || ''} />
