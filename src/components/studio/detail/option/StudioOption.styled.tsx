@@ -60,7 +60,7 @@ export const SStudioOption = styled.div`
   .obud-studio-option {
     width: 100%;
     flex: 1;
-    padding: 21px 0 0;
+    padding: 0;
 
     display: flex;
     flex-direction: column;

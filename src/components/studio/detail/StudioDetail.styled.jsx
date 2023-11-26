@@ -122,7 +122,7 @@ export const SStudioDetail = styled.article`
     width: 100%;
     max-width: ${PRODUCT_MAX_WIDTH};
 
-    padding: 40px 0 104px;
+    padding: 0 0 104px;
     margin: 0 auto;
 
     font-size: 1.6rem;
@@ -130,7 +130,7 @@ export const SStudioDetail = styled.article`
 
     ${MOBILE} {
       max-width: 100%;
-      padding: 24px 0px;
+      padding:  0;
     }
 
     .obud-map-title {

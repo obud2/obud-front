@@ -34,7 +34,7 @@ const Main = ({ banner }) => {
 
       <div className="obud-active-logo-container">
         <AutoHeightImageWrapper>
-          <CustomImage src="/img/obud_logo_move.gif" layout="fill" alt="obud-log" />
+          <CustomImage src="/img/obud_logo_circle.png" layout="fill" alt="obud-log" />
         </AutoHeightImageWrapper>
       </div>
     </SMain>

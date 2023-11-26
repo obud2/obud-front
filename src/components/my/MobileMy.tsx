@@ -51,15 +51,12 @@ const MobileMy = () => {
       </header>
 
       <main className="mobile-my-main">
-        {TAB?.map(
-          (item) =>
-            item?.id !== 'order' && (
-              <div key={item?.id} className="mobile-my-menu-tab-list" onClick={() => onClickMyPageItem(item?.id)}>
-                <p>{item?.title}</p>
-                <SlArrowRight />
-              </div>
-            ),
-        )}
+        {TAB?.map((item) => (
+          <div key={item?.id} className="mobile-my-menu-tab-list" onClick={() => onClickMyPageItem(item?.id)}>
+            <p>{item?.title}</p>
+            <SlArrowRight />
+          </div>
+        ))}
         {adminPageShow() && (
           <div className="mobile-my-menu-tab-list" onClick={() => onClickMyPageItem('admin')}>
             <p>호스트 페이지</p>
