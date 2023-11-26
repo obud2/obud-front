@@ -1,7 +1,7 @@
 /* eslint-disable no-alert */
 import { useContext, useEffect } from 'react';
 
-import { IMP_CODE } from 'src/constants';
+import { IMP_CODE, PG } from 'src/constants';
 
 import alert from 'src/helpers/alert';
 import OrderService from 'src/service/OrderService';
@@ -120,7 +120,7 @@ const useBookingSetting = () => {
 
     const requestPayParams: RequestPayParams = {
       app_scheme: 'obud',
-      pg: `${'danal_tpay'}.${9810030929}`,
+      pg: PG,
       pay_method: payOptions.payMethod,
       merchant_uid: res.val.id,
       amount: payOptions.amount,
@@ -194,13 +194,13 @@ const useBookingSetting = () => {
             // 결제 금액 0원일 시
             const merchant = {
               merchant_uid: res.val.id || '',
-              imp_uid: 'atoz', // 0원 결제 시 impId  : atoz
+              imp_uid: 'freshyeoul', // 0원 결제 시 impId: atoz or freshyeoul
               payInfo: {},
             };
 
             const cancel = {
               merchant_uid: res.val.id || '',
-              imp_uid: 'atoz',
+              imp_uid: 'freshyeoul',
               cancelAmount: payOptions?.amount,
               reason: '결제 중 취소',
             };
