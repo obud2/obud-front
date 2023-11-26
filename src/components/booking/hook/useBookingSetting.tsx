@@ -1,5 +1,5 @@
 /* eslint-disable no-alert */
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 
 import { IMP_CODE, PG } from 'src/constants';
 
@@ -36,6 +36,8 @@ const useBookingSetting = () => {
   const queryClient = useQueryClient();
   const { deleteCart } = useContext<any>(CartContext);
 
+  const completedRef = useRef<boolean>(false);
+
   useEffect(() => {
     const jquery = document.createElement('script');
     const iamport = document.createElement('script');
@@ -62,6 +64,10 @@ const useBookingSetting = () => {
 
       if (response.imp_uid && response.status === 'paid') {
         try {
+          if (completedRef.current) {
+            return;
+          }
+          completedRef.current = true;
           const { val, error_msg: errorMsg } = await OrderService.orderComplete(merchant);
           const orderStatus = val.orderStatus || 'FAIL';
 
@@ -70,6 +76,9 @@ const useBookingSetting = () => {
           if (orderStatus === 'COMPLETE') {
             alert('', '감사합니다. <br /> 예약이 완료되었습니다.', '', '', () => {
               deleteCart(cart);
+              setTimeout(() => {
+                completedRef.current = false;
+              }, 30_000);
               router.replace('/my/order');
             });
           }
