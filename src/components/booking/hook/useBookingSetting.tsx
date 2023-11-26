@@ -134,13 +134,13 @@ const useBookingSetting = () => {
       // 결제 금액 0원일 시
       const merchant = {
         merchant_uid: res.val.id || '',
-        imp_uid: 'atoz', // 0원 결제 시 impId  : atoz
+        imp_uid: 'freshyeoul', // 0원 결제 시 impId  : freshyeoul or atoz
         payInfo: {},
       };
 
       const cancel = {
         merchant_uid: res.val.id || '',
-        imp_uid: 'atoz',
+        imp_uid: 'freshyeoul',
         cancelAmount: payOptions?.amount,
         reason: '결제 중 취소',
       };
