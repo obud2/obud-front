@@ -80,8 +80,14 @@ const SnsLogin = ({ disabled, setIsLoading }: Props) => {
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
-      const { data } = event;
-      const message = JSON.parse(data) as { messageType: string };
+      let message: any;
+      try {
+        const { data } = event;
+        message = JSON.parse(data) as { messageType: string };
+      } catch (err) {
+        console.error(err);
+        return;
+      }
       if (message.messageType === 'KAKAO_SIGNIN') {
         const token = message as unknown as KakaoOAuthToken;
         handleKakaoLogin(token);
