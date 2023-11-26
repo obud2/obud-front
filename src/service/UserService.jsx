@@ -87,11 +87,9 @@ const visitUser = () => {
   });
 };
 
-const leaveUser = () => {
-  return new Promise((resolve) => {
-    axiosInstance.delete('user').then((response) => {
-      resolve(response?.data);
-    });
+const leaveUser = async () => {
+  return axiosInstance.put('user/leave').then((response) => {
+      return response?.data;
   });
 };
 
