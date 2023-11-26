@@ -1,28 +1,17 @@
 import { APP_PREFIX, APP_URL, IMG_PATH } from 'src/constants';
 
 import Layout from '../src/components/layout/Layout';
-import Main from '@components/main/Main';
-import BannerService from 'src/service/BannerService';
+import Main from '@components/main/Main-renewal';
 import MetaHeader from '@components/common/meta/MetaHeader';
 
-export const Index = ({ banner }) => {
+export const Home = () => {
   return (
-    <Layout headerPosition="absolute" scrollBtnHide>
-      <MetaHeader title={APP_PREFIX} description="웰니스 생활을 편리하게" url={APP_URL} image={`${IMG_PATH}/obud_logo_img.png`} />
-      <Main banner={banner} />
+    <Layout headerPosition="absolute" footerHide mobileNavigationHide headerHide scrollBtnHide>
+      <MetaHeader title={APP_PREFIX} description="웰니스 생활을 편리하게" url={APP_URL} image={`${IMG_PATH}/site-renewal.png`} />
+      <Main />
     </Layout>
   );
 };
 
-export default Index;
+export default Home;
 
-export const getStaticProps = async () => {
-  const banner = await BannerService.info('main');
-
-  return {
-    props: {
-      banner,
-    },
-    revalidate: 30,
-  };
-};
