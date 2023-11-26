@@ -92,9 +92,11 @@ const useBookingSetting = () => {
 
     const userAgent = navigator.userAgent;
     if (/isIOS/.test(userAgent)) {
-      window.addEventListener('message', (event) => handleMessage(event));
+      window.addEventListener('message', handleMessage);
     } else if (/isAndroid/i.test(userAgent)) {
-      document.addEventListener('message', (event) => handleMessage(event as MessageEvent));
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      document.addEventListener('message', handleMessage);
     }
 
     return () => {
@@ -102,9 +104,11 @@ const useBookingSetting = () => {
       document.head.removeChild(iamport);
 
       if (/isIOS/.test(userAgent)) {
-        window.removeEventListener('message', (event) => handleMessage(event));
+        window.removeEventListener('message', handleMessage);
       } else if (/isAndroid/i.test(userAgent)) {
-        document.removeEventListener('message', (event) => handleMessage(event as MessageEvent));
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        document.removeEventListener('message', handleMessage);
       }
     };
   }, []);
