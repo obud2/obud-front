@@ -93,8 +93,10 @@ const SnsLogin = ({ disabled, setIsLoading }: Props) => {
         handleKakaoLogin(token);
         return;
       }
-      const response = message as unknown as AppleAuthResponse;
-      handleAppleLogin(response.identityToken);
+      if (message.messageType === 'APPLE_SIGNIN') {
+        const response = message as unknown as AppleAuthResponse;
+        handleAppleLogin(response.identityToken);
+      }
     };
 
     window.addEventListener('message', handleMessage);
