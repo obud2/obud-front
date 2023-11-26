@@ -19,7 +19,7 @@ const MobileMy = () => {
 
   const onClickMyPageItem = (id: string) => {
     if (id === 'admin') {
-      window.open('https://admin.obud.site/pages/auth/login');
+      window.open('https://admin.obud.co/pages/auth/login');
     } else {
       router.push(`/my/${id}`);
     }
