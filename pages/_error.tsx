@@ -1,7 +1,7 @@
-import Erorr from '@/components/error/Erorr';
+import Error from '@components/error/Error';
 
-function Error() {
-  return <Erorr />;
+function ErrorPage() {
+  return <Error />;
 }
 
-export default Error;
+export default ErrorPage;

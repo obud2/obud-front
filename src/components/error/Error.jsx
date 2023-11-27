@@ -6,7 +6,7 @@ import { IMG_PATH } from 'src/constants';
 import { SErorr } from './Erorr.styled';
 import CustomImage from '@components/common/image/CustomImage';
 
-const Erorr = () => {
+const Error = () => {
   return (
     <SErorr>
       <article className="error-container">
@@ -28,4 +28,4 @@ const Erorr = () => {
   );
 };
 
-export default Erorr;
+export default Error;
