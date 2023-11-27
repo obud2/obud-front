@@ -138,9 +138,9 @@ const useBookingSetting = () => {
       merchant_uid: res.val.id,
       amount: payOptions.amount,
       name: payOptions.title,
+      buyer_tel: payOptions.userInfo?.hp,
       buyer_name: payOptions.userInfo?.name,
       buyer_email: payOptions.userInfo?.email,
-      buyer_tel: payOptions.userInfo?.hp,
     };
 
     if (requestPayParams.amount === 0) {
@@ -199,6 +199,7 @@ const useBookingSetting = () => {
             merchant_uid: res.val.id,
             amount: payOptions.amount,
             name: payOptions.title,
+            buyer_tel: payOptions.userInfo?.hp,
             buyer_name: payOptions.userInfo?.name,
             buyer_email: payOptions.userInfo?.email,
           };
