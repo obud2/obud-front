@@ -24,7 +24,7 @@ export const BASE_IMG_URL = `https://s3.ap-northeast-2.amazonaws.com/${S3_BUCKET
 
 export const KAKAO_KEY = '1bc0b186ced3029a79848ac251cee6b9';
 export const IMP_CODE = 'imp27153470';
-export const PG = `${'danal_tpay'}`;
+export const PG = `${'danal_tpay'}.${'A010014184'}`;
 
 /**
  * GR0100 : 어드민 ( 모든 권한 )
