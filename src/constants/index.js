@@ -86,6 +86,12 @@ export const getUserId = () => {
 };
 
 export const setUserId = (user) => {
+  window?.ReactNativeWebView?.postMessage(JSON.stringify({
+    method: 'STORE_AUTH_SESSION',
+    user,
+    path: '/',
+    domain: DOMAIN,
+  }));
   return setCookie(USER_SESSION, user, { path: '/', domain: DOMAIN });
 };
 
