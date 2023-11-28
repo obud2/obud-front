@@ -120,6 +120,9 @@ export const loginCheck = () => {
  * @returns 로그아웃 쿠키 제거
  */
 export const cookieRemove = () => {
+  window?.ReactNativeWebView?.postMessage(JSON.stringify({
+    method: 'LOGOUT',
+  }));
   return new Promise((resolve) => {
     removeCookie(TOKEN, { path: '/', domain: DOMAIN });
     removeCookie(USER_SESSION, { path: '/', domain: DOMAIN });
