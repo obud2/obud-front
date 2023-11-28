@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { SMyOrderItem } from './MyOrderItem.styled';
+import { SlArrowRight } from 'react-icons/sl';
 import { addComma } from 'src/constants';
 
 import moment from 'moment';
@@ -39,34 +40,39 @@ const MyOrderItem = ({ data, onClickOrderDetail }) => {
   return (
     <SMyOrderItem>
       <section className="order-item-mobile-header">
-        <p>주문일자 {moment(data?.createdAt).format('YYYY-MM-DD')}</p>
-
-        <button onClick={() => onClickOrderDetail(data?.id)}>상세보기 〉</button>
+        {statusRender()}
+        <button onClick={() => onClickOrderDetail(data?.id)}>
+          <span>상세보기</span>
+          <SlArrowRight />
+        </button>
       </section>
 
-      <section className="order-item-image-container">
-        <CustomImage src={data?.images?.url || ''} layout="fill" />
-      </section>
+      <section className="order-item-container">
+        <section className="order-item-image-container">
+          <CustomImage src={data?.images?.url || ''} layout="fill" />
+        </section>
 
-      <section className="order-item-contents-container">
-        <p>{data?.studiosTitle || ''}</p>
+        <section className="order-item-contents-container">
+          <p className="order-item-studio-title">{data?.studiosTitle || ''}</p>
+          <p className="order-item-lesson-title">{data?.lessonTitle || ''}</p>
 
-        <p>{data?.lessonTitle || ''}</p>
+          <div className="order-item-option">
+            <p>{moment(data?.startDate).format('YYYY.MM.DD (ddd)')}</p>
+            <p>•</p>
+            <p>{`${moment(data?.startDate).format('HH:mm')}`}</p>
+            <p>•</p>
+            <p>{`${data?.reservationCount}명`}</p>
+            {/* <p>{`${addComma(data?.amount || 0)}원`}</p> */}
+          </div>
+        </section>
 
-        <div className="order-item-option">
-          <p>{moment(data?.startDate).format('MM/DD')}</p>
-          <p>{`${moment(data?.startDate).format('HH:mm')} ~ ${moment(data?.endDate).format('HH:mm')}`}</p>
-          <p>{`${data?.reservationCount}명`}</p>
-          <p>{`${addComma(data?.amount || 0)}원`}</p>
-        </div>
-      </section>
+        <section className="order-item-status-container">{statusRender()}</section>
 
-      <section className="order-item-status-container">{statusRender()}</section>
-
-      <section className="order-item-detail-container">
-        <CustomButton variant="outlined" onClick={() => onClickOrderDetail(data?.id)}>
-          상세보기
-        </CustomButton>
+        <section className="order-item-detail-container">
+          <CustomButton variant="outlined" onClick={() => onClickOrderDetail(data?.id)}>
+            상세보기
+          </CustomButton>
+        </section>
       </section>
     </SMyOrderItem>
   );

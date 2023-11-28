@@ -8,16 +8,16 @@ export const SMyOrderItem = styled.div`
   display: flex;
   align-items: center;
 
-  gap: 16px;
-
   ${MOBILE} {
-    gap: 0;
+    gap: 15px;
     flex-direction: column;
     align-items: flex-start;
 
-    border: 1px solid ${(props) => props.theme.main_color_slate_200};
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px -1px #e5e5e5;
 
-    box-shadow: 1px 1px 5px -1px ${(props) => props.theme.main_color_slate_200};
+    padding: 20px;
   }
 
   .order-item-mobile-header {
@@ -29,107 +29,118 @@ export const SMyOrderItem = styled.div`
       align-items: center;
       justify-content: space-between;
 
-      padding: 7px 16px;
-      color: #fdfdfd;
-
-      font-size: 1.3rem;
       font-weight: 400;
       line-height: 140%;
 
-      background-color: ${(props) => props.theme.main_color_slate_200};
-
       button {
-        color: #fdfdfd;
-
-        font-size: 1.3rem;
         font-weight: 400;
         line-height: 140%;
+        display: flex;
+        align-items: center;
+
+        gap: 5px;
       }
     }
   }
 
-  .order-item-image-container {
-    min-width: 89px;
-    aspect-ratio: 1 / 1;
-
-    border: 0.5px solid #eeeeee;
-    position: relative;
-
-    ${MOBILE} {
-      display: none;
-    }
-  }
-
-  .order-item-contents-container {
-    flex: 1;
+  .order-item-container {
+    width: 100%;
 
     display: flex;
-    flex-direction: column;
-    gap: 3px;
+    align-items: center;
 
-    color: #565656;
+    gap: 16px;
 
-    font-size: 1.4rem;
-    font-weight: 400;
-    line-height: 140%;
+    .order-item-image-container {
+      min-width: 89px;
+      aspect-ratio: 1 / 1;
 
-    ${MOBILE} {
-      gap: 8px;
-      padding: 16px 16px 0 16px;
+      border: 0.5px solid #eeeeee;
+      position: relative;
+
+      ${MOBILE} {
+        min-width: 50px;
+      }
     }
 
-    .order-item-option {
+    .order-item-contents-container {
+      flex: 1;
       display: flex;
-      gap: 16px;
+      flex-direction: column;
+      gap: 3px;
+
+      color: #000;
+
+      font-weight: 400;
+      line-height: 140%;
+
+      ${MOBILE} {
+        padding: 0;
+        gap: 0;
+      }
+
+      .order-item-option {
+        display: flex;
+        font-size: 12px;
+      }
+
+      .order-item-studio-title {
+        font-size: 14px;
+        font-weight: bold;
+      }
+      .order-item-lesson-title {
+        font-size: 12px;
+      }
+    }
+
+    .order-item-status-container {
+      min-width: 200px;
+
+      font-size: 13px;
+
+      font-weight: 400;
+      line-height: 140%;
+      text-align: center;
+
+      ${MOBILE} {
+        text-align: left;
+        padding: 8px 0 16px 16px;
+        display: none;
+      }
+    }
+
+    .order-item-detail-container {
+      min-width: 88px;
+
+      text-align: center;
+
+      button {
+        width: 88px;
+        height: 36px;
+      }
+
+      ${MOBILE} {
+        display: none;
+      }
     }
   }
 
-  .order-item-status-container {
-    min-width: 200px;
-
-    font-size: 1.4rem;
-
-    font-weight: 400;
-    line-height: 140%;
-    text-align: center;
-
-    ${MOBILE} {
-      text-align: left;
-      padding: 8px 0 16px 16px;
-    }
-
-    .CANCEL {
-      color: #b5b5b5;
-    }
-    .COMPLETE {
-      color: ${(props) => props.theme.main_color_slate_400};
-    }
-    .FAIL {
-      color: ${(props) => props.theme.core_color_slate_600};
-    }
-    .WAIT {
-      color: ${(props) => props.theme.main_color_slate_400};
-    }
-    .REFUSAL {
-      color: #ec3519;
-    }
-    .CANCELING {
-      color: #ec3519;
-    }
+  .CANCEL {
+    color: #ec3519;
   }
-
-  .order-item-detail-container {
-    min-width: 88px;
-
-    text-align: center;
-
-    button {
-      width: 88px;
-      height: 36px;
-    }
-
-    ${MOBILE} {
-      display: none;
-    }
+  .COMPLETE {
+    color: ${(props) => props.theme.main_color_slate_400};
+  }
+  .FAIL {
+    color: ${(props) => props.theme.core_color_slate_600};
+  }
+  .WAIT {
+    color: ${(props) => props.theme.main_color_slate_400};
+  }
+  .REFUSAL {
+    color: #ec3519;
+  }
+  .CANCELING {
+    color: #ec3519;
   }
 `;
