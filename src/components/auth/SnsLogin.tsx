@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useEffect } from 'react';
 
 import { API_URL, APP_URL } from 'src/constants';
@@ -58,7 +59,12 @@ const SnsLogin = ({ disabled, setIsLoading }: Props) => {
     try {
       setIsLoading(true);
       const { data } = await axiosInstance.post('/user/auth/kakao/native/callback', token);
-      window.location.href = `${APP_URL}/${data.path}${data.query}`;
+      const userAgent = navigator.userAgent;
+      if (userAgent.match(/isAndroid/i)) {
+        document.location.href = `${APP_URL}/${data.path}${data.query}`;
+      } else {
+        window.location.href = `${APP_URL}/${data.path}${data.query}`;
+      }
     } catch (err) {
       console.error(err);
     } finally {
@@ -122,7 +128,14 @@ const SnsLogin = ({ disabled, setIsLoading }: Props) => {
         네이버로 시작하기
       </CustomButton>
       <Spacing spacing="8" /> */}
-      <CustomButton fullWidth variant="outlined" backgroundColor="#283544" textColor="#ffffff" disabled={disabled} onClick={onClickAppleLogin}>
+      <CustomButton
+        fullWidth
+        variant="outlined"
+        backgroundColor="#283544"
+        textColor="#ffffff"
+        disabled={disabled}
+        onClick={onClickAppleLogin}
+      >
         <SnsIcon icon="apple_icon" width={18} height={21} />
         Apple로 시작하기
       </CustomButton>
