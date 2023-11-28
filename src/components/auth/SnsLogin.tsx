@@ -59,16 +59,7 @@ const SnsLogin = ({ disabled, setIsLoading }: Props) => {
     try {
       setIsLoading(true);
       const { data } = await axiosInstance.post('/user/auth/kakao/native/callback', token);
-      const userAgent = navigator.userAgent;
-      if (userAgent.match(/isAndroid/i)) {
-        window.alert('HEY!');
-        location.href = `${APP_URL}/${data.path}${data.query}`;
-        window.location.href = `${APP_URL}/${data.path}${data.query}`;
-        document.location.href = `${APP_URL}/${data.path}${data.query}`;
-        document.location = `${APP_URL}/${data.path}${data.query}`;
-      } else {
-        window.location.href = `${APP_URL}/${data.path}${data.query}`;
-      }
+      window.location.href = `${APP_URL}/${data.path}${data.query}`;
     } catch (err) {
       console.error(err);
     } finally {
@@ -109,8 +100,23 @@ const SnsLogin = ({ disabled, setIsLoading }: Props) => {
       }
     };
 
-    window.addEventListener('message', handleMessage);
-    return () => window.removeEventListener('message', handleMessage);
+    const userAgent = navigator.userAgent;
+    if (/isIOS/.test(userAgent)) {
+      window.addEventListener('message', handleMessage);
+    } else if (/isAndroid/i.test(userAgent)) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      document.addEventListener('message', handleMessage);
+    }
+    return () => {
+      if (/isIOS/.test(userAgent)) {
+        window.removeEventListener('message', handleMessage);
+      } else if (/isAndroid/i.test(userAgent)) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        document.removeEventListener('message', handleMessage);
+      }
+    };
   }, []);
 
   return (
