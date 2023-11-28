@@ -50,10 +50,7 @@ const useBookingSetting = () => {
 
     const handleMessage = async (event: MessageEvent) => {
       const { data } = event;
-      console.log('event', event);
-      console.log('data', data);
       const parsedData = JSON.parse(data);
-      console.log('parsedData', parsedData);
       const response = parsedData.payResultParams;
 
       const merchant = {
@@ -115,7 +112,7 @@ const useBookingSetting = () => {
       if (/isIOS/.test(userAgent)) {
         window.removeEventListener('message', handleMessage);
       } else if (/isAndroid/i.test(userAgent)) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         document.removeEventListener('message', handleMessage);
       }
@@ -183,17 +180,14 @@ const useBookingSetting = () => {
     if (typeof window === 'undefined' || !window.IMP) {
       throw new Error('결제 준비가 되지 않았어요. 개발자에게 문의해주세요!');
     }
-    console.log('createOrderParams', createOrderParams);
 
     window.IMP.init(IMP_CODE);
 
-    console.log('payOptions', payOptions);
     return new Promise((resolve, reject) => {
       // 결제 테이블 추가작업.
       OrderService.setOrder(createOrderParams)
         .then((res) => {
           if (res.result !== 'success') {
-            console.log('res', res);
             reject(res);
           }
 
@@ -208,7 +202,6 @@ const useBookingSetting = () => {
             buyer_name: payOptions.userInfo?.name,
             buyer_email: payOptions.userInfo?.email,
           };
-          console.log(requestPayParams);
 
           if (requestPayParams.amount === 0) {
             // 결제 금액 0원일 시
@@ -239,9 +232,7 @@ const useBookingSetting = () => {
           // 결제 모듈 띄우기 및 결제 처리
           setLoading(false);
 
-          console.log(requestPayParams);
           window.IMP?.request_pay(requestPayParams, (rsp) => {
-            console.log(rsp);
             const merchant = {
               merchant_uid: res.val.id || '',
               imp_uid: rsp.imp_uid,
@@ -267,7 +258,6 @@ const useBookingSetting = () => {
                   resolve(cancelRes);
                 });
             } else {
-              console.log('결제 실패; ', rsp);
               // 결제 실패
               OrderService.orderFail(merchant)
                 .then(() => {
@@ -281,7 +271,6 @@ const useBookingSetting = () => {
           });
         })
         .catch((error) => {
-          console.error(error);
           reject(error);
 
           alert('', error?.meta);
