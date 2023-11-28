@@ -42,10 +42,25 @@ const Contact = () => {
     return button;
   };
 
+  const handleEmail = () => {
+    const email = root?.info?.email || '';
+    const userAgent = navigator.userAgent || '';
+
+    if (userAgent.match(/isAndroid|isIOS/i)) {
+      const params = {
+        method: 'OPEN_EMAIL',
+        email,
+      };
+      window.ReactNativeWebView?.postMessage(JSON.stringify(params));
+    } else {
+      window.location.href = `mailto:${email}`;
+    }
+  };
+
   const onClickSubmit = (id) => {
     switch (id) {
       case 'about':
-        window.location.href = `mailto:${root?.info?.email}`;
+        handleEmail();
         break;
       case 'class':
         router.push('/contact/private');

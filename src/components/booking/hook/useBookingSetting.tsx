@@ -173,6 +173,7 @@ const useBookingSetting = () => {
       returnUrl: window.location.href,
     };
 
+    // TODO: move to hook
     window.ReactNativeWebView?.postMessage(JSON.stringify(params));
   };
 
