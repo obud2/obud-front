@@ -126,18 +126,6 @@ const SnsLogin = ({ disabled, setIsLoading }: Props) => {
         카카오로 시작하기
       </CustomButton>
       <Spacing spacing="8" />
-      {/* <CustomButton
-        fullWidth
-        backgroundColor="#03C75A"
-        textColor="#ffffff"
-        disabled={disabled}
-        onClick={() => onClickSnsLoading('naver')}
-        //
-      >
-        <SnsIcon icon="naver_icon" />
-        네이버로 시작하기
-      </CustomButton>
-      <Spacing spacing="8" /> */}
       <CustomButton
         fullWidth
         variant="outlined"
