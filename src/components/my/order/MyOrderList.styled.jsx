@@ -7,10 +7,9 @@ export const SMyOrderList = styled.div`
 
   display: flex;
   flex-direction: column;
+  font-size: 13px;
 
   .empty-text {
-    font-size: 1.4rem;
-
     color: ${(props) => props.theme.main_color_slate_300};
   }
 
@@ -23,13 +22,12 @@ export const SMyOrderList = styled.div`
     }
 
     .order-date-header {
-      font-size: 1.4rem;
       font-weight: 400;
       line-height: 140%;
 
       color: #565656;
 
-      padding-bottom: 16px;
+      padding-bottom: 10px;
 
       border-bottom: 1px solid ${(props) => props.theme.main_color_slate_200};
 
