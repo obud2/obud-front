@@ -67,6 +67,13 @@ export const getJwt = () => {
 };
 
 export const setJwt = (token) => {
+  window?.ReactNativeWebView?.postMessage(JSON.stringify({
+    method: 'STORE_AUTH_TOKEN',
+    token,
+    path: '/',
+    domain: DOMAIN,
+   }));
+
   return setCookie(TOKEN, token, { path: '/', domain: DOMAIN });
 };
 
