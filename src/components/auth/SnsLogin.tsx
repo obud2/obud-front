@@ -61,7 +61,7 @@ const SnsLogin = ({ disabled, setIsLoading }: Props) => {
       const { data } = await axiosInstance.post('/user/auth/kakao/native/callback', token);
       const userAgent = navigator.userAgent;
       if (userAgent.match(/isAndroid/i)) {
-        location.assign(`${APP_URL}/${data.path}${data.query}`);
+        location.href = `${APP_URL}/${data.path}${data.query}`;
       } else {
         window.location.href = `${APP_URL}/${data.path}${data.query}`;
       }
