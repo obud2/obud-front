@@ -168,6 +168,7 @@ const Booking = () => {
       try {
         await impPayNative(createOrderParams, payOption);
       } catch (err) {
+        // eslint-disable-next-line no-console
         console.error(err);
       } finally {
         setIsLoading(false);
