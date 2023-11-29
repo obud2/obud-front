@@ -17,7 +17,7 @@ import FallBackLoading from '@components/loading/FallBackLoading';
 import { SMyOrderDetail } from './MyOrderDetail.styled';
 
 import CustomButton from '@components/common/button/CustomButton';
-import CustomInput from '@components/common/input/CustomInput';
+
 import alert from 'src/helpers/alert';
 import CancelModal from './CancelModal';
 
