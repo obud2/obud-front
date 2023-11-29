@@ -22,113 +22,72 @@ export const SMyOrderDetail = styled.div`
   ${MOBILE} {
     max-width: 100%;
     flex-direction: column;
-
-    gap: 24px;
+    gap: 45px;
   }
 
-  .booking-header {
+  .booking-info-container {
     width: 100%;
-
-    padding-bottom: 16px;
+    height: 100%;
+    font-size: 1.4rem;
+    color: ${(props) => props.theme.main_color_slate_300};
     border-bottom: 1px solid ${(props) => props.theme.main_color_slate_200};
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    &:last-child {
+      border: none;
+    }
 
-    .booking-title {
+    ${MOBILE} {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      border-bottom: none;
+    }
+
+    .booking-header {
+      width: 100%;
+
+      padding-bottom: 8px;
+      border-bottom: 1px solid ${(props) => props.theme.main_color_slate_200};
+
       font-size: 1.8rem;
       font-weight: 700;
-      line-height: 140%;
 
-      color: ${(props) => props.theme.main_color_slate_300};
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
       ${MOBILE} {
         font-size: 1.6rem;
       }
     }
-  }
 
-  .booking-user-info-container {
-    width: 924px;
-    height: 100%;
-
-    border-bottom: 1px solid ${(props) => props.theme.main_color_slate_200};
-
-    ${MOBILE} {
-      width: 100%;
-    }
-
-    .booking-user-info {
-      width: 100%;
-
+    .booking-content {
       display: flex;
-      align-items: center;
-      justify-content: center;
-
-      gap: 32px;
-
-      margin: 24px 0 48px;
-
-      ${MOBILE} {
-        gap: 16px;
-        flex-direction: column;
-      }
-    }
-  }
-
-  .booking-pay-info-container {
-    width: 448px;
-    height: 100%;
-
-    ${MOBILE} {
+      flex-direction: column;
       width: 100%;
-    }
+      padding: 20px;
+      gap: 10px;
 
-    .booking-total-price-container {
-      width: 100%;
-
-      padding: 0 24px;
-
-      background-color: ${(props) => props.theme.main_color_slate_100};
-      border-bottom: 1px solid ${(props) => props.theme.main_color_slate_200};
-
-      .booking-total-price {
+      .booking-info {
         display: flex;
         align-items: center;
         justify-content: space-between;
 
-        padding: 16px 0;
-
-        font-size: 1.5rem;
-        font-weight: 400;
-        line-height: 140%;
-        color: #555555;
-
-        border-bottom: 1px solid ${(props) => props.theme.main_color_slate_200};
-
         &.cancel {
           color: #f25656;
-          padding: 13px 0;
-        }
-
-        &:last-child {
-          border: none;
-        }
-
-        ${MOBILE} {
-          padding: 16px;
-          font-size: 1.4rem;
         }
       }
     }
 
     .booking-pay-footer {
       width: 100%;
-
       display: flex;
       flex-direction: column;
-      margin-top: 24px;
+
+      ${MOBILE} {
+        margin-top: 20px;
+      }
     }
   }
 `;
