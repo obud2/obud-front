@@ -114,45 +114,49 @@ const MyOrderDetail = () => {
 
       <SMyOrderDetail>
         {/* 예약자 정보 영역 */}
-        <section className="booking-user-info-container">
+        <section className="booking-info-container">
           <header className="booking-header">
             <p className="booking-title">예약자 정보</p>
           </header>
-
-          <main className="booking-user-info">
-            <CustomInput point label="예약자명" placeholder="예약자명을 입력해주세요." value={data?.[0]?.reservationer || ''} />
-
-            <CustomInput point label="휴대전화" placeholder="'-'없이 입력" value={data?.[0]?.reservationerHp || ''} />
+          <main className="booking-content">
+            <div className="booking-info">
+              <header>이름</header>
+              <main>{data?.[0]?.reservationer || ''}</main>
+            </div>
+            <div className="booking-info">
+              <header>휴대전화</header>
+              <main>{data?.[0]?.reservationerHp || ''}</main>
+            </div>
           </main>
         </section>
 
         {/* 결제 정보 영역 */}
-        <section className="booking-pay-info-container">
+        <section className="booking-info-container">
           <header className="booking-header">
             <p className="booking-title">결제 정보</p>
           </header>
 
-          <div className="booking-total-price-container">
-            <div className="booking-total-price">
+          <div className="booking-content">
+            <div className="booking-info">
               <p>총 결제금액</p>
               <p>{addComma(data?.[0]?.amount || 0)}원</p>
             </div>
 
             {data?.[0]?.orderStatus === 'CANCEL' && (
-              <div className="booking-total-price cancel">
+              <div className="booking-info cancel">
                 <p>차감 금액</p>
                 <p>- {addComma((data?.[0].cancelAmount || 0) - (data?.[0].amount || 0))}원</p>
               </div>
             )}
 
             {data?.[0]?.orderStatus === 'CANCEL' && (
-              <div className="booking-total-price cancel">
+              <div className="booking-info cancel">
                 <p>환불 금액</p>
                 <p>{addComma(data?.[0]?.cancelAmount || 0)}원</p>
               </div>
             )}
 
-            <div className="booking-total-price">
+            <div className="booking-info">
               <p>결제수단</p>
               <p>{data?.[0]?.payMethod || '-'}</p>
             </div>

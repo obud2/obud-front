@@ -6,7 +6,7 @@ export const SBookingBase = styled.div`
   width: 100%;
   max-width: ${MAX_WIDTH};
 
-  padding: 60px 15px 24px;
+  padding: 60px 15px;
   margin: 0 auto;
 
   ${TABLET} {

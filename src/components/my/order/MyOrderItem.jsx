@@ -2,7 +2,7 @@ import React from 'react';
 
 import { SMyOrderItem } from './MyOrderItem.styled';
 import { SlArrowRight } from 'react-icons/sl';
-import { addComma } from 'src/constants';
+// import { addComma } from 'src/constants';
 
 import moment from 'moment';
 
