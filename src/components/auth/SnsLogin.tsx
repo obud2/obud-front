@@ -33,6 +33,8 @@ type AppleAuthResponse = {
 };
 
 const SnsLogin = ({ disabled, setIsLoading }: Props) => {
+  const userAgent = navigator.userAgent;
+
   const onClickSnsLoading = (sns: SnsType) => {
     setIsLoading(true);
     localStorage.setItem(StorageKey.SocialLoginReferrer, window.location.href || '');
@@ -126,18 +128,23 @@ const SnsLogin = ({ disabled, setIsLoading }: Props) => {
         카카오로 시작하기
       </CustomButton>
       <Spacing spacing="8" />
-      <CustomButton
-        fullWidth
-        variant="outlined"
-        backgroundColor="#283544"
-        textColor="#ffffff"
-        disabled={disabled}
-        onClick={onClickAppleLogin}
-      >
-        <SnsIcon icon="apple_icon" width={18} height={21} />
-        Apple로 시작하기
-      </CustomButton>
-      <Spacing spacing="8" />
+      {/* TODO: user agent logic fix */}
+      {!/isAndroid/i.test(userAgent) && (
+        <>
+          <CustomButton
+            fullWidth
+            variant="outlined"
+            backgroundColor="#283544"
+            textColor="#ffffff"
+            disabled={disabled}
+            onClick={onClickAppleLogin}
+          >
+            <SnsIcon icon="apple_icon" width={18} height={21} />
+            Apple로 시작하기
+          </CustomButton>
+          <Spacing spacing="8" />
+        </>
+      )}
       <CustomButton
         fullWidth
         variant="outlined"
