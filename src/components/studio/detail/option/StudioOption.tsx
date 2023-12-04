@@ -69,7 +69,7 @@ const OptionTextRender = ({ id, data }: OptionProps) => {
     return (
       <div className="option-deps">
         <p>{check}</p>
-        <p>{data?.parkingInfo || ''}</p>
+        {data?.parkingInfo && <p>{data.parkingInfo}</p>}
       </div>
     );
   }
@@ -94,7 +94,6 @@ const OptionTextRender = ({ id, data }: OptionProps) => {
     // 센터 정보
     return (
       <div className="option-deps">
-        <p>연락처</p>
         <p>{data?.serviceCenter}</p>
       </div>
     );

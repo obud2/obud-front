@@ -1,10 +1,14 @@
 import styled from 'styled-components';
+import { MOBILE } from 'src/styled/variablesStyles';
 
 export const STabs = styled.div`
   .tabs-container {
-    font-size: 1.4rem;
+    font-size: 14px;
     font-weight: 500;
     line-height: 1.4;
+    ${MOBILE} {
+      font-size: 13px;
+    }
   }
 
   .tabs-header {
@@ -27,12 +31,22 @@ export const STabs = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 10px 20px;
     flex: 1;
+    &.active {
+      background-color: ${(props) => props.theme.main_color_slate_500};
+      color: #fff;
+    }
   }
 
   .tab {
     padding: 10px 20px;
     cursor: pointer;
+
+    &.active {
+      background-color: ${(props) => props.theme.main_color_slate_500};
+      color: #fff;
+    }
   }
 
   .hidden-tab {

@@ -41,7 +41,6 @@ export const SProductPolicy = styled.div`
       font-weight: 700;
       line-height: 140%;
 
-      color: rgba(0, 0, 0, 0.5);
       padding-top: 15px;
 
       ${MOBILE} {
@@ -69,8 +68,7 @@ export const SProductPolicy = styled.div`
       font-weight: 400;
       line-height: 140%;
 
-      color: rgba(0, 0, 0, 0.5);
-      border-top: 1px solid ${(props) => props.theme.main_color_slate_200};
+      border-top: 1px solid ${(props) => props.theme.core_color_slate_50};
       padding-top: 15px;
     }
   }

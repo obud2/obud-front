@@ -20,6 +20,9 @@ export const SStudioDetail = styled.article`
 
   .obud-padding-container {
     padding: 40px 15px 0;
+    font-weight: normal;
+
+    color: #000;
 
     ${MOBILE} {
       padding: 24px 15px;
@@ -30,7 +33,7 @@ export const SStudioDetail = styled.article`
     width: 100%;
     height: 1px;
 
-    background-color: ${(props) => props.theme.main_color_slate_200};
+    background-color: ${(props) => props.theme.core_color_slate_50};
 
     margin: 40px 0;
 
@@ -100,8 +103,8 @@ export const SStudioDetail = styled.article`
 
     margin: 0 auto;
 
-    font-size: 14px;
-    color: rgba(0, 0, 0, 0.5);
+    font-size: 13px;
+    color: ${(props) => props?.theme?.sub_color_slate_700};
 
     * {
       img {
@@ -126,11 +129,11 @@ export const SStudioDetail = styled.article`
     margin: 0 auto;
 
     font-size: 1.6rem;
-    color: rgba(0, 0, 0, 0.5);
+    color: #000;
 
     ${MOBILE} {
       max-width: 100%;
-      padding:  0;
+      padding: 0;
     }
 
     .obud-map-title {

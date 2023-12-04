@@ -45,16 +45,15 @@ export const Tabs = ({ children }: TabsProps) => {
     <STabs>
       <div className="tabs-container">
         <div className="tabs-header">
-          <div className="tabs-highlight" style={{ width: highlightWidth, left: highlightLeft }}></div>
+          {/* <div className="tabs-highlight" style={{ width: highlightWidth, left: highlightLeft }}></div> */}
           {React.Children.map(children, (child: any, idx) => (
-            <div key={idx} className="tab-wrapper">
-              <div
-                ref={child.props.tab === activeKey ? initialTabRef : null}
-                className={`tab ${activeKey === child.props.tab ? 'active' : ''}`}
-                onClick={(e) => handleTabClick(child.props.tab, e)}
-              >
-                {child.props.tabName}
-              </div>
+            <div
+              key={idx}
+              ref={child.props.tab === activeKey ? initialTabRef : null}
+              className={`tab-wrapper ${activeKey === child.props.tab ? 'active' : ''}`}
+              onClick={(e) => handleTabClick(child.props.tab, e)}
+            >
+              {child.props.tabName}
             </div>
           ))}
         </div>

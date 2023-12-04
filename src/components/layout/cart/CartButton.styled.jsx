@@ -31,7 +31,7 @@ export const SCartButton = styled.button`
     justify-content: center;
 
     color: ${(props) => props.theme.core_color_slate_50};
-    background-color: ${(props) => props.theme.main_color_slate_300};
+    background-color: ${(props) => props.theme.main_color_slate_500};
 
     p {
       top: 1px;

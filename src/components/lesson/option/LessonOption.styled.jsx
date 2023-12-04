@@ -38,8 +38,6 @@ export const SLessonOption = styled.div`
       line-height: 140%;
       margin-right: 12px;
 
-      color: ${(props) => props.theme.main_color_slate_500};
-
       ${MOBILE} {
         font-size: 1.8rem;
       }
@@ -91,32 +89,32 @@ export const SLessonOption = styled.div`
       }
 
       .icons-container {
-        width: 24px;
-        height: 24px;
+        width: 20px;
+        height: 20px;
 
         display: flex;
         align-items: center;
         justify-content: center;
 
         .location {
-          width: 17px;
-          height: 19.7px;
+          width: 13px;
+          height: 15px;
         }
         .url {
-          width: 17px;
-          height: 17px;
+          width: 15px;
+          height: 15px;
         }
         .parking {
           width: 13px;
-          height: 18px;
+          height: 15px;
         }
         .info {
-          width: 20px;
-          height: 20px;
+          width: 15px;
+          height: 15px;
         }
         .home {
-          width: 20px;
-          height: 17px;
+          width: 13px;
+          height: 15px;
         }
       }
 

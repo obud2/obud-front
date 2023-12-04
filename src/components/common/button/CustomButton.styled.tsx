@@ -65,8 +65,8 @@ export const SCustomButton = styled.button<SCustomButtonProps>`
     props.variant === 'outlined' &&
     css`
       background-color: transparent;
-      color: ${(props) => props?.theme?.main_color_slate_300};
-      border: 1px solid ${(props) => props?.theme?.main_color_slate_200};
+      color: ${(props) => props?.theme?.sub_color_slate_500};
+      border: 1px solid ${(props) => props?.theme?.sub_color_slate_400};
 
       &:hover {
         opacity: 1;
