@@ -15,7 +15,7 @@ export const SStudioOption = styled.div`
     justify-content: flex-start;
     margin-top: 6px;
     flex-wrap: wrap;
-    color: ${(props) => props.theme.main_color_slate_300};
+    color: ${(props) => props.theme.core_color_slate_500};
     font-size: 1.3rem;
     ${MOBILE} {
       font-size: 1.1rem;
@@ -37,8 +37,6 @@ export const SStudioOption = styled.div`
       font-weight: 700;
       line-height: 140%;
       margin-right: 12px;
-
-      color: ${(props) => props.theme.main_color_slate_500};
 
       ${MOBILE} {
         font-size: 1.8rem;
@@ -68,6 +66,7 @@ export const SStudioOption = styled.div`
 
     ${MOBILE} {
       padding: 0 15px;
+      font-size: 13px;
     }
 
     .obud-option-item {
@@ -76,14 +75,12 @@ export const SStudioOption = styled.div`
       display: none;
       gap: 11px;
 
-      font-size: 1.5rem;
+      font-size: 14px;
       font-weight: 400;
       line-height: 140%;
 
-      color: #565656;
-
       a {
-        color: #565656;
+        color: #000;
       }
 
       &.active {
@@ -91,28 +88,29 @@ export const SStudioOption = styled.div`
       }
 
       .icons-container {
-        width: 24px;
-        height: 24px;
+        width: 15px;
+        height: 15px;
+        padding-top: 5px;
 
         display: flex;
         align-items: center;
         justify-content: center;
 
         .location {
-          width: 17px;
-          height: 19.7px;
+          width: 13px;
+          height: 15px;
         }
         .url {
-          width: 17px;
-          height: 17px;
+          width: 15px;
+          height: 15px;
         }
         .parking {
-          width: 13px;
-          height: 18px;
+          width: 11px;
+          height: 15px;
         }
         .info {
-          width: 20px;
-          height: 20px;
+          width: 15px;
+          height: 15px;
         }
         .home {
           width: 20px;
@@ -136,10 +134,6 @@ export const SStudioOption = styled.div`
 
         top: 2px;
         position: relative;
-
-        ${MOBILE} {
-          font-size: 1.4rem;
-        }
 
         .convenience-item {
           margin-right: 16px;

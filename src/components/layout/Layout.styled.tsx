@@ -134,8 +134,6 @@ export const TopbarContainer = styled.div<{ topbarPosition?: string; topbarRever
       line-height: 150%;
       letter-spacing: -0.34px;
 
-      color: ${(props) => props.theme.main_color_slate_500};
-
       left: 50%;
       position: absolute;
       transform: translateX(-50%);

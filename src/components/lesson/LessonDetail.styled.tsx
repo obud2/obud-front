@@ -24,7 +24,7 @@ export const SLesson = styled.article`
     width: 100%;
     height: 1px;
 
-    background-color: ${(props) => props.theme.main_color_slate_200};
+    background-color: ${(props) => props.theme.core_color_slate_50};
 
     margin: 40px 0;
 
@@ -98,7 +98,6 @@ export const SLesson = styled.article`
     margin: 8px auto 0;
 
     * {
-
       img {
         width: 100%;
         height: auto;
