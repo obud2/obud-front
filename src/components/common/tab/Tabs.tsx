@@ -24,7 +24,7 @@ export const Tabs = ({ children }: TabsProps) => {
 
   const initialTabRef = useRef<HTMLDivElement | null>(null);
 
-  const handleTabClick = (key: string, event: React.MouseEvent) => {
+  const handleTabClick = (key: string) => {
     router.replace({ query: { ...query, tab: key } }, undefined, { shallow: true });
   };
 
@@ -37,7 +37,7 @@ export const Tabs = ({ children }: TabsProps) => {
               key={idx}
               ref={child.props.tab === activeKey ? initialTabRef : null}
               className={`tab-wrapper ${activeKey === child.props.tab ? 'active' : ''}`}
-              onClick={(e) => handleTabClick(child.props.tab, e)}
+              onClick={() => handleTabClick(child.props.tab)}
             >
               {child.props.tabName}
             </div>
