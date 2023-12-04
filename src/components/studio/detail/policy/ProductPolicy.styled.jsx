@@ -8,7 +8,9 @@ export const SProductPolicy = styled.div`
   width: 100%;
   max-width: ${PRODUCT_MAX_WIDTH};
 
-  padding: 40px 16px;
+  padding: 20px 16px;
+
+  margin: 0 auto;
 
   display: flex;
   flex-direction: column;

@@ -97,6 +97,8 @@ export const SLesson = styled.article`
 
     margin: 8px auto 0;
 
+    padding: 10px 16px;
+
     * {
       img {
         width: 100%;
