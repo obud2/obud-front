@@ -111,11 +111,10 @@ const WebRender = ({ title, studiosTitle, images, date, time, price, option, opt
   );
 };
 
-const MobileRender = ({ title, studiosTitle, images, date, time, price, option, optionCount, person, total, disabled }) => {
+const MobileRender = ({ title, studiosTitle, date, time, price, option, optionCount, person, total }) => {
   return (
     <React.Fragment>
       {/* 이미지 영역 */}
-     
 
       {/* 옵션 영역 */}
       <div className="booking-mobile-data-container">
