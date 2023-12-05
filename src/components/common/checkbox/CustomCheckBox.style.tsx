@@ -31,7 +31,7 @@ export const SCheckBox = styled.span<SCheckBoxProps>`
   ${(props) =>
     props.isCheck &&
     css`
-      background-color: ${props.theme.main_color_slate_400};
+      background-color: ${props.theme.main_color_slate_500};
     `}
 
   .check-icons {
@@ -69,7 +69,6 @@ export const SCustomCheckBox = styled.div<SCustomCheckBoxProps>`
     font-weight: 400;
 
     margin-left: 7px;
-    color: ${(props) => props.theme.main_color_slate_500};
 
     cursor: pointer;
   }

@@ -27,7 +27,7 @@ export const SMyEditForm = styled.div`
       font-size: 1.6rem;
       line-height: 100%;
 
-      color: ${(props) => props.theme.main_color_slate_300};
+      color: ${(props) => props.theme.sub_color_slate_500};
 
       ${MOBILE} {
         font-size: 1.4rem;

@@ -26,7 +26,6 @@ export const SPasswordCheck = styled.div`
 
       text-align: center;
 
-      color: ${(props) => props.theme.main_color_slate_300};
       margin-bottom: 40px;
 
       ${MOBILE} {

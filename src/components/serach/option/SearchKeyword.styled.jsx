@@ -8,7 +8,7 @@ export const SSearchKeyword = styled.div`
     font-size: 1.4rem;
     font-weight: 500;
 
-    color: ${(props) => props.theme.main_color_slate_300};
+    /* color: ${(props) => props.theme.sub_color_slate_600}; */
   }
 
   .keyword-container {
@@ -25,7 +25,7 @@ export const SSearchKeyword = styled.div`
       margin-bottom: 10px;
 
       font-size: 1.2rem;
-      color: rgb(126, 126, 126) !important;
+      /* color: rgb(126, 126, 126) !important; */
       background-color: transparent !important;
 
       cursor: pointer;

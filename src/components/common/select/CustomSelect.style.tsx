@@ -22,7 +22,7 @@ export const SCustomSelect = styled.div<SCustomSelectProps>`
     margin: 3px 0;
     padding: 0 15px 0 5px;
 
-    border: 1px solid ${(props) => props.theme.main_color_slate_200};
+    border: 1px solid ${(props) => props.theme.core_color_slate_50};
 
     transition: border-color 0.3s;
     cursor: pointer;

@@ -14,7 +14,7 @@ export const SAdressInput = styled.div`
     flex-direction: column;
 
     border-radius: 0px;
-    border: 1px solid ${(props) => props.theme.main_color_slate_200};
+    border: 1px solid ${(props) => props.theme.core_color_slate_50};
     background-color: #ffffff;
 
     &.active {
@@ -55,7 +55,7 @@ export const SAdressInput = styled.div`
     }
 
     &:first-child {
-      border-bottom: 1px solid ${(props) => props.theme.main_color_slate_200};
+      border-bottom: 1px solid ${(props) => props.theme.core_color_slate_50};
     }
   }
 `;

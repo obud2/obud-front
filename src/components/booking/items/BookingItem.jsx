@@ -115,10 +115,7 @@ const MobileRender = ({ title, studiosTitle, images, date, time, price, option, 
   return (
     <React.Fragment>
       {/* 이미지 영역 */}
-      <div className="booking-mobile-image-container">
-        <CustomImage src={images} width="120" height="120" alt="class-image" layout="fill" />
-        {disabled && <div className="image-disabled-background" />}
-      </div>
+     
 
       {/* 옵션 영역 */}
       <div className="booking-mobile-data-container">
@@ -130,7 +127,7 @@ const MobileRender = ({ title, studiosTitle, images, date, time, price, option, 
 
         {/* 날짜 , 시간 */}
         <div className="booking-mobile-title">
-          <p>날짜, 시간</p>
+          <p>예약일정</p>
           <p>{`${date || ''}, ${time || ''}`}</p>
         </div>
 

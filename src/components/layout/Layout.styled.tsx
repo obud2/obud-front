@@ -300,7 +300,7 @@ export const FooterContainer = styled.footer`
 
       display: inline-block;
 
-      background-color: ${(props) => props.theme.main_color_slate_300};
+      background-color: ${(props) => props.theme.core_color_slate_50};
       margin: 0 4px;
     }
 

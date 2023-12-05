@@ -9,7 +9,7 @@ import SearchKeyword from './option/SearchKeyword';
 import SearchDate from './option/SearchDate';
 
 const TAB = [
-  { id: 'keyword', label: '검색어로 검색' },
+  { id: 'keyword', label: '키워드로 검색' },
   { id: 'date', label: '날짜로 검색' },
 ];
 
