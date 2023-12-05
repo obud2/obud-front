@@ -30,7 +30,7 @@ export const SBooking = styled.div`
     width: 100%;
 
     padding-bottom: 16px;
-    border-bottom: 1px solid ${(props) => props.theme.main_color_slate_200};
+    border-bottom: 1px solid ;
 
     display: flex;
     align-items: center;
@@ -38,10 +38,8 @@ export const SBooking = styled.div`
 
     .booking-title {
       font-size: 1.8rem;
-      font-weight: 700;
+      font-weight: 600;
       line-height: 140%;
-
-      color: ${(props) => props.theme.main_color_slate_300};
 
       ${MOBILE} {
         font-size: 1.6rem;
@@ -52,8 +50,6 @@ export const SBooking = styled.div`
   .booking-user-info-container {
     width: 924px;
     height: 100%;
-
-    border-bottom: 1px solid ${(props) => props.theme.main_color_slate_200};
 
     ${MOBILE} {
       width: 100%;
@@ -95,11 +91,10 @@ export const SBooking = styled.div`
       align-items: center;
       justify-content: space-between;
 
-      background-color: ${(props) => props.theme.main_color_slate_100};
-      border-bottom: 1px solid ${(props) => props.theme.main_color_slate_200};
+      border-bottom: 1px solid ${(props) => props.theme.core_color_slate_50};
 
       font-size: 1.6rem;
-      font-weight: 400;
+      font-weight: 700;
       line-height: 140%;
       color: #555555;
 
@@ -123,7 +118,7 @@ export const SBooking = styled.div`
 
       gap: 5px;
 
-      border-bottom: 1px solid ${(props) => props.theme.main_color_slate_200};
+      border-bottom:  1px solid ${(props) => props.theme.core_color_slate_50};
 
       ${MOBILE} {
         padding: 16px;

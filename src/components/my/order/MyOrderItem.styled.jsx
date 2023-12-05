@@ -39,6 +39,8 @@ export const SMyOrderItem = styled.div`
         align-items: center;
 
         gap: 5px;
+
+        color: #000;
       }
     }
   }

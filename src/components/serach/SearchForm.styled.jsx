@@ -31,24 +31,13 @@ export const SSearchForm = styled.div`
       margin: 0 7px;
 
       &::placeholder {
-        color: ${(props) => props.theme.main_color_slate_200};
+        color: ${(props) => props.theme.sub_color_slate_400};
       }
 
       &:disabled {
         opacity: 0.3;
         background-color: transparent;
       }
-    }
-
-    .backTicIcon {
-      width: 12px;
-      height: 12px;
-
-      border-top: 1px solid #758271;
-      border-left: 1px solid #758271;
-
-      cursor: pointer;
-      transform: rotate(315deg);
     }
 
     .icons {
@@ -80,7 +69,7 @@ export const SSearchForm = styled.div`
       font-size: 1.3rem;
       font-weight: 400;
 
-      color: ${(props) => props.theme.main_color_slate_200};
+      color: ${(props) => props.theme.sub_color_slate_400};
       border-bottom: 1px solid rgba(171, 182, 165, 0.2);
 
       transition: all 225ms;
@@ -91,8 +80,8 @@ export const SSearchForm = styled.div`
       }
 
       &.active {
-        color: ${(props) => props.theme.main_color_slate_400};
-        border-bottom: 1px solid ${(props) => props.theme.main_color_slate_400};
+        color: #000;
+        border-bottom: 1px solid ;
       }
 
       &:last-child p {

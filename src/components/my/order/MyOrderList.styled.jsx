@@ -29,7 +29,7 @@ export const SMyOrderList = styled.div`
 
       padding-bottom: 10px;
 
-      border-bottom: 1px solid ${(props) => props.theme.main_color_slate_200};
+      border-bottom: 1px solid ${(props) => props.theme.core_color_slate_50};
 
       ${MOBILE} {
         display: none;

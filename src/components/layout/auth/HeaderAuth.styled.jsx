@@ -12,7 +12,7 @@ export const SHeaderAuth = styled.ul`
     font-size: 1.3rem;
     font-weight: 400;
 
-    color: ${(props) => props.theme.main_color_slate_300};
+    color: ${(props) => props.theme.sub_color_slate_400};
     transition: all 0.3s;
 
     margin-right: 5px;

@@ -288,7 +288,7 @@ const Booking = () => {
             />
           </footer>
 
-          <CustomButton variant="outlined" fullWidth onClick={onClickPayOrder} disabled={isLoading} isLoading={isLoading}>
+          <CustomButton fullWidth onClick={onClickPayOrder} disabled={isLoading} isLoading={isLoading}>
             결제하기
           </CustomButton>
         </section>

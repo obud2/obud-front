@@ -14,7 +14,7 @@ export const SMenu = styled.ul`
   transition: color 0.3s;
 
   a {
-    color: ${(props) => props.theme.main_color_slate_300} !important;
+    color: #000 !important;
   }
 
   ${(props) =>

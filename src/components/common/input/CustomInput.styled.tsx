@@ -46,7 +46,7 @@ export const SCustomInput = styled.div<SCustomInputProps>`
     padding: 0 15px 0 16px;
 
     border-radius: 0px;
-    border: 1px solid ${(props) => props.theme.main_color_slate_200};
+    border: 1px solid ${(props) => props.theme.core_color_slate_50};
 
     display: flex;
     justify-content: space-between;

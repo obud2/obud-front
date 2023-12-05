@@ -105,20 +105,24 @@ export const SBookingItem = styled.ul`
       `}
 
     .booking-title {
-      font-size: 1.3rem;
-      color: #0d0d0d;
+      font-size: 1.2rem;
+      color: #565656;
+      margin-bottom: 10px;
     }
 
     .booking-studios-title {
-      font-size: 1.2rem;
-      color: #565656;
+      font-size: 1.4rem;
+      font-weight: 500;
+      margin-bottom: 5px;
+      color: #0d0d0d;
     }
 
     .booking-mobile-title {
       width: 100%;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
+      gap:10px;
 
       p {
         font-size: 1.2rem;

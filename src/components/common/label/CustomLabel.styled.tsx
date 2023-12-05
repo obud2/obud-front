@@ -4,7 +4,6 @@ export const SCustomLabel = styled.label`
   display: flex;
   align-items: center;
 
-  color: ${(props) => props.theme.main_color_slate_300};
   font-size: 1.3rem;
   font-weight: 500;
   margin-bottom: 3px;

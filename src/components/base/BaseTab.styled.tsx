@@ -31,7 +31,7 @@ export const SBaseTab = styled.div`
     display: flex;
     align-items: center;
 
-    color: ${(props) => props.theme.main_color_slate_300};
+    color: ${(props) => props.theme.sub_color_slate_400};
 
     padding-left: 24px;
 

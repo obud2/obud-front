@@ -29,8 +29,8 @@ export const SMyOrderDetail = styled.div`
     width: 100%;
     height: 100%;
     font-size: 1.4rem;
-    color: ${(props) => props.theme.main_color_slate_300};
-    border-bottom: 1px solid ${(props) => props.theme.main_color_slate_200};
+
+    border-bottom: 1px solid ${(props) => props.theme.core_color_slate_50};
 
     &:last-child {
       border: none;
@@ -48,10 +48,10 @@ export const SMyOrderDetail = styled.div`
       width: 100%;
 
       padding-bottom: 8px;
-      border-bottom: 1px solid ${(props) => props.theme.main_color_slate_200};
+      border-bottom: 1px solid ${(props) => props.theme.core_color_slate_50};
 
       font-size: 1.8rem;
-      font-weight: 700;
+      font-weight: 600;
 
       display: flex;
       align-items: center;
@@ -68,6 +68,8 @@ export const SMyOrderDetail = styled.div`
       width: 100%;
       padding: 20px;
       gap: 10px;
+
+      color: #565656;
 
       .booking-info {
         display: flex;

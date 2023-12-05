@@ -23,7 +23,7 @@ export const SBookingBase = styled.div`
     margin-top: 24px;
     padding-bottom: 16px;
 
-    border-bottom: 1px solid ${(props) => props.theme.main_color_slate_200};
+    border-bottom: 1px solid;
 
     display: flex;
     justify-content: space-between;
@@ -35,10 +35,8 @@ export const SBookingBase = styled.div`
 
     .booking-sub-title {
       font-size: 1.8rem;
-      font-weight: 700;
+      font-weight: 600;
       line-height: 140%;
-
-      color: ${(props) => props.theme.main_color_slate_300};
 
       ${MOBILE} {
         font-size: 1.6rem;
@@ -62,7 +60,7 @@ export const SBookingBase = styled.div`
     align-items: center;
     justify-content: flex-start;
 
-    border-bottom: 1px solid ${(props) => props.theme.main_color_slate_200};
+    border-bottom: 1px solid ${(props) => props.theme.core_color_slate_50};
 
     ${MOBILE} {
       display: none;
@@ -72,12 +70,9 @@ export const SBookingBase = styled.div`
       flex: 1;
 
       font-size: 1.4rem;
-      font-weight: 700;
       line-height: 140%;
 
       text-align: center;
-
-      color: ${(props) => props.theme.main_color_slate_400};
 
       &:first-child {
         flex: 3;
@@ -94,10 +89,10 @@ export const SBookingBase = styled.div`
     padding: 24px 0;
     gap: 24px;
 
-    border-bottom: 1px solid ${(props) => props.theme.main_color_slate_200};
+    border-bottom: 1px solid ${(props) => props.theme.core_color_slate_50};
 
     ${MOBILE} {
-      padding: 18px 0;
+      padding: 18px 16px;
     }
   }
 `;
