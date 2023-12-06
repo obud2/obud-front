@@ -48,7 +48,7 @@ export const getStaticProps = async (context: GetServerSidePropsContext) => {
 
   return {
     props: { studios },
-    revalidate: 30,
+    // revalidate: 30,
   };
 };
 
