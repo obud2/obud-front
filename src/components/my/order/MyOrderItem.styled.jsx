@@ -35,15 +35,15 @@ export const SMyOrderItem = styled.div`
       button {
         font-weight: 400;
         line-height: 140%;
-        display: flex;
-        align-items: center;
-
-        gap: 5px;
 
         color: #000;
 
-        span {
-          padding-top: 2px;
+        svg {
+          margin-left: 5px;
+          vertical-align: middle;
+          height: 12px;
+          width: 12px;
+          margin-bottom:1px;
         }
       }
     }

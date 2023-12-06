@@ -39,7 +39,7 @@ const MyOrderItem = ({ data, onClickOrderDetail }) => {
       <section className="order-item-mobile-header">
         {statusRender()}
         <button onClick={() => onClickOrderDetail(data?.id)}>
-          <span>상세보기</span>
+          상세보기
           <SlArrowRight />
         </button>
       </section>
