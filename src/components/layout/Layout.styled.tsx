@@ -279,7 +279,7 @@ export const FooterContainer = styled.footer`
 
     .footer-service-info {
       display: flex;
-      gap: 10px;
+      gap: 7px;
       align-items: center;
 
       .footer-service-center {
@@ -287,14 +287,23 @@ export const FooterContainer = styled.footer`
       }
 
       .footer-service-button {
+        display: flex;
+        align-items: center;
+
         font-size: 0.9rem;
         height: 2.1rem;
 
         line-height: 1;
+        
 
         background-color: #e4e4e4;
         border-radius: 5px;
         padding: 0 5px;
+        padding-top: 1px;
+
+        a {
+          color: #000;
+        }
       }
     }
 

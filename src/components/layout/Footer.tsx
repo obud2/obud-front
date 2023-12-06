@@ -62,7 +62,7 @@ const Footer = ({ footerHide }: Props) => {
                       카카오채널
                     </button>
                   </div>
-                  <span className="footer-service-hour">평일 오전 9시 ~ 오후 5시</span>
+                  <span className="footer-service-hour">운영: 평일 오전 9시 ~ 오후 5시</span>
                 </div>
               </div>
               <div className="footer-general-info-items">
