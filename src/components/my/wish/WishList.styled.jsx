@@ -19,7 +19,6 @@ export const SWishList = styled.div`
       font-size: 1.6rem;
       font-family: 400;
 
-      color: ${(props) => props.theme.main_color_slate_300};
 
       display: flex;
       align-items: center;

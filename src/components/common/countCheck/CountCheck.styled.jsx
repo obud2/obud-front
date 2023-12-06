@@ -7,7 +7,7 @@ export const SCountCheck = styled.div`
   display: inline-block;
   text-align: center;
 
-  background-color: ${(props) => props.theme.main_color_slate_400} !important;
+  background-color: ${(props) => props.theme.main_color_slate_500} !important;
   border-radius: 100%;
 
   top: -2px;
