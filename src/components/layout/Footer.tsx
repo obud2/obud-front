@@ -55,17 +55,15 @@ const Footer = ({ footerHide }: Props) => {
                 <div className="footer-button" onClick={() => onClickRouter('/contact')}>
                   Contact Us
                 </div>
-                <div >
+                <div>
                   <div className="footer-service-info">
-                    <div className="footer-service-center"> 고객 센터</div>
+                    <div className="footer-service-center">고객 센터</div>
                     <button className="footer-service-button" onClick={() => window.open('https://pf.kakao.com/_xaxaxdwxj/chat')}>
-                    카카오채널
+                      카카오채널
                     </button>
                   </div>
                   <span className="footer-service-hour">평일 오전 9시 ~ 오후 5시</span>
                 </div>
-               
-                
               </div>
               <div className="footer-general-info-items">
                 <span>회사 {root?.info?.companyName || 'obud 오붓'}</span>
@@ -89,7 +87,6 @@ const Footer = ({ footerHide }: Props) => {
                   이용약관
                 </span>
                 <i className="line" />
-
                 <span className="footer-button" onClick={() => onClickPolicyOpen('privacyPolicy')}>
                   개인정보 처리 방침
                 </span>
