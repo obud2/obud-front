@@ -41,6 +41,10 @@ export const SMyOrderItem = styled.div`
         gap: 5px;
 
         color: #000;
+
+        span {
+          padding-top: 2px;
+        }
       }
     }
   }
