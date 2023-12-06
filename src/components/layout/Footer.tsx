@@ -55,10 +55,17 @@ const Footer = ({ footerHide }: Props) => {
                 <div className="footer-button" onClick={() => onClickRouter('/contact')}>
                   Contact Us
                 </div>
-                <div className="footer-button" onClick={() => window.open('https://pf.kakao.com/_xaxaxdwxj/chat')}>
-                  고객 센터: 카카오 채널
-                  <span className="footer-service-hour"> (평일: 오전 9시 ~ 오후 5시)</span>
+                <div >
+                  <div className="footer-service-info">
+                    <div className="footer-service-center"> 고객 센터</div>
+                    <button className="footer-service-button" onClick={() => window.open('https://pf.kakao.com/_xaxaxdwxj/chat')}>
+                    카카오채널
+                    </button>
+                  </div>
+                  <span className="footer-service-hour">평일 오전 9시 ~ 오후 5시</span>
                 </div>
+               
+                
               </div>
               <div className="footer-general-info-items">
                 <span>회사 {root?.info?.companyName || 'obud 오붓'}</span>
@@ -93,7 +100,7 @@ const Footer = ({ footerHide }: Props) => {
             </div>
             <div className="footer-logo-container">
               <div className="footer-logo">
-                <CustomImage src={`${IMG_PATH}/obud_logo_footer.png`} layout="fill" alt={APP_PREFIX} />
+                <CustomImage src={`${IMG_PATH}/obud_logo.png`} layout="fill" alt={APP_PREFIX} />
               </div>
 
               <div className="footer-sns-icons">

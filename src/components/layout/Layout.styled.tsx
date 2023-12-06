@@ -158,13 +158,13 @@ export const FooterContainer = styled.footer`
   height: ${FooterHeight};
   font-size: 1.3rem;
 
-  border-top: 0.5px solid ${(props) => props.theme.main_color_slate_200};
+  border-top: 0.5px solid ${(props) => props.theme.sub_color_slate_100};
   background-color: ${(props) => props.theme.sub_color_slate_50};
 
   position: relative;
 
   ${MOBILE} {
-    padding-bottom: 84px;
+    padding-bottom: ${NAVIGATION_HEIGHT};
     height: calc(${FooterMobileHeight} + ${NAVIGATION_HEIGHT});
   }
 
@@ -257,7 +257,7 @@ export const FooterContainer = styled.footer`
     word-break: keep-all;
     margin: 20px 0;
 
-    color: rgba(0, 0, 0, 0.5);
+    color: ${(props) => props.theme.sub_color_slate_700};
     gap: 10px;
     display: flex;
     flex-direction: column;
@@ -275,11 +275,32 @@ export const FooterContainer = styled.footer`
 
     .footer-button {
       cursor: pointer;
+    }
 
-      .footer-service-hour {
-        font-size: 1.3rem;
-        padding-left: 5px;
+    .footer-service-info {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+
+      .footer-service-center {
+        font-size: 1.5rem;
       }
+
+      .footer-service-button {
+        font-size: 0.9rem;
+        height: 2.1rem;
+
+        line-height: 1;
+
+        background-color: #e4e4e4;
+        border-radius: 5px;
+        padding: 0 5px;
+      }
+    }
+
+    .footer-service-hour {
+      font-size: 1rem;
+      padding-left: 1px;
     }
 
     div {
