@@ -49,8 +49,9 @@ type OptionProps = {
 };
 
 const OptionTextRender = ({ id, data }: OptionProps) => {
+  
   if (id === 'addr') {
-    return <p>{data?.addr || ''}</p>;
+    return `${data?.addr || ''} ${data?.addrDetail || ''}`;
   }
 
   if (id === 'homepage') {
