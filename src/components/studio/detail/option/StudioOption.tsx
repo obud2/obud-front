@@ -1,5 +1,6 @@
 import { Studio } from '@/entities/studio';
 import { SStudioOption } from './StudioOption.styled';
+import { Fragment } from 'react';
 
 type StudioItemOption = {
   id: 'addr' | 'homepage' | 'parking' | 'convenience' | 'serviceCenter';
@@ -49,9 +50,8 @@ type OptionProps = {
 };
 
 const OptionTextRender = ({ id, data }: OptionProps) => {
-  
   if (id === 'addr') {
-    return `${data?.addr || ''} ${data?.addrDetail || ''}`;
+    return <Fragment>`${data?.addr || ''} ${data?.addrDetail || ''}`</Fragment>;
   }
 
   if (id === 'homepage') {
