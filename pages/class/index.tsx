@@ -36,7 +36,7 @@ type Studio = {
   title: string;
 };
 
-export const getStaticProps = async (context: GetServerSidePropsContext) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const { sort } = context.query || {};
 
   const res = await Promise.all([StudioService.getSpecialList(), StudioService.getStudios(sort)]);
