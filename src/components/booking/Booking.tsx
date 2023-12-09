@@ -212,12 +212,6 @@ const Booking = () => {
     <React.Fragment>
       <BookingBase subTitle="예약 수업 정보" list={order} subDate={undefined} />
 
-      {isProcessingPayment && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <div>결제 중입니다... 잠시만 기다려주세요.</div>
-        </div>
-      )}
-
       <SBooking>
         {/* 예약자 정보 영역 */}
         <section className="booking-user-info-container">
@@ -300,7 +294,7 @@ const Booking = () => {
         </section>
       </SBooking>
 
-      <FallBackLoading isLoading={isLoading} />
+      <FallBackLoading isLoading={isLoading || isProcessingPayment} />
     </React.Fragment>
   );
 };
