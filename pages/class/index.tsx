@@ -36,7 +36,7 @@ type Studio = {
   title: string;
 };
 
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+export const getStaticProps = async (context: GetServerSidePropsContext) => {
   const { sort } = context.query || {};
 
   const res = await Promise.all([StudioService.getSpecialList(), StudioService.getStudios(sort)]);
@@ -48,7 +48,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
   return {
     props: { studios },
-    // revalidate: 30,
+    revalidate: 15,
   };
 };
 
