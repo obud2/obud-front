@@ -51,7 +51,6 @@ const useBookingSetting = () => {
     document.head.appendChild(iamport);
 
     const handleMessage = async (event: MessageEvent) => {
-      setIsProcessingPayment(true);
       const { data } = event;
       const parsedData = JSON.parse(data);
       const response = parsedData.payResultParams;
@@ -68,6 +67,7 @@ const useBookingSetting = () => {
             return;
           }
           completedRef.current = true;
+          setIsProcessingPayment(true);
           const { val, error_msg: errorMsg } = await OrderService.orderComplete(merchant);
           const orderStatus = val.orderStatus || 'FAIL';
 
@@ -237,6 +237,7 @@ const useBookingSetting = () => {
 
           // 결제 모듈 띄우기 및 결제 처리
           setLoading(false);
+          setIsProcessingPayment(false);
 
           window.IMP?.request_pay(requestPayParams, (rsp) => {
             const merchant = {
@@ -263,6 +264,9 @@ const useBookingSetting = () => {
                 .catch(async () => {
                   const cancelRes = OrderService.payCancel(cancel);
                   resolve(cancelRes);
+                })
+                .finally(() => {
+                  setIsProcessingPayment(false);
                 });
             } else {
               // 결제 실패
@@ -273,6 +277,9 @@ const useBookingSetting = () => {
                 .catch(() => {
                   const cancelRes = OrderService.payCancel(cancel);
                   resolve(cancelRes);
+                })
+                .finally(() => {
+                  setIsProcessingPayment(false);
                 });
             }
           });
@@ -281,9 +288,6 @@ const useBookingSetting = () => {
           reject(error);
 
           alert('', error?.meta);
-        })
-        .finally(() => {
-          setIsProcessingPayment(false);
         });
     });
   };
