@@ -28,7 +28,7 @@ import FallBackLoading from '@components/loading/FallBackLoading';
 
 const Booking = () => {
   const queryClient = useQueryClient();
-  const { impPay, impPayNative } = useBookingSetting();
+  const { impPay, impPayNative, isProcessingPayment } = useBookingSetting();
 
   const router = useRouter();
 
@@ -211,6 +211,12 @@ const Booking = () => {
   return (
     <React.Fragment>
       <BookingBase subTitle="예약 수업 정보" list={order} subDate={undefined} />
+
+      {isProcessingPayment && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <div>결제 중입니다... 잠시만 기다려주세요.</div>
+        </div>
+      )}
 
       <SBooking>
         {/* 예약자 정보 영역 */}

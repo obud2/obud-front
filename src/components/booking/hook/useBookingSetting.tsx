@@ -1,5 +1,5 @@
 /* eslint-disable no-alert */
-import { useContext, useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 
 import { IMP_CODE, PG } from 'src/constants';
 
@@ -38,6 +38,8 @@ const useBookingSetting = () => {
 
   const completedRef = useRef<boolean>(false);
 
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+
   useEffect(() => {
     const jquery = document.createElement('script');
     const iamport = document.createElement('script');
@@ -49,6 +51,7 @@ const useBookingSetting = () => {
     document.head.appendChild(iamport);
 
     const handleMessage = async (event: MessageEvent) => {
+      setIsProcessingPayment(true);
       const { data } = event;
       const parsedData = JSON.parse(data);
       const response = parsedData.payResultParams;
@@ -92,6 +95,8 @@ const useBookingSetting = () => {
           }
         } catch (err) {
           alert('', '죄송합니다. 예약에 실패하였습니다. <br /> 잠시 후 다시 시도해주세요.');
+        } finally {
+          setIsProcessingPayment(false);
         }
       }
     };
@@ -248,6 +253,7 @@ const useBookingSetting = () => {
             };
 
             setLoading(true);
+            setIsProcessingPayment(true);
             if (rsp.imp_uid && rsp.status === 'paid' && rsp.success) {
               // 결제 성공
               OrderService.orderComplete(merchant)
@@ -275,12 +281,14 @@ const useBookingSetting = () => {
           reject(error);
 
           alert('', error?.meta);
-          setLoading(false);
+        })
+        .finally(() => {
+          setIsProcessingPayment(false);
         });
     });
   };
 
-  return { impPay, impPayNative };
+  return { impPay, impPayNative, isProcessingPayment };
 };
 
 export default useBookingSetting;
