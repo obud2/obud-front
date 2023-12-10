@@ -1,7 +1,9 @@
-import SpecialList from '@/components/studio/SpecialList';
 import StudioList from '@/components/studio/StudioList';
 import { Studio } from '@/entities/studio';
+import dynamic from 'next/dynamic';
 import { SClass } from './Class.styled';
+
+const SpecialList = dynamic(() => import('@/components/studio/SpecialList'), { ssr: false });
 
 type Props = {
   studios: Studio[][];

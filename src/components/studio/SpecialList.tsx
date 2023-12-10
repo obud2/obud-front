@@ -15,18 +15,19 @@ import { LayoutContext } from 'src/context/LayoutContext';
 import { SSpecialList } from './SpecialList.styled';
 import StudioItem from './StudioItem';
 
-const plugins = [
-  new Arrow(),
-  new Pagination({ type: 'fraction' }),
-  new AutoPlay({ duration: 6000, direction: 'NEXT', stopOnHover: false, delayAfterHover: 1000 }),
-];
-
 const SpecialList = ({ list }: { list: any[] }) => {
   const { matchese } = useContext(LayoutContext);
+
+  const plugins = [
+    new Arrow(),
+    new Pagination({ type: 'fraction' }),
+    new AutoPlay({ duration: 6000, direction: 'NEXT', stopOnHover: false, delayAfterHover: 1000 }),
+  ];
 
   return (
     <SSpecialList isShow={list?.length > 0}>
       <p className="list-title">Special</p>
+
       <div className="special-list">
         <div className="class-list-container">
           {list && list.length > 0 && (
