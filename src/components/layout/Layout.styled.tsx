@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import { MAX_WIDTH, TABLET_MAX_WIDTH, TABLET, MOBILE, PW, PM } from 'src/styled/variablesStyles';
+import { MAX_WIDTH, TABLET_MAX_WIDTH, TABLET, MOBILE, PW, PM, DESKTOP } from 'src/styled/variablesStyles';
 
 export const TopbarHeight = '9.2rem';
 export const TopbarMobileHeight = '5.6rem';
@@ -152,6 +152,18 @@ export const MainContainer = styled.main`
 /* ////////////////////////////////////////////
                     Footer
 //////////////////////////////////////////// */
+export const MovingLogo = styled.p`
+  display: none;
+  position: absolute;
+  right: 10px; 
+  opacity: 0.6;
+  top: 32px;
+  
+  ${DESKTOP} {
+    display: block;
+  }
+`;
+
 export const FooterContainer = styled.footer`
   width: 100%;
 

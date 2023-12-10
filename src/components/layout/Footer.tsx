@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { BiArrowToTop } from 'react-icons/bi';
 
 import { APP_PREFIX, IMG_PATH } from 'src/constants';
-import { FooterContainer } from './Layout.styled';
+import { FooterContainer, MovingLogo } from './Layout.styled';
 
 import { RootContext } from 'src/context/RootContext';
 
@@ -58,7 +58,10 @@ const Footer = ({ footerHide }: Props) => {
                 <div>
                   <div className="footer-service-info">
                     <div className="footer-service-center">고객 센터</div>
-                    <button className="footer-service-button" onClick={() => window.open('https://pf.kakao.com/_xaxaxdwxj/chat')}>
+                    <button
+                      className="footer-service-button"
+                      onClick={() => window.open('https://pf.kakao.com/_xaxaxdwxj/chat')}
+                    >
                       카카오채널
                     </button>
                   </div>
@@ -105,14 +108,32 @@ const Footer = ({ footerHide }: Props) => {
               </div>
             </div>
           </div>
+          <div>
+            <MovingLogo>
+              <img
+                src={`${IMG_PATH}/obud_logo_move.gif`}
+                alt={APP_PREFIX}
+                style={{
+                  zIndex: 10,
+                  width: '224px',
+                  margin: '5px auto',
+                  display: 'block',
+                  float: 'none',
+                  verticalAlign: 'top',
+                }}
+                width={224}
+                height={224}
+              />
+            </MovingLogo>
+          </div>
         </FooterContainer>
 
         <PolicyModal isOpen={isPolicyOpen?.isOpen} isClose={onClickPolicyClose} type={isPolicyOpen?.type || ''} />
       </React.Fragment>
-    );
+  );
   }
 
   return null;
-};
+  };
 
-export default Footer;
+  export default Footer;

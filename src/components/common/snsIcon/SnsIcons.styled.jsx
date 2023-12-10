@@ -10,6 +10,7 @@ export const SSnsIcons = styled.div`
   gap: 16px;
 
   .sns-icon-item {
+    z-index: 20;
     width: 20px;
     height: 20px;
 
