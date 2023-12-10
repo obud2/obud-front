@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { BiArrowToTop } from 'react-icons/bi';
 
 import { APP_PREFIX, IMG_PATH } from 'src/constants';
-import { FooterContainer, MovingLogo } from './Layout.styled';
+import { FooterContainer } from './Layout.styled';
 
 import { RootContext } from 'src/context/RootContext';
 
@@ -108,24 +108,24 @@ const Footer = ({ footerHide }: Props) => {
               </div>
             </div>
           </div>
-          <div>
-            <MovingLogo>
-              <img
-                src={`${IMG_PATH}/obud_logo_move.gif`}
-                alt={APP_PREFIX}
-                style={{
-                  zIndex: 10,
-                  width: '224px',
-                  margin: '5px auto',
-                  display: 'block',
-                  float: 'none',
-                  verticalAlign: 'top',
-                }}
-                width={224}
-                height={224}
-              />
-            </MovingLogo>
-          </div>
+          {/* <div> */}
+          {/*  <MovingLogo> */}
+          {/*    <img */}
+          {/*      src={`${IMG_PATH}/obud_logo_move.gif`} */}
+          {/*      alt={APP_PREFIX} */}
+          {/*      style={{ */}
+          {/*        zIndex: 10, */}
+          {/*        width: '224px', */}
+          {/*        margin: '5px auto', */}
+          {/*        display: 'block', */}
+          {/*        float: 'none', */}
+          {/*        verticalAlign: 'top', */}
+          {/*      }} */}
+          {/*      width={224} */}
+          {/*      height={224} */}
+          {/*    /> */}
+          {/*  </MovingLogo> */}
+          {/* </div> */}
         </FooterContainer>
 
         <PolicyModal isOpen={isPolicyOpen?.isOpen} isClose={onClickPolicyClose} type={isPolicyOpen?.type || ''} />
