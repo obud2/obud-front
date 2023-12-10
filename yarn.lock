@@ -2285,10 +2285,10 @@
   resolved "https://registry.yarnpkg.com/@egjs/flicking-plugins/-/flicking-plugins-4.7.1.tgz#178d8e38e1fc681af5a4c3fd6d0e2e1b160ee1dd"
   integrity sha512-J0k499sCs5IAMXAJuBcrY1OoiHRi4BPbS1/RCCkIzsYgdoHzcAUjKyhSsms3gLz4O/K5eTbBmWBUtFO86fETHg==
 
-"@egjs/flicking@~4.11.0":
-  version "4.11.0"
-  resolved "https://registry.yarnpkg.com/@egjs/flicking/-/flicking-4.11.0.tgz#c7bd78d357b04a8d415b37f898c8e1a4c5c968e1"
-  integrity sha512-KxVdLrfQY2he7KMvAwaUrnZwF11X1RLnA6ShN8BtEuI9DwrciIISs+yKFKwTc7K7QzDRyiHl9vR8CRds7chOKA==
+"@egjs/flicking@~4.11.1":
+  version "4.11.1"
+  resolved "https://registry.yarnpkg.com/@egjs/flicking/-/flicking-4.11.1.tgz#7383124334cad5a1dd98b0549232755512e4539c"
+  integrity sha512-HYAPgXPdCVbcJmGI1m5XwaiPGya7oXvIORSzYH9MbpB6TjVWM6OTqFcimfbrmi4lzb5TdPNxSklc1F4MeCR+Rw==
   dependencies:
     "@egjs/axes" "^3.9.0"
     "@egjs/component" "^3.0.1"
@@ -2308,13 +2308,13 @@
   resolved "https://registry.yarnpkg.com/@egjs/list-differ/-/list-differ-1.0.1.tgz#5772b0f8b87973bb67827f6c7d7df8d7f64a22eb"
   integrity sha512-OTFTDQcWS+1ZREOdCWuk5hCBgYO4OsD30lXcOCyVOAjXMhgL5rBRDnt/otb6Nz8CzU0L/igdcaQBDLWc4t9gvg==
 
-"@egjs/react-flicking@^4.10.3":
-  version "4.11.0"
-  resolved "https://registry.yarnpkg.com/@egjs/react-flicking/-/react-flicking-4.11.0.tgz#b747d64bff7d53926993b232314ad364b65bf5a3"
-  integrity sha512-GExpGBYCTvR5UTeI0uyaMj2DAQmKPYVQKpgYErGJn4PoT60AFVOx1vnKCtmBZzGv4tuIvI+OGLZBNtTKJ2n7dg==
+"@egjs/react-flicking@^4.11.1":
+  version "4.11.1"
+  resolved "https://registry.yarnpkg.com/@egjs/react-flicking/-/react-flicking-4.11.1.tgz#01b7de35a119e9318f7b298e4a0c491005e6a5b6"
+  integrity sha512-bC+lUCGFS6TJR0ydsWHFXKichizQ7Vej9U7M7DBqC2lgRxI+HyPp2cdK5sAm5SG3oDwDFS03fPDQ0uSsuJOIRg==
   dependencies:
     "@egjs/component" "^3.0.2"
-    "@egjs/flicking" "~4.11.0"
+    "@egjs/flicking" "~4.11.1"
     "@egjs/list-differ" "^1.0.1"
 
 "@emotion/is-prop-valid@^1.1.0":
