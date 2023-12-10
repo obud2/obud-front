@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 import { MAX_WIDTH, MOBILE, TABLET, TABLET_MAX_WIDTH } from 'src/styled/variablesStyles';
 
-export const SSpecialList = styled.div`
+export const SSpecialList = styled.div<{ isShow: boolean }>`
   width: 100%;
   display: none;
 
@@ -34,7 +34,7 @@ export const SSpecialList = styled.div`
     }
   }
 
-  .specail-list {
+  .special-list {
     width: 100%;
 
     border-top: 0.5px solid rgba(218, 219, 214, 0.5);
@@ -92,7 +92,7 @@ export const SSpecialList = styled.div`
 
           font-size: 1.3rem;
 
-          bottom: 110px;
+          bottom: 90px;
           right: 15px;
           left: auto;
 

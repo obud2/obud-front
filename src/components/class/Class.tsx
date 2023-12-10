@@ -4,7 +4,7 @@ import { Studio } from '@/entities/studio';
 import { SClass } from './Class.styled';
 
 type Props = {
-  studios: Studio[];
+  studios: Studio[][];
 };
 
 const Class = ({ studios }: Props) => {

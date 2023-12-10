@@ -12,7 +12,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@egjs/flicking-plugins": "^4.4.0",
+    "@egjs/flicking-plugins": "^4.7.1",
     "@egjs/react-flicking": "^4.10.3",
     "@react-google-maps/api": "^2.19.2",
     "aws-amplify": "^4.3.43",
