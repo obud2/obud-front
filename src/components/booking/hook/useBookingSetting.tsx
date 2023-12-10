@@ -62,10 +62,10 @@ const useBookingSetting = () => {
       };
 
       if (response.imp_uid && response.status === 'paid') {
+        if (completedRef.current) {
+          return;
+        }
         try {
-          if (completedRef.current) {
-            return;
-          }
           completedRef.current = true;
           setIsProcessingPayment(true);
           const { val, error_msg: errorMsg } = await OrderService.orderComplete(merchant);
@@ -129,6 +129,7 @@ const useBookingSetting = () => {
       throw new Error('결제 준비가 되지 않았어요. 개발자에게 문의해주세요!');
     }
 
+    setIsProcessingPayment(true);
     const res = await OrderService.setOrder(createOrderParams);
 
     if (res.result !== 'success') throw new Error();
