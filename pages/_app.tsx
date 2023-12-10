@@ -22,8 +22,8 @@ function App({ Component, pageProps }: AppProps<{ dehydratedState: DehydratedSta
       new QueryClient({
         defaultOptions: {
           queries: {
-            staleTime: 50000,
-            cacheTime: 50000,
+            staleTime: 30000,
+            cacheTime: 30000,
             refetchOnMount: true,
             refetchOnReconnect: false,
             refetchOnWindowFocus: false,
