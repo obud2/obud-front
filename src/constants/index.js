@@ -291,7 +291,7 @@ export const addComma = (num) => {
 export const regExp = (type) => {
   switch (type) {
     case 'name':
-      return /^[가-힣]{2,}$/;
+      return /^[가-힣A-Za-z ]{2,}$/;
     case 'password':
       return /((?=.*\d)(?=.*[a-z])(?=.*[\W]).{8,})/;
     case 'email':
