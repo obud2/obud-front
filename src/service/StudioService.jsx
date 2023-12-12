@@ -12,30 +12,46 @@ const getStudios = (sort) => {
   return new Promise((resolve) => {
     axiosInstance
       .get(`studios${sorted}`)
+      .then((response) =>
+        resolve(response?.data?.value))
+      .catch(() => {
+        resolve([]);
+      });
+  });
+};
+
+const getStudioCategories = () => {
+  return new Promise((resolve) => {
+    axiosInstance
+      .get('studios/category')
       .then((response) => {
-        const val = response?.data?.value;
+        resolve(response?.data?.value || []);
+      })
+      .catch(() => {
+        resolve([]);
+      });
+  });
+};
 
-        /*
-        const newData = [];
-        const oldData = [];
-        const nowDate = moment().subtract(14, 'days').valueOf(); // 2주 전 날짜 체크
+const getStudiosBySections = () => {
+  return new Promise((resolve) => {
+    axiosInstance
+      .get('studios/section')
+      .then((response) => {
+        resolve(response?.data?.value || []);
+      })
+      .catch(() => {
+        resolve([]);
+      });
+  });
+};
 
-        val.forEach((a) => {
-          const date = Number(a?.createdAt);
-          oldData.push(a);
-
-          if (nowDate < date) {
-            newData.push(a);
-          }
-        });
-
-        resolve({
-          newData,
-          oldData,
-        });
-        */
-
-        resolve(val);
+const getStudiosFromCategory = (categoryId) => {
+  return new Promise((resolve) => {
+    axiosInstance
+      .get(`/studios/v2?categoryId=${categoryId}`)
+      .then((response) => {
+        resolve(response?.data?.value || []);
       })
       .catch(() => {
         resolve([]);
@@ -170,6 +186,9 @@ const getMonthPlans = (lessonId, month) => {
 
 const StudioService = {
   getStudios,
+  getStudioCategories,
+  getStudiosFromCategory,
+  getStudiosBySections,
   getStudio,
   setStudio,
   getSpecialList,
