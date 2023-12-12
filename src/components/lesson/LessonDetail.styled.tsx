@@ -61,7 +61,7 @@ export const SLesson = styled.article`
       max-width: 100%;
       padding: 0;
 
-      gap: 16px;
+      gap: 20px;
     }
 
     .obud-images-container {
