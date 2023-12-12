@@ -1,21 +1,19 @@
 import { useContext, useEffect, useRef } from 'react';
 
-import Flicking, { ViewportSlot } from '@egjs/react-flicking';
-import '@egjs/react-flicking/dist/flicking.css';
-import '@egjs/react-flicking/dist/flicking-inline.css';
 import '@egjs/flicking-plugins/dist/arrow.css';
 import '@egjs/flicking-plugins/dist/pagination.css';
+import Flicking, { ViewportSlot } from '@egjs/react-flicking';
+import '@egjs/react-flicking/dist/flicking-inline.css';
+import '@egjs/react-flicking/dist/flicking.css';
 
-import { AutoPlay } from '@egjs/flicking-plugins';
-import { Pagination } from '@egjs/flicking-plugins';
-import { Arrow } from '@egjs/flicking-plugins';
+import { Arrow, AutoPlay, Pagination } from '@egjs/flicking-plugins';
 
-import { LayoutContext } from 'src/context/LayoutContext';
-
+import { LayoutContext } from '@/context/LayoutContext';
+import { Studio } from '@/entities/studio';
 import { SSpecialList } from './SpecialList.styled';
 import StudioItem from './StudioItem';
 
-const SpecialList = ({ list }: { list: any[] }) => {
+const SpecialList = ({ list }: { list: Studio[] }) => {
   const { matchese } = useContext(LayoutContext);
   const flickingRef = useRef<Flicking>(null);
 

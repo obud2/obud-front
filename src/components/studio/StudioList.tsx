@@ -1,12 +1,8 @@
-import React from 'react';
-
 import { useRouter } from 'next/router';
 
-import { SStudioList } from './StudioList.styled';
-
 import StudioItem from './StudioItem';
-
 import { StudioSort } from './StudioList.option';
+import { SStudioList } from './StudioList.styled';
 
 const StudioList = ({ title, list, isSort }) => {
   const router = useRouter();
@@ -22,7 +18,7 @@ const StudioList = ({ title, list, isSort }) => {
   };
 
   return (
-    <SStudioList isShow={list?.length > 0}>
+    <SStudioList isShow={list && list?.length > 0}>
       <p className="list-title">{title}</p>
 
       <div className="regular-list">

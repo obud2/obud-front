@@ -8,21 +8,18 @@ type Props = {
 };
 
 const Class = ({ studios }: Props) => {
+  const specialStudios = studios[0] || [];
+  const allStudios = studios[1] || [];
+
   return (
     <SClass>
       <article className="obud-class-article">
         <section className="class-container">
-          <SpecialList list={studios[0] || []} />
+          <SpecialList list={specialStudios} />
         </section>
 
-        {/* new class, old class 나누는거 잠시 원복하고 모든 클래스 우선 보여주기 */}
-
-        {/* <section className="class-container">
-          <StudioList isSort={false} title="New Class" list={studios[1] || []} />
-        </section> */}
-
         <section className="class-container">
-          <StudioList title="All Place" list={studios[1] || []} isSort />
+          <StudioList title="All Place" list={allStudios} isSort />
         </section>
       </article>
     </SClass>

@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 import { MAX_WIDTH, MOBILE, TABLET, TABLET_MAX_WIDTH } from 'src/styled/variablesStyles';
 
-export const SStudioList = styled.div`
+export const SStudioList = styled.div<{ isShow?: boolean }>`
   width: 100%;
   display: none;
 
