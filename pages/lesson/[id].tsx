@@ -12,7 +12,7 @@ type Props = {
 
 const Index = ({ lesson }: Props) => {
   return (
-    <Layout addonBeforeHeader="backTicWithHome" headerTitle={lesson?.studios?.title || ''}>
+    <Layout addonBeforeHeader="backTicWithHome">
       <MetaHeader title={lesson?.title || ''} description={lesson?.title || ''} image={lesson?.images?.[0]?.url || ''} />
       <LessonDetail lesson={lesson} />
     </Layout>

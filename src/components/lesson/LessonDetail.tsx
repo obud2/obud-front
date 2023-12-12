@@ -6,12 +6,15 @@ import { SLesson } from './LessonDetail.styled';
 import LessonDetailList from './LessonDetailList';
 import { SLessonOption } from './option/LessonOption.styled';
 import LessonReservation from './option/LessonReservation';
+import { useRouter } from 'next/router';
 
 type Props = {
   lesson: Lesson;
 };
 
 const LessonDetail = ({ lesson }: Props) => {
+  const router = useRouter();
+
   return (
     <SLesson>
       <section className="obud-lesson-detail-option-container">
@@ -26,8 +29,17 @@ const LessonDetail = ({ lesson }: Props) => {
 
         <SLessonOption>
           <div className="obud-lesson-header">
-            <h4 className="obud-lesson-title">{lesson?.title || ''}</h4>
-            {/* <h5 className="obud-lesson-subtitle">{lesson?.studios?.title || ''}</h5> */}
+            <div className="obud-lesson-title-container">
+              <h5
+                className="obud-studio-title"
+                onClick={() => {
+                  router.push(`/class/${lesson?.studios?.id}`);
+                }}
+              >
+                {lesson?.studios?.title || ''} {'>'}
+              </h5>
+              <h4 className="obud-lesson-title">{lesson?.title || ''}</h4>
+            </div>
             <div className="obud-lesson-icons">
               <Share data={lesson} title={lesson?.title || ''} isHide={false} />
             </div>

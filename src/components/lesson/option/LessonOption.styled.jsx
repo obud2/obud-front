@@ -33,14 +33,20 @@ export const SLessonOption = styled.div`
     }
 
     .obud-lesson-title {
-      font-size: 2.4rem;
+      font-size: 2rem;
       font-weight: 700;
       line-height: 140%;
       margin-right: 12px;
 
       ${MOBILE} {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
       }
+    }
+
+    .obud-studio-title {
+      margin: 5px 0;
+      font-size: 12px;
+      color: #555555;
     }
 
     .obud-lesson-icons {
