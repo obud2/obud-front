@@ -27,7 +27,6 @@ export const getStaticProps = async (context: GetServerSidePropsContext) => {
 
   studios.push(res[0]); // Special 상품
   studios.push(res[1] || []); // Regular 업로드한지 2주 안지난 상품
-  // studios.push(res[1]?.oldData || []); // Regular 업로드한지 2주 지난 상품
 
   return {
     props: { studios },

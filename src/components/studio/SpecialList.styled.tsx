@@ -41,7 +41,7 @@ export const SSpecialList = styled.div<{ isShow: boolean }>`
     margin-bottom: 64px;
 
     ${MOBILE} {
-      margin-bottom: 22px;
+      margin-bottom: 0;
     }
 
     .class-list-container {

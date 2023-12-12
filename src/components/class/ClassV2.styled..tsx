@@ -21,5 +21,16 @@ export const SClass = styled.div`
       width: 100%;
       height: auto;
     }
+
+    .class-category {
+      display: flex;
+      justify-content: flex-start;
+      padding: 12px;
+      margin-bottom: 12px;
+
+      div {
+        margin-right: 8px;
+      }
+    }
   }
 `;
