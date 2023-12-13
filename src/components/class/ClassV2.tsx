@@ -1,16 +1,18 @@
-import StudioList from '@/components/studio/StudioList';
-import { Studio } from '@/entities/studio';
 import Chip from '@/components/common/chip/Chip';
+import { Studio, StudioSection } from '@/entities/studio';
 import SpecialList from '../studio/SpecialList';
 import { SClass } from './ClassV2.styled.';
+import Flicking from '@egjs/react-flicking';
+import { useRef } from 'react';
+import SectionStudioItem from './SectionStudioItem';
 
 type Props = {
-  studios: Studio[][];
+  specialStudios: Studio[];
+  sectionedStudios: StudioSection[];
 };
 
-const ClassV2 = ({ studios }: Props) => {
-  const specialStudios = studios[0] || [];
-  const allStudios = studios[1] || [];
+const ClassV2 = ({ specialStudios, sectionedStudios }: Props) => {
+  const flickingRef = useRef<Flicking>(null);
 
   return (
     <SClass>
@@ -26,9 +28,30 @@ const ClassV2 = ({ studios }: Props) => {
           <Chip label="기타" />
         </section>
 
-        <section className="class-container">
-          <StudioList title="All Place" list={allStudios} isSort />
-        </section>
+        {sectionedStudios.map((section) => (
+          <section key={section.id} className="class-section-container">
+            <div className="section-title-container">
+              <div className="section-title">{section.name}</div>
+            </div>
+
+            <div className="section-studio-container">
+              <Flicking ref={flickingRef} circular align="prev">
+                {section.studios.map((studio) => (
+                  <div className="panel section-studio-item" key={studio.id}>
+                    <SectionStudioItem
+                      id={studio.id}
+                      images={studio.images}
+                      title={studio.title}
+                      category={studio.category}
+                      lessonType=""
+                      addr={studio.addr}
+                    />
+                  </div>
+                ))}
+              </Flicking>
+            </div>
+          </section>
+        ))}
       </article>
     </SClass>
   );

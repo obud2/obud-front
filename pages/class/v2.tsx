@@ -1,35 +1,32 @@
 import MetaHeader from '@/components/common/meta/MetaHeader';
 import Layout from '@/components/layout/Layout';
 import { IMG_PATH } from '@/constants';
-import { Studio } from '@/entities/studio';
+import { Studio, StudioSection } from '@/entities/studio';
 import StudioService from '@/service/StudioService';
-import { GetServerSidePropsContext } from 'next';
 import ClassV2 from '@components/class/ClassV2';
 
 type Props = {
-  studios: Studio[][];
+  specialStudios: Studio[];
+  sectionedStudios: StudioSection[];
 };
 
-const Index = ({ studios }: Props) => {
+const Index = ({ specialStudios, sectionedStudios }: Props) => {
   return (
     <Layout>
       <MetaHeader title="obud :: class" image={`${IMG_PATH}/obud_logo_img.png`} />
-      <ClassV2 studios={studios} />
+      <ClassV2 specialStudios={specialStudios} sectionedStudios={sectionedStudios} />
     </Layout>
   );
 };
 
-export const getStaticProps = async (context: GetServerSidePropsContext) => {
-  const { sort } = context.query || {};
-
-  const res = await Promise.all([StudioService.getSpecialList(), StudioService.getStudios(sort)]);
-  const studios: Studio[][] = [];
-
-  studios.push(res[0]); // Special 상품
-  studios.push(res[1] || []); // Regular 업로드한지 2주 안지난 상품
+export const getStaticProps = async () => {
+  const res = await Promise.all([StudioService.getSpecialList(), StudioService.getStudiosBySection()]);
 
   return {
-    props: { studios },
+    props: {
+      specialStudios: res[0],
+      sectionedStudios: res[1],
+    },
     revalidate: 15,
   };
 };

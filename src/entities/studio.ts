@@ -38,3 +38,10 @@ export type StudioRefund = {
   percent: number; // 50 for 50%
   studiosId: string;
 };
+
+export type StudioSection = {
+  id: number;
+  name: string;
+  order: number;
+  studios: Studio[];
+}

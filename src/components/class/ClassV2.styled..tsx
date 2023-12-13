@@ -32,5 +32,24 @@ export const SClass = styled.div`
         margin-right: 8px;
       }
     }
+
+    .class-section-container {
+      margin-bottom: 8px;
+      padding: 12px;
+
+      .section-title-container {
+        margin-bottom: 12px;
+        .section-title {
+          font-size: 14px;
+          font-weight: bold;
+        }
+      }
+
+      .section-studio-container {
+        .section-studio-item {
+          margin-right: 12px;
+        }
+      }
+    }
   }
 `;
