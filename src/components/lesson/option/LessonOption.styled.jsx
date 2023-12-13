@@ -44,9 +44,24 @@ export const SLessonOption = styled.div`
     }
 
     .obud-studio-title {
-      margin: 5px 0;
+      margin: 5px 0 10px 0;
       font-size: 12px;
       color: #555555;
+      display: flex;
+      align-items: center;
+    }
+
+    .arrow-icon {
+      width: 6px;
+      height: 6px;
+
+      transform: rotate(45deg);
+      border-top: 1px solid #555555;
+      border-right: 1px solid #555555;
+
+      margin-left: 1px;
+      top: -1px;
+      position: relative;
     }
 
     .obud-lesson-icons {
