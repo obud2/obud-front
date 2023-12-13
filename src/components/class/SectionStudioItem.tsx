@@ -28,7 +28,7 @@ const SectionStudioItem = ({ id, images, title, category, lessonType, addr }) =>
       </div>
 
       <div className="studio-category-container">
-        {category?.length > 0 && category.join(', ')}
+        {Array.isArray(category) && category.length > 0 && category.join(', ')}
         {` | ${addr.split(' ').slice(0, 2).join(' ')}`}
       </div>
 

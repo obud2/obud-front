@@ -1,52 +1,32 @@
-import Layout from '@components/layout/Layout';
-import Class from '@components/class/Class';
-import MetaHeader from '@components/common/meta/MetaHeader';
+import MetaHeader from '@/components/common/meta/MetaHeader';
+import Layout from '@/components/layout/Layout';
+import { IMG_PATH } from '@/constants';
+import { Studio, StudioSection } from '@/entities/studio';
 import StudioService from '@/service/StudioService';
-import { GetServerSidePropsContext } from 'next';
-import { IMG_PATH } from 'src/constants';
+import Class from '@components/class/Class';
 
-const Index = ({ studios }: any) => {
+type Props = {
+  specialStudios: Studio[];
+  sectionedStudios: StudioSection[];
+};
+
+const Index = ({ specialStudios, sectionedStudios }: Props) => {
   return (
     <Layout>
       <MetaHeader title="obud :: class" image={`${IMG_PATH}/obud_logo_img.png`} />
-      <Class studios={studios} />
+      <Class specialStudios={specialStudios} sectionedStudios={sectionedStudios} />
     </Layout>
   );
 };
 
-type Studio = {
-  isShow: boolean;
-  updatedAt: number;
-  category?: string[];
-  lessonType?: 'Special';
-  specialSort: number;
-  createdAt: number;
-  images: {
-    name: string;
-    size: number;
-    type: string;
-    upload: boolean;
-    key: string;
-    url: string;
-  }[];
-  id: string;
-  createdBy: string;
-  studiosId?: string;
-  sortOrder: number;
-  title: string;
-};
-
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const { sort } = context.query || {};
-
-  const res = await Promise.all([StudioService.getSpecialList(), StudioService.getStudios(sort)]);
-  const studios: Studio[][] = [];
-
-  studios.push(res[0] as Studio[]);
-  studios.push(res[1] as Studio[]);
+export const getServerSideProps = async () => {
+  const res = await Promise.all([StudioService.getSpecialList(), StudioService.getStudiosInAllSections()]);
 
   return {
-    props: { studios },
+    props: {
+      specialStudios: res[0],
+      sectionedStudios: res[1],
+    },
   };
 };
 
