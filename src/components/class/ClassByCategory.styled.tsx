@@ -50,7 +50,7 @@ export const SClass = styled.div`
 
         .section-more {
           font-size: 13px;
-          color: ${(props) => props.theme.main_color_slate_400};
+          color: ${(props) => props.theme.core_color_slate_400};
           cursor: pointer;
         }
       }

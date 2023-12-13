@@ -1,16 +1,18 @@
 import styled from 'styled-components';
+import { MOBILE } from 'src/styled/variablesStyles';
 
 export const SChip = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 4px 12px;
-  border-radius: 12px;
-  border: 1px solid ${(props) => props.theme.main_color_slate_200};
-  background: ${(props) => props.theme.main_color_slate_200};
-  width: fit-content;
+  border-radius: 5px;
+  border: 1px solid #eeeff1;
+  width: 100%;
 
   font-size: 1.3rem;
+  color: ${(props) => props.theme.core_color_slate_600};
   font-weight: 500;
-  color: white;
   line-height: 1.2;
+  margin-right: 2px;
 `;
