@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { MOBILE } from 'src/styled/variablesStyles';
 
 export const SChip = styled.div`
   display: flex;
