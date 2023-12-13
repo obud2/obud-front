@@ -1,7 +1,7 @@
 import Chip from '@/components/common/chip/Chip';
 import { Studio, StudioSection } from '@/entities/studio';
 import SpecialList from '../studio/SpecialList';
-import { SClass } from './ClassV2.styled.';
+import { SClass } from './ClassV2.styled';
 import Flicking from '@egjs/react-flicking';
 import { useRef } from 'react';
 import SectionStudioItem from './SectionStudioItem';
@@ -32,6 +32,7 @@ const ClassV2 = ({ specialStudios, sectionedStudios }: Props) => {
           <section key={section.id} className="class-section-container">
             <div className="section-title-container">
               <div className="section-title">{section.name}</div>
+              <div className="section-more">전체보기</div>
             </div>
 
             <div className="section-studio-container">

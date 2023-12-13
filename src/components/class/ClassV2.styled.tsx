@@ -39,9 +39,19 @@ export const SClass = styled.div`
 
       .section-title-container {
         margin-bottom: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+
         .section-title {
           font-size: 14px;
           font-weight: bold;
+        }
+
+        .section-more {
+          font-size: 13px;
+          color: ${(props) => props.theme.main_color_slate_400};
+          cursor: pointer;
         }
       }
 
