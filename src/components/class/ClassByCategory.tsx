@@ -1,6 +1,6 @@
 import { Studio } from '@/entities/studio';
 import StudioList from '../studio/StudioList';
-import { SClass } from './ClassV2.styled';
+import { SClass } from './Class.styled';
 
 type Props = {
   studios: Studio[];
