@@ -34,7 +34,9 @@ const ClassV2 = ({ specialStudios, sectionedStudios }: Props) => {
           <section key={section.id} className="class-section-container">
             <div className="section-title-container">
               <div className="section-title">{section.name}</div>
-              <div className="section-more">전체보기</div>
+              <div className="section-more" onClick={() => router.push(`/class/section/${section.id}`)}>
+                전체보기
+              </div>
             </div>
 
             <div className="section-studio-container">
