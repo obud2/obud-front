@@ -19,7 +19,7 @@ const Index = ({ specialStudios, sectionedStudios }: Props) => {
   );
 };
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const res = await Promise.all([StudioService.getSpecialList(), StudioService.getStudiosInAllSections()]);
 
   return {
@@ -27,7 +27,6 @@ export const getStaticProps = async () => {
       specialStudios: res[0],
       sectionedStudios: res[1],
     },
-    revalidate: 15,
   };
 };
 
