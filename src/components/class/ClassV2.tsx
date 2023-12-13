@@ -5,6 +5,7 @@ import { SClass } from './ClassV2.styled';
 import Flicking from '@egjs/react-flicking';
 import { useRef } from 'react';
 import SectionStudioItem from './SectionStudioItem';
+import { useRouter } from 'next/router';
 
 type Props = {
   specialStudios: Studio[];
@@ -12,6 +13,7 @@ type Props = {
 };
 
 const ClassV2 = ({ specialStudios, sectionedStudios }: Props) => {
+  const router = useRouter();
   const flickingRef = useRef<Flicking>(null);
 
   return (
@@ -22,10 +24,10 @@ const ClassV2 = ({ specialStudios, sectionedStudios }: Props) => {
         </section>
 
         <section className="class-category">
-          <Chip label="요가" />
-          <Chip label="차" />
-          <Chip label="명상" />
-          <Chip label="기타" />
+          <Chip label="요가" onClick={() => router.push('/class/category/1')} />
+          <Chip label="차" onClick={() => router.push('/class/category/2')} />
+          <Chip label="명상" onClick={() => router.push('/class/category/3')} />
+          <Chip label="기타" onClick={() => router.push('/class/category/4')} />
         </section>
 
         {sectionedStudios.map((section) => (

@@ -1,10 +1,17 @@
+import { Studio } from '@/entities/studio';
 import { useRouter } from 'next/router';
 
 import StudioItem from './StudioItem';
 import { StudioSort } from './StudioList.option';
 import { SStudioList } from './StudioList.styled';
 
-const StudioList = ({ title, list, isSort }) => {
+type Props = {
+  title?: string;
+  list: Studio[];
+  isSort?: boolean;
+};
+
+const StudioList = ({ title, list, isSort }: Props) => {
   const router = useRouter();
 
   const onChangeFilter = (e) => {

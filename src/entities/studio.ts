@@ -15,6 +15,7 @@ export type Studio = {
   images: ObudImage[];
   information: string;
   isShow: boolean;
+  lessonType?: string;
   parking: string; // "true" | "false"
   parkingInfo: string;
   refund: StudioRefund[];
@@ -45,3 +46,17 @@ export type StudioSection = {
   order: number;
   studios: Studio[];
 }
+
+export enum StudioCategory {
+  YOGA = '요가',
+  PILATES = '필라테스',
+  TEA = '차',
+  ETC = '기타',
+}
+
+export const CategoryMap = {
+  1: StudioCategory.YOGA,
+  2: StudioCategory.PILATES,
+  3: StudioCategory.TEA,
+  4: StudioCategory.ETC,
+};
