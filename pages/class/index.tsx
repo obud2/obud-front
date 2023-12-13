@@ -22,13 +22,13 @@ type Studio = {
   specialSort: number;
   createdAt: number;
   images: {
-      name: string;
-      size: number;
-      type: string;
-      upload: boolean;
-      key: string;
-      url: string;
-    }[];
+    name: string;
+    size: number;
+    type: string;
+    upload: boolean;
+    key: string;
+    url: string;
+  }[];
   id: string;
   createdBy: string;
   studiosId?: string;
@@ -42,9 +42,8 @@ export const getStaticProps = async (context: GetServerSidePropsContext) => {
   const res = await Promise.all([StudioService.getSpecialList(), StudioService.getStudios(sort)]);
   const studios: Studio[][] = [];
 
-  studios.push(res[0]); // Special 상품
-  studios.push(res[1] || []); // Regular 업로드한지 2주 안지난 상품
-  // studios.push(res[1]?.oldData || []); // Regular 업로드한지 2주 지난 상품
+  studios.push(res[0] as Studio[]);
+  studios.push(res[1] as Studio[]);
 
   return {
     props: { studios },
