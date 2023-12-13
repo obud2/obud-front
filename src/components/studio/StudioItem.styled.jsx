@@ -89,8 +89,6 @@ export const SStudioItem = styled.div`
       align-items: center;
       cursor: pointer;
 
-      color: ${(props) => props.theme.main_color_slate_500};
-
       ${MOBILE} {
         font-size: 1.4rem;
         font-weight: 400;

@@ -25,8 +25,6 @@ export const SStudioList = styled.div<{ isShow?: boolean }>`
     font-weight: 600;
     text-align: left;
 
-    color: ${(props) => props.theme.main_color_slate_500};
-
     ${TABLET} {
       max-width: ${TABLET_MAX_WIDTH};
     }

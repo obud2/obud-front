@@ -23,8 +23,6 @@ export const SSpecialList = styled.div<{ isShow: boolean }>`
     font-weight: 600;
     text-align: left;
 
-    color: ${(props) => props.theme.main_color_slate_500};
-
     ${TABLET} {
       max-width: ${TABLET_MAX_WIDTH};
     }
@@ -76,7 +74,7 @@ export const SSpecialList = styled.div<{ isShow: boolean }>`
       .flicking-pagination {
         font-size: 1.4rem;
         font-weight: 500;
-        color: ${(props) => props.theme.main_color_slate_300};
+        color: ${(props) => props.theme.core_color_slate_600};
 
         bottom: 0px;
 
@@ -148,7 +146,7 @@ export const SSpecialList = styled.div<{ isShow: boolean }>`
           height: 1px;
           left: 6px;
 
-          background-color: ${(props) => props.theme.main_color_slate_300};
+          background-color: ${(props) => props.theme.core_color_slate_600};
         }
 
         &::before {

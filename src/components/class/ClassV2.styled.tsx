@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { MOBILE } from 'src/styled/variablesStyles';
+import { MAX_WIDTH, MOBILE, TABLET, TABLET_MAX_WIDTH } from 'src/styled/variablesStyles';
 
 export const SClass = styled.div`
   width: 100%;
@@ -23,10 +23,30 @@ export const SClass = styled.div`
     }
 
     .class-category {
+      width: 100%;
+      max-width: ${MAX_WIDTH};
+      padding: 40px 15px;
+      padding-bottom: 32px;
+
+      margin: 0 auto;
+
+      ${TABLET} {
+        max-width: ${TABLET_MAX_WIDTH};
+      }
+
+      ${MOBILE} {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+
+        max-width: 100%;
+        padding: 0 15px;
+      }
+
       display: flex;
       justify-content: flex-start;
       padding: 12px;
-      margin-bottom: 12px;
+      margin-bottom: 35px;
 
       div {
         margin-right: 8px;
@@ -34,12 +54,25 @@ export const SClass = styled.div`
     }
 
     .class-section-container {
+      width: 100%;
+      max-width: ${MAX_WIDTH};
+      padding: 60px 15px;
+      padding-bottom: 32px;
+
+      margin: 0 auto;
+
+      ${TABLET} {
+        max-width: ${TABLET_MAX_WIDTH};
+      }
+
       margin-bottom: 12px;
       padding: 15px;
 
       ${MOBILE} {
         margin-bottom: 8px;
-        padding: 12px;
+
+        max-width: 100%;
+        padding: 20px 0 20px 15px;
       }
 
       .section-title-container {
@@ -59,7 +92,8 @@ export const SClass = styled.div`
 
         .section-more {
           font-size: 1.4rem;
-          color: ${(props) => props.theme.main_color_slate_400};
+          color: ${(props) => props.theme.core_color_slate_400};
+          margin-right: 10px;
           cursor: pointer;
 
           ${MOBILE} {

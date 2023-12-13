@@ -47,7 +47,7 @@ const StudioDetail = ({ studio }: Props) => {
       <SStudioOption>
         <div className="obud-studio-header">
           <h4 className="obud-studio-title">{studio?.title || ''}</h4>
-          <div className="obud-studio-category-container">{studio?.category.join(', ')}</div>
+          <div className="obud-studio-category-container">{studio?.category?.join(', ')}</div>
           <div className="obud-studio-icons">
             <Like value={studio?.wishInfo?.isWish ?? false} onClick={onClickWish} />
             <Share isHide={false} data={studio} title={studio?.title || ''} />
