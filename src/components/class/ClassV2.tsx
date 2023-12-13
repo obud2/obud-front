@@ -3,9 +3,10 @@ import { Studio, StudioSection } from '@/entities/studio';
 import SpecialList from '../studio/SpecialList';
 import { SClass } from './ClassV2.styled';
 import Flicking from '@egjs/react-flicking';
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
 import SectionStudioItem from './SectionStudioItem';
 import { useRouter } from 'next/router';
+import { LayoutContext } from '@/context/LayoutContext';
 
 type Props = {
   specialStudios: Studio[];
@@ -14,6 +15,7 @@ type Props = {
 
 const ClassV2 = ({ specialStudios, sectionedStudios }: Props) => {
   const router = useRouter();
+  const { matchese } = useContext(LayoutContext);
   const flickingRef = useRef<Flicking>(null);
 
   return (
@@ -40,7 +42,7 @@ const ClassV2 = ({ specialStudios, sectionedStudios }: Props) => {
             </div>
 
             <div className="section-studio-container">
-              <Flicking ref={flickingRef} circular align="prev">
+              <Flicking ref={flickingRef} circular align="prev" panelsPerView={matchese ? 2 : 4}>
                 {section.studios.map((studio) => (
                   <div className="panel section-studio-item" key={studio.id}>
                     <SectionStudioItem

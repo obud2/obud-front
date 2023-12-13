@@ -20,6 +20,11 @@ const SectionStudioItem = ({ id, images, title, category, lessonType, addr }) =>
         <div className="studio-item-image">
           <CustomImage className="studio-image-1" src={images?.[0]?.url || ''} width={800} height={800} alt="studio-images" />
         </div>
+        {images?.[1]?.url && (
+          <div className="studio-item-image">
+            <CustomImage className="studio-image-2" src={images?.[1]?.url || ''} width={800} height={800} alt="studio-images" />
+          </div>
+        )}
       </div>
 
       <div className="studio-category-container">

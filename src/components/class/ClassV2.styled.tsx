@@ -34,8 +34,13 @@ export const SClass = styled.div`
     }
 
     .class-section-container {
-      margin-bottom: 8px;
-      padding: 12px;
+      margin-bottom: 12px;
+      padding: 15px;
+
+      ${MOBILE} {
+        margin-bottom: 8px;
+        padding: 12px;
+      }
 
       .section-title-container {
         margin-bottom: 12px;
@@ -44,14 +49,22 @@ export const SClass = styled.div`
         align-items: flex-end;
 
         .section-title {
-          font-size: 14px;
+          font-size: 1.6rem;
           font-weight: bold;
+
+          ${MOBILE} {
+            font-size: 1.4rem;
+          }
         }
 
         .section-more {
-          font-size: 13px;
+          font-size: 1.4rem;
           color: ${(props) => props.theme.main_color_slate_400};
           cursor: pointer;
+
+          ${MOBILE} {
+            font-size: 1.3rem;
+          }
         }
       }
 

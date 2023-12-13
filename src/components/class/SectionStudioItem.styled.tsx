@@ -40,7 +40,11 @@ export const SStudioItem = styled.div<{ isActive?: boolean }>`
     .studio-image-1 {
       z-index: 1;
       transition: opacity 0.3s ease-in-out;
-      border-radius: 8px;
+    }
+
+    .studio-image-2 {
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
     }
 
     ${(props) =>
