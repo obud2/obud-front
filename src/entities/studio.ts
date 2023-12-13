@@ -49,14 +49,14 @@ export type StudioSection = {
 
 export enum StudioCategory {
   YOGA = '요가',
-  PILATES = '필라테스',
   TEA = '차',
+  MEDITATION = '명상',
   ETC = '기타',
 }
 
 export const CategoryMap = {
   1: StudioCategory.YOGA,
-  2: StudioCategory.PILATES,
-  3: StudioCategory.TEA,
+  2: StudioCategory.TEA,
+  3: StudioCategory.MEDITATION,
   4: StudioCategory.ETC,
 };
