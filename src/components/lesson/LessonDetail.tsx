@@ -36,7 +36,8 @@ const LessonDetail = ({ lesson }: Props) => {
                   router.push(`/class/${lesson?.studios?.id}`);
                 }}
               >
-                {lesson?.studios?.title || ''} {'>'}
+                {lesson?.studios?.title || ''}
+                <div className="arrow-icon" />
               </h5>
               <h4 className="obud-lesson-title">{lesson?.title || ''}</h4>
             </div>
