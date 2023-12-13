@@ -10,7 +10,7 @@ type Props = {
 };
 
 const ClassList = ({ studioId }: Props) => {
-  const { data, isLoading } = useQuery(['class-list', studioId], () => StudioService.getLessons(studioId));
+  const { data, isLoading } = useQuery<any>(['class-list', studioId], () => StudioService.getLessons(studioId));
   const router = useRouter();
 
   const onClickGoLesson = (e: string) => {
@@ -37,8 +37,12 @@ const ClassList = ({ studioId }: Props) => {
                       {item?.isSoldOut && <div className="item-impossible">품절</div>}
                     </div>
                     <div className="class-price-container">
-                      {!showMaxPrice && (<p>{addComma(item?.minPrice || 0)}원</p>)}
-                      {showMaxPrice && (<p>{addComma(item?.minPrice || 0)}원 - {addComma(item?.maxPrice)}원</p>)}
+                      {!showMaxPrice && <p>{addComma(item?.minPrice || 0)}원</p>}
+                      {showMaxPrice && (
+                        <p>
+                          {addComma(item?.minPrice || 0)}원 - {addComma(item?.maxPrice)}원
+                        </p>
+                      )}
                       <div className="class-arrow-icon" />
                     </div>
                   </li>

@@ -564,12 +564,12 @@ const setStudio = (method, param) => {
  * @returns
  */
 const limit = 15;
-const getLessons = (studioId, cursor, keyword) => {
-  const keywordTemp = keyword ? `&keyword=${keyword}` : '';
-  const cursorTemp = cursor ? `&cursor=${cursor}` : '';
+const getLessons = (studioId) => {
+  // const keywordTemp = keyword ? `&keyword=${keyword}` : '';
+  // const cursorTemp = cursor ? `&cursor=${cursor}` : '';
 
   return new Promise((resolve) => {
-    axiosInstance.get(`studios/lesson?studiosId=${studioId}&limit=${limit}${cursorTemp}${keywordTemp}`).then((response) => {
+    axiosInstance.get(`studios/lesson?studiosId=${studioId}&limit=${limit}`).then((response) => {
       resolve(response.data);
     });
   });
