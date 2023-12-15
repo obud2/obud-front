@@ -48,9 +48,7 @@ const CustomImage = ({
       placeholder={placeholder}
       quality={quality}
       style={{ WebkitUserSelect: 'none' }}
-      onError={() => {
-        setIsError(true);
-      }}
+      onError={() => setIsError(true)}
       alt={alt || 'images'}
       blurDataURL="/img/blurDataUrl.png"
     />

@@ -27,7 +27,7 @@ const StudioOption = ({ studio }: Props) => {
           let active = true;
 
           if (item.id === 'convenience') {
-            if (studio.convenience.length === 0) active = false;
+            if (studio.convenience?.length === 0) active = false;
           }
 
           return (

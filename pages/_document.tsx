@@ -32,6 +32,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>{/* TODO: Default Font loading */}</Head>
+        {/* TODO: remove loader component */}
         <div className="loader">
           <div className="loader_background" />
         </div>
