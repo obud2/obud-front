@@ -1,7 +1,5 @@
-import React from 'react';
-
-import Layout from '@components/layout/Layout';
 import MetaHeader from '@components/common/meta/MetaHeader';
+import Layout from '@components/layout/Layout';
 import MobileMy from '@components/my/MobileMy';
 
 const Index = () => {
