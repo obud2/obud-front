@@ -24,7 +24,7 @@ const saveItem = (type, param) => {
   return new Promise((resolve, reject) => {
     axiosInstance
       .request({
-        method: type === 'new' ? 'post' : 'put',
+        method: 'post',
         url: 'bbs/contact/',
         data: param,
       })

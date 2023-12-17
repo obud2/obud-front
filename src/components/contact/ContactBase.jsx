@@ -9,7 +9,7 @@ import useAuthModal from 'src/store/useAuthModal';
 import alert from 'src/helpers/alert';
 import Steps from '@components/common/steps/Steps';
 
-const ContactBase = ({ title, children }) => {
+const ContactBase = ({ title, children, auth = false }) => {
   const { matchese } = useContext(LayoutContext);
 
   const [steps, setSteps] = useState([]);
@@ -20,6 +20,9 @@ const ContactBase = ({ title, children }) => {
   }));
 
   useEffect(() => {
+    if (!auth) {
+      return;
+    }
     const check = loginCheck();
 
     setIsLogin(!check);
@@ -53,7 +56,7 @@ const ContactBase = ({ title, children }) => {
       </div>
 
       <article className="obud-about-article">
-        {isLogin && <div className="about-login-check" onClick={onClickLoginInduction} />}
+        {auth && isLogin && <div className="about-login-check" onClick={onClickLoginInduction} />}
         {children}
       </article>
     </SContactBase>

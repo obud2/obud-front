@@ -10,40 +10,30 @@ import CustomButton from '@components/common/button/CustomButton';
 
 const CONTACT = [
   {
-    id: 'about',
-    title: '입점 및 제휴문의',
-    contents: '오붓과 함께 스페셜 클래스를 기획하고 싶거나, \n 입점 및 제휴를 원하시면 \n 아래 메일로 연락주세요.',
-    button: 'api',
+    id: 'register',
+    title: '입점 문의',
+    contents: '오붓에 입점을 원하시면 \n 아래 양식을 제출해주세요.',
+    button: '양식 작성',
   },
   {
     id: 'class',
-    title: '클래스 문의',
-    contents: '오붓에서 진행하는 클래스를 \n 프라이빗하게 진행하고 싶다면, \n 아래 폼(개인/단체)을 제출해주세요.',
-    button: '문의하기',
+    title: '기업/단체 클래스 문의',
+    contents: '기업/단체 클래스 문의는 \n 아래 양식을 제출해주세요',
+    button: '양식 작성',
   },
   {
-    id: 'instructor',
-    title: '강사지원',
-    contents: '오붓과 함께하실 \n 열정적인 선생님들을 모집합니다. \n 아래 지원서를 제출해주세요.',
-    button: '지원하기',
+    id: 'collaboration',
+    title: '기타 제휴 문의',
+    contents: '마케팅 제휴 등 기타 협업 문의는 \n 아래 메일로 연락주세요.',
+    button: 'obudyoga@gmail.com',
+    email: 'obudyoga@gmail.com',
   },
 ];
 
 const Contact = () => {
   const router = useRouter();
 
-  const root = useContext(RootContext);
-
-  const buttonRender = (text) => {
-    let button = text;
-
-    if (text === 'api') button = root?.info?.email || '';
-
-    return button;
-  };
-
-  const handleEmail = () => {
-    const email = root?.info?.email || '';
+  const handleEmail = (email) => {
     const userAgent = navigator.userAgent || '';
 
     if (userAgent.match(/isAndroid|isIOS/i)) {
@@ -57,16 +47,16 @@ const Contact = () => {
     }
   };
 
-  const onClickSubmit = (id) => {
+  const onClickSubmit = (id, email = '') => {
     switch (id) {
-      case 'about':
-        handleEmail();
+      case 'register':
+        router.push('/contact/register');
         break;
       case 'class':
         router.push('/contact/private');
         break;
-      case 'instructor':
-        router.push('/contact/hiring');
+      case 'collaboration':
+        handleEmail(email);
         break;
     }
   };
@@ -76,13 +66,13 @@ const Contact = () => {
       <BaseTitle title="Contact" />
 
       <article className="obud-contack-article">
-        {CONTACT?.map((item) => (
+        {CONTACT.map((item) => (
           <ContactItem
-            key={item?.id}
-            title={item?.title || ''}
-            contents={item?.contents || ''}
-            button={buttonRender(item?.button || '')}
-            onClick={() => onClickSubmit(item?.id)}
+            key={item.id}
+            title={item.title || ''}
+            contents={item.contents || ''}
+            button={item.button || ''}
+            onClick={() => onClickSubmit(item.id, item.email)}
           />
         ))}
       </article>

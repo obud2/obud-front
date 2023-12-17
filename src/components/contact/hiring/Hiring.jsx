@@ -110,7 +110,7 @@ const Hiring = () => {
           <CustomInput
             name="sns"
             label="인스타그램 주소를 알려주세요."
-            placeholder="@abcd1234"
+            placeholder="@abc_def"
             type="text"
             variant="outlined"
             value={body?.sns || ''}
