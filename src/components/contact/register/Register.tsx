@@ -110,6 +110,7 @@ const Register = () => {
             label="인스타그램 주소를 알려주세요."
             placeholder="@abc_def"
             type="text"
+            point
             variant="outlined"
             value={body?.sns || ''}
             onChange={onChangeInputValue}
