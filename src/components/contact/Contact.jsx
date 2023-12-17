@@ -1,9 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { useRouter } from 'next/router';
 import { SContact } from './Contact.styled';
-
-import { RootContext } from 'src/context/RootContext';
 
 import BaseTitle from '@components/base/BaseTitle';
 import CustomButton from '@components/common/button/CustomButton';

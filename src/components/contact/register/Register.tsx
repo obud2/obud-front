@@ -16,7 +16,6 @@ import CustomButton from '@components/common/button/CustomButton';
 import AboutPolicyCard from '../option/AboutPolicyCard';
 import alert from 'src/helpers/alert';
 
-
 type Form = {
   placeTitle: string;
   sns: string;
