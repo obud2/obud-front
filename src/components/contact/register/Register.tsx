@@ -22,6 +22,8 @@ type Form = {
   program: string;
   representative: string;
   phone: string;
+  type: string;
+  process: string;
 }
 
 const EMPTY_BODY: Form = {
@@ -30,6 +32,8 @@ const EMPTY_BODY: Form = {
   program: '',
   representative: '',
   phone: '',
+  type: 'register',
+  process: 'wait',
 };
 const Register = () => {
   const { user } = useContext(UserContext);
