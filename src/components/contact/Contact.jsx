@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 
 import { useRouter } from 'next/router';
 import { SContact } from './Contact.styled';
 
 import BaseTitle from '@components/base/BaseTitle';
 import CustomButton from '@components/common/button/CustomButton';
+import {RootContext} from "@/context/RootContext";
 
 const CONTACT = [
   {
@@ -23,13 +24,15 @@ const CONTACT = [
     id: 'collaboration',
     title: '기타 제휴 문의',
     contents: '마케팅 제휴 등 기타 협업 문의는 \n 아래 메일로 연락주세요.',
-    button: 'obudyoga@gmail.com',
-    email: 'obudyoga@gmail.com',
+    button: 'email',
   },
 ];
 
 const Contact = () => {
   const router = useRouter();
+
+  const root = useContext(RootContext);
+  const email = root.info.email;
 
   const handleEmail = (email) => {
     const userAgent = navigator.userAgent || '';
@@ -69,8 +72,8 @@ const Contact = () => {
             key={item.id}
             title={item.title || ''}
             contents={item.contents || ''}
-            button={item.button || ''}
-            onClick={() => onClickSubmit(item.id, item.email)}
+            button={item.button === 'email' ? email : item.button || ''}
+            onClick={() => onClickSubmit(item.id, email)}
           />
         ))}
       </article>
