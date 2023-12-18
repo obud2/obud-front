@@ -53,10 +53,17 @@ interface GetStudiosFromCategoryResponse {
 const getStudiosFromCategory = async (categoryId: string) => {
   try {
     const res = await axiosInstance.get<GetStudiosFromCategoryResponse>(`v2/place?categoryId=${categoryId}`);
-    return res.data.value || [];
+    return getStudiosFromCategoryAdapter(res.data.value) || [];
   } catch (err) {
     return [];
   }
+};
+
+const getStudiosFromCategoryAdapter = (studios: Studio[]) => {
+  return studios.map((studio) => ({
+    ...studio,
+    images: typeof studio.images === 'string' ? JSON.parse(studio.images) : studio.images,
+  }));
 };
 
 interface GetStudiosFromSectionResponse {
