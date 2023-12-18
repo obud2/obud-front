@@ -45,7 +45,7 @@ export type StudioSection = {
   name: string;
   order: number;
   studios: Studio[];
-}
+};
 
 export enum StudioCategory {
   YOGA = '요가',
@@ -59,4 +59,39 @@ export const CategoryMap = {
   2: StudioCategory.TEA,
   3: StudioCategory.MEDITATION,
   4: StudioCategory.ETC,
+};
+
+export type Section = {
+  id: number;
+  name: string;
+  order: number;
+  isVisible: boolean;
+  createdAt: string; // ex: "2023-12-11T05:15:22.275Z"
+  updatedAt: string;
+};
+
+export type SectionOrderItem = {
+  id: number;
+  order: number;
+};
+
+export enum SectionItemType {
+  // studios
+  PLACE = 'PLACE',
+  // lesson
+  PROGRAM = 'PROGRAM',
+}
+
+export type SectionItem = {
+  type: SectionItemType;
+  id: string;
+  name: string;
+  images: { key: string; url: string }[];
+  order: number;
+};
+
+export type SectionWithItems = {
+  id: number; // Section Id;
+  section: Section;
+  items: SectionItem[];
 };

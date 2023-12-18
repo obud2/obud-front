@@ -1,5 +1,5 @@
 import Chip from '@/components/common/chip/Chip';
-import { Studio, StudioSection } from '@/entities/studio';
+import { SectionWithItems, Studio } from '@/entities/studio';
 import { useRouter } from 'next/router';
 import SpecialList from '../studio/SpecialList';
 import { SClass } from './ClassV2.styled';
@@ -7,10 +7,10 @@ import SectionItem from './SectionItem';
 
 type Props = {
   specialStudios: Studio[];
-  sectionedStudios: StudioSection[];
+  sectionWithItems: SectionWithItems[];
 };
 
-const ClassV2 = ({ specialStudios, sectionedStudios }: Props) => {
+const ClassV2 = ({ specialStudios, sectionWithItems }: Props) => {
   const router = useRouter();
 
   return (
@@ -27,8 +27,8 @@ const ClassV2 = ({ specialStudios, sectionedStudios }: Props) => {
           <Chip label="기타" onClick={() => router.push('/class/category/4')} />
         </section>
 
-        {sectionedStudios.map((section) => (
-          <SectionItem key={section.id} section={section} />
+        {sectionWithItems.map((swi) => (
+          <SectionItem key={swi.section.id} sectionWithItems={swi} />
         ))}
       </article>
     </SClass>

@@ -1,11 +1,11 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 
 import { useRouter } from 'next/router';
 import { SContact } from './Contact.styled';
 
 import BaseTitle from '@components/base/BaseTitle';
 import CustomButton from '@components/common/button/CustomButton';
-import {RootContext} from "@/context/RootContext";
+import { RootContext } from '@/context/RootContext';
 
 const CONTACT = [
   {
