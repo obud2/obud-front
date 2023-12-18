@@ -49,6 +49,7 @@ const StudioList = ({ title, list, isSort }: Props) => {
                 id={item?.id || ''}
                 images={item?.images || []}
                 title={item?.title || ''}
+                category={item?.category || ''}
                 lessonType={item?.lessonType || ''}
                 addr={item?.addr || ''}
               />
