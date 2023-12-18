@@ -37,7 +37,6 @@ const SpecialList = ({ list }: { list: Studio[] }) => {
                   key={item.id}
                   images={item?.images || []}
                   title={item?.title || ''}
-                  category={item?.category || ''}
                   lessonType={item?.lessonType || ''}
                   addr={item?.addr || ''}
                 />

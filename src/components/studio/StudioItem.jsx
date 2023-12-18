@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { SStudioItem } from './StudioItem.styled';
 import CustomImage from '@components/common/image/CustomImage';
 
-const StudioItem = ({ id, images, title, category, lessonType, addr }) => {
+const StudioItem = ({ id, images, title, lessonType, addr }) => {
   const router = useRouter();
 
   const onClickStudioDetail = () => {
@@ -37,7 +37,7 @@ const StudioItem = ({ id, images, title, category, lessonType, addr }) => {
       </div>
 
       <div className="studio-category-container">
-        {category?.length > 0 && category.join(', ')}
+        {/* {category?.length > 0 && category.join(', ')} */}
         {lessonType !== 'Special' && ` | ${addrRender(addr || '')}`}
       </div>
 
