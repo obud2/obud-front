@@ -32,7 +32,7 @@ const Contact = () => {
   const router = useRouter();
 
   const root = useContext(RootContext);
-  const email = root.info.email;
+  const email = (root as any)?.info?.email ?? '';
 
   const handleEmail = (email) => {
     const userAgent = navigator.userAgent || '';
@@ -65,7 +65,6 @@ const Contact = () => {
   return (
     <SContact>
       <BaseTitle title="Contact" />
-
       <article className="obud-contack-article">
         {CONTACT.map((item) => (
           <ContactItem

@@ -1,8 +1,11 @@
-import React from 'react';
-
 import { SBaseTitle } from './BaseTitle.styled';
 
-const BaseTitle = ({ title, basic }) => {
+type Props = {
+  title: string;
+  basic?: boolean;
+};
+
+const BaseTitle = ({ title, basic }: Props) => {
   return (
     <SBaseTitle basic={basic}>
       <p className="base-title text-delay-animation">{title}</p>

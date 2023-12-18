@@ -13,7 +13,7 @@ const LineAnimation = keyframes`
   }
   `;
 
-export const SBaseTitle = styled.header`
+export const SBaseTitle = styled.header<{ basic?: boolean; fontSize?: string }>`
   width: 100%;
 
   margin-top: 60px;
