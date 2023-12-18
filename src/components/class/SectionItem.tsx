@@ -32,7 +32,7 @@ const SectionItem = ({ sectionWithItems }: Props) => {
                 id={studio.id}
                 images={studio.images}
                 title={studio.name}
-                category=""
+                category={studio.category}
                 lessonType=""
                 addr={studio.address ?? studio.addr ?? ''}
               />

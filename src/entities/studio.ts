@@ -91,6 +91,7 @@ export type SectionItem = {
   /// @deprecated use `address` instead
   addr?: string;
   address?: string;
+  category?: string | string[];
 };
 
 export type SectionWithItems = {
