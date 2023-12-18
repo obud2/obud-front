@@ -88,6 +88,9 @@ export type SectionItem = {
   name: string;
   images: { key: string; url: string }[];
   order: number;
+  /// @deprecated use `address` instead
+  addr?: string;
+  address?: string;
 };
 
 export type SectionWithItems = {
