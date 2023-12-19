@@ -55,8 +55,6 @@ export const SContactBase = styled.div`
 
       text-align: center;
 
-      color: ${(props) => props.theme.main_color_slate_300};
-
       ${MOBILE} {
         font-size: 2rem;
         border-bottom: none;

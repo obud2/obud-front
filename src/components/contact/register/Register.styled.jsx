@@ -15,10 +15,6 @@ export const SRegister = styled.section`
 
   .contact-policy-container {
     width: 100%;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
   }
 
   .contact-form-container {

@@ -42,7 +42,7 @@ export const SBaseTitle = styled.header<{ basic?: boolean; fontSize?: string }>`
 
     text-align: center;
 
-    color: ${(props) => props.theme.main_color_slate_300};
+    color: #565656;
 
     ${(props) =>
       props.basic &&
@@ -61,7 +61,7 @@ export const SBaseTitle = styled.header<{ basic?: boolean; fontSize?: string }>`
   .title-line {
     width: 83px;
     height: 0.5px;
-    background-color: ${(props) => props.theme.main_color_slate_200};
+    background-color: ${(props) => props.theme.sub_color_slate_300};
 
     animation: ${LineAnimation} 0.7s ease-in-out;
 
@@ -70,7 +70,7 @@ export const SBaseTitle = styled.header<{ basic?: boolean; fontSize?: string }>`
       css`
         width: 100%;
         height: 1px;
-        background-color: ${(props) => props.theme.main_color_slate_200};
+        background-color: ${(props) => props.theme.sub_color_slate_300};
 
         animation: none;
       `}
