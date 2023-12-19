@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { MOBILE } from 'src/styled/variablesStyles';
 
 export const SAboutPolicyCard = styled.div`
-  width: 349px;
+  /* width: 349px; */
   height: auto;
 
   margin-bottom: 40px;
@@ -18,7 +18,7 @@ export const SAboutPolicyCard = styled.div`
     display: flex;
     align-items: center;
 
-    color: ${(props) => props.theme.main_color_slate_300};
+    color: #565656;
     font-size: 1.4rem;
     font-weight: 700;
 

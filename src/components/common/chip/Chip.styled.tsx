@@ -14,4 +14,5 @@ export const SChip = styled.div`
   font-weight: 500;
   line-height: 1.2;
   margin-right: 2px;
+  cursor: pointer;
 `;

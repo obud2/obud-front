@@ -9,7 +9,7 @@ type Props = {
 };
 
 const Class = ({ studios }: Props) => {
-  const specialStudios = studios[0] || [];
+  // const specialStudios = studios[0] || [];
   const allStudios = studios[1] || [];
 
   return (

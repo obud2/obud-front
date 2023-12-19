@@ -49,6 +49,7 @@ export const SLessonOption = styled.div`
       color: #555555;
       display: flex;
       align-items: center;
+      cursor:pointer;
     }
 
     .arrow-icon {
