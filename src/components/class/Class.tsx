@@ -1,7 +1,8 @@
 import StudioList from '@/components/studio/StudioList';
 import { Studio } from '@/entities/studio';
-import SpecialList from '../studio/SpecialList';
+// import SpecialList from '../studio/SpecialList';
 import { SClass } from './Class.styled';
+import TempBanner from '../studio/TempBanner';
 
 type Props = {
   studios: Studio[][];
@@ -15,7 +16,8 @@ const Class = ({ studios }: Props) => {
     <SClass>
       <article className="obud-class-article">
         <section className="class-container">
-          <SpecialList list={specialStudios} />
+          {/* <SpecialList list={specialStudios} /> */}
+          <TempBanner />
         </section>
 
         <section className="class-container">
