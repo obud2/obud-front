@@ -1,7 +1,8 @@
 import { ObudImage } from './common';
 
 export type Studio = {
-  addr: string;
+  addr: string; // deprecated
+  address?: string; // new. use this instead
   addrDetail: string;
   category: string[];
   contents: string;

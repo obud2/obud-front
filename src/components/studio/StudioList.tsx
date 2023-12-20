@@ -24,6 +24,8 @@ const StudioList = ({ title, list, isSort }: Props) => {
     }
   };
 
+  console.log(list);
+
   return (
     <SStudioList isShow={list && list?.length > 0}>
       <p className="list-title">{title}</p>
@@ -51,7 +53,7 @@ const StudioList = ({ title, list, isSort }: Props) => {
                 title={item?.title || ''}
                 category={item?.category || ''}
                 lessonType={item?.lessonType || ''}
-                addr={item?.addr || ''}
+                addr={item?.addr ?? item?.address ?? ''}
               />
             ))
           ) : (
