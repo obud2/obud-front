@@ -1,23 +1,24 @@
 import Chip from '@/components/common/chip/Chip';
-import { SectionWithItems, Studio } from '@/entities/studio';
+import { Banner } from '@/entities/banner';
+import { SectionWithItems } from '@/entities/studio';
 import { useRouter } from 'next/router';
-import SpecialList from '../studio/SpecialList';
+import BannerList from './BannerList';
 import { SClass } from './ClassV2.styled';
 import SectionItem from './SectionItem';
 
 type Props = {
-  specialStudios: Studio[];
+  banners: Banner[];
   sectionWithItems: SectionWithItems[];
 };
 
-const ClassV2 = ({ specialStudios, sectionWithItems }: Props) => {
+const ClassV2 = ({ banners, sectionWithItems }: Props) => {
   const router = useRouter();
 
   return (
     <SClass>
       <article className="obud-class-article">
         <section className="class-container">
-          <SpecialList list={specialStudios} />
+          <BannerList banners={banners} />
         </section>
 
         <section className="class-category">
