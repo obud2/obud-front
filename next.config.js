@@ -9,6 +9,15 @@ const nextConfig = {
   env: {
     BASE_URL: process.env.BASE_URL,
   },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/class',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
