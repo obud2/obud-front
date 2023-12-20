@@ -28,14 +28,7 @@ const SectionItem = ({ sectionWithItems }: Props) => {
         <Flicking ref={flickingRef} circular align="prev" panelsPerView={matchese ? 2.2 : 4} gap={-20} moveType="freeScroll">
           {items.map((studio) => (
             <div className="panel section-studio-item" key={studio.id}>
-              <SectionStudioItem
-                id={studio.id}
-                images={studio.images}
-                title={studio.name}
-                category={studio.category}
-                lessonType=""
-                addr={studio.address ?? studio.addr ?? ''}
-              />
+              <SectionStudioItem studio={studio} />
             </div>
           ))}
         </Flicking>

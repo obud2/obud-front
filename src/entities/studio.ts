@@ -92,6 +92,7 @@ export type SectionItem = {
   addr?: string;
   address?: string;
   category?: string | string[];
+  minPrice?: string;
 };
 
 export type SectionWithItems = {

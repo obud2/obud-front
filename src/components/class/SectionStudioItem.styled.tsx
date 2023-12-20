@@ -149,4 +149,24 @@ export const SStudioItem = styled.div<{ isActive?: boolean }>`
       }
     }
   }
+
+  .studio-item-minprice-container {
+    margin-top: 4px;
+    padding: 0 5px;
+    .studio-item-title {
+      font-size: 1.5rem;
+      font-weight: 400;
+      line-height: 100%;
+      color: ${(props) => props.theme.core_color_slate_600};
+
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      ${MOBILE} {
+        font-size: 1.2rem;
+        font-weight: 400;
+      }
+    }
+  }
 `;
