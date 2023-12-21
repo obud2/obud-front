@@ -24,8 +24,6 @@ const StudioList = ({ title, list, isSort }: Props) => {
     }
   };
 
-  console.log(list);
-
   return (
     <SStudioList isShow={list && list?.length > 0}>
       <p className="list-title">{title}</p>
