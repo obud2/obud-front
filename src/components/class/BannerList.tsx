@@ -33,7 +33,7 @@ const BannerList = ({ banners }: Props) => {
       <p className="list-title">Special</p>
       <div className="banner-list">
         <div className="item-container">
-          <Flicking ref={flickingRef} align="prev" panelsPerView={matchese ? 1 : 4}>
+          <Flicking ref={flickingRef} circular align="prev" panelsPerView={matchese ? 1 : 4}>
             {banners.map((banner) => (
               <div className="panel" key={`panel_${banner.id}`}>
                 <BannerItem banner={banner} />
