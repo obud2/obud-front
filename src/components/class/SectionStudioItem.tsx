@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 
 import CustomImage from '@components/common/image/CustomImage';
 import { SStudioItem } from './SectionStudioItem.styled';
-import { SectionItem } from '@/entities/studio';
+import { SectionItem, SectionItemType } from '@/entities/studio';
 
 type Props = {
   studio: SectionItem;
@@ -11,10 +11,14 @@ type Props = {
 const SectionStudioItem = ({ studio }: Props) => {
   const router = useRouter();
 
-  const { id, name, images, addr, category, minPrice } = studio;
+  const { id, type, name, images, addr, category, minPrice } = studio;
 
   const onClickStudioDetail = () => {
-    router.push(`/class/${id}`);
+    if (type === SectionItemType.PROGRAM) {
+      router.push(`/lesson/${id}`);
+    } else {
+      router.push(`/studio/${id}`);
+    }
   };
 
   return (
