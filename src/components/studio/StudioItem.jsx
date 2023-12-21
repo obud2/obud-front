@@ -1,9 +1,7 @@
-import React from 'react';
-
 import { useRouter } from 'next/router';
 
-import { SStudioItem } from './StudioItem.styled';
 import CustomImage from '@components/common/image/CustomImage';
+import { SStudioItem } from './StudioItem.styled';
 
 const StudioItem = ({ id, images, title, category, lessonType, addr }) => {
   const router = useRouter();

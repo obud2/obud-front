@@ -151,8 +151,9 @@ export const SStudioItem = styled.div<{ isActive?: boolean }>`
   }
 
   .studio-item-minprice-container {
-    margin-top: 4px;
+    margin-top: 10px;
     padding: 0 5px;
+
     .studio-item-title {
       font-size: 1.5rem;
       font-weight: 400;

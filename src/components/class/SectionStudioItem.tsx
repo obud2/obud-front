@@ -41,7 +41,7 @@ const SectionStudioItem = ({ studio }: Props) => {
 
       {minPrice && (
         <div className="studio-item-minprice-container">
-          <p className="studio-item-title">{minPrice || ''}원</p>
+          <p className="studio-item-title">{Number(minPrice).toLocaleString() || ''}원</p>
         </div>
       )}
     </SStudioItem>
