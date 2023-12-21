@@ -17,7 +17,7 @@ const SectionStudioItem = ({ studio }: Props) => {
     if (type === SectionItemType.PROGRAM) {
       router.push(`/lesson/${id}`);
     } else {
-      router.push(`/studio/${id}`);
+      router.push(`/class/${id}`);
     }
   };
 
