@@ -29,7 +29,7 @@ export const SAboutPolicyCard = styled.div`
     width: 100%;
     height: auto;
 
-    padding: 14px 0;
+    padding: 14px;
 
     font-size: 1.3rem;
     font-weight: 400;

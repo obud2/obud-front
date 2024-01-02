@@ -44,23 +44,23 @@ export const SLessonOption = styled.div`
     }
 
     .obud-studio-title {
-      margin: 5px 0 10px 0;
-      font-size: 12px;
+      margin: 5px 0 15px 0;
+      font-size: 13px;
       color: #555555;
       display: flex;
       align-items: center;
-      cursor:pointer;
+      cursor: pointer;
     }
 
     .arrow-icon {
-      width: 6px;
-      height: 6px;
+      width: 7px;
+      height: 7px;
 
       transform: rotate(45deg);
       border-top: 1px solid #555555;
       border-right: 1px solid #555555;
 
-      margin-left: 1px;
+      margin-left: 3px;
       top: -1px;
       position: relative;
     }

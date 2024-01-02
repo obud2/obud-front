@@ -91,7 +91,7 @@ export const SStudioItem = styled.div<{ isActive?: boolean }>`
       cursor: pointer;
 
       ${MOBILE} {
-        font-size: 1.2rem;
+        font-size: 1.4rem;
         font-weight: 400;
       }
     }
