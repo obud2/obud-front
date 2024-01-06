@@ -19,7 +19,7 @@ type TabType = {
 };
 
 export const TAB: TabType[] = [
-  { id: 'coupon', title: '쿠폰 관리' },
+  // { id: 'coupon', title: '쿠폰 관리' },
   { id: 'order', title: '예약 내역' },
   { id: 'wish', title: '위시 리스트' },
   { id: 'edit', title: '프로필 수정' },
