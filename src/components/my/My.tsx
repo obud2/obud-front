@@ -11,6 +11,7 @@ import TabPanel from '@components/tabPanel/TabPanel';
 import MyEdit from './edit/MyEdit';
 import WishList from './wish/WishList';
 import MyOrder from './order/MyOrder';
+import MyCoupon from './coupon/MyCoupon';
 
 type TabType = {
   id: string;
@@ -18,8 +19,7 @@ type TabType = {
 };
 
 export const TAB: TabType[] = [
-  // 쿠폰 기능 없으므로 잠시 disable
-  // { id: 'coupon', title: '쿠폰 관리' },
+  { id: 'coupon', title: '쿠폰 관리' },
   { id: 'order', title: '예약 내역' },
   { id: 'wish', title: '위시 리스트' },
   { id: 'edit', title: '프로필 수정' },
@@ -49,7 +49,7 @@ const My = () => {
 
         <section className="my-list-container">
           <TabPanel value={type} index="coupon">
-            쿠폰 관리
+            <MyCoupon />
           </TabPanel>
 
           <TabPanel value={type} index="order">
