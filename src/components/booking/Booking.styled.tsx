@@ -30,7 +30,7 @@ export const SBooking = styled.div`
     width: 100%;
 
     padding-bottom: 16px;
-    border-bottom: 1px solid ;
+    border-bottom: 1px solid;
 
     display: flex;
     align-items: center;
@@ -118,7 +118,7 @@ export const SBooking = styled.div`
 
       gap: 5px;
 
-      border-bottom:  1px solid ${(props) => props.theme.core_color_slate_50};
+      border-bottom: 1px solid ${(props) => props.theme.core_color_slate_50};
 
       ${MOBILE} {
         padding: 16px;
@@ -132,7 +132,26 @@ export const SBooking = styled.div`
       flex-direction: column;
       gap: 1px;
 
-      margin-bottom: 21px;
+      margin: 24px 0;
+      padding: 12x 0;
+    }
+
+    .booking-coupon-input-wrapper {
+      margin-top: 12px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 16px;
+
+      ${MOBILE} {
+        gap: 8px;
+      }
+
+      button {
+        margin-top: 18px;
+      }
     }
   }
 `;

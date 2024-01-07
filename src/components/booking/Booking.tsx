@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useContext, useEffect, useState } from 'react';
 
 import { useRouter } from 'next/router';
@@ -244,18 +245,18 @@ const Booking = () => {
 
         {/* 결제 정보 영역 */}
         <section className="booking-pay-info-container">
-          <header className="booking-header">
+          <div className="booking-header">
             <p className="booking-title">결제 정보</p>
-          </header>
+          </div>
 
           <div className="booking-total-price">
             <p>총 결제금액</p>
             <p>{addComma(totalPrice)}원</p>
           </div>
 
-          <header className="booking-header">
+          <div className="booking-header">
             <p className="booking-title">결제 수단</p>
-          </header>
+          </div>
 
           {/* 결제수단 */}
           <div className="booking-paymethod-container">
@@ -264,6 +265,35 @@ const Booking = () => {
                 <CustomRadioItem key={item.id} isChecked={item.id === payMethod} value={item.id} label={item.value} disabled={isLoading} />
               ))}
             </CustomRadio>
+          </div>
+
+          {/* 쿠폰 */}
+          <div className="booking-header">
+            <p className="booking-title">쿠폰</p>
+          </div>
+          <div className="booking-coupon-input-wrapper">
+            <CustomInput
+              label="쿠폰"
+              type="text"
+              placeholder="보유 쿠폰을 확인해주세요"
+              disabled
+              onChange={(e) => onChangeInputValue('coupon', e.target.value)}
+            />
+            <CustomButton width="120px" onClick={() => console.log('HEY')} disabled={isLoading}>
+              적용하기
+            </CustomButton>
+          </div>
+          <div className="booking-coupon-input-wrapper">
+            <CustomInput
+              label="쿠폰번호"
+              type="text"
+              placeholder="쿠폰번호를 입력해주세요."
+              disabled={isLoading}
+              onChange={(e) => onChangeInputValue('coupon', e.target.value)}
+            />
+            <CustomButton width="120px" onClick={() => console.log('HEY')} disabled={isLoading}>
+              적용하기
+            </CustomButton>
           </div>
 
           <footer className="booking-user-footer">
