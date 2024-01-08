@@ -100,7 +100,7 @@ const Wrapper = styled.div`
     font-size: 1.4rem;
     font-family: 400;
 
-    margin-top: 20px;
+    margin: 20px 0;
 
     color: ${(props) => props.theme.main_color_slate_500};
   }
