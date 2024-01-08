@@ -31,13 +31,21 @@ import { Coupon, CouponDiscountType } from '@/entities/coupon';
 import CouponService from '@/service/CouponService';
 
 const Booking = () => {
+  const router = useRouter();
   const queryClient = useQueryClient();
   const { impPay, impPayNative, isProcessingPayment } = useBookingSetting();
   const [openCouponModal, setOpenCouponModal] = useState(false);
   const [currentCoupon, setCurrentCoupon] = useState<Coupon | null>(null);
   const [couponCode, setCouponCode] = useState<string>('');
 
-  const router = useRouter();
+  const [couponEnabled, setCouponEnabled] = useState<boolean>(false);
+
+  useEffect(() => {
+    const couponFeature = localStorage.getItem('couponFeature');
+    if (couponFeature) {
+      setCouponEnabled(true);
+    }
+  }, []);
 
   const { order } = useContext<any>(OrderContext);
   const { user } = useContext(UserContext);
@@ -289,14 +297,18 @@ const Booking = () => {
 
         {/* 결제 정보 영역 */}
         <section className="booking-pay-info-container">
-          <div className="booking-header">
-            <p className="booking-title">결제 정보</p>
-          </div>
+          {!couponEnabled && (
+            <>
+              <div className="booking-header">
+                <p className="booking-title">결제 정보</p>
+              </div>
 
-          <div className="booking-total-price">
-            <p>총 결제금액</p>
-            <p>{addComma(totalPrice)}원</p>
-          </div>
+              <div className="booking-total-price">
+                <p>총 결제금액</p>
+                <p>{addComma(totalPrice)}원</p>
+              </div>
+            </>
+          )}
 
           <div className="booking-header">
             <p className="booking-title">결제 수단</p>
@@ -312,53 +324,57 @@ const Booking = () => {
           </div>
 
           {/* 쿠폰 */}
-          <div className="booking-header">
-            <p className="booking-title">쿠폰</p>
-          </div>
-          <div className="booking-coupon-input-wrapper">
-            <CustomInput label="쿠폰" type="text" placeholder="보유 쿠폰을 확인해주세요" disabled value={currentCoupon?.name || ''} />
-            <CustomButton width="120px" onClick={() => setOpenCouponModal(true)} disabled={isLoading}>
-              쿠폰 확인
-            </CustomButton>
-            <BookingCouponModal open={openCouponModal} onClose={() => setOpenCouponModal(false)} setCoupon={setCurrentCoupon} />
-          </div>
-          <div className="booking-coupon-input-wrapper">
-            <CustomInput
-              label="쿠폰번호"
-              type="text"
-              placeholder="쿠폰번호를 입력해주세요."
-              value={couponCode}
-              disabled={isLoading}
-              onChange={(e) => setCouponCode(e.target.value)}
-            />
-            <CustomButton width="120px" onClick={onCreateCoupon} disabled={isLoading || !couponCode}>
-              쿠폰 등록
-            </CustomButton>
-          </div>
+          {couponEnabled && (
+            <>
+              <div className="booking-header">
+                <p className="booking-title">쿠폰</p>
+              </div>
+              <div className="booking-coupon-input-wrapper">
+                <CustomInput label="쿠폰" type="text" placeholder="보유 쿠폰을 확인해주세요" disabled value={currentCoupon?.name || ''} />
+                <CustomButton width="120px" onClick={() => setOpenCouponModal(true)} disabled={isLoading}>
+                  쿠폰 확인
+                </CustomButton>
+                <BookingCouponModal open={openCouponModal} onClose={() => setOpenCouponModal(false)} setCoupon={setCurrentCoupon} />
+              </div>
+              <div className="booking-coupon-input-wrapper">
+                <CustomInput
+                  label="쿠폰번호"
+                  type="text"
+                  placeholder="쿠폰번호를 입력해주세요."
+                  value={couponCode}
+                  disabled={isLoading}
+                  onChange={(e) => setCouponCode(e.target.value)}
+                />
+                <CustomButton width="120px" onClick={onCreateCoupon} disabled={isLoading || !couponCode}>
+                  쿠폰 등록
+                </CustomButton>
+              </div>
 
-          <div className="refund-policy-wrapper">
-            <div className="refund-policy-header">취소/환불 규정</div>
-            <div className="refund-policy-content">
-              <p>이용 8일 전 까지: 100% 환불</p>
-              <p>이용 7일 전 ~ 5일 전: 결제 금액의 50% 차감</p>
-              <p>이용 4일 전~ 이용 당일: 결제 금액의 100% 차감</p>
-            </div>
-          </div>
+              <div className="refund-policy-wrapper">
+                <div className="refund-policy-header">취소/환불 규정</div>
+                <div className="refund-policy-content">
+                  <p>이용 8일 전 까지: 100% 환불</p>
+                  <p>이용 7일 전 ~ 5일 전: 결제 금액의 50% 차감</p>
+                  <p>이용 4일 전~ 이용 당일: 결제 금액의 100% 차감</p>
+                </div>
+              </div>
 
-          <div className="booking-final-price-wrapper">
-            <div className="booking-original-price">
-              <p>주문 금액</p>
-              <p>{addComma(totalPrice)}원</p>
-            </div>
-            <div className="booking-discount-price">
-              <p>ㄴ 쿠폰 할인</p>
-              <p>{addComma(getCouponPrice(currentCoupon))}원</p>
-            </div>
-            <div className="booking-final-price">
-              <p>최종 결제금액</p>
-              <p>{addComma(totalPrice - getCouponPrice(currentCoupon))}원</p>
-            </div>
-          </div>
+              <div className="booking-final-price-wrapper">
+                <div className="booking-original-price">
+                  <p>주문 금액</p>
+                  <p>{addComma(totalPrice)}원</p>
+                </div>
+                <div className="booking-discount-price">
+                  <p>ㄴ 쿠폰 할인</p>
+                  <p>{addComma(getCouponPrice(currentCoupon))}원</p>
+                </div>
+                <div className="booking-final-price">
+                  <p>최종 결제금액</p>
+                  <p>{addComma(totalPrice - getCouponPrice(currentCoupon))}원</p>
+                </div>
+              </div>
+            </>
+          )}
 
           <footer className="booking-user-footer">
             <CustomLabel point label="신청 전 클래스 시간, 장소, 내용, 환불 규정을 확인해주세요." />
