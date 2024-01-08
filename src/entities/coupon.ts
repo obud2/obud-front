@@ -1,29 +1,15 @@
+// Admin의 Coupon과는 다르다
 export type Coupon = {
   id: string;
+  couponId: string;
   name: string;
-  code: string | null;
-  userCoupons: {
-    id: string;
-    userId: string;
-    isUsed: boolean;
-    usedAt: string | null;
-    createdAt: string;
-  }[];
-  issueType: CouponIssueType;
   discountType: CouponDiscountType;
   discountAmount: number;
   maxDiscountAmount: number;
   minOrderPriceAmount: number;
   startDate: string;
   endDate: string;
-  allowDuplicatePerUser: boolean;
-  placeAllowList: string;
-  programAllowList: string;
-  placeBlockList: string;
-  programBlockList: string;
   createdAt: string;
-  createdBy: string;
-  updatedAt: string;
 };
 
 export enum CouponIssueType {

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useContext, useEffect, useState } from 'react';
 
 import { useRouter } from 'next/router';
@@ -25,12 +26,26 @@ import CustomButton from '@components/common/button/CustomButton';
 import CustomRadio, { CustomRadioItem } from '@components/common/radio/CustomRadio';
 
 import FallBackLoading from '@components/loading/FallBackLoading';
+import BookingCouponModal from './modals/BookingCouponModal';
+import { Coupon, CouponDiscountType } from '@/entities/coupon';
+import CouponService from '@/service/CouponService';
 
 const Booking = () => {
+  const router = useRouter();
   const queryClient = useQueryClient();
   const { impPay, impPayNative, isProcessingPayment } = useBookingSetting();
+  const [openCouponModal, setOpenCouponModal] = useState(false);
+  const [currentCoupon, setCurrentCoupon] = useState<Coupon | null>(null);
+  const [couponCode, setCouponCode] = useState<string>('');
 
-  const router = useRouter();
+  const [couponEnabled, setCouponEnabled] = useState<boolean>(false);
+
+  useEffect(() => {
+    const couponFeature = localStorage.getItem('couponFeature');
+    if (couponFeature) {
+      setCouponEnabled(true);
+    }
+  }, []);
 
   const { order } = useContext<any>(OrderContext);
   const { user } = useContext(UserContext);
@@ -141,6 +156,7 @@ const Booking = () => {
 
     const cart: string[] = order.filter((it) => it?.cart).map((it) => it?.id);
     const createOrderParams: {
+      couponId?: string;
       planId: string;
       price: number;
       startDate: string;
@@ -152,6 +168,7 @@ const Booking = () => {
       payOption: string;
       payOptionCount: number;
     }[] = order.map((it) => ({
+      couponId: it?.couponId || '',
       planId: it?.planId || '',
       price: it?.price || 0,
       startDate: it?.startDate || '',
@@ -208,6 +225,42 @@ const Booking = () => {
     }
   };
 
+  const onCreateCoupon = async () => {
+    if (!couponCode) {
+      alert('', '쿠폰 번호를 입력해주세요.', '', '');
+      return;
+    }
+
+    try {
+      await CouponService.createCoupon({ code: couponCode });
+      alert('', '쿠폰이 등록되었습니다. <br /> 쿠폰 적용 후 진행해주세요.', '', '');
+    } catch (err) {
+      alert('', '쿠폰 등록에 실패하였습니다. <br /> 올바른 쿠폰 코드 입력 후 다시 시도해주세요.', '', '');
+    } finally {
+      setCouponCode('');
+    }
+  };
+
+  const getCouponPrice = (coupon: Coupon | null) => {
+    if (!coupon) return 0;
+
+    if (coupon.minOrderPriceAmount > totalPrice) return 0;
+
+    if (coupon.discountType === CouponDiscountType.AMOUNT) {
+      if (coupon.maxDiscountAmount === 0) return coupon.discountAmount;
+
+      return Math.min(coupon.discountAmount, coupon.maxDiscountAmount);
+    }
+
+    if (coupon.discountType === CouponDiscountType.PERCENTAGE) {
+      if (coupon.maxDiscountAmount === 0) return totalPrice * (coupon.discountAmount / 100);
+
+      return Math.min(totalPrice * (coupon.discountAmount / 100), coupon.maxDiscountAmount);
+    }
+
+    return 0;
+  };
+
   return (
     <React.Fragment>
       <BookingBase subTitle="예약 수업 정보" list={order} subDate={undefined} />
@@ -244,18 +297,22 @@ const Booking = () => {
 
         {/* 결제 정보 영역 */}
         <section className="booking-pay-info-container">
-          <header className="booking-header">
-            <p className="booking-title">결제 정보</p>
-          </header>
+          {!couponEnabled && (
+            <>
+              <div className="booking-header">
+                <p className="booking-title">결제 정보</p>
+              </div>
 
-          <div className="booking-total-price">
-            <p>총 결제금액</p>
-            <p>{addComma(totalPrice)}원</p>
-          </div>
+              <div className="booking-total-price">
+                <p>총 결제금액</p>
+                <p>{addComma(totalPrice)}원</p>
+              </div>
+            </>
+          )}
 
-          <header className="booking-header">
+          <div className="booking-header">
             <p className="booking-title">결제 수단</p>
-          </header>
+          </div>
 
           {/* 결제수단 */}
           <div className="booking-paymethod-container">
@@ -265,6 +322,59 @@ const Booking = () => {
               ))}
             </CustomRadio>
           </div>
+
+          {/* 쿠폰 */}
+          {couponEnabled && (
+            <>
+              <div className="booking-header">
+                <p className="booking-title">쿠폰</p>
+              </div>
+              <div className="booking-coupon-input-wrapper">
+                <CustomInput label="쿠폰" type="text" placeholder="보유 쿠폰을 확인해주세요" disabled value={currentCoupon?.name || ''} />
+                <CustomButton width="120px" onClick={() => setOpenCouponModal(true)} disabled={isLoading}>
+                  쿠폰 확인
+                </CustomButton>
+                <BookingCouponModal open={openCouponModal} onClose={() => setOpenCouponModal(false)} setCoupon={setCurrentCoupon} />
+              </div>
+              <div className="booking-coupon-input-wrapper">
+                <CustomInput
+                  label="쿠폰번호"
+                  type="text"
+                  placeholder="쿠폰번호를 입력해주세요."
+                  value={couponCode}
+                  disabled={isLoading}
+                  onChange={(e) => setCouponCode(e.target.value)}
+                />
+                <CustomButton width="120px" onClick={onCreateCoupon} disabled={isLoading || !couponCode}>
+                  쿠폰 등록
+                </CustomButton>
+              </div>
+
+              <div className="refund-policy-wrapper">
+                <div className="refund-policy-header">취소/환불 규정</div>
+                <div className="refund-policy-content">
+                  <p>이용 8일 전 까지: 100% 환불</p>
+                  <p>이용 7일 전 ~ 5일 전: 결제 금액의 50% 차감</p>
+                  <p>이용 4일 전~ 이용 당일: 결제 금액의 100% 차감</p>
+                </div>
+              </div>
+
+              <div className="booking-final-price-wrapper">
+                <div className="booking-original-price">
+                  <p>주문 금액</p>
+                  <p>{addComma(totalPrice)}원</p>
+                </div>
+                <div className="booking-discount-price">
+                  <p>ㄴ 쿠폰 할인</p>
+                  <p>{addComma(getCouponPrice(currentCoupon))}원</p>
+                </div>
+                <div className="booking-final-price">
+                  <p>최종 결제금액</p>
+                  <p>{addComma(totalPrice - getCouponPrice(currentCoupon))}원</p>
+                </div>
+              </div>
+            </>
+          )}
 
           <footer className="booking-user-footer">
             <CustomLabel point label="신청 전 클래스 시간, 장소, 내용, 환불 규정을 확인해주세요." />

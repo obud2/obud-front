@@ -6,35 +6,22 @@ import { useQuery } from 'react-query';
 import styled from 'styled-components';
 
 const MyCoupon = () => {
-  const { data: coupons, isLoading } = useCoupons();
+  const { data: coupons } = useCoupons();
 
-  // const coupons: Partial<Coupon>[] = [
-  //   {
-  //     id: '1',
-  //     name: '할인쿠폰',
-  //     issueType: CouponIssueType.BY_CODE,
-  //     discountType: CouponDiscountType.AMOUNT,
-  //     discountAmount: 1000,
-  //     maxDiscountAmount: 10000,
-  //     minOrderPriceAmount: 10000,
-  //     endDate: '2021-10-10',
-  //   },
-  // ];
+  if (!coupons) return <FallBackLoading isLoading />;
 
   return (
-    <>
-      <SMyCoupon>
-        <div className="coupon-header">
-          <div className="coupon-title">보유한 쿠폰</div>
-        </div>
-        <div className="coupon-list-container">
-          {coupons?.map((coupon) => (
-            <CouponItem key={coupon.id} coupon={coupon} />
-          ))}
-        </div>
-      </SMyCoupon>
-      <FallBackLoading isLoading={isLoading} />
-    </>
+    <SMyCoupon>
+      <div className="coupon-header">
+        <div className="coupon-title">보유한 쿠폰</div>
+      </div>
+      <div className="coupon-list-container">
+        {coupons.length === 0 && <div className="coupon-empty">보유한 쿠폰이 없습니다.</div>}
+        {coupons.map((coupon) => (
+          <CouponItem key={coupon.id} coupon={coupon} />
+        ))}
+      </div>
+    </SMyCoupon>
   );
 };
 
@@ -74,5 +61,26 @@ export const SMyCoupon = styled.div`
 
       gap: 5px;
     }
+  }
+
+  .coupon-list-container {
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  .coupon-empty {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 1.4rem;
+    font-family: 400;
+
+    margin-top: 20px;
+
+    color: ${(props) => props.theme.main_color_slate_500};
   }
 `;

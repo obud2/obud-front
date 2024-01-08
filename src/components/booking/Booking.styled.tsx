@@ -30,7 +30,7 @@ export const SBooking = styled.div`
     width: 100%;
 
     padding-bottom: 16px;
-    border-bottom: 1px solid ;
+    border-bottom: 1px solid;
 
     display: flex;
     align-items: center;
@@ -118,7 +118,7 @@ export const SBooking = styled.div`
 
       gap: 5px;
 
-      border-bottom:  1px solid ${(props) => props.theme.core_color_slate_50};
+      border-bottom: 1px solid ${(props) => props.theme.core_color_slate_50};
 
       ${MOBILE} {
         padding: 16px;
@@ -132,7 +132,94 @@ export const SBooking = styled.div`
       flex-direction: column;
       gap: 1px;
 
-      margin-bottom: 21px;
+      margin: 24px 0;
+      padding: 12x 0;
+    }
+
+    .booking-coupon-input-wrapper {
+      margin-top: 12px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 16px;
+
+      ${MOBILE} {
+        gap: 8px;
+      }
+
+      button {
+        margin-top: 18px;
+      }
+    }
+
+    .refund-policy-wrapper {
+      margin-top: 8px;
+      padding: 16px 0;
+      border-bottom: 1px solid ${(props) => props.theme.core_color_slate_50};
+
+      .refund-policy-header {
+        font-size: 1.6rem;
+        line-height: 1.2;
+        border-bottom: 1px solid ${(props) => props.theme.core_color_slate_50};
+      }
+
+      .refund-policy-content {
+        padding: 16px;
+        p {
+          font-size: 1.4rem;
+          line-height: 1.5;
+          color: ${(props) => props.theme.main_color_slate_400};
+        }
+      }
+    }
+
+    .booking-final-price-wrapper {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+
+      margin: 24px 0;
+
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 140%;
+      color: ${(props) => props.theme.main_color_slate_500};
+
+      ${MOBILE} {
+        font-size: 1.4rem;
+      }
+
+      .booking-original-price {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.6rem;
+        font-weight: normal;
+        padding: 4px 0;
+      }
+
+      .booking-discount-price {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.4rem;
+        font-weight: normal;
+        color: #ea4335;
+        padding: 4px 0;
+        padding-left: 8px;
+      }
+
+      .booking-final-price {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.8rem;
+        font-weight: normal;
+        color: #ea4335;
+        padding: 4px 0;
+        color: black;
+        font-weight: bold;
+        margin-top: 12px;
+      }
     }
   }
 `;
