@@ -168,7 +168,7 @@ const Booking = () => {
       payOption: string;
       payOptionCount: number;
     }[] = order.map((it) => ({
-      couponId: it?.couponId || '',
+      couponId: currentCoupon?.id || '',
       planId: it?.planId || '',
       price: it?.price || 0,
       startDate: it?.startDate || '',
