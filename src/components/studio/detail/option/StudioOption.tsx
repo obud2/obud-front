@@ -65,7 +65,7 @@ const OptionTextRender = ({ id, data }: OptionProps) => {
 
   if (id === 'parking') {
     // 주차 여부
-    const check = data?.parking === 'true' ? '주차 가능' : '주차 불가능';
+    const check = data?.parking ? '주차 가능' : '주차 불가능';
 
     return (
       <div className="option-deps">
