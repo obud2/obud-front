@@ -84,21 +84,32 @@ export const SClass = styled.div`
         .section-title {
           font-size: 1.8rem;
           font-weight: bold;
-
-          ${MOBILE} {
-            font-size: 1.6rem;
-          }
         }
 
         .section-more {
-          font-size: 1.4rem;
+          display: flex;
+          align-items: center;
+          font-size: 1.3rem;
           color: ${(props) => props.theme.core_color_slate_400};
           margin-right: 10px;
           cursor: pointer;
 
           ${MOBILE} {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
           }
+        }
+
+        .arrow-icon {
+          width: 6px;
+          height: 6px;
+
+          transform: rotate(45deg);
+          border-top: 1px solid ${(props) => props.theme.core_color_slate_400};
+          border-right: 1px solid ${(props) => props.theme.core_color_slate_400};
+
+          margin-left: 2px;
+          top: -1px;
+          position: relative;
         }
       }
 

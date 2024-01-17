@@ -20,7 +20,8 @@ const SectionItem = ({ sectionWithItems }: Props) => {
       <div className="section-title-container">
         <div className="section-title">{section.name}</div>
         <div className="section-more" onClick={() => router.push(`/class/section/${section.id}`)}>
-          전체보기
+          <span>전체보기</span>
+          <div className="arrow-icon"></div>
         </div>
       </div>
 
