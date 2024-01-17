@@ -116,7 +116,7 @@ type CreateCouponRequest = {
 const createCoupon = async (request: CreateCouponRequest) => {
   const res = await axiosInstance.post(`/coupon/me?code=${request.code.toLocaleUpperCase()}`);
 
-  if (res.status !== 200) {
+  if (res.status >= 300) {
     throw new Error('쿠폰 생성에 실패했습니다.');
   }
 };

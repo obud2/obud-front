@@ -109,7 +109,7 @@ const MyEditForm = ({ onStepChange }: Props) => {
         gender: body?.gender,
       })
         .then((res) => {
-          if (res.status === 200) {
+          if (res.status < 300) {
             onStepChange(3);
           } else {
             alert(
