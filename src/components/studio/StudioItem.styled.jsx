@@ -82,7 +82,7 @@ export const SStudioItem = styled.div`
 
     .studio-item-title {
       font-size: 1.5rem;
-      font-weight: 400;
+      font-weight: 500;
       line-height: 100%;
 
       display: flex;
@@ -91,7 +91,7 @@ export const SStudioItem = styled.div`
 
       ${MOBILE} {
         font-size: 1.4rem;
-        font-weight: 400;
+        font-weight: 500;
       }
     }
 

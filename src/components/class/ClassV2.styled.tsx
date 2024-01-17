@@ -82,11 +82,11 @@ export const SClass = styled.div`
         align-items: flex-end;
 
         .section-title {
-          font-size: 1.6rem;
+          font-size: 1.8rem;
           font-weight: bold;
 
           ${MOBILE} {
-            font-size: 1.4rem;
+            font-size: 1.6rem;
           }
         }
 
