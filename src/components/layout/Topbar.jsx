@@ -57,7 +57,7 @@ const WebTopbar = ({ reverse }) => {
 };
 
 // 모바일 렌더링
-const MobileTopbar = ({ reverse, headerTitle, addonBeforeHeader = 'logo', addonAfterHeader = 'icons' }) => {
+const MobileTopbar = ({ reverse, headerTitle, addonBeforeHeader = 'logo', addonAfterHeader = 'empty' }) => {
   return (
     <div className="topbar-mobile-container">
       <HeaderType reverse={reverse} type={addonBeforeHeader} />
