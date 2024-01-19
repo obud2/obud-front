@@ -249,21 +249,27 @@ const Booking = () => {
     }
   };
 
-  const getCouponPrice = (coupon: Coupon | null) => {
+  const getCouponDiscount = (coupon: Coupon | null): number => {
     if (!coupon) return 0;
+    if (!price) return price;
 
     if (coupon.minOrderPriceAmount > price) return 0;
 
     if (coupon.discountType === CouponDiscountType.AMOUNT) {
-      if (coupon.maxDiscountAmount === 0) return coupon.discountAmount;
+      if (coupon.maxDiscountAmount === 0) {
+        return Math.min(coupon.discountAmount, price);
+      }
 
-      return Math.min(coupon.discountAmount, coupon.maxDiscountAmount);
+      return Math.min(coupon.discountAmount, coupon.maxDiscountAmount, price);
     }
 
     if (coupon.discountType === CouponDiscountType.PERCENTAGE) {
-      if (coupon.maxDiscountAmount === 0) return price * (coupon.discountAmount / 100);
+      const discount = Math.round(price * (coupon.discountAmount / 100));
+      if (coupon.maxDiscountAmount === 0) {
+        return discount;
+      }
 
-      return Math.min(price * (coupon.discountAmount / 100), coupon.maxDiscountAmount);
+      return Math.min(discount, coupon.maxDiscountAmount);
     }
 
     return 0;
@@ -377,11 +383,11 @@ const Booking = () => {
                 </div>
                 <div className="booking-discount-price">
                   <p>ㄴ 쿠폰 할인</p>
-                  <p>{addComma(getCouponPrice(currentCoupon))}원</p>
+                  <p>{addComma(getCouponDiscount(currentCoupon))}원</p>
                 </div>
                 <div className="booking-final-price">
                   <p>최종 결제금액</p>
-                  <p>{addComma(price - getCouponPrice(currentCoupon))}원</p>
+                  <p>{addComma(price - getCouponDiscount(currentCoupon))}원</p>
                 </div>
               </div>
             </>
