@@ -4,11 +4,13 @@ import styled from 'styled-components';
 
 type Props = {
   coupon: Coupon;
+  error?: string;
 };
 
-const CouponItem = ({ coupon }: Props) => {
+const CouponItem = ({ coupon, error }: Props) => {
   return (
     <SCoupon>
+      {!!error && <div style={{ fontWeight: 600, color: 'red', marginBottom: 6, textAlign: 'start' }}>{error}</div>}
       <div className="coupon-item-title-wrapper">
         <span className="coupon-item-title">{coupon.name}</span>
         {coupon.maxDiscountAmount && <span className="coupon-item-max-discount">(최대 {coupon.maxDiscountAmount.toLocaleString()}원)</span>}
@@ -45,14 +47,14 @@ const SCoupon = styled.div`
 
     .coupon-item-max-discount {
       font-size: 1.2rem;
-      font-family: 400;
+      font-weight: 400;
       color: ${(props) => props.theme.main_color_slate_400};
     }
   }
 
   .coupon-item-min-order-price {
     font-size: 1.2rem;
-    font-family: 400;
+    font-weight: 400;
     margin-bottom: 8px;
     line-height: 1.5;
     color: ${(props) => props.theme.main_color_slate_400};

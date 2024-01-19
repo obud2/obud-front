@@ -12,9 +12,10 @@ type Props = {
   onClose: () => void;
   setCoupon: (coupon: Coupon) => void;
   scheduleId?: string;
+  price: number;
 };
 
-const BookingCouponModal = ({ open, onClose, setCoupon, scheduleId }: Props) => {
+const BookingCouponModal = ({ open, onClose, setCoupon, scheduleId, price }: Props) => {
   const { data: coupons } = useCoupons(scheduleId);
 
   if (!coupons || !scheduleId) return <FallBackLoading isLoading />;
@@ -27,17 +28,28 @@ const BookingCouponModal = ({ open, onClose, setCoupon, scheduleId }: Props) => 
         </header>
         <div className="coupon-list-container">
           {coupons.length === 0 && <div className="coupon-empty">보유한 쿠폰이 없습니다.</div>}
-          {coupons.map((coupon) => (
-            <div
-              key={coupon.id}
-              onClick={() => {
-                setCoupon(coupon);
-                onClose();
-              }}
-            >
-              <CouponItem coupon={coupon} />
-            </div>
-          ))}
+          {coupons.map((coupon) => {
+            // eslint-disable-next-line no-nested-ternary
+            const error = !coupon.canBeApplied ? '이 수업에 적용할 수 없는 쿠폰이에요' : price < coupon.minOrderPriceAmount ? `${coupon.minOrderPriceAmount.toLocaleString()}원 이상 결제시에만 적용가능한 쿠폰이에요` : undefined
+            return (
+              <div
+                key={coupon.id}
+                style={{
+                  opacity: error ? 0.4 : 1,
+                  cursor: !error ? 'pointer' : undefined,
+                }}
+                onClick={() => {
+                  if (error) {
+                    return;
+                  }
+                  setCoupon(coupon);
+                  onClose();
+                }}
+              >
+                <CouponItem coupon={coupon} error={error} />
+              </div>
+            );
+          })}
         </div>
         <footer className="coupon-footer">
           <CustomButton fullWidth variant="outlined" onClick={onClose}>

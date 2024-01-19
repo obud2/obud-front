@@ -49,16 +49,23 @@ const Booking = () => {
   const { order } = useContext(OrderContext);
   const { user } = useContext(UserContext);
 
+  const price = (order ?? []).reduce((acc, it) => {
+    const basePrice = Number(it.price || 0) * Number(it.reservationCount || 0);
+    const optionPrice = Number(it.payOption?.price) ? Number(it.payOption?.price) * Number(it.payOptionCount) : 0;
+    return acc + basePrice + optionPrice;
+  }, 0);
+
   // TODO: 한번에 여러 order를 결제할 수 있게 되면 쿠폰 적용 로직 수정해야 함
   const scheduleId = order[0]?.planId;
 
   const { data: coupons } = useQuery(['coupons/me', { scheduleId }], () => CouponService.listCoupons({
       scheduleId,
   }), { enabled: !!scheduleId });
-  const totalActiveCoupons = (coupons ?? []).filter((it) => !!it.canBeApplied).length;
+  const activeCoupons = (coupons ?? [])
+    .filter((it) => !!it.canBeApplied)
+    .filter((it) => price >= it.minOrderPriceAmount);
 
   const [userInfo, setUserInfo] = useState<{ name?: string; hp?: string; email?: string }>({});
-  const [totalPrice, setTotalPrice] = useState<number>(0);
 
   const [payMethod, setPayMethod] = useState<(typeof PAYMENT_METHOD)[number]['id']>(PAYMENT_METHOD[0].id);
 
@@ -79,31 +86,6 @@ const Booking = () => {
     }
   }, [order]);
 
-  // 총 금액
-  useEffect(() => {
-    if (order && order?.length > 0) {
-      let temp = 0;
-
-      order?.forEach((a) => {
-        const basePirce = Number(a?.price || 0) * Number(a?.reservationCount || 0);
-        const optionPrice = Number(a?.payOption?.price) ? Number(a?.payOption?.price) * Number(a?.payOptionCount) : 0;
-
-        temp += basePirce + optionPrice;
-      });
-
-      setTotalPrice(temp);
-    }
-  }, [order]);
-
-  // 회원 정보 불러오기
-  useEffect(() => {
-    onClickUserInfoBring(true);
-  }, [user]);
-
-  if (!order.length) {
-    return null;
-  }
-
   // 회원 정보 불러오기 토글
   const onClickUserInfoBring = (loadUser: boolean) => {
     if (loadUser) {
@@ -114,6 +96,15 @@ const Booking = () => {
 
     setIsUserInfoBring(loadUser);
   };
+
+  // 회원 정보 불러오기
+  useEffect(() => {
+    onClickUserInfoBring(true);
+  }, [user]);
+
+  if (!order.length) {
+    return null;
+  }
 
   // 예약자 정보 인풋
   const onChangeInputValue = (type, e) => {
@@ -163,7 +154,7 @@ const Booking = () => {
         email: userInfo.email || '',
       },
       title: `${order?.[0]?.lessonTitle}${order?.length > 1 ? order.length - 1 : ''}`,
-      amount: totalPrice,
+      amount: price,
     };
 
     const createOrderParams: {
@@ -261,7 +252,7 @@ const Booking = () => {
   const getCouponPrice = (coupon: Coupon | null) => {
     if (!coupon) return 0;
 
-    if (coupon.minOrderPriceAmount > totalPrice) return 0;
+    if (coupon.minOrderPriceAmount > price) return 0;
 
     if (coupon.discountType === CouponDiscountType.AMOUNT) {
       if (coupon.maxDiscountAmount === 0) return coupon.discountAmount;
@@ -270,9 +261,9 @@ const Booking = () => {
     }
 
     if (coupon.discountType === CouponDiscountType.PERCENTAGE) {
-      if (coupon.maxDiscountAmount === 0) return totalPrice * (coupon.discountAmount / 100);
+      if (coupon.maxDiscountAmount === 0) return price * (coupon.discountAmount / 100);
 
-      return Math.min(totalPrice * (coupon.discountAmount / 100), coupon.maxDiscountAmount);
+      return Math.min(price * (coupon.discountAmount / 100), coupon.maxDiscountAmount);
     }
 
     return 0;
@@ -322,7 +313,7 @@ const Booking = () => {
 
               <div className="booking-total-price">
                 <p>총 결제금액</p>
-                <p>{addComma(totalPrice)}원</p>
+                <p>{addComma(price)}원</p>
               </div>
             </>
           )}
@@ -347,11 +338,11 @@ const Booking = () => {
                 <p className="booking-title">쿠폰</p>
               </div>
               <div className="booking-coupon-input-wrapper">
-                <CustomInput label="쿠폰" type="text" placeholder={totalActiveCoupons > 0 ? `사용가능한 쿠폰 ${totalActiveCoupons}장` : '이 수업에 사용가능한 쿠폰이 없어요'} disabled value={currentCoupon?.name || ''} />
-                <CustomButton width="120px" onClick={() => setOpenCouponModal(true)} disabled={isAllLoading || !totalActiveCoupons}>
+                <CustomInput label="쿠폰" type="text" placeholder={activeCoupons.length > 0 ? `사용가능한 쿠폰 ${activeCoupons.length}장` : '이 수업에 사용가능한 쿠폰이 없어요'} disabled value={currentCoupon?.name || ''} />
+                <CustomButton width="120px" onClick={() => setOpenCouponModal(true)} disabled={isAllLoading || !activeCoupons.length}>
                   쿠폰 선택
                 </CustomButton>
-                <BookingCouponModal scheduleId={scheduleId} open={openCouponModal} onClose={() => setOpenCouponModal(false)} setCoupon={setCurrentCoupon} />
+                <BookingCouponModal scheduleId={scheduleId} price={price} open={openCouponModal} onClose={() => setOpenCouponModal(false)} setCoupon={setCurrentCoupon} />
               </div>
               <div className="booking-coupon-input-wrapper">
                 <CustomInput
@@ -382,7 +373,7 @@ const Booking = () => {
               <div className="booking-final-price-wrapper">
                 <div className="booking-original-price">
                   <p>주문 금액</p>
-                  <p>{addComma(totalPrice)}원</p>
+                  <p>{addComma(price)}원</p>
                 </div>
                 <div className="booking-discount-price">
                   <p>ㄴ 쿠폰 할인</p>
@@ -390,7 +381,7 @@ const Booking = () => {
                 </div>
                 <div className="booking-final-price">
                   <p>최종 결제금액</p>
-                  <p>{addComma(totalPrice - getCouponPrice(currentCoupon))}원</p>
+                  <p>{addComma(price - getCouponPrice(currentCoupon))}원</p>
                 </div>
               </div>
             </>
