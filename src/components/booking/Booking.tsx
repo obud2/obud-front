@@ -13,7 +13,7 @@ import { PAYMENT_METHOD } from './Booking.option';
 import { addComma } from 'src/constants';
 import { SBooking } from './Booking.styled';
 
-import useBookingSetting, {CreateOrderParam} from './hook/useBookingSetting';
+import useBookingSetting, { CreateOrderParam } from './hook/useBookingSetting';
 
 import alert from 'src/helpers/alert';
 
@@ -206,7 +206,6 @@ const Booking = () => {
       amount: finalPrice,
     };
 
-
     // TODO: 장바구니가 도입되면 order가 여러개가 될 수 있음.
     if (!order.length) {
       alert('', '주문할 수업을 찾을 수 없습니다. 고객센터로 문의 부탁드립니다.');
@@ -218,7 +217,6 @@ const Booking = () => {
     }
 
     const target = order[0];
-
 
     const createOrderParams: CreateOrderParam[] = [{
       price: target.price,
@@ -277,7 +275,6 @@ const Booking = () => {
       }
     }
   };
-
 
   return (
     <React.Fragment>
