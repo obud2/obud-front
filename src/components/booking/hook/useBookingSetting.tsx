@@ -1,5 +1,5 @@
 /* eslint-disable no-alert */
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { IMP_CODE, PG } from 'src/constants';
 
@@ -8,8 +8,6 @@ import OrderService from 'src/service/OrderService';
 import { RequestPayParams } from '@/portone';
 import { PAYMENT_METHOD } from '@components/booking/Booking.option';
 import { useQueryClient } from 'react-query';
-import { CartContext } from '@/context/CartContext';
-import cart from '@pages/cart';
 import router from 'next/router';
 
 type CreateOrderParam = {
@@ -34,7 +32,6 @@ type PayOptions = {
 
 const useBookingSetting = () => {
   const queryClient = useQueryClient();
-  const { deleteCart } = useContext<any>(CartContext);
 
   const completedRef = useRef<boolean>(false);
 
@@ -75,7 +72,6 @@ const useBookingSetting = () => {
 
           if (orderStatus === 'COMPLETE') {
             alert('', '감사합니다. <br /> 예약이 완료되었습니다.', '', '', () => {
-              deleteCart(cart);
               setTimeout(() => {
                 completedRef.current = false;
               }, 30_000);

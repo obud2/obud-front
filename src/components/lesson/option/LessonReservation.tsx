@@ -26,10 +26,6 @@ const LessonReservation = ({ lesson }: Props) => {
 
           {!isOpen && (
             <div className="lesson-bottombar-box">
-              <CustomButton fullWidth variant="outlined" onClick={() => setIsOpen(true)}>
-                장바구니
-              </CustomButton>
-
               <CustomButton fullWidth onClick={() => setIsOpen(true)}>
                 예약하기
               </CustomButton>

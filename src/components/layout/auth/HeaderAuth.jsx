@@ -8,7 +8,6 @@ import { HAVE_AUTH, HAVE_NO_AUTH } from './HeaderAuth.group';
 
 import { loginCheck, userLogout } from 'src/constants';
 
-import CartButton from '../cart/CartButton';
 import SearchIcon from '../search/SearchIcon';
 
 const HeaderAuth = ({ reverse }) => {
@@ -43,10 +42,6 @@ const HeaderAuth = ({ reverse }) => {
       case 'logout':
         userLogout();
         break;
-
-      case 'cart':
-        router.push('/cart');
-        break;
     }
   };
 
@@ -57,8 +52,6 @@ const HeaderAuth = ({ reverse }) => {
           {item?.title}
         </li>
       ))}
-
-      <CartButton reverse={reverse} />
 
       <SearchIcon reverse={reverse} />
     </SHeaderAuth>

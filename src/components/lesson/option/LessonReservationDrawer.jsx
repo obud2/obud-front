@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 
 import { RiArrowDownSFill } from 'react-icons/ri';
 
-import { CartContext } from 'src/context/CartContext';
 import { OrderContext } from 'src/context/OrderContext';
 
 import moment from 'moment';
@@ -27,7 +26,6 @@ const LessonReservationDrawer = ({ lesson, isOpen, isClose }) => {
   const router = useRouter();
 
   const { setOrder } = useContext(OrderContext);
-  const { setCart, isLoading: isCartLoading } = useContext(CartContext);
 
   const { onClickOpenAuth } = useAuthModal((state) => ({
     onClickOpenAuth: state.onClickOpenAuth,
@@ -180,10 +178,6 @@ const LessonReservationDrawer = ({ lesson, isOpen, isClose }) => {
       };
 
       switch (type) {
-        case 'cart':
-          onClear();
-          setCart(param);
-          break;
         case 'order':
           isClose();
           setOrder([param]).then(() => {
@@ -194,7 +188,7 @@ const LessonReservationDrawer = ({ lesson, isOpen, isClose }) => {
     }
   };
 
-  const isAllLoading = isLoading || isCartLoading;
+  const isAllLoading = isLoading;
 
   return (
     <Portal>
@@ -223,10 +217,6 @@ const LessonReservationDrawer = ({ lesson, isOpen, isClose }) => {
         </div>
 
         <nav className="lesson-bottombar-container">
-          <CustomButton fullWidth variant="outlined" onClick={() => onSelectOrder('cart')} disabled={isAllLoading} isLoading={isAllLoading}>
-            장바구니
-          </CustomButton>
-
           <CustomButton fullWidth onClick={() => onSelectOrder('order')} disabled={isAllLoading} isLoading={isAllLoading}>
             예약하기
           </CustomButton>
