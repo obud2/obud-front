@@ -1,4 +1,4 @@
-import { Coupon } from '@/entities/coupon';
+import { Coupon, CouponDiscountType } from '@/entities/coupon';
 import moment from 'moment';
 import styled from 'styled-components';
 
@@ -8,12 +8,23 @@ type Props = {
 };
 
 const CouponItem = ({ coupon, error }: Props) => {
+  // eslint-disable-next-line no-nested-ternary
+  const discount = coupon.discountType === CouponDiscountType.AMOUNT ?
+    `${coupon.discountAmount.toLocaleString()}원` : coupon.discountType === CouponDiscountType.PERCENTAGE ?
+      `${coupon.discountAmount}%` : '';
   return (
     <SCoupon>
       {!!error && <div style={{ fontWeight: 600, color: 'red', marginBottom: 6, textAlign: 'start' }}>{error}</div>}
       <div className="coupon-item-title-wrapper">
         <span className="coupon-item-title">{coupon.name}</span>
-        {coupon.maxDiscountAmount && <span className="coupon-item-max-discount">(최대 {coupon.maxDiscountAmount.toLocaleString()}원)</span>}
+      </div>
+      <div className="coupon-item-title-wrapper">
+        <span
+          className="coupon-item-title"
+        >{`${discount} 할인쿠폰`}
+        </span>
+        {coupon.maxDiscountAmount &&
+        <span className="coupon-item-max-discount">(최대 {coupon.maxDiscountAmount.toLocaleString()}원)</span>}
       </div>
       {!!coupon.minOrderPriceAmount && (
         <div className="coupon-item-min-order-price">최소 주문 금액: {coupon.minOrderPriceAmount.toLocaleString()}원</div>
