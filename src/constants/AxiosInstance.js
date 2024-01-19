@@ -48,10 +48,10 @@ axiosInstance.interceptors.response.use(
           }
         });
       }
-      return Promise.resolve(error.response.data);
+      return Promise.reject(error.response.data);
     }
 
-    return Promise.resolve(error);
+    return Promise.reject(error);
   },
 );
 
