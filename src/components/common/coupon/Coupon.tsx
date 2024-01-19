@@ -13,7 +13,7 @@ const CouponItem = ({ coupon }: Props) => {
         <span className="coupon-item-title">{coupon.name}</span>
         {coupon.maxDiscountAmount && <span className="coupon-item-max-discount">(최대 {coupon.maxDiscountAmount.toLocaleString()}원)</span>}
       </div>
-      {coupon.minOrderPriceAmount && (
+      {!!coupon.minOrderPriceAmount && (
         <div className="coupon-item-min-order-price">최소 주문 금액: {coupon.minOrderPriceAmount.toLocaleString()}원</div>
       )}
       {coupon.endDate && <div className="coupon-item-date">{moment(coupon.endDate).format('YYYY.MM.DD')} 까지 적용 가능</div>}
