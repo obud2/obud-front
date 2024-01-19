@@ -276,6 +276,11 @@ const Booking = () => {
     }
   };
 
+  // eslint-disable-next-line no-nested-ternary
+  const currentCouponDisplay = currentCoupon ? currentCoupon.discountType === CouponDiscountType.AMOUNT ?
+    `${currentCoupon.name} (${currentCoupon.discountAmount.toLocaleString()}원 할인)` : currentCoupon.discountType === CouponDiscountType.PERCENTAGE ?
+      `${currentCoupon.name} (${currentCoupon.discountAmount}% 할인)` : '' : '';
+
   return (
     <React.Fragment>
       <BookingBase subTitle="예약 수업 정보" list={order} subDate={undefined} />
@@ -345,7 +350,7 @@ const Booking = () => {
                 <p className="booking-title">쿠폰</p>
               </div>
               <div className="booking-coupon-input-wrapper">
-                <CustomInput label="쿠폰" type="text" placeholder={activeCoupons.length > 0 ? `사용가능한 쿠폰 ${activeCoupons.length}장` : '이 수업에 사용가능한 쿠폰이 없어요'} disabled value={currentCoupon?.name || ''} />
+                <CustomInput label="쿠폰" type="text" placeholder={activeCoupons.length > 0 ? `사용가능한 쿠폰 ${activeCoupons.length}장` : '이 수업에 사용가능한 쿠폰이 없어요'} disabled value={currentCouponDisplay} />
                 <CustomButton width="120px" onClick={() => setOpenCouponModal(true)} disabled={isAllLoading || !activeCoupons.length}>
                   쿠폰 선택
                 </CustomButton>
