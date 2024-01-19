@@ -9,6 +9,7 @@ import { RequestPayParams } from '@/portone';
 import { PAYMENT_METHOD } from '@components/booking/Booking.option';
 import { useQueryClient } from 'react-query';
 import router from 'next/router';
+import { Order } from '@/context/OrderContext';
 
 type CreateOrderParam = {
   planId: string;
@@ -19,7 +20,7 @@ type CreateOrderParam = {
   reservationer: string;
   reservationerHp: string;
   reservationCount: number;
-  payOption: string;
+  payOption: Order['payOption'];
   payOptionCount: number;
 };
 

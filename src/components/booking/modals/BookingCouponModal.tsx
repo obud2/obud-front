@@ -11,12 +11,13 @@ type Props = {
   open: boolean;
   onClose: () => void;
   setCoupon: (coupon: Coupon) => void;
+  scheduleId?: string;
 };
 
-const BookingCouponModal = ({ open, onClose, setCoupon }: Props) => {
-  const { data: coupons } = useCoupons();
+const BookingCouponModal = ({ open, onClose, setCoupon, scheduleId }: Props) => {
+  const { data: coupons } = useCoupons(scheduleId);
 
-  if (!coupons) return <FallBackLoading isLoading />;
+  if (!coupons || !scheduleId) return <FallBackLoading isLoading />;
 
   return (
     <Modal open={open} close={onClose} ref={{} as any}>
@@ -48,8 +49,10 @@ const BookingCouponModal = ({ open, onClose, setCoupon }: Props) => {
   );
 };
 
-const useCoupons = () => {
-  return useQuery('coupons/me', () => CouponService.listCoupons());
+const useCoupons = (scheduleId?: string) => {
+  return useQuery(['coupons/me', { scheduleId }], () => CouponService.listCoupons({ scheduleId }), {
+    enabled: !!scheduleId,
+  });
 };
 
 export default BookingCouponModal;
@@ -72,7 +75,7 @@ const Wrapper = styled.div`
 
     .coupon-title {
       font-size: 1.6rem;
-      font-family: 400;
+      font-weight: 400;
 
       color: ${(props) => props.theme.main_color_slate_500};
 
@@ -98,7 +101,7 @@ const Wrapper = styled.div`
     justify-content: center;
 
     font-size: 1.4rem;
-    font-family: 400;
+    font-weight: 400;
 
     margin: 20px 0;
 

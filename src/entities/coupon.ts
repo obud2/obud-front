@@ -10,6 +10,7 @@ export type Coupon = {
   startDate: string;
   endDate: string;
   createdAt: string;
+  canBeApplied?: boolean;
 };
 
 export enum CouponIssueType {

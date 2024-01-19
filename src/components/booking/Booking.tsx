@@ -4,10 +4,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import { UserContext } from 'src/context/UserContext';
-import { OrderContext } from 'src/context/OrderContext';
-import { CartContext } from 'src/context/CartContext';
+import { Order, OrderContext } from 'src/context/OrderContext';
 
-import { useQueryClient } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 
 import { PAYMENT_METHOD } from './Booking.option';
 
@@ -47,9 +46,16 @@ const Booking = () => {
     }
   }, []);
 
-  const { order } = useContext<any>(OrderContext);
+  const { order } = useContext(OrderContext);
   const { user } = useContext(UserContext);
-  const { deleteCart } = useContext<any>(CartContext);
+
+  // TODO: 한번에 여러 order를 결제할 수 있게 되면 쿠폰 적용 로직 수정해야 함
+  const scheduleId = order[0]?.planId;
+
+  const { data: coupons } = useQuery(['coupons/me', { scheduleId }], () => CouponService.listCoupons({
+      scheduleId,
+  }), { enabled: !!scheduleId });
+  const totalActiveCoupons = (coupons ?? []).filter((it) => !!it.canBeApplied).length;
 
   const [userInfo, setUserInfo] = useState<{ name?: string; hp?: string; email?: string }>({});
   const [totalPrice, setTotalPrice] = useState<number>(0);
@@ -62,7 +68,9 @@ const Booking = () => {
   });
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isRegisterCouponLoading, setIsRegisterCouponLoading] = useState(false);
   const [isUserInfoBring, setIsUserInfoBring] = useState(true);
+  const isAllLoading = isRegisterCouponLoading || isLoading;
 
   // 상품 없으면 장바구니로 이동.
   useEffect(() => {
@@ -91,6 +99,10 @@ const Booking = () => {
   useEffect(() => {
     onClickUserInfoBring(true);
   }, [user]);
+
+  if (!order.length) {
+    return null;
+  }
 
   // 회원 정보 불러오기 토글
   const onClickUserInfoBring = (loadUser: boolean) => {
@@ -154,7 +166,6 @@ const Booking = () => {
       amount: totalPrice,
     };
 
-    const cart: string[] = order.filter((it) => it?.cart).map((it) => it?.id);
     const createOrderParams: {
       couponId?: string;
       planId: string;
@@ -165,7 +176,7 @@ const Booking = () => {
       reservationer: string;
       reservationerHp: string;
       reservationCount: number;
-      payOption: string;
+      payOption: Order['payOption'];
       payOptionCount: number;
     }[] = order.map((it) => ({
       couponId: currentCoupon?.id || '',
@@ -200,7 +211,6 @@ const Booking = () => {
 
         if (orderStatus === 'COMPLETE') {
           alert('', '감사합니다. <br /> 예약이 완료되었습니다.', '', '', () => {
-            deleteCart(cart);
             router.push('/my/order');
           });
         }
@@ -232,12 +242,19 @@ const Booking = () => {
     }
 
     try {
-      await CouponService.createCoupon({ code: couponCode });
-      alert('', '쿠폰이 등록되었습니다. <br /> 쿠폰 적용 후 진행해주세요.', '', '');
+      const createdCoupon = await CouponService.createCoupon({ code: couponCode, scheduleId });
+      await queryClient.invalidateQueries('coupons/me');
+      if (createdCoupon.canBeApplied) {
+        setCurrentCoupon(createdCoupon);
+        alert('', '쿠폰이 등록되었습니다. <br /> 해당 쿠폰이 자동으로 선택됩니다.', '', '');
+      } else {
+        alert('', '쿠폰이 등록되었습니다. <br /> 하지만 이 수업에는 적용할 수 없는 쿠폰입니다.', '', '');
+      }
     } catch (err) {
-      alert('', '쿠폰 등록에 실패하였습니다. <br /> 올바른 쿠폰 코드 입력 후 다시 시도해주세요.', '', '');
+      alert('', `${(err as unknown as {message: string} | undefined)?.message ?? '쿠폰 등록에 실패했습니다.'} <br /> 올바른 쿠폰 코드 입력 후 다시 시도해주세요.`, '', '');
     } finally {
       setCouponCode('');
+      setIsRegisterCouponLoading(false);
     }
   };
 
@@ -270,7 +287,7 @@ const Booking = () => {
         <section className="booking-user-info-container">
           <header className="booking-header">
             <p className="booking-title">예약자 정보</p>
-            <CustomCheckBox label="회원 정보 불러오기" value={isUserInfoBring} onClick={onClickUserInfoBring} disabled={isLoading} />
+            <CustomCheckBox label="회원 정보 불러오기" value={isUserInfoBring} onClick={onClickUserInfoBring} disabled={isAllLoading} />
           </header>
 
           <main className="booking-user-info">
@@ -281,7 +298,7 @@ const Booking = () => {
               placeholder="예약자명을 입력해주세요."
               value={userInfo?.name || ''}
               onChange={(e) => onChangeInputValue('name', e.target.value)}
-              disabled={isLoading}
+              disabled={isAllLoading}
             />
             <CustomInput
               point
@@ -290,7 +307,7 @@ const Booking = () => {
               placeholder="'-'없이 입력"
               value={userInfo?.hp || ''}
               onChange={(e) => onChangeInputValue('hp', e.target.value)}
-              disabled={isLoading}
+              disabled={isAllLoading}
             />
           </main>
         </section>
@@ -318,7 +335,7 @@ const Booking = () => {
           <div className="booking-paymethod-container">
             <CustomRadio value={payMethod || ''} onChange={(e) => onChangePayMethod(e.target.value)}>
               {PAYMENT_METHOD.filter((a) => a.isShow).map((item) => (
-                <CustomRadioItem key={item.id} isChecked={item.id === payMethod} value={item.id} label={item.value} disabled={isLoading} />
+                <CustomRadioItem key={item.id} isChecked={item.id === payMethod} value={item.id} label={item.value} disabled={isAllLoading} />
               ))}
             </CustomRadio>
           </div>
@@ -330,22 +347,25 @@ const Booking = () => {
                 <p className="booking-title">쿠폰</p>
               </div>
               <div className="booking-coupon-input-wrapper">
-                <CustomInput label="쿠폰" type="text" placeholder="보유 쿠폰을 확인해주세요" disabled value={currentCoupon?.name || ''} />
-                <CustomButton width="120px" onClick={() => setOpenCouponModal(true)} disabled={isLoading}>
-                  쿠폰 확인
+                <CustomInput label="쿠폰" type="text" placeholder={totalActiveCoupons > 0 ? `사용가능한 쿠폰 ${totalActiveCoupons}장` : '이 수업에 사용가능한 쿠폰이 없어요'} disabled value={currentCoupon?.name || ''} />
+                <CustomButton width="120px" onClick={() => setOpenCouponModal(true)} disabled={isAllLoading || !totalActiveCoupons}>
+                  쿠폰 선택
                 </CustomButton>
-                <BookingCouponModal open={openCouponModal} onClose={() => setOpenCouponModal(false)} setCoupon={setCurrentCoupon} />
+                <BookingCouponModal scheduleId={scheduleId} open={openCouponModal} onClose={() => setOpenCouponModal(false)} setCoupon={setCurrentCoupon} />
               </div>
               <div className="booking-coupon-input-wrapper">
                 <CustomInput
-                  label="쿠폰번호"
+                  label="쿠폰 등록"
                   type="text"
                   placeholder="쿠폰번호를 입력해주세요."
                   value={couponCode}
-                  disabled={isLoading}
-                  onChange={(e) => setCouponCode(e.target.value)}
+                  disabled={isRegisterCouponLoading}
+                  onChange={(e) => {
+                    const code = e.target.value.trim().slice(0, 5).toUpperCase();
+                    setCouponCode(code);
+                  }}
                 />
-                <CustomButton width="120px" onClick={onCreateCoupon} disabled={isLoading || !couponCode}>
+                <CustomButton width="120px" onClick={onCreateCoupon} disabled={isAllLoading || !couponCode}>
                   쿠폰 등록
                 </CustomButton>
               </div>
@@ -383,7 +403,7 @@ const Booking = () => {
               label="네, 확인했습니다."
               value={isAgree?.check}
               onClick={(e) => onClickAgreeValue('check', e)}
-              disabled={isLoading}
+              disabled={isAllLoading}
             />
           </footer>
 
@@ -394,11 +414,11 @@ const Booking = () => {
               label="동의합니다."
               value={isAgree?.policy}
               onClick={(e) => onClickAgreeValue('policy', e)}
-              disabled={isLoading}
+              disabled={isAllLoading}
             />
           </footer>
 
-          <CustomButton fullWidth onClick={onClickPayOrder} disabled={isLoading} isLoading={isLoading}>
+          <CustomButton fullWidth onClick={onClickPayOrder} disabled={isAllLoading} isLoading={isAllLoading}>
             결제하기
           </CustomButton>
         </section>

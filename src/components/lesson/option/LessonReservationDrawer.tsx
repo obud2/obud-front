@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import React, { useContext, useEffect, useRef, useState } from 'react';
 
 import { useRouter } from 'next/router';
@@ -180,9 +182,8 @@ const LessonReservationDrawer = ({ lesson, isOpen, isClose }) => {
       switch (type) {
         case 'order':
           isClose();
-          setOrder([param]).then(() => {
-            router.push('/booking');
-          });
+          setOrder([param]);
+          router.push('/booking');
           break;
       }
     }

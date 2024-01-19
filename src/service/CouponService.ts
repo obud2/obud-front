@@ -5,6 +5,7 @@ type ListCouponsRequest = {
   page?: number;
   status?: 'PENDING' | 'IN_PROGRESS' | 'FINISHED' | '';
   name?: string;
+  scheduleId?: string;
 };
 
 type ListCouponsResponse = {
@@ -22,6 +23,7 @@ const listCoupons = async (request: ListCouponsRequest = {}) => {
 
   if (request.status) searchParams.set('status', request.status);
   if (request.name) searchParams.set('name', request.name);
+  if (request.scheduleId) searchParams.set('scheduleId', request.scheduleId);
 
   const response = await axiosInstance.get<ListCouponsResponse>(`/coupon/me?${searchParams.toString()}`);
   return response.data.value;
@@ -29,14 +31,13 @@ const listCoupons = async (request: ListCouponsRequest = {}) => {
 
 type CreateCouponRequest = {
   code: string; // 영문대문자, 숫자5자리 고정
+  scheduleId: string;
 };
 
-const createCoupon = async (request: CreateCouponRequest) => {
-  const res = await axiosInstance.post(`/coupon/me?code=${request.code.toLocaleUpperCase()}`);
-
-  if (res.status >= 300) {
-    throw new Error('쿠폰 생성에 실패했습니다.');
-  }
+const createCoupon = async (request: CreateCouponRequest): Promise<Coupon> => {
+  const { code, scheduleId } = request;
+  const res = await axiosInstance.post<{ value: Coupon }>(`/coupon/me?code=${code.toLocaleUpperCase()}&scheduleId=${scheduleId}`);
+  return res.data.value;
 };
 
 const CouponService = {
