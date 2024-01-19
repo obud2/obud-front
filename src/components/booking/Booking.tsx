@@ -120,112 +120,6 @@ const Booking = () => {
   const onChangePayMethod = (type: (typeof PAYMENT_METHOD)[number]['id']) => {
     setPayMethod(type);
   };
-
-  // 예약하기
-  const onClickPayOrder = async () => {
-    if (!userInfo?.name) {
-      alert('', '예약자명은 필수입니다.');
-      return;
-    }
-    if (!userInfo?.hp) {
-      alert('', '휴대전화번호는 필수입니다.');
-      return;
-    }
-    if (!payMethod) {
-      alert('', '결제수단을 선택해주세요.');
-      return;
-    }
-    if (!isAgree?.check) {
-      alert('', '신청 전 클래스 시간, 장소, <br /> 내용, 환불 규정을 확인해주세요.');
-      return;
-    }
-    if (!isAgree?.policy) {
-      alert('', '구매조건 확인 및 결제진행에 <br /> 동의하여 주시기 바랍니다.');
-      return;
-    }
-
-    setIsLoading(true);
-
-    const payOption = {
-      payMethod,
-      userInfo: {
-        name: userInfo.name,
-        hp: userInfo.hp,
-        email: userInfo.email || '',
-      },
-      title: `${order?.[0]?.lessonTitle}${order?.length > 1 ? order.length - 1 : ''}`,
-      amount: price,
-    };
-
-    const createOrderParams: {
-      couponId?: string;
-      planId: string;
-      price: number;
-      startDate: string;
-      endDate: string;
-      instructor: string;
-      reservationer: string;
-      reservationerHp: string;
-      reservationCount: number;
-      payOption: Order['payOption'];
-      payOptionCount: number;
-    }[] = order.map((it) => ({
-      couponId: currentCoupon?.id || '',
-      planId: it?.planId || '',
-      price: it?.price || 0,
-      startDate: it?.startDate || '',
-      endDate: it?.endDate || '',
-      instructor: it?.instructor || '',
-      reservationer: userInfo?.name || '',
-      reservationerHp: userInfo?.hp || '',
-      reservationCount: it?.reservationCount || 0,
-      payOption: it?.payOption || '',
-      payOptionCount: it?.payOptionCount || 0,
-    }));
-
-    if (window.ReactNativeWebView) {
-      try {
-        await impPayNative(createOrderParams, payOption);
-      } catch (err) {
-        // eslint-disable-next-line no-console
-        console.error(err);
-      } finally {
-        setIsLoading(false);
-      }
-    } else {
-      try {
-        const res = (await impPay(createOrderParams, payOption, setIsLoading)) as any;
-        const orderStatus = res?.val?.orderStatus || 'FAIL';
-        const errorMsg = res?.error_msg || '';
-
-        queryClient.invalidateQueries(['my-order-list'], { refetchInactive: true });
-
-        if (orderStatus === 'COMPLETE') {
-          alert('', '감사합니다. <br /> 예약이 완료되었습니다.', '', '', () => {
-            router.push('/my/order');
-          });
-        }
-        if (orderStatus === 'FAIL') {
-          if (errorMsg) {
-            alert('', errorMsg, '', '', () => {
-              router.push('/class');
-            });
-          } else {
-            alert('', '예약을 취소하였습니다.', '', '', () => {
-              router.push('/class');
-            });
-          }
-        }
-      } catch (err) {
-        alert('', '죄송합니다. 예약에 실패하였습니다. <br /> 잠시 후 다시시도해주세요.', '', '', () => {
-          router.push('/');
-        });
-      } finally {
-        setIsLoading(false);
-      }
-    }
-  };
-
   const onCreateCoupon = async () => {
     if (!couponCode) {
       alert('', '쿠폰 번호를 입력해주세요.', '', '');
@@ -274,6 +168,126 @@ const Booking = () => {
 
     return 0;
   };
+
+  const finalPrice = price - getCouponDiscount(currentCoupon);
+
+  const onClickPayOrder = async () => {
+    if (!userInfo?.name) {
+      alert('', '예약자명은 필수입니다.');
+      return;
+    }
+    if (!userInfo?.hp) {
+      alert('', '휴대전화번호는 필수입니다.');
+      return;
+    }
+    if (!payMethod) {
+      alert('', '결제수단을 선택해주세요.');
+      return;
+    }
+    if (!isAgree?.check) {
+      alert('', '신청 전 클래스 시간, 장소, <br /> 내용, 환불 규정을 확인해주세요.');
+      return;
+    }
+    if (!isAgree?.policy) {
+      alert('', '구매조건 확인 및 결제진행에 <br /> 동의하여 주시기 바랍니다.');
+      return;
+    }
+
+    setIsLoading(true);
+
+    const payOption = {
+      payMethod,
+      userInfo: {
+        name: userInfo.name,
+        hp: userInfo.hp,
+        email: userInfo.email || '',
+      },
+      title: `${order?.[0]?.lessonTitle}${order?.length > 1 ? order.length - 1 : ''}`,
+      amount: finalPrice,
+    };
+
+
+    // TODO: 장바구니가 도입되면 order가 여러개가 될 수 있음.
+    if (!order.length) {
+      alert('', '주문할 수업을 찾을 수 없습니다. 고객센터로 문의 부탁드립니다.');
+      throw new Error('주문할 수업을 찾을 수 없습니다. 고객센터로 문의 부탁드립니다.');
+    }
+    if (order.length > 1) {
+      alert('', '한 번에 여러 상품을 구매할 수 없습니다. 고객센터로 문의 부탁드립니다.');
+      throw new Error('한 번에 여러 상품을 구매할 수 없습니다. 고객센터로 문의 부탁드립니다.');
+    }
+
+    const target = order[0];
+
+    const createOrderParams: {
+      couponId?: string;
+      planId: string;
+      price: number;
+      startDate: string;
+      endDate: string;
+      instructor: string;
+      reservationer: string;
+      reservationerHp: string;
+      reservationCount: number;
+      payOption: Order['payOption'];
+      payOptionCount: number;
+    }[] = [{
+      price: finalPrice,
+      couponId: currentCoupon?.id || '',
+      planId: target?.planId || '',
+      startDate: target?.startDate || '',
+      endDate: target?.endDate || '',
+      instructor: target?.instructor || '',
+      reservationer: userInfo?.name || '',
+      reservationerHp: userInfo?.hp || '',
+      reservationCount: target?.reservationCount || 0,
+      payOption: target?.payOption || '',
+      payOptionCount: target?.payOptionCount || 0,
+    }];
+
+    if (window.ReactNativeWebView) {
+      try {
+        await impPayNative(createOrderParams, payOption);
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+      try {
+        const res = (await impPay(createOrderParams, payOption, setIsLoading)) as any;
+        const orderStatus = res?.val?.orderStatus || 'FAIL';
+        const errorMsg = res?.error_msg || '';
+
+        queryClient.invalidateQueries(['my-order-list'], { refetchInactive: true });
+
+        if (orderStatus === 'COMPLETE') {
+          alert('', '감사합니다. <br /> 예약이 완료되었습니다.', '', '', () => {
+            router.push('/my/order');
+          });
+        }
+        if (orderStatus === 'FAIL') {
+          if (errorMsg) {
+            alert('', errorMsg, '', '', () => {
+              router.push('/class');
+            });
+          } else {
+            alert('', '예약을 취소하였습니다.', '', '', () => {
+              router.push('/class');
+            });
+          }
+        }
+      } catch (err) {
+        alert('', '죄송합니다. 예약에 실패하였습니다. <br /> 잠시 후 다시시도해주세요.', '', '', () => {
+          router.push('/');
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
+
 
   return (
     <React.Fragment>
@@ -387,7 +401,7 @@ const Booking = () => {
                 </div>
                 <div className="booking-final-price">
                   <p>최종 결제금액</p>
-                  <p>{addComma(price - getCouponDiscount(currentCoupon))}원</p>
+                  <p>{addComma(finalPrice)}원</p>
                 </div>
               </div>
             </>
