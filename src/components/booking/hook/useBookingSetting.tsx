@@ -11,9 +11,11 @@ import { useQueryClient } from 'react-query';
 import router from 'next/router';
 import { Order } from '@/context/OrderContext';
 
-type CreateOrderParam = {
+export type CreateOrderParam = {
+  couponId: string | null;
   planId: string;
   price: number;
+  payAmount: number,
   startDate: string;
   endDate: string;
   instructor: string;

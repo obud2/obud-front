@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import { UserContext } from 'src/context/UserContext';
-import { Order, OrderContext } from 'src/context/OrderContext';
+import { OrderContext } from 'src/context/OrderContext';
 
 import { useQuery, useQueryClient } from 'react-query';
 
@@ -13,7 +13,7 @@ import { PAYMENT_METHOD } from './Booking.option';
 import { addComma } from 'src/constants';
 import { SBooking } from './Booking.styled';
 
-import useBookingSetting from './hook/useBookingSetting';
+import useBookingSetting, {CreateOrderParam} from './hook/useBookingSetting';
 
 import alert from 'src/helpers/alert';
 
@@ -219,21 +219,11 @@ const Booking = () => {
 
     const target = order[0];
 
-    const createOrderParams: {
-      couponId?: string;
-      planId: string;
-      price: number;
-      startDate: string;
-      endDate: string;
-      instructor: string;
-      reservationer: string;
-      reservationerHp: string;
-      reservationCount: number;
-      payOption: Order['payOption'];
-      payOptionCount: number;
-    }[] = [{
-      price: finalPrice,
-      couponId: currentCoupon?.id || '',
+
+    const createOrderParams: CreateOrderParam[] = [{
+      price: target.price,
+      payAmount: finalPrice,
+      couponId: currentCoupon?.id || null,
       planId: target?.planId || '',
       startDate: target?.startDate || '',
       endDate: target?.endDate || '',
@@ -241,7 +231,7 @@ const Booking = () => {
       reservationer: userInfo?.name || '',
       reservationerHp: userInfo?.hp || '',
       reservationCount: target?.reservationCount || 0,
-      payOption: target?.payOption || '',
+      payOption: target?.payOption || {},
       payOptionCount: target?.payOptionCount || 0,
     }];
 
