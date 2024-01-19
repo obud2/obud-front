@@ -8,9 +8,11 @@ export type Order = {
   endDate: string;
   reservationCount: number;
   payOption: {
-    title?: string;
-    price?: number;
-  };
+    price: number;
+    title: string;
+    maxMember: number;
+    currentMember: number;
+  } | Record<string, never>;
   payOptionCount: number;
   lessonTitle: string;
   lessonImages: {

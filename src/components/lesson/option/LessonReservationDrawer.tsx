@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 
 import { RiArrowDownSFill } from 'react-icons/ri';
 
-import { OrderContext } from 'src/context/OrderContext';
+import { Order, OrderContext } from 'src/context/OrderContext';
 
 import moment from 'moment';
 import useAuthModal from 'src/store/useAuthModal';
@@ -159,7 +159,7 @@ const LessonReservationDrawer = ({ lesson, isOpen, isClose }) => {
 
   const onSelectOrder = (type) => {
     if (validateCheck()) {
-      const param = {
+      const param: Order = {
         planId: body?.selectTime?.id || '',
         instructor: body?.selectTime?.instructor || '',
         price: body?.selectTime?.price || '',
