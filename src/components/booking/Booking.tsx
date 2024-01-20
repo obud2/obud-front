@@ -235,9 +235,9 @@ const Booking = () => {
       }
     } else {
       try {
-        const res = (await impPay(createOrderParams, payOption, setIsLoading)) as any;
-        const orderStatus = res?.val?.orderStatus || 'FAIL';
-        const errorMsg = res?.error_msg || '';
+        const res = await impPay(createOrderParams, payOption, setIsLoading);
+        const orderStatus = res?.orderStatus || 'FAIL';
+        const errorMsg = res?.error || '';
 
         queryClient.invalidateQueries(['my-order-list'], { refetchInactive: true });
 

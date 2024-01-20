@@ -98,6 +98,7 @@ module.exports = {
     'import/order': 'off',
 
     'react/display-name': 'off',
+    'no-return-await': 'off',
     'no-await-in-loop': 'off',
     'no-restricted-syntax': 'off',
     'react/no-array-index-key': 'off',

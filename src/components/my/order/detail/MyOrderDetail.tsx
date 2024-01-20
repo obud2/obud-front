@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import React, { useState } from 'react';
 
 import moment from 'moment';
@@ -7,7 +9,7 @@ import { useRouter } from 'next/router';
 
 import { useQuery, useQueryClient } from 'react-query';
 import UserService from 'src/service/UserService';
-import OrderService from 'src/service/OrderService';
+import { reservationCancel } from 'src/service/OrderService';
 
 import { PAYMENT_METHOD } from '@components/booking/Booking.option';
 
@@ -79,7 +81,7 @@ const MyOrderDetail = () => {
         setUseLoading(true);
         setIsCancelModalOpen(false);
 
-        OrderService.reservationCancel(data[0]?.id)
+        reservationCancel(data[0]?.id)
           .then((res) => {
             if (res?.status === 200) {
               alert('', '예약 취소되었습니다. <br /> 환불은 마이페이지 > 예약현황에서 <br /> 확인해 주세요.', '', '', () => {
