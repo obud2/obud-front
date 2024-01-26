@@ -210,13 +210,13 @@ const Booking = () => {
     const target = order[0];
 
     const createOrderParams: CreateOrderParam[] = [{
-      price: target.price,
+      price: target.price || 0,
       payAmount: finalPrice,
       couponId: currentCoupon?.id || null,
       planId: target?.planId || '',
       startDate: target?.startDate || '',
       endDate: target?.endDate || '',
-      instructor: target?.instructor || '',
+      instructor: target?.instructor && target.instructor !== 'x' ? target.instructor : '',
       reservationer: userInfo?.name || '',
       reservationerHp: userInfo?.hp || '',
       reservationCount: target?.reservationCount || 0,
