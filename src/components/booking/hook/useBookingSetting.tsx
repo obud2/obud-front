@@ -9,18 +9,13 @@ import { PAYMENT_METHOD } from '@components/booking/Booking.option';
 import { useQueryClient } from 'react-query';
 import router from 'next/router';
 import { Order } from '@/context/OrderContext';
-import {
-  orderComplete,
-  createOrder,
-  payCancel,
-  orderFail,
-} from '@/service/OrderService';
+import { orderComplete, createOrder, payCancel, orderFail } from '@/service/OrderService';
 
 export type CreateOrderParam = {
   couponId: string | null;
   planId: string;
   price: number;
-  payAmount: number,
+  payAmount: number;
   startDate: string;
   endDate: string;
   instructor: string;
@@ -185,7 +180,11 @@ const useBookingSetting = () => {
     window.ReactNativeWebView?.postMessage(JSON.stringify(params));
   };
 
-  const impPay = async (createOrderParams: CreateOrderParam[], payOptions: PayOptions, setLoading: (loading: boolean) => void): Promise<{ orderStatus?: 'COMPLETE' | 'FAIL'; error?: string; }> => {
+  const impPay = async (
+    createOrderParams: CreateOrderParam[],
+    payOptions: PayOptions,
+    setLoading: (loading: boolean) => void,
+  ): Promise<{ orderStatus?: 'COMPLETE' | 'FAIL'; error?: string }> => {
     if (typeof window === 'undefined' || !window.IMP) {
       throw new Error('결제 준비가 되지 않았어요. 개발자에게 문의해주세요!');
     }
@@ -240,7 +239,7 @@ const useBookingSetting = () => {
       setIsProcessingPayment(false);
 
       return await new Promise((resolve) => {
-        window.IMP!.request_pay(requestPayParams, (rsp) => {
+        window.IMP?.request_pay(requestPayParams, (rsp) => {
           const merchant = {
             merchant_uid: merchantUid || '',
             imp_uid: rsp.imp_uid,

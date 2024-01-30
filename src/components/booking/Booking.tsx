@@ -281,7 +281,8 @@ const Booking = () => {
 
   // eslint-disable-next-line no-nested-ternary
   const currentCouponDisplay = currentCoupon
-    ? currentCoupon.discountType === CouponDiscountType.AMOUNT
+    ? // eslint-disable-next-line no-nested-ternary
+      currentCoupon.discountType === CouponDiscountType.AMOUNT
       ? `${currentCoupon.name} (${currentCoupon.discountAmount.toLocaleString()}원 할인)`
       : currentCoupon.discountType === CouponDiscountType.PERCENTAGE
       ? `${currentCoupon.name} (${currentCoupon.discountAmount}% 할인)`
