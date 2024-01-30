@@ -357,7 +357,7 @@ const Booking = () => {
               쿠폰 등록
             </CustomButton>
           </div>
-
+{/* 
           <div className="refund-policy-wrapper">
             <div className="refund-policy-header">취소/환불 규정</div>
             <div className="refund-policy-content">
@@ -365,7 +365,7 @@ const Booking = () => {
               <p>이용 7일 전 ~ 5일 전: 결제 금액의 50% 차감</p>
               <p>이용 4일 전~ 이용 당일: 결제 금액의 100% 차감</p>
             </div>
-          </div>
+          </div> */}
 
           <div className="booking-final-price-wrapper">
             <div className="booking-original-price">
