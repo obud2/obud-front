@@ -12,7 +12,7 @@ type ListCouponsResponse = {
   value: Coupon[];
 };
 
-const listCoupons = async (request: ListCouponsRequest = {}) => {
+export const listCoupons = async (request: ListCouponsRequest = {}) => {
   const searchParams = new URLSearchParams();
 
   if (request.page) {
@@ -34,15 +34,8 @@ type CreateCouponRequest = {
   scheduleId: string;
 };
 
-const createCoupon = async (request: CreateCouponRequest): Promise<Coupon> => {
+export const createCoupon = async (request: CreateCouponRequest): Promise<Coupon> => {
   const { code, scheduleId } = request;
   const res = await axiosInstance.post<{ value: Coupon }>(`/coupon/me?code=${code.toLocaleUpperCase()}&scheduleId=${scheduleId}`);
   return res.data.value;
 };
-
-const CouponService = {
-  listCoupons,
-  createCoupon,
-};
-
-export default CouponService;

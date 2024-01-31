@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { useQuery } from 'react-query';
-import SearchService from 'src/service/SearchService';
+import { getKeyword } from 'src/service/SearchService';
 import { SSearchKeyword } from './SearchKeyword.styled';
 
 const SearchKeyword = ({ onClick }) => {
-  const { data } = useQuery(['keyword'], () => SearchService.getKeyword());
+  const { data } = useQuery(['keyword'], () => getKeyword());
 
   return (
     <SSearchKeyword>

@@ -2,8 +2,8 @@ import ClassByCategory from '@/components/class/ClassByCategory';
 import MetaHeader from '@/components/common/meta/MetaHeader';
 import Layout from '@/components/layout/Layout';
 import { CategoryMap, Studio } from '@/entities/studio';
-import StudioService from '@/service/StudioService';
 import { GetServerSidePropsContext } from 'next';
+import { getStudiosFromCategory } from '@/service/StudioService';
 
 type Props = {
   categoryId: string;
@@ -22,7 +22,7 @@ const Index = ({ categoryId, studios }: Props) => {
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const categoryId = context.query.id as string;
 
-  const studios = await StudioService.getStudiosFromCategory(categoryId);
+  const studios = await getStudiosFromCategory(categoryId);
 
   return {
     props: {

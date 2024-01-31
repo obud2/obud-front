@@ -1,9 +1,9 @@
 import CouponItem from '@/components/common/coupon/Coupon';
 import FallBackLoading from '@/components/loading/FallBackLoading';
-import CouponService from '@/service/CouponService';
 import { MOBILE } from '@/styled/variablesStyles';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
+import { listCoupons } from '@/service/CouponService';
 
 const MyCoupon = () => {
   const { data: coupons } = useCoupons();
@@ -28,7 +28,7 @@ const MyCoupon = () => {
 export default MyCoupon;
 
 const useCoupons = () => {
-  return useQuery('coupons/me', () => CouponService.listCoupons());
+  return useQuery('coupons/me', () => listCoupons());
 };
 
 export const SMyCoupon = styled.div`
@@ -51,7 +51,7 @@ export const SMyCoupon = styled.div`
 
     .coupon-title {
       font-size: 1.6rem;
-      font-family: 400;
+      font-family: '400';
 
       color: ${(props) => props.theme.main_color_slate_500};
 
@@ -77,7 +77,7 @@ export const SMyCoupon = styled.div`
     justify-content: center;
 
     font-size: 1.4rem;
-    font-family: 400;
+    font-family: '400';
 
     margin-top: 20px;
 

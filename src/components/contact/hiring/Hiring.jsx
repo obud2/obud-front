@@ -8,7 +8,7 @@ import { SHiring } from './Hiring.styled';
 import { Spacing } from 'src/styled/CommonStyles';
 import { ADD_CLASS, POLICY_1, POLICY_2, YOGA_CAREER, YOGA_CLASS } from './Hiring.option';
 
-import AboutService from 'src/service/AboutService';
+import { saveItem } from 'src/service/AboutService';
 
 import ContactBase from '../ContactBase';
 import CustomInput from '@components/common/input/CustomInput';
@@ -61,7 +61,7 @@ const Hiring = () => {
     }
 
     setIsLoading(true);
-    AboutService.saveItem('new', body)
+    saveItem('new', body)
       .then(() => {
         alert('접수완료', '지원이 접수되었습니다. <br /> 입력해 주신 연락처로 연락드리겠습니다.');
       })

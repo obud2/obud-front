@@ -8,8 +8,6 @@ import { LayoutContext } from 'src/context/LayoutContext';
 import Logo from '@components/common/logo/Logo';
 import Menu from './menu/Menu';
 
-import Icons from './icons/Icons';
-
 import HeaderAuth from './auth/HeaderAuth';
 import BackTic from './option/BackTic';
 import HomeBtn from './option/HomeBtn';
@@ -79,10 +77,6 @@ const HeaderType = ({ type, reverse }) => {
 
   if (typeTemp === 'logo') {
     return <Logo reverse={reverse} />;
-  }
-
-  if (typeTemp === 'icons') {
-    return <Icons reverse={reverse} />;
   }
 
   if (typeTemp === 'backTicWithHome') {

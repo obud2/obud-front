@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Spacing } from 'src/styled/CommonStyles';
 import { regExp } from 'src/constants';
 
-import EmailService from 'src/service/EmailService';
+import { changePassword, checkVerify, findPassword } from 'src/service/EmailService';
 
 import _ from 'lodash';
 
@@ -63,7 +63,7 @@ const FindPwd = ({ onClickOpenAuth }) => {
     };
 
     setIsLoading(true);
-    EmailService.findPassword(param)
+    findPassword(param)
       .then((res) => {
         if (res?.status === 200) {
           setError({});
@@ -88,7 +88,7 @@ const FindPwd = ({ onClickOpenAuth }) => {
     }
 
     setIsLoading(true);
-    EmailService.checkVerify(body?.email, body?.verify)
+    checkVerify(body?.email, body?.verify)
       .then((res) => {
         if (res?.status === 200) {
           setError({});
@@ -131,7 +131,7 @@ const FindPwd = ({ onClickOpenAuth }) => {
     };
 
     setIsLoading(true);
-    EmailService.changePassword(param)
+    changePassword(param)
       .then((res) => {
         if (res?.status === 200) {
           setError({});

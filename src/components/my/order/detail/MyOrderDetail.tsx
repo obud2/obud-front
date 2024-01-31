@@ -8,7 +8,7 @@ import { addComma } from 'src/constants';
 import { useRouter } from 'next/router';
 
 import { useQuery, useQueryClient } from 'react-query';
-import UserService from 'src/service/UserService';
+import { myOrderItem } from 'src/service/UserService';
 import { reservationCancel } from 'src/service/OrderService';
 
 import { PAYMENT_METHOD } from '@components/booking/Booking.option';
@@ -33,7 +33,7 @@ const MyOrderDetail = () => {
   const [useLoading, setUseLoading] = useState(false);
 
   const fetchData = async () => {
-    const res = await UserService.myOrderItem(id);
+    const res = await myOrderItem(id);
     const obj = res?.value || [];
 
     const nowDate = moment().valueOf();

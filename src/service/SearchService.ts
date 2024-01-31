@@ -1,6 +1,6 @@
 import axiosInstance from '@/constants/AxiosInstance';
 
-const getSearch = (keyword, date) => {
+export const getSearch = (keyword, date) => {
   return new Promise((resolve, reject) => {
     axiosInstance
       .get(`search?keyword=${keyword}&date=${date}`)
@@ -11,7 +11,7 @@ const getSearch = (keyword, date) => {
   });
 };
 
-const getKeyword = () => {
+export const getKeyword = () => {
   return new Promise((resolve, reject) => {
     axiosInstance
       .get('search/keyword')
@@ -21,10 +21,3 @@ const getKeyword = () => {
       .catch(reject);
   });
 };
-
-const SearchService = {
-  getSearch,
-  getKeyword,
-};
-
-export default SearchService;

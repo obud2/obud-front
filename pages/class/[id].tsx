@@ -2,7 +2,7 @@ import MetaHeader from '@/components/common/meta/MetaHeader';
 import Layout from '@/components/layout/Layout';
 import StudioDetail from '@/components/studio/detail/StudioDetail';
 import { Studio } from '@/entities/studio';
-import StudioService from '@/service/StudioService';
+import { getStudio } from '@/service/StudioService';
 import { GetServerSidePropsContext } from 'next';
 
 type Props = {
@@ -22,7 +22,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   const { id } = context.query;
   const cookies = context?.req?.cookies;
 
-  const studio = await StudioService.getStudio(id, cookies?.ID_OBUD_SES);
+  const studio = await getStudio(id, cookies?.ID_OBUD_SES);
 
   return {
     props: { studio },

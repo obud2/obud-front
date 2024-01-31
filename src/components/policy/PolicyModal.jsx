@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
 import { useQuery } from 'react-query';
-import InfoService from 'src/service/InfoService';
+import { info } from 'src/service/InfoService';
 
 import Modal from '@components/common/modal/Modal';
 import { SPolicyModal } from './PolicyModal.styled';
 
 const PolicyModal = ({ isOpen, isClose, type }) => {
-  const { data } = useQuery(['policy'], () => InfoService.info('policy'));
+  const { data } = useQuery(['policy'], () => info('policy'));
 
   const [title, setTitle] = useState('');
 

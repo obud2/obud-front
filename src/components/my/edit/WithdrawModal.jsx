@@ -4,7 +4,7 @@ import { userLogout } from 'src/constants';
 
 import alert from 'src/helpers/alert';
 import Modal from '@components/common/modal/Modal';
-import UserService from 'src/service/UserService';
+import { leaveUser } from 'src/service/UserService';
 
 import { SWithdrawModal } from './WithdrawModal.styled';
 
@@ -16,7 +16,7 @@ const WithdrawModal = ({ isOpen, isClose }) => {
   const onWithdraw = () => {
     setIsLoading(true);
 
-    UserService.leaveUser()
+    leaveUser()
       .then((res) => {
         if (res?.status === 200) {
           userLogout();

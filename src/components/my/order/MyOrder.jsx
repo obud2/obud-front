@@ -5,19 +5,19 @@ import moment from 'moment';
 import { getUserId } from 'src/constants';
 
 import { useQuery } from 'react-query';
-import UserService from 'src/service/UserService';
 
 import { SMyOrder } from './MyOrder.styled';
 
 import MyOrderList from './MyOrderList';
 import CountCheck from '@components/common/countCheck/CountCheck';
 import FallBackLoading from '@components/loading/FallBackLoading';
+import myOrderList from './MyOrderList';
 
 const MyOrder = () => {
   const userId = getUserId();
 
   const fetchData = async () => {
-    const res = await UserService.myOrderList();
+    const res = await myOrderList();
     const dateSet = new Set();
     const dateToItems = {};
 

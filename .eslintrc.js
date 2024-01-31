@@ -84,6 +84,9 @@ module.exports = {
     'import/no-named-as-default-member': 'off',
     'import/named': 'off',
     'no-param-reassign': 'off',
+    'no-nested-ternary': 'off',
+    'no-spaced-func': 'warn',
+    'func-call-spacing': 'warn',
 
     'import/no-extraous-dependencies': 'off',
     'import/no-extraneous-dependencies': 'off',

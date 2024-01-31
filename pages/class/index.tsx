@@ -3,8 +3,8 @@ import Layout from '@/components/layout/Layout';
 import { IMG_PATH } from '@/constants';
 import { Banner } from '@/entities/banner';
 import { SectionWithItems } from '@/entities/studio';
-import BannerService from '@/service/BannerService';
-import StudioService from '@/service/StudioService';
+import { listBanners } from '@/service/BannerService';
+import { getStudiosInAllSections } from '@/service/StudioService';
 import ClassV2 from '@components/class/ClassV2';
 
 type Props = {
@@ -22,7 +22,7 @@ const Index = ({ banners, sectionWithItems }: Props) => {
 };
 
 export const getServerSideProps = async () => {
-  const res = await Promise.all([BannerService.listBanners(), StudioService.getStudiosInAllSections()]);
+  const res = await Promise.all([listBanners(), getStudiosInAllSections()]);
 
   return {
     props: {

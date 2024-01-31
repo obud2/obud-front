@@ -8,7 +8,6 @@ import { Hydrate } from 'react-query/hydration';
 import LayoutContextProvider from '../src/context/LayoutContext';
 import ThemeProvider from '../src/styled/ThemeProvider';
 import { APP_PREFIX } from '@/constants';
-import CartProvider from '@/context/CartContext';
 import OrderProvider from '@/context/OrderContext';
 import RootProvider from '@/context/RootContext';
 import UserProvider from '@/context/UserContext';
@@ -58,13 +57,11 @@ function App({ Component, pageProps }: AppProps<{ dehydratedState: DehydratedSta
           <LayoutContextProvider>
             <RootProvider>
               <UserProvider>
-                <CartProvider>
-                  <OrderProvider>
-                    <ThemeProvider>
-                      <Component {...pageProps} />
-                    </ThemeProvider>
-                  </OrderProvider>
-                </CartProvider>
+                <OrderProvider>
+                  <ThemeProvider>
+                    <Component {...pageProps} />
+                  </ThemeProvider>
+                </OrderProvider>
               </UserProvider>
             </RootProvider>
           </LayoutContextProvider>

@@ -2,8 +2,8 @@ import { APP_PREFIX, APP_URL, IMG_PATH } from 'src/constants';
 
 import Layout from '../src/components/layout/Layout';
 import Main from '@components/main/Main';
-import BannerService from 'src/service/BannerService';
 import MetaHeader from '@components/common/meta/MetaHeader';
+import { info } from 'sass';
 
 export const Home = ({ banner }) => {
   return (
@@ -17,7 +17,7 @@ export const Home = ({ banner }) => {
 export default Home;
 
 export const getStaticProps = async () => {
-  const banner = await BannerService.info('main');
+  const banner = await info('main');
 
   return {
     props: {

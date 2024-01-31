@@ -2,7 +2,7 @@ import { TabPane, Tabs } from '@/components/common/tab/Tabs';
 import Like from '@/components/option/Like';
 import Share from '@/components/option/Share';
 import { Studio } from '@/entities/studio';
-import WishService from '@/service/WishService';
+import { deleteWish, setWish } from '@/service/WishService';
 import { useQueryClient } from 'react-query';
 import ProductImages from './images/ProductImages';
 import ProductMap from './map/ProductMap';
@@ -23,10 +23,10 @@ const StudioDetail = ({ studio }: Props) => {
 
   const onClickWish = async (checked: boolean) => {
     if (checked) {
-      await WishService.deleteWish(studio?.wishInfo?.wishId);
+      await deleteWish(studio?.wishInfo?.wishId);
       queryClient.invalidateQueries(['my-wish-list'], { refetchInactive: true });
     } else {
-      await WishService.setWish(studio?.id);
+      await setWish(studio?.id);
       queryClient.invalidateQueries(['my-wish-list'], { refetchInactive: true });
     }
   };

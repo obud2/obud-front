@@ -1,6 +1,6 @@
 import axiosInstance from '@/constants/AxiosInstance';
 
-const info = (id) => {
+export const info = (id) => {
   return new Promise((resolve) => {
     axiosInstance.get(`bbs/info/${id}`).then((response) => {
       if (response.data && response.data.value) {
@@ -9,9 +9,3 @@ const info = (id) => {
     });
   });
 };
-
-const InfoService = {
-  info,
-};
-
-export default InfoService;

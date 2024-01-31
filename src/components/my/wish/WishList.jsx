@@ -5,7 +5,7 @@ import { getUserId } from 'src/constants';
 import { SWishList } from './WishList.styled';
 
 import { useQuery } from 'react-query';
-import WishService from 'src/service/WishService';
+import { deleteWishs, getWish } from 'src/service/WishService';
 
 import _ from 'lodash';
 
@@ -17,7 +17,7 @@ import FallBackLoading from '@components/loading/FallBackLoading';
 const WishList = () => {
   const userId = getUserId();
 
-  const { data, refetch, isLoading, isFetching } = useQuery(['my-wish-list', userId], () => WishService.getWish());
+  const { data, refetch, isLoading, isFetching } = useQuery(['my-wish-list', userId], () => getWish());
 
   const [isEdit, setIsEdit] = useState(false);
   const [editList, setEditList] = useState([]);
@@ -28,7 +28,7 @@ const WishList = () => {
         wishId: editList,
       };
 
-      await WishService.deleteWishs(body);
+      await deleteWishs(body);
       await refetch();
 
       setEditList([]);

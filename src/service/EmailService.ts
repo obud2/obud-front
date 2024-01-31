@@ -8,7 +8,7 @@ import axiosInstance from '@/constants/AxiosInstance';
  *                    }
  * @returns
  */
-const findPassword = (param) => {
+export const findPassword = (param) => {
   return new Promise((resolve) => {
     axiosInstance
       .post('email/findPassword', param)
@@ -30,7 +30,7 @@ const findPassword = (param) => {
  * @returns
  */
 
-const checkVerify = (toEmail, code) => {
+export const checkVerify = (toEmail, code) => {
   return new Promise((resolve) => {
     axiosInstance
       .get(`email/checkVerify?toEmail=${toEmail}&code=${code}`)
@@ -53,7 +53,7 @@ const checkVerify = (toEmail, code) => {
  * @returns
  */
 
-const changePassword = (param) => {
+export const changePassword = (param) => {
   return new Promise((resolve) => {
     axiosInstance
       .post('email/changePassword', param)
@@ -65,11 +65,3 @@ const changePassword = (param) => {
       });
   });
 };
-
-const EmailService = {
-  findPassword,
-  checkVerify,
-  changePassword,
-};
-
-export default EmailService;

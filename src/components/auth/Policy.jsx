@@ -4,14 +4,14 @@ import { SPolicy } from './Policy.styled';
 import { Spacing } from 'src/styled/CommonStyles';
 
 import { useQuery } from 'react-query';
-import InfoService from 'src/service/InfoService';
+import { info } from 'src/service/InfoService';
 
 import HelpText from '@components/common/helpText/HelpText';
 import CustomCheckBox from '@components/common/checkbox/CustomCheckBox';
 import CustomButton from '@components/common/button/CustomButton';
 
 const Policy = ({ onClickOpenAuth, onClickCloseAuth }) => {
-  const { data } = useQuery(['policy'], () => InfoService.info('policy'));
+  const { data } = useQuery(['policy'], () => info('policy'));
 
   const [agree, setAgree] = useState({
     all: false,

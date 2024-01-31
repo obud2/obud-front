@@ -1,7 +1,7 @@
 import Layout from '@components/layout/Layout';
 import Class from '@components/class/Class';
 import MetaHeader from '@components/common/meta/MetaHeader';
-import StudioService from '@/service/StudioService';
+import { getSpecialList, getStudios } from '@/service/StudioService';
 import { GetServerSidePropsContext } from 'next';
 import { IMG_PATH } from 'src/constants';
 
@@ -39,7 +39,7 @@ type Studio = {
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const { sort } = context.query || {};
 
-  const res = await Promise.all([StudioService.getSpecialList(), StudioService.getStudios(sort)]);
+  const res = await Promise.all([getSpecialList(), getStudios(sort)]);
   const studios: Studio[][] = [];
 
   studios.push(res[0] as Studio[]);

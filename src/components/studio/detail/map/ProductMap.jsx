@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { SProductMap } from './ProductMap.styled';
 
 import GoogleMap from '@components/googleMap/GoogleMap';
-import GoogleMapService from 'src/service/GoogleMapService';
+import { getCoordinates } from '@/service/GoogleMapService';
 
 const ProductMap = ({ addr }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -15,7 +15,7 @@ const ProductMap = ({ addr }) => {
 
   useEffect(() => {
     if (addr) {
-      GoogleMapService.getCoordinates(addr).then((res) => {
+      getCoordinates(addr).then((res) => {
         setCoord(res);
         setIsLoading(false);
       });

@@ -4,11 +4,10 @@ import { Spacing } from 'src/styled/CommonStyles';
 
 import _ from 'lodash';
 
-import UserService from 'src/service/UserService';
-
 import HelpText from '@components/common/helpText/HelpText';
 import CustomInput from '@components/common/input/CustomInput';
 import CustomButton from '@components/common/button/CustomButton';
+import { findId } from 'src/service/UserService';
 
 const ERROR_CODE = {
   NAME: { text: '이름을 입력해주세요.', type: 'name' },
@@ -49,7 +48,7 @@ const FindId = ({ onClickOpenAuth }) => {
     }
 
     setIsLoading(true);
-    UserService.findId(body?.name, body?.hp)
+    findId(body?.name, body?.hp)
       .then((res) => {
         if (res?.value?.id) {
           setBody({ email: res?.value?.email || '' });

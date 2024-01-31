@@ -3,39 +3,40 @@ import React, { useEffect, useMemo } from 'react';
 import { getUserId, userLogout } from 'src/constants';
 
 import { useQuery } from 'react-query';
-import UserService from 'src/service/UserService';
+import { getUser, setUser } from 'src/service/UserService';
+import { changePassword } from '@/service/EmailService';
 
 type User = {
-  createdAt: string,
-  updatedAt: string,
-  id: string,
-  email: string,
-  apple: string,
-  google: string,
-  kakao: string,
-  naver: string,
-  name: string,
-  phone: string,
-  birthDate: string,
-  userGroup: string,
-  gender: string,
-  role: string,
-  status: string,
-  address: string,
-  addressDetail: string,
-  viewCount: number,
-  visitCount: number,
-  sortOrder: number,
-  isDeleted: string,
-  isShow: string,
-  uploadKey: string,
-}
+  createdAt: string;
+  updatedAt: string;
+  id: string;
+  email: string;
+  apple: string;
+  google: string;
+  kakao: string;
+  naver: string;
+  name: string;
+  phone: string;
+  birthDate: string;
+  userGroup: string;
+  gender: string;
+  role: string;
+  status: string;
+  address: string;
+  addressDetail: string;
+  viewCount: number;
+  visitCount: number;
+  sortOrder: number;
+  isDeleted: string;
+  isShow: string;
+  uploadKey: string;
+};
 
+type SnsUser = User & { isSns: boolean; snsType: 'KAKAO_SNS' | 'GOOGLE_SNS' | 'NAVER_SNS' | 'APPLE_SNS' };
 export const UserContext = React.createContext<{
-  user: User & { isSns: boolean; snsType: 'KAKAO_SNS' | 'GOOGLE_SNS' | 'NAVER_SNS' | 'APPLE_SNS'; } | null;
+  user: SnsUser | null;
   isLoading: boolean;
-  editUser:(param: EditUserParams) => Promise<{status: number; value: User, message: string}>
-// eslint-disable-next-line @typescript-eslint/no-empty-function
+  editUser: (param: EditUserParams) => Promise<{ status: number; value: User; message: string }>;
 }>({ user: null, isLoading: true, editUser: () => Promise.resolve({} as any) });
 
 type EditUserParams = {
@@ -57,7 +58,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const userId = getUserId();
 
   const fetchData = async () => {
-    const res: User & { isSns: boolean; snsType: 'KAKAO_SNS' | 'GOOGLE_SNS' | 'NAVER_SNS' | 'APPLE_SNS' } = await UserService.getUser(userId);
+    const res: SnsUser = (await getUser(userId)) as any;
 
     if (res?.kakao || res?.google || res?.naver || res?.apple) {
       res.isSns = true;
@@ -95,10 +96,10 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
   }, [isError]);
 
   const editUser = async (param: EditUserParams) => {
-    const res = await UserService.setUser('edit', param);
+    const res = await setUser('edit', param);
 
     if (param?.password) {
-      await UserService.changePassword(userId, param?.password);
+      await changePassword({ id: userId, password: param.password });
     }
 
     await refetch();
@@ -114,7 +115,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     [user, isLoading],
   );
 
-  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
+  return <UserContext.Provider value={value as any}>{children}</UserContext.Provider>;
 };
 
 export default UserProvider;

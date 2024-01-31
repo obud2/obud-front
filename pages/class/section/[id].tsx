@@ -2,7 +2,7 @@ import ClassBySection from '@/components/class/ClassBySection';
 import MetaHeader from '@/components/common/meta/MetaHeader';
 import Layout from '@/components/layout/Layout';
 import { SectionWithItems } from '@/entities/studio';
-import StudioService from '@/service/StudioService';
+import { getStudiosInAllSections } from '@/service/StudioService';
 import { GetServerSidePropsContext } from 'next';
 
 type Props = {
@@ -23,7 +23,7 @@ const Index = ({ sectionWithItems }: Props) => {
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const sectionId = context.query.id as string;
 
-  const studioSections = await StudioService.getStudiosInAllSections();
+  const studioSections = await getStudiosInAllSections();
   const sectionWithItems = studioSections.find((section) => `${section.section.id}` === `${sectionId}`);
 
   return {

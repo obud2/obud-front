@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { GOOGLE_MAP_API, GOOGLE_MAP_KEY } from 'src/constants';
 
-const getCoordinates = (addr) => {
+export const getCoordinates = (addr) => {
   return new Promise((resolve, reject) => {
     try {
       axios.get(`${GOOGLE_MAP_API}/geocode/json?address=${encodeURI(addr)}&key=${GOOGLE_MAP_KEY}`).then((res) => {
@@ -18,9 +18,3 @@ const getCoordinates = (addr) => {
     }
   });
 };
-
-const GoogleMapService = {
-  getCoordinates,
-};
-
-export default GoogleMapService;

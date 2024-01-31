@@ -4,8 +4,6 @@ import _ from 'lodash';
 import { SJoin } from './Join.styled';
 import { GENDER } from './Join.option';
 
-import UserService from 'src/service/UserService';
-
 import { Spacing } from 'src/styled/CommonStyles';
 import { DEFALUT_ERROR, joinValidateCheck } from './Join.validate';
 
@@ -19,6 +17,7 @@ import CustomInput from '@components/common/input/CustomInput';
 import CustomButton from '@components/common/button/CustomButton';
 import CustomRadio, { CustomRadioItem } from '@components/common/radio/CustomRadio';
 import BirthForm from '@components/common/birthForm/BirthForm';
+import { setUser } from '@/service/UserService';
 
 const Join = ({ onClickOpenAuth }) => {
   const [body, setBody] = useState({
@@ -66,7 +65,7 @@ const Join = ({ onClickOpenAuth }) => {
         delete param.birthdate;
       }
 
-      UserService.setUser('new', param)
+      setUser('new', param)
         .then((res) => {
           if (res?.status === 200) {
             onClickOpenAuth('join-complete');
@@ -75,7 +74,7 @@ const Join = ({ onClickOpenAuth }) => {
           }
         })
         .catch((res) => {
-            alert('', res?.message || '회원가입 중 오류가 발생하였습니다. <br /> 잠시 후 다시시도해주세요.');
+          alert('', res?.message || '회원가입 중 오류가 발생하였습니다. <br /> 잠시 후 다시시도해주세요.');
         })
         .finally(() => {
           setIsLoading(false);

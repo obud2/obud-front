@@ -3,7 +3,7 @@ import CouponItem from '@/components/common/coupon/Coupon';
 import Modal from '@/components/common/modal/Modal';
 import FallBackLoading from '@/components/loading/FallBackLoading';
 import { Coupon } from '@/entities/coupon';
-import CouponService from '@/service/CouponService';
+import { listCoupons } from '@/service/CouponService';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 
@@ -30,7 +30,11 @@ const BookingCouponModal = ({ open, onClose, setCoupon, scheduleId, price }: Pro
           {coupons.length === 0 && <div className="coupon-empty">보유한 쿠폰이 없습니다.</div>}
           {coupons.map((coupon) => {
             // eslint-disable-next-line no-nested-ternary
-            const error = !coupon.canBeApplied ? '이 수업에 적용할 수 없는 쿠폰이에요' : price < coupon.minOrderPriceAmount ? `${coupon.minOrderPriceAmount.toLocaleString()}원 이상 결제시에만 적용가능한 쿠폰이에요` : undefined;
+            const error = !coupon.canBeApplied
+              ? '이 수업에 적용할 수 없는 쿠폰이에요'
+              : price < coupon.minOrderPriceAmount
+              ? `${coupon.minOrderPriceAmount.toLocaleString()}원 이상 결제시에만 적용가능한 쿠폰이에요`
+              : undefined;
             return (
               <div
                 key={coupon.id}
@@ -62,7 +66,7 @@ const BookingCouponModal = ({ open, onClose, setCoupon, scheduleId, price }: Pro
 };
 
 const useCoupons = (scheduleId?: string) => {
-  return useQuery(['coupons/me', { scheduleId }], () => CouponService.listCoupons({ scheduleId }), {
+  return useQuery(['coupons/me', { scheduleId }], () => listCoupons({ scheduleId }), {
     enabled: !!scheduleId,
   });
 };

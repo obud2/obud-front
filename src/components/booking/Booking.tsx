@@ -27,7 +27,7 @@ import CustomRadio, { CustomRadioItem } from '@components/common/radio/CustomRad
 import FallBackLoading from '@components/loading/FallBackLoading';
 import BookingCouponModal from './modals/BookingCouponModal';
 import { Coupon, CouponDiscountType } from '@/entities/coupon';
-import CouponService from '@/service/CouponService';
+import { createCoupon, listCoupons } from '@/service/CouponService';
 
 const Booking = () => {
   const router = useRouter();
@@ -52,7 +52,7 @@ const Booking = () => {
   const { data: coupons } = useQuery(
     ['coupons/me', { scheduleId }],
     () =>
-      CouponService.listCoupons({
+      listCoupons({
         scheduleId,
       }),
     { enabled: !!scheduleId },
@@ -121,7 +121,7 @@ const Booking = () => {
     }
 
     try {
-      const createdCoupon = await CouponService.createCoupon({ code: couponCode, scheduleId });
+      const createdCoupon = await createCoupon({ code: couponCode, scheduleId });
       await queryClient.invalidateQueries('coupons/me');
       if (createdCoupon.canBeApplied) {
         setCurrentCoupon(createdCoupon);
@@ -279,10 +279,8 @@ const Booking = () => {
     }
   };
 
-  // eslint-disable-next-line no-nested-ternary
   const currentCouponDisplay = currentCoupon
-    ? // eslint-disable-next-line no-nested-ternary
-      currentCoupon.discountType === CouponDiscountType.AMOUNT
+    ? currentCoupon.discountType === CouponDiscountType.AMOUNT
       ? `${currentCoupon.name} (${currentCoupon.discountAmount.toLocaleString()}원 할인)`
       : currentCoupon.discountType === CouponDiscountType.PERCENTAGE
       ? `${currentCoupon.name} (${currentCoupon.discountAmount}% 할인)`

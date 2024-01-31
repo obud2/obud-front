@@ -13,7 +13,7 @@ import useAuthModal from 'src/store/useAuthModal';
 
 import { loginCheck } from 'src/constants';
 
-import StudioService from '@/service/StudioService';
+import { getMonthPlans } from '@/service/StudioService';
 
 import Portal from 'src/Portal';
 import { SLessonReservationDrawer } from './LessonReservationDrawer.styled';
@@ -44,7 +44,7 @@ const LessonReservationDrawer = ({ lesson, isOpen, isClose }) => {
   const fetchData = async () => {
     setIsLoading(true);
 
-    const res = await StudioService.getMonthPlans(id, currentDate);
+    const res = await getMonthPlans(id, currentDate);
     const list = res?.value || [];
 
     // 다음달 데이터 가져오기

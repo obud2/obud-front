@@ -3,7 +3,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 
 import { useQuery } from 'react-query';
-import SearchService from 'src/service/SearchService';
+import { getSearch } from 'src/service/SearchService';
 
 import { SSearchResult } from './SearchResult.styled';
 
@@ -14,7 +14,7 @@ const SearchResult = () => {
   const router = useRouter();
   const { keyword, date } = router.query;
 
-  const { data, isLoading } = useQuery(['search-result', keyword, date], () => SearchService.getSearch(keyword, date));
+  const { data, isLoading } = useQuery(['search-result', keyword, date], () => getSearch(keyword, date));
 
   return (
     <React.Fragment>

@@ -7,7 +7,7 @@ import { SRegister } from './Register.styled';
 import { Spacing } from 'src/styled/CommonStyles';
 import { POLICY_1 } from './Register.option';
 
-import AboutService from 'src/service/AboutService';
+import { saveItem } from 'src/service/AboutService';
 
 import ContactBase from '../ContactBase';
 import CustomInput from '@components/common/input/CustomInput';
@@ -24,7 +24,7 @@ type Form = {
   phone: string;
   type: string;
   process: string;
-}
+};
 
 const EMPTY_BODY: Form = {
   placeTitle: '',
@@ -76,7 +76,7 @@ const Register = () => {
     }
 
     setIsLoading(true);
-    AboutService.saveItem('new', body)
+    saveItem('new', body)
       .then(() => {
         alert('접수완료', '입점 문의가 접수되었습니다. <br /> 입력해 주신 연락처로 연락드리겠습니다.');
         setBody(EMPTY_BODY);
