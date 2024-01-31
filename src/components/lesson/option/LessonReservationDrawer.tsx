@@ -38,8 +38,6 @@ const LessonReservationDrawer = ({ lesson, isOpen, isClose }) => {
 
   const [data, setDate] = useState({});
   const [body, setBody] = useState({});
-
-  const [isClear, setIsClear] = useState(0);
   const [currentDate, setCurrentDate] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
@@ -48,6 +46,10 @@ const LessonReservationDrawer = ({ lesson, isOpen, isClose }) => {
 
     const res = await StudioService.getMonthPlans(id, currentDate);
     const list = res?.value || [];
+
+    // 다음달 데이터 가져오기
+    const nextMonthRes = await StudioService.getMonthPlans(id, moment(currentDate).add(1, 'months').format(dateFormat));
+    list.push(...(nextMonthRes?.value || []));
 
     list?.forEach((a) => {
       const date = moment(a.startDate).format('YYYY-MM-DD');
@@ -110,19 +112,14 @@ const LessonReservationDrawer = ({ lesson, isOpen, isClose }) => {
     fetchData();
   }, [currentDate]);
 
-  const onClear = () => {
-    setIsClear((prev) => prev + 1);
-  };
-
-  const onChangeDate = async (e) => {
+  const onChangeDate = (e) => {
     const date = moment(e).format(dateFormat);
 
-    await onClear();
-    await setCurrentDate(date);
+    setCurrentDate(date);
   };
 
-  const onReturnData = async (e) => {
-    await setBody(e);
+  const onReturnData = (e) => {
+    setBody(e);
   };
 
   const validateCheck = () => {
@@ -209,7 +206,6 @@ const LessonReservationDrawer = ({ lesson, isOpen, isClose }) => {
                 data={data}
                 isLoading={isAllLoading}
                 onChangeDate={onChangeDate}
-                isClear={isClear}
                 onReturnData={onReturnData}
                 scrollEle={drawerMainRef.current}
               />

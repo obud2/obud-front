@@ -47,6 +47,7 @@ const PlanCalendar = ({ value, onChange, onChangeDate, selectList }) => {
 
   useEffect(() => {
     setValueDate(value);
+    if (value) setCurrentYear(new Date(value));
   }, [value]);
 
   //   다음달

@@ -13,11 +13,10 @@ type Props = {
   isLoading: boolean;
   onChangeDate: (e: SetStateAction<string>) => void;
   onReturnData: (e: any) => void;
-  isClear: boolean;
   scrollEle: any;
 };
 
-const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, isClear, scrollEle }: Props) => {
+const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, scrollEle }: Props) => {
   const [selectDate, setSelectDate] = useState('');
   const [selectTime, setSelectTime] = useState<any>({ id: '', label: '' });
   const [selectCount, setSelectCount] = useState(0);
@@ -81,12 +80,6 @@ const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, isClea
   }, [optionList]);
 
   useEffect(() => {
-    if (isClear) {
-      clearState();
-    }
-  }, [isClear]);
-
-  useEffect(() => {
     if (data.date?.length > 0) {
       data.date
         .sort((a, b) => (moment(a).isBefore(moment(b)) ? 1 : -1))
@@ -99,12 +92,12 @@ const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, isClea
   }, [data]);
 
   // 옵션 초기화
-  const clearState = async () => {
-    await setSelectDate('');
-    await setSelectTime({});
-    await setSelectCount(0);
-    await setSelectOption(DEFAULT_OPTION);
-    await setSelectOptionCount(0);
+  const clearState = () => {
+    setSelectDate('');
+    setSelectTime({});
+    setSelectCount(0);
+    setSelectOption(DEFAULT_OPTION);
+    setSelectOptionCount(0);
   };
 
   // 날짜 선택
