@@ -5,7 +5,7 @@ import { MOBILE } from 'src/styled/variablesStyles';
 const PRODUCT_MAX_WIDTH = '688px';
 const MAX_HEIGHT = '75vh';
 
-export const SLessonReservationDrawer = styled.div`
+export const SLessonReservationDrawer = styled.div<{ isOpen: boolean }>`
   width: 100vw;
   height: 100vh;
   position: fixed;

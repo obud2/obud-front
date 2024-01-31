@@ -7,12 +7,14 @@ export type Order = {
   startDate: string;
   endDate: string;
   reservationCount: number;
-  payOption: {
-    price: number;
-    title: string;
-    maxMember: number;
-    currentMember: number;
-  } | Record<string, never>;
+  payOption:
+    | {
+        price: number;
+        title: string;
+        maxMember: number;
+        currentMember: number;
+      }
+    | Record<never, never>;
   payOptionCount: number;
   lessonTitle: string;
   lessonImages: {
@@ -20,7 +22,7 @@ export type Order = {
     name: string;
     size: number;
     type: string;
-    upload: boolean,
+    upload: boolean;
     url: string;
   }[];
   studiosTitle: string;
@@ -29,7 +31,7 @@ export type Order = {
     date: string;
     startTime: string;
     endTime: string;
-  }
+  };
 };
 
 /**
@@ -57,8 +59,8 @@ const OrderProvider = ({ children }) => {
 
 export const OrderContext = React.createContext<{
   order: Order[];
-  setOrder:(orders: Order[]) => void;
-// eslint-disable-next-line @typescript-eslint/no-empty-function
+  setOrder: (orders: Order[]) => void;
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
 }>({ order: [], setOrder: () => {} });
 
 export default OrderProvider;

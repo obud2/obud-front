@@ -5,33 +5,40 @@ import { addComma } from 'src/constants';
 import PlanCalendar from './PlanCalendar';
 import PlanNumberOfPeopleCheck from './PlanNumberOfPeopleCheck';
 import { SReservationOption, SReservationTimeOption } from './ReservationOption.styled';
+import { ScheduleWithTime } from '@components/lesson/option/LessonReservationDrawer';
 
-const DEFAULT_OPTION = { title: '선택안함', price: 0, maxMember: 0 };
+const DEFAULT_OPTION: ScheduleWithTime['payOption'] = { title: '선택안함', price: 0, maxMember: 0 };
 
 type Props = {
-  data: { date: string[]; day: any };
+  data: { date: string[]; day: Record<string, ScheduleWithTime[]> };
   isLoading: boolean;
   onChangeDate: (e: SetStateAction<string>) => void;
-  onReturnData: (e: any) => void;
-  scrollEle: any;
+  onReturnData: (e: {
+    selectDate: string;
+    selectTime: ScheduleWithTime | undefined;
+    selectCount: number;
+    selectOption: ScheduleWithTime['payOption'];
+    selectOptionCount: number;
+  }) => void;
+  scrollEle: HTMLElement | null;
 };
 
 const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, scrollEle }: Props) => {
-  const [selectDate, setSelectDate] = useState('');
-  const [selectTime, setSelectTime] = useState<any>({ id: '', label: '' });
+  const [selectDate, setSelectDate] = useState<string>('');
+  const [selectTime, setSelectTime] = useState<ScheduleWithTime>();
   const [selectCount, setSelectCount] = useState(0);
-  const [selectOption, setSelectOption] = useState<any>(DEFAULT_OPTION);
-  const [selectOptionCount, setSelectOptionCount] = useState(0);
-  const [total, setTotal] = useState(0);
-  const [timeList, setTimeList] = useState<any[]>([]);
-  const [optionList, setOptionList] = useState<any[]>([]);
+  const [selectOption, setSelectOption] = useState<ScheduleWithTime['payOption']>(DEFAULT_OPTION);
+  const [selectOptionCount, setSelectOptionCount] = useState<number>(0);
+  const [total, setTotal] = useState<number>(0);
+  const [schedules, setSchedules] = useState<ScheduleWithTime[]>([]);
+  const [optionList, setOptionList] = useState<ScheduleWithTime['payOption'][]>([]);
 
   useEffect(() => {
     onReturnData({
       selectDate: selectDate || '',
-      selectTime: selectTime || '',
+      selectTime,
       selectCount: selectCount || 0,
-      selectOption: selectOption || '',
+      selectOption,
       selectOptionCount: selectOptionCount || 0,
     });
 
@@ -49,17 +56,17 @@ const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, scroll
 
   useEffect(() => {
     if (data?.day && selectDate && data.day[selectDate]) {
-      const list = _.cloneDeep(data.day[selectDate]);
+      const schedules = _.cloneDeep(data.day[selectDate]);
       const nowTime = moment().valueOf();
 
-      list?.forEach((a: any) => {
-        const dataTime = moment(a?.startDate).valueOf();
-        a.isTimeOut = nowTime > dataTime;
-        a.label = `${a?.format?.startTime} - ${a?.format?.endTime}`;
+      schedules.forEach((it) => {
+        const dataTime = moment(it.startDate).valueOf();
+        it.isTimeOut = nowTime > dataTime;
+        it.label = `${it?.format?.startTime} - ${it?.format?.endTime}`;
       });
-      setTimeList(list);
+      setSchedules(schedules);
     } else {
-      setTimeList([]);
+      setSchedules([]);
     }
   }, [selectDate]);
 
@@ -94,7 +101,7 @@ const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, scroll
   // 옵션 초기화
   const clearState = () => {
     setSelectDate('');
-    setSelectTime({});
+    setSelectTime(undefined);
     setSelectCount(0);
     setSelectOption(DEFAULT_OPTION);
     setSelectOptionCount(0);
@@ -109,16 +116,16 @@ const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, scroll
   // 시간 선택
   const onChangeTime = (item: any) => {
     const value = item.id;
-    const findIndex = timeList.findIndex((a) => a?.id === value);
+    const findIndex = schedules.findIndex((a) => a?.id === value);
 
-    if (timeList[findIndex]?.id) {
+    if (schedules[findIndex]?.id) {
       setSelectCount(1); // 시간 선택 시 인원 수 자동 1 부여.
 
       setSelectOption(DEFAULT_OPTION);
       setSelectOptionCount(0); // 옵션 초기화
     }
 
-    setSelectTime(timeList[findIndex] || {});
+    setSelectTime(schedules[findIndex] || {});
   };
 
   // 인원수 선택
@@ -148,7 +155,7 @@ const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, scroll
       <SReservationTimeOption>
         <h4 className="option-title">회차를 선택하세요</h4>
         <div className="time-option-list">
-          {timeList
+          {schedules
             ?.sort((a, b) => (a.startDate > b.startDate ? 1 : -1))
             ?.map((item) => {
               const isTimeOut = item?.isTimeOut;
@@ -169,7 +176,7 @@ const ReservationOption = ({ data, isLoading, onChangeDate, onReturnData, scroll
                 </div>
               );
             })}
-          {timeList?.length === 0 && <div className="time-option-item">날짜를 선택하세요</div>}
+          {schedules?.length === 0 && <div className="time-option-item">날짜를 선택하세요</div>}
         </div>
       </SReservationTimeOption>
 

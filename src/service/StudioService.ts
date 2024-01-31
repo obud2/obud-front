@@ -126,8 +126,45 @@ export const getLesson = (id) => {
  *  Plan Service
  *  *************************************
  */
-export const getMonthPlans = (lessonId: string, month: string) => {
+
+export type Schedule = {
+  createdAt: number;
+  createdID: string;
+  createdIP: string;
+  createdBy: string;
+  updatedAt: number;
+  updatedID: string;
+  updatedIP: string;
+  updatedBy: string;
+  status: string;
+  id: string;
+  lessonId: string;
+  title: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  fakePrice: number;
+  price: number;
+  currentMember: number;
+  maxMember: number;
+  instructor: string;
+  isShow: boolean;
+  reservationStatus: string;
+  payOption: {
+    title?: string;
+    price?: number;
+    maxMember?: number;
+    currentMember?: number;
+  };
+  instructorInfo: {
+    name?: string;
+  };
+};
+export const getMonthSchedules = async (lessonId: string, month: string): Promise<Schedule[]> => {
   if (lessonId && month) {
-    return axiosInstance.get(`studios/plan/month?lessonId=${lessonId}&date=${month}`);
+    return [];
   }
+  return axiosInstance
+    .get<{ value: Schedule[] }>(`studios/plan/month?lessonId=${lessonId}&date=${month}`)
+    .then((response) => response.data.value);
 };

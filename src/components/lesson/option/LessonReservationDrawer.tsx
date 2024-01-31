@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import React, { useContext, useEffect, useRef, useState } from 'react';
 
 import { useRouter } from 'next/router';
@@ -13,7 +11,7 @@ import useAuthModal from 'src/store/useAuthModal';
 
 import { loginCheck } from 'src/constants';
 
-import { getMonthPlans } from '@/service/StudioService';
+import { getMonthSchedules, Schedule } from '@/service/StudioService';
 
 import Portal from 'src/Portal';
 import { SLessonReservationDrawer } from './LessonReservationDrawer.styled';
@@ -23,8 +21,13 @@ import ReservationOption from './item/ReservationOption';
 import alert from 'src/helpers/alert';
 import FallBackLoading from '@components/loading/FallBackLoading';
 
-const LessonReservationDrawer = ({ lesson, isOpen, isClose }) => {
-  const drawerMainRef = useRef();
+export type ScheduleWithTime = Schedule & {
+  format?: { date: string; startTime: string; endTime: string };
+  isTimeOut?: boolean;
+  label?: string;
+};
+const LessonReservationDrawer = ({ lesson, isOpen, isClose }: { lesson: any; isOpen: boolean; isClose: () => void }) => {
+  const drawerMainRef = useRef<HTMLElement>(null);
   const router = useRouter();
 
   const { setOrder } = useContext(OrderContext);
@@ -36,68 +39,61 @@ const LessonReservationDrawer = ({ lesson, isOpen, isClose }) => {
   const dateFormat = 'YYYY-MM';
   const id = lesson?.id;
 
-  const [data, setDate] = useState({});
-  const [body, setBody] = useState({});
+  const [data, setData] = useState<{ date: string[]; day: Record<string, ScheduleWithTime[]> }>({ date: [], day: {} });
+  const [body, setBody] = useState<{
+    selectDate: string;
+    selectTime: ScheduleWithTime | undefined;
+    selectCount: number;
+    selectOption: ScheduleWithTime['payOption'];
+    selectOptionCount: number;
+  }>({
+    selectDate: '',
+    selectTime: undefined,
+    selectCount: 0,
+    selectOption: {},
+    selectOptionCount: 0,
+  });
   const [currentDate, setCurrentDate] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchData = async () => {
     setIsLoading(true);
 
-    const res = await getMonthPlans(id, currentDate);
-    const list = res?.value || [];
+    const thisMonthSchedules = await getMonthSchedules(id, currentDate);
+    const nextMonth = moment(currentDate).add(1, 'months').format(dateFormat);
+    const nextMonthSchedules = await getMonthSchedules(id, nextMonth);
 
-    // 다음달 데이터 가져오기
-    const nextMonthRes = await StudioService.getMonthPlans(id, moment(currentDate).add(1, 'months').format(dateFormat));
-    list.push(...(nextMonthRes?.value || []));
-
-    list?.forEach((a) => {
-      const date = moment(a.startDate).format('YYYY-MM-DD');
-
-      const startTime = moment(a.startDate).format('HH:mm');
-      const endTime = moment(a.endDate).format('HH:mm');
-
-      a.format = {};
-      a.format.date = date;
-      a.format.startTime = startTime;
-      a.format.endTime = endTime;
+    const schedules: ScheduleWithTime[] = [...thisMonthSchedules, ...nextMonthSchedules].map((it) => {
+      const date = moment(it.startDate).format('YYYY-MM-DD');
+      const startTime = moment(it.startDate).format('HH:mm');
+      const endTime = moment(it.endDate).format('HH:mm');
+      return { ...it, format: { date, startTime, endTime } };
     });
 
-    const dateSet = new Set();
+    const dateSet = new Set(schedules.map((a) => a?.format?.date).filter((a): a is string => !!a));
+    const date = Array.from(dateSet).sort((a, b) => (a < b ? -1 : 1)) || [];
+    const day = schedules.reduce((acc, cur) => {
+      const date = cur?.format?.date;
+      if (!date) {
+        return acc;
+      }
+      if (!acc[date]) {
+        acc[date] = [cur];
+      } else {
+        acc[date].push(cur);
+      }
+      return acc;
+    }, {} as Record<string, ScheduleWithTime[]>);
+    setData({ date, day });
 
-    const date = [];
-    const day = {};
-
-    // 년-월-일 추출
-    list.forEach((a) => {
-      const date = a?.format?.date;
-
-      dateSet.add(date);
-    });
-
-    // date 배열에 오름차순으로 삽입
-    Array.from(dateSet)
-      .sort((a, b) => (a < b ? -1 : 1))
-      .forEach((a) => {
-        date.push(a);
-      });
-
-    // 날짜 별 일정 방 만들기
-    date.forEach((a) => {
-      day[a] = [];
-    });
-
-    // 날짜 별 일정 방에 일정 삽입
-    list.forEach((a) => {
-      if (day[a?.format?.date]) day[a?.format?.date].push(a);
-    });
-
-    setDate({ date, day });
     setIsLoading(false);
   };
 
   useEffect(() => {
     const body = document.querySelector('body');
+    if (!body) {
+      return;
+    }
 
     if (isOpen) {
       body.classList.add('order-hidden');
@@ -118,10 +114,6 @@ const LessonReservationDrawer = ({ lesson, isOpen, isClose }) => {
     setCurrentDate(date);
   };
 
-  const onReturnData = (e) => {
-    setBody(e);
-  };
-
   const validateCheck = () => {
     let check = true;
 
@@ -130,23 +122,23 @@ const LessonReservationDrawer = ({ lesson, isOpen, isClose }) => {
       return false;
     }
 
-    if (!body?.selectDate) {
+    if (!body.selectDate) {
       alert('', '예약날짜를 선택해주세요.');
       check = false;
     }
-    if (!body?.selectTime) {
+    if (!body.selectTime?.format) {
       alert('', '예약시간을 선택해주세요.');
       check = false;
     }
-    if (!(body?.selectCount > 0)) {
+    if (!(body.selectCount > 0)) {
       alert('', '예약 인원수를 선택해주세요.');
       check = false;
     }
-    if (body?.selectOption && body?.selectOption?.title !== '선택안함' && !(body?.selectOptionCount > 0)) {
+    if (body.selectOption && body.selectOption?.title !== '선택안함' && !(body.selectOptionCount > 0)) {
       alert('', '추가 옵션수를 선택해주세요.');
       check = false;
     }
-    if (body?.selectOptionCount > body?.selectCount) {
+    if (body.selectOptionCount > body.selectCount) {
       alert('', '예약인원보다 옵션 수를 더 높게 설정할 수 없습니다.');
       check = false;
     }
@@ -157,23 +149,23 @@ const LessonReservationDrawer = ({ lesson, isOpen, isClose }) => {
   const onSelectOrder = (type) => {
     if (validateCheck()) {
       const param: Order = {
-        planId: body?.selectTime?.id || '',
-        instructor: body?.selectTime?.instructor || '',
-        price: body?.selectTime?.price || '',
-        startDate: body?.selectTime?.startDate || '',
-        endDate: body?.selectTime?.endDate || '',
-        reservationCount: body?.selectCount || 0,
+        planId: body.selectTime?.id || '',
+        instructor: body.selectTime?.instructor || '',
+        price: body.selectTime?.price || 0,
+        startDate: body.selectTime?.startDate || '',
+        endDate: body.selectTime?.endDate || '',
+        reservationCount: body.selectCount || 0,
 
         // option
-        payOption: body?.selectOption && body?.selectOption?.title !== '선택안함' ? body?.selectOption : {},
-        payOptionCount: body?.selectOptionCount,
+        payOption: body.selectOption && body.selectOption.title !== '선택안함' ? body.selectOption : {},
+        payOptionCount: body.selectOptionCount,
 
         // Items
         lessonTitle: lesson?.title || '',
         lessonImages: lesson?.images || [],
         studiosTitle: lesson?.studios?.title || '',
-        instructorName: body?.selectTime?.instructorInfo?.name || '',
-        format: body?.selectTime?.format || {},
+        instructorName: body.selectTime?.instructorInfo?.name || '',
+        format: body.selectTime!.format!,
       };
 
       switch (type) {
@@ -206,7 +198,7 @@ const LessonReservationDrawer = ({ lesson, isOpen, isClose }) => {
                 data={data}
                 isLoading={isAllLoading}
                 onChangeDate={onChangeDate}
-                onReturnData={onReturnData}
+                onReturnData={setBody}
                 scrollEle={drawerMainRef.current}
               />
             </div>
