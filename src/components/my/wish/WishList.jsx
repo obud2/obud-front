@@ -60,7 +60,7 @@ const WishList = () => {
         <div className="wish-list-header">
           <div className="wish-list-title">
             위시리스트
-            <CountCheck conut={data && (data?.filter((a) => a?.studioInfo)?.length ?? 0)} />
+            <CountCheck count={data && (data?.filter((a) => a?.studioInfo)?.length ?? 0)} />
           </div>
 
           <CustomButton variant="outlined" onClick={onClickWishListButton} isLoading={isAllLoading} disabled={isAllLoading}>

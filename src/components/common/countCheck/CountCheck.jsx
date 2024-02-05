@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 
 import { SCountCheck } from './CountCheck.styled';
 
-const CountCheck = ({ conut }) => {
+const CountCheck = ({ count }) => {
   const [temp, setTemp] = useState(0);
 
   useEffect(() => {
-    setTemp(conut);
-  }, [conut]);
+    setTemp(count);
+  }, [count]);
 
   return (
     <SCountCheck>

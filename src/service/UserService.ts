@@ -66,3 +66,7 @@ export const myOrderItem = (id) => {
     });
   });
 };
+
+export const myReservations = () => {
+  return axiosInstance.get('user/myPage').then((response) => response.data);
+};

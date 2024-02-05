@@ -46,7 +46,7 @@ const MyOrderItem = ({ data, onClickOrderDetail }) => {
 
       <section className="order-item-container">
         <section className="order-item-image-container">
-          <CustomImage src={data?.images?.url || ''} layout="fill" />
+          <CustomImage src={data?.images?.url || data?.images?.[0]?.url || ''} layout="fill" />
         </section>
 
         <section className="order-item-contents-container">

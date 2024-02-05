@@ -11,13 +11,13 @@ import { SMyOrder } from './MyOrder.styled';
 import MyOrderList from './MyOrderList';
 import CountCheck from '@components/common/countCheck/CountCheck';
 import FallBackLoading from '@components/loading/FallBackLoading';
-import myOrderList from './MyOrderList';
+import { myReservations } from '@/service/UserService';
 
 const MyOrder = () => {
   const userId = getUserId();
 
   const fetchData = async () => {
-    const res = await myOrderList();
+    const res = await myReservations();
     const dateSet = new Set();
     const dateToItems = {};
 
@@ -54,7 +54,7 @@ const MyOrder = () => {
     });
 
     return {
-      count: res?.count,
+      total: res?.value?.length ?? 0,
       list: sortedObj,
     };
   };
@@ -67,7 +67,7 @@ const MyOrder = () => {
         <div className="order-list-header">
           <div className="order-list-title">
             예약내역
-            <CountCheck conut={data && (data?.count ?? 0)} />
+            <CountCheck count={data?.total ?? 0} />
           </div>
         </div>
 
