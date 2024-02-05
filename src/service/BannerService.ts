@@ -1,7 +1,7 @@
 import axiosInstance from '@/constants/AxiosInstance';
 import { Banner } from '@/entities/banner';
 
-export const info = (id) => {
+export const getBanner = (id) => {
   return new Promise((resolve) => {
     axiosInstance.get(`banner/${id}`).then((response) => {
       resolve(response?.data?.value || {});

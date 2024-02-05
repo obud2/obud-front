@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import { UserContext } from 'src/context/UserContext';
-import { OrderContext } from 'src/context/OrderContext';
+import { hasPrice, OrderContext } from 'src/context/OrderContext';
 
 import { useQuery, useQueryClient } from 'react-query';
 
@@ -42,7 +42,7 @@ const Booking = () => {
 
   const price = (order ?? []).reduce((acc, it) => {
     const basePrice = Number(it.price || 0) * Number(it.reservationCount || 0);
-    const optionPrice = Number(it.payOption?.price) ? Number(it.payOption?.price) * Number(it.payOptionCount) : 0;
+    const optionPrice = hasPrice(it.payOption) && Number(it.payOption?.price) ? Number(it.payOption?.price) * Number(it.payOptionCount) : 0;
     return acc + basePrice + optionPrice;
   }, 0);
 

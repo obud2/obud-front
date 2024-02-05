@@ -34,6 +34,15 @@ export type Order = {
   };
 };
 
+export const hasPrice = (
+  payOption: Order['payOption'],
+): payOption is {
+  price: number;
+  title: string;
+  maxMember: number;
+  currentMember: number;
+} => (payOption as any).price !== undefined;
+
 /**
  *
  * @param {*} param0
