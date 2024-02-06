@@ -161,7 +161,7 @@ export type Schedule = {
   };
 };
 export const getMonthSchedules = async (lessonId: string, month: string): Promise<Schedule[]> => {
-  if (lessonId && month) {
+  if (!lessonId || !month) {
     return [];
   }
   return axiosInstance
