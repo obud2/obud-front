@@ -21,8 +21,6 @@ export const HeaderContainer = styled.header<{ headerPosition?: string; hide?: b
   position: relative;
 
   background-color: transparent;
-  border-bottom: 0.5px solid;
-  border-color: rgba(171, 182, 165, 0.2);
 
   ${(props) =>
     props.headerPosition === 'absolute' &&
@@ -50,7 +48,13 @@ export const TopbarContainer = styled.div<{ topbarPosition?: string; topbarRever
   align-items: flex-end;
   justify-content: center;
 
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  background-color: #fff;
+
+  border-bottom: 0.5px solid rgba(171, 182, 165, 0.2);
 
   ${MOBILE} {
     height: ${TopbarMobileHeight};
@@ -79,8 +83,6 @@ export const TopbarContainer = styled.div<{ topbarPosition?: string; topbarRever
       padding-top: 4px;
       padding-bottom: 4px;
       height: 34px;
-
-      border-bottom: 1px solid rgba(218, 219, 214, 0.5);
 
       &.reverse {
         background-color: ${(props) => props.theme.main_color_slate_500};
@@ -126,8 +128,6 @@ export const TopbarContainer = styled.div<{ topbarPosition?: string; topbarRever
     align-items: center;
     justify-content: space-between;
 
-    position: relative;
-
     .topbar-title {
       font-size: 1.6rem;
       font-weight: 600;
@@ -146,7 +146,12 @@ export const TopbarContainer = styled.div<{ topbarPosition?: string; topbarRever
 //////////////////////////////////////////// */
 export const MainContainer = styled.main`
   width: 100%;
+  margin-top: ${TopbarHeight};
   min-height: calc(100vh - ${TopbarHeight});
+
+  ${MOBILE} {
+    margin-top: ${TopbarMobileHeight};
+  }
 `;
 
 /* ////////////////////////////////////////////
@@ -155,10 +160,10 @@ export const MainContainer = styled.main`
 export const MovingLogo = styled.p`
   display: none;
   position: absolute;
-  right: 10px; 
+  right: 10px;
   opacity: 0.6;
   top: 32px;
-  
+
   ${DESKTOP} {
     display: block;
   }
