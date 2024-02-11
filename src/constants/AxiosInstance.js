@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Auth } from 'aws-amplify';
 
-import { API_URL, cookieRemove, getJwt, setJwt } from './index';
+import { API_URL, getJwt, tokenRefresh } from './index';
 
 import awsconfig from '../aws-exports';
 
@@ -54,28 +54,5 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(error);
   },
 );
-
-export const tokenRefresh = async () => {
-  try {
-    const cognitoUser = await Auth.currentAuthenticatedUser();
-    const currentSession = await Auth.currentSession();
-
-    return new Promise((resolve) => {
-      cognitoUser.refreshSession(currentSession.getRefreshToken(), (err, session) => {
-        if (session) {
-          const { idToken } = session;
-
-          setJwt(idToken.jwtToken);
-          resolve(idToken.jwtToken);
-        }
-      });
-    });
-  } catch (e) {
-    if (e === 'The user is not authenticated') {
-      cookieRemove();
-      Auth.signOut();
-    }
-  }
-};
 
 export default axiosInstance;

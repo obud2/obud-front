@@ -1,5 +1,6 @@
 import moment from 'moment';
 import { getCookie, setCookie, removeCookie } from '@/helpers/cookies';
+import { Auth } from 'aws-amplify';
 
 /**
  * API 호출 URL
@@ -58,21 +59,66 @@ const TOKEN = `ID_${PROJECT_ID}_JWT`;
 const USER_SESSION = `ID_${PROJECT_ID}_SES`;
 const VISIT = `ID_${PROJECT_ID}_LOG_VISIT`;
 
+function isJwtExpired(token) {
+  // Decode the payload part of the JWT
+  const payload = token?.split('.')[1];
+  if (!payload) {
+    return false;
+  }
+  const decodedPayload = JSON.parse(atob(payload));
+
+  // Get the current time and convert to Unix timestamp in seconds
+  const currentTime = Math.floor(Date.now() / 1000);
+
+  // Check if the current time is greater than the expiration time
+  return currentTime > decodedPayload.exp;
+}
+
 /**
  *
  * @returns 로그인 유저 토큰
  */
 export const getJwt = () => {
-  return getCookie(TOKEN);
+  const jwt = getCookie(TOKEN);
+  if (isJwtExpired(jwt)) {
+    tokenRefresh();
+    return;
+  }
+  return jwt;
+};
+
+export const tokenRefresh = async () => {
+  try {
+    const cognitoUser = await Auth.currentAuthenticatedUser();
+    const currentSession = await Auth.currentSession();
+
+    return new Promise((resolve) => {
+      cognitoUser.refreshSession(currentSession.getRefreshToken(), (err, session) => {
+        if (session) {
+          const { idToken } = session;
+
+          setJwt(idToken.jwtToken);
+          resolve(idToken.jwtToken);
+        }
+      });
+    });
+  } catch (e) {
+    if (e === 'The user is not authenticated') {
+      cookieRemove();
+      Auth.signOut();
+    }
+  }
 };
 
 export const setJwt = (token) => {
-  window?.ReactNativeWebView?.postMessage(JSON.stringify({
-    method: 'STORE_AUTH_TOKEN',
-    token,
-    path: '/',
-    domain: DOMAIN,
-   }));
+  window?.ReactNativeWebView?.postMessage(
+    JSON.stringify({
+      method: 'STORE_AUTH_TOKEN',
+      token,
+      path: '/',
+      domain: DOMAIN,
+    }),
+  );
 
   return setCookie(TOKEN, token, { path: '/', domain: DOMAIN });
 };
@@ -86,12 +132,14 @@ export const getUserId = () => {
 };
 
 export const setUserId = (user) => {
-  window?.ReactNativeWebView?.postMessage(JSON.stringify({
-    method: 'STORE_AUTH_SESSION',
-    user,
-    path: '/',
-    domain: DOMAIN,
-  }));
+  window?.ReactNativeWebView?.postMessage(
+    JSON.stringify({
+      method: 'STORE_AUTH_SESSION',
+      user,
+      path: '/',
+      domain: DOMAIN,
+    }),
+  );
   return setCookie(USER_SESSION, user, { path: '/', domain: DOMAIN });
 };
 
@@ -121,9 +169,11 @@ export const loginCheck = () => {
  */
 export const cookieRemove = () => {
   if (typeof window !== 'undefined') {
-    window?.ReactNativeWebView?.postMessage(JSON.stringify({
-      method: 'LOGOUT',
-    }));
+    window?.ReactNativeWebView?.postMessage(
+      JSON.stringify({
+        method: 'LOGOUT',
+      }),
+    );
   }
   return new Promise((resolve) => {
     removeCookie(TOKEN, { path: '/', domain: DOMAIN });
