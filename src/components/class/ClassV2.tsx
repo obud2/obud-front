@@ -23,8 +23,8 @@ const ClassV2 = ({ banners, sectionWithItems }: Props) => {
 
         <section className="class-category">
           <Chip label="요가" onClick={() => router.push('/class/category/1')} />
-          <Chip label="차" onClick={() => router.push('/class/category/2')} />
-          <Chip label="명상" onClick={() => router.push('/class/category/3')} />
+          <Chip label="차" onClick={() => router.push('/class/category/3')} />
+          <Chip label="명상" onClick={() => router.push('/class/category/2')} />
           <Chip label="기타" onClick={() => router.push('/class/category/4')} />
         </section>
 
