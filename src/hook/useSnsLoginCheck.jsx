@@ -19,7 +19,7 @@ const useSnsLoginCheck = () => {
         if (!loginCheck()) {
           onClickOpenAuth('login');
         } else {
-          router.replace('/');
+          router.replace('/class');
         }
     }
   }, [router.isReady, router.query.id, router.query.code]);
