@@ -141,6 +141,12 @@ const StudioDetail = ({ studio }: Props) => {
                     <div className="description">{item}</div>
                   </div>
                 ))}
+                {studio?.parkingInfo && (
+                  <div className="parking-info">
+                    <div className="parking-title">추가 주차 정보</div>
+                    <div className="parking-description">{studio?.parkingInfo}</div>
+                  </div>
+                )}
               </div>
             </section>
             <div className="obud-line" />
@@ -372,6 +378,22 @@ export const SStudioDetail = styled.article`
 
       .description {
         margin-left: 4px;
+        color: ${(props) => props?.theme?.sub_color_slate_700};
+      }
+    }
+
+    .parking-info {
+      padding: 8px 0;
+
+      .parking-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        line-height: 140%;
+        color: ${(props) => props?.theme?.core_color_slate_900};
+        margin-bottom: 4px;
+      }
+
+      .parking-description {
         color: ${(props) => props?.theme?.sub_color_slate_700};
       }
     }
