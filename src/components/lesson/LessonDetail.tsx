@@ -62,7 +62,6 @@ const LessonDetail = ({ lesson }: Props) => {
       <Tabs>
         <TabPane tab={TabType.RESERVATION} tabName="예약하기">
           <div className="obud-padding-container">
-            {/* <section className="obud-studio-detail-contents-container" dangerouslySetInnerHTML={{ __html: studio?.contents || '' }} /> */}
             <section className="obud-line" />
             <div className="obud-option-container">{/* <StudioOption studio={studio || {}} /> */}</div>
             <section className="obud-line" />
@@ -75,6 +74,7 @@ const LessonDetail = ({ lesson }: Props) => {
         </TabPane>
         <TabPane tab={TabType.DETAIL} tabName="상세정보">
           <section className="obud-lesson-detail-contents-container" dangerouslySetInnerHTML={{ __html: lesson?.contents || '' }} />
+          <section className="obud-lesson-detail-contents-container" dangerouslySetInnerHTML={{ __html: studio?.contents || '' }} />
           <section className="obud-lesson-studio">
             <div className="obud-lesson-studio-title">장소 정보</div>
             <div className="line" />

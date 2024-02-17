@@ -139,7 +139,7 @@ export const SLesson = styled.article`
   }
 
   .obud-lesson-studio {
-    padding: 16px;
+    padding: 32px 16px;
 
     .obud-lesson-studio-title {
       font-size: 16px;
