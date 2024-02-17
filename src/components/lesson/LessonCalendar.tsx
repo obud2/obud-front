@@ -168,12 +168,10 @@ const LessonCalendar = ({ lesson }: Props) => {
 export default LessonCalendar;
 
 const PRODUCT_MAX_WIDTH = '688px';
-const MAX_HEIGHT = '75vh';
 
 export const SLessonCalendar = styled.div`
   .reservation-drawer-container {
     width: ${PRODUCT_MAX_WIDTH};
-    max-height: ${MAX_HEIGHT};
     padding: 16px;
     margin-top: 12px;
     background-color: ${(props) => props.theme.sub_color_slate_50};
@@ -208,7 +206,6 @@ export const SLessonCalendar = styled.div`
 
     .reservation-drawer-main {
       width: 100%;
-      max-height: ${MAX_HEIGHT};
 
       flex: 1;
 
