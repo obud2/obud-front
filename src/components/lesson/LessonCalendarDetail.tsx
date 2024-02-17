@@ -146,7 +146,7 @@ const LessonCalendarDetail = ({ data, onSelectOrder, onChangeDate, onReturnData,
                 </div>
                 <div className="item2">
                   <div style={{ fontWeight: 700 }}>{item.title}</div>
-                  <div>{item.instructor !== 'x' && <p style={{ color: 'grey' }}>w/{item.instructor}</p>}</div>
+                  <div>{item.instructor && item.instructor !== 'x' && <p style={{ color: 'grey' }}>w/{item.instructor}</p>}</div>
                 </div>
                 <div className="item3">
                   <div>{item.price.toLocaleString()}원</div>
