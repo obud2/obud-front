@@ -1,4 +1,5 @@
 import axiosInstance from '@/constants/AxiosInstance';
+import { Lesson } from '@/entities/lesson';
 import { SectionWithItems, Studio } from '@/entities/studio';
 
 /**
@@ -68,17 +69,17 @@ export const getSpecialList = () => {
   });
 };
 
-export const getStudio = (id, userId) => {
+export const getStudio = (id, userId): Promise<Studio> => {
   const user = userId ? `?userId=${userId}` : '';
 
   return new Promise((resolve) => {
     axiosInstance
       .get(`studios/${id}${user}`)
       .then((response) => {
-        resolve(response?.data?.value || {});
+        resolve((response?.data?.value || {}) as Studio);
       })
       .catch(() => {
-        resolve({});
+        resolve({} as Studio);
       });
   });
 };
@@ -97,10 +98,7 @@ export const getStudio = (id, userId) => {
  * @returns
  */
 const limit = 15;
-export const getLessons = (studioId) => {
-  // const keywordTemp = keyword ? `&keyword=${keyword}` : '';
-  // const cursorTemp = cursor ? `&cursor=${cursor}` : '';
-
+export const getLessons = (studioId): Promise<{ value: Lesson[] }> => {
   return new Promise((resolve) => {
     axiosInstance.get(`studios/lesson?studiosId=${studioId}&limit=${limit}`).then((response) => {
       resolve(response.data);

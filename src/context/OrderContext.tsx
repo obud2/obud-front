@@ -32,6 +32,9 @@ export type Order = {
     startTime: string;
     endTime: string;
   };
+  // needed for booking page
+  maxMember?: number;
+  currentMember?: number;
 };
 
 export const hasPrice = (

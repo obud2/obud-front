@@ -1,22 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 
-import { addComma, textSilce } from 'src/constants';
-import { SBookingItem } from './BookingItem.styled';
+import { textSilce } from 'src/constants';
 import { LayoutContext } from 'src/context/LayoutContext';
+import { SBookingItem } from './BookingItem.styled';
 
 import CustomImage from '@components/common/image/CustomImage';
 
-const BookingItem = ({ lessonId, title, studiosTitle, images, date, time, price, person, option, optionCount, disabled }) => {
+const BookingItem = ({ lessonId, title, studiosTitle, images, date, time, disabled }) => {
   const { matchese } = useContext(LayoutContext);
-
-  const [total, setTotal] = useState(0);
-
-  useEffect(() => {
-    const basePirce = Number(price || 0) * Number(person || 0);
-    const optionPrice = Number(option?.price) ? Number(option?.price) * Number(optionCount) : 0;
-
-    setTotal(basePirce + optionPrice);
-  }, [price, person, option, optionCount]);
 
   const onClickGoPlan = () => {
     if (lessonId) {
@@ -33,11 +24,6 @@ const BookingItem = ({ lessonId, title, studiosTitle, images, date, time, price,
           images={images || ''}
           date={date || ''}
           time={time || ''}
-          price={price || ''}
-          person={person || ''}
-          option={option || ''}
-          optionCount={optionCount || ''}
-          total={total}
           onClickGoPlan={onClickGoPlan}
           disabled={disabled}
         />
@@ -48,11 +34,6 @@ const BookingItem = ({ lessonId, title, studiosTitle, images, date, time, price,
           images={images || ''}
           date={date || ''}
           time={time || ''}
-          price={price || ''}
-          person={person || ''}
-          option={option || ''}
-          optionCount={optionCount || ''}
-          total={total}
           onClickGoPlan={onClickGoPlan}
           disabled={disabled}
         />
@@ -61,7 +42,7 @@ const BookingItem = ({ lessonId, title, studiosTitle, images, date, time, price,
   );
 };
 
-const WebRender = ({ title, studiosTitle, images, date, time, price, option, optionCount, person, total, onClickGoPlan, disabled }) => {
+const WebRender = ({ title, studiosTitle, images, date, time, onClickGoPlan, disabled }) => {
   return (
     <React.Fragment>
       {/* 상품정보 */}
@@ -85,33 +66,11 @@ const WebRender = ({ title, studiosTitle, images, date, time, price, option, opt
         <p>{time || ''}</p>
       </li>
 
-      {/* 기본금액 */}
-      <li className="booking-item">
-        <p>{addComma(price || '0')}원</p>
-      </li>
-
-      {/* 인원 */}
-      <li className="booking-item">
-        <p>{person || '0'}명</p>
-      </li>
-
-      {/* 추가옵션 */}
-      <li className="booking-item">
-        <div>
-          <p>{option?.title || '없음'}</p>
-          {option?.price && <p>{`${addComma(option?.price || '')}원 × ${optionCount}명`}</p>}
-        </div>
-      </li>
-
-      {/* 예약금액 */}
-      <li className="booking-item bold">
-        <p>{addComma(total || '0')}원</p>
-      </li>
     </React.Fragment>
   );
 };
 
-const MobileRender = ({ title, studiosTitle, date, time, price, option, optionCount, person, total }) => {
+const MobileRender = ({ title, studiosTitle, date, time }) => {
   return (
     <React.Fragment>
       {/* 이미지 영역 */}
@@ -130,23 +89,6 @@ const MobileRender = ({ title, studiosTitle, date, time, price, option, optionCo
           <p>{`${date || ''}, ${time || ''}`}</p>
         </div>
 
-        {/* 기본급액 */}
-        <div className="booking-mobile-title">
-          <p>기본금액</p>
-          <p>{`${addComma(price || '')}원 × ${person}명`}</p>
-        </div>
-
-        {/* 추가옵션 */}
-        <div className="booking-mobile-title">
-          <p>추가옵션</p>
-          <p>{option?.title ? `${option?.title || ''} +${addComma(option?.price || '')}원 × ${optionCount}명` : '없음'}</p>
-        </div>
-
-        {/* 예약금액 */}
-        <div className="booking-mobile-title">
-          <p>예약금액</p>
-          <p>{addComma(total || '0')}원</p>
-        </div>
       </div>
     </React.Fragment>
   );

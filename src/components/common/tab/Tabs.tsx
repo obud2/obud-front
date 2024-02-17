@@ -1,10 +1,9 @@
-import { StudioTabType } from '@/components/studio/detail/StudioDetail';
-import { useRouter } from 'next/router';
-import React, { ReactNode, useRef } from 'react';
+import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import { STabs } from './Tabs.styled';
+import { useRouter } from 'next/router';
 
 type TabPaneProps = {
-  tab: StudioTabType;
+  tab: string;
   tabName: string; // displayName
   children: ReactNode;
 };
@@ -15,17 +14,24 @@ export const TabPane = ({ children }: TabPaneProps) => {
 
 type TabsProps = {
   children: ReactNode[];
+  defaultTab?: string;
 };
 
-export const Tabs = ({ children }: TabsProps) => {
+export const Tabs = ({ children, defaultTab }: TabsProps) => {
   const router = useRouter();
   const { query } = router;
-  const activeKey = query.tab || 'home';
 
+  const [activeKey, setActiveKey] = useState(query.tab || defaultTab || 'homd');
   const initialTabRef = useRef<HTMLDivElement | null>(null);
 
+  useEffect(() => {
+    if (query.tab) {
+      setActiveKey(query.tab as string);
+    }
+  }, [query.tab]);
+
   const handleTabClick = (key: string) => {
-    router.replace({ query: { ...query, tab: key } }, undefined, { shallow: true });
+    setActiveKey(key);
   };
 
   return (
