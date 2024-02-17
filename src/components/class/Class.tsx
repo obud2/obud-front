@@ -3,7 +3,7 @@ import { Banner } from '@/entities/banner';
 import { SectionWithItems } from '@/entities/studio';
 import { useRouter } from 'next/router';
 import BannerList from './BannerList';
-import { SClass } from './ClassV2.styled';
+import { SClass } from './Class.styled';
 import SectionItem from './SectionItem';
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
   sectionWithItems: SectionWithItems[];
 };
 
-const ClassV2 = ({ banners, sectionWithItems }: Props) => {
+const Class = ({ banners, sectionWithItems }: Props) => {
   const router = useRouter();
 
   return (
@@ -36,4 +36,4 @@ const ClassV2 = ({ banners, sectionWithItems }: Props) => {
   );
 };
 
-export default ClassV2;
+export default Class;

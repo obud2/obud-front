@@ -1,3 +1,4 @@
+import Class from '@/components/class/Class';
 import MetaHeader from '@/components/common/meta/MetaHeader';
 import Layout from '@/components/layout/Layout';
 import { IMG_PATH } from '@/constants';
@@ -5,7 +6,6 @@ import { Banner } from '@/entities/banner';
 import { SectionWithItems } from '@/entities/studio';
 import { listBanners } from '@/service/BannerService';
 import { getStudiosInAllSections } from '@/service/StudioService';
-import ClassV2 from '@components/class/ClassV2';
 
 type Props = {
   banners: Banner[];
@@ -16,7 +16,7 @@ const Index = ({ banners, sectionWithItems }: Props) => {
   return (
     <Layout>
       <MetaHeader title="obud :: class" image={`${IMG_PATH}/obud_logo_img.png`} />
-      <ClassV2 banners={banners} sectionWithItems={sectionWithItems} />
+      <Class banners={banners} sectionWithItems={sectionWithItems} />
     </Layout>
   );
 };
