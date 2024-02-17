@@ -61,7 +61,7 @@ const LessonDetail = ({ lesson }: Props) => {
         </SLessonOption>
       </section>
 
-      <Tabs>
+      <Tabs defaultTab={TabType.RESERVATION}>
         <TabPane tab={TabType.RESERVATION} tabName="예약하기">
           <div className="obud-padding-container">
             <LessonCalendar lesson={lesson} />

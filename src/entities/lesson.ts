@@ -22,4 +22,7 @@ export type Lesson = {
   updatedID: string; // uuid
   updatedIP: string; // csv format
   viewCnt: number;
+  minPrice: number;
+  maxPrice: number;
+  isSoldOut: boolean;
 };

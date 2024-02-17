@@ -1,4 +1,5 @@
 import axiosInstance from '@/constants/AxiosInstance';
+import { Lesson } from '@/entities/lesson';
 import { SectionWithItems, Studio } from '@/entities/studio';
 
 /**
@@ -97,7 +98,7 @@ export const getStudio = (id, userId): Promise<Studio> => {
  * @returns
  */
 const limit = 15;
-export const getLessons = (studioId) => {
+export const getLessons = (studioId): Promise<{ value: Lesson[] }> => {
   return new Promise((resolve) => {
     axiosInstance.get(`studios/lesson?studiosId=${studioId}&limit=${limit}`).then((response) => {
       resolve(response.data);

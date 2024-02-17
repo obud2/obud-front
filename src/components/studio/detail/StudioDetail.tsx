@@ -3,14 +3,17 @@ import Like from '@/components/option/Like';
 import Share from '@/components/option/Share';
 import { Studio } from '@/entities/studio';
 import { deleteWish, setWish } from '@/service/WishService';
-import { useQueryClient } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import ProductImages from './images/ProductImages';
 import ProductMap from './map/ProductMap';
 import ClassList from './option/ClassList';
-import StudioOption from './option/StudioOption';
 import { SStudioOption } from './option/StudioOption.styled';
-import { SStudioDetail } from './StudioDetail.styled';
 import StudioDetailList from './StudioDetailList';
+import styled from 'styled-components';
+import { MOBILE } from 'src/styled/variablesStyles';
+import { getLessons } from '@/service/StudioService';
+import CustomImage from '@/components/common/image/CustomImage';
+import { useRouter } from 'next/router';
 
 type Props = {
   studio: Studio;
@@ -19,7 +22,11 @@ type Props = {
 export type StudioTabType = 'home' | 'reservation';
 
 const StudioDetail = ({ studio }: Props) => {
+  const router = useRouter();
+  const { query } = router;
   const queryClient = useQueryClient();
+
+  const { data: lessons } = useClassList(studio?.id);
 
   const onClickWish = async (checked: boolean) => {
     if (checked) {
@@ -30,6 +37,9 @@ const StudioDetail = ({ studio }: Props) => {
       queryClient.invalidateQueries(['my-wish-list'], { refetchInactive: true });
     }
   };
+
+  const validLessons = lessons?.filter((lesson) => !lesson.isSoldOut) ?? [];
+  const slicedLessons = validLessons.slice(0, 2);
 
   return (
     <SStudioDetail>
@@ -55,19 +65,89 @@ const StudioDetail = ({ studio }: Props) => {
         </div>
       </SStudioOption>
 
-      <Tabs>
+      <Tabs defaultTab="home">
         <TabPane tab="home" tabName="홈">
           <div className="obud-padding-container">
-            <section className="obud-studio-detail-contents-container" dangerouslySetInnerHTML={{ __html: studio?.contents || '' }} />
-            <section className="obud-line" />
-            <div className="obud-option-container">
-              <StudioOption studio={studio || {}} />
+            <section className="lesson-container">
+              <div className="container-title">예약</div>
+              {slicedLessons.map((lesson) => (
+                <div key={lesson.id} className="card">
+                  <div className="content-container">
+                    <div className="content-title">{lesson.title}</div>
+                    <div className="content-price">
+                      {lesson.minPrice === lesson.maxPrice
+                        ? `${(lesson.minPrice ?? 0).toLocaleString()} 원`
+                        : `${(lesson.minPrice ?? 0).toLocaleString()} ~ ${(lesson.maxPrice ?? 0).toLocaleString()} 원`}
+                    </div>
+                  </div>
+                  <CustomImage
+                    className="image"
+                    src={lesson.images?.[0]?.url || ''}
+                    alt={lesson.title}
+                    width={80}
+                    height={80}
+                    layout="fixed"
+                  />
+                </div>
+              ))}
+            </section>
+            <div className="obud-line">
+              {validLessons.length > 2 && (
+                <div onClick={() => router.replace({ query: { ...query, tab: 'reservation' } })} className="load-more">
+                  더보기
+                </div>
+              )}
             </div>
-            <section className="obud-line" />
-            <section className="obud-studio-map">
-              <div className="obud-map-title">위치 정보</div>
+
+            <section className="place-container">
+              <div className="container-title">장소 정보</div>
+              <div className="address">{studio?.addr || ''}</div>
+              {studio?.serviceCenter && (
+                <div className="item-container">
+                  <div className="icons-container">
+                    <i className="icons contact" />
+                  </div>
+                  <div className="description">{studio?.serviceCenter}</div>
+                </div>
+              )}
+
+              {studio?.homepage && (
+                <a href={studio?.homepage || ''} target="blank">
+                  <div className="item-container">
+                    <div className="icons-container">
+                      <i className="icons url" />
+                    </div>
+                    <div className="description">{studio?.homepage}</div>
+                  </div>
+                </a>
+              )}
+            </section>
+            <div className="obud-line" />
+
+            <section className="information-container">
+              <div className="container-title">편의시설</div>
+              <div>
+                <div className="item-container">
+                  <div className="icons-container">
+                    <i className="icons parking" />
+                  </div>
+                  <div className="description">{studio?.parking ? '주차 가능' : '주차 불가능'}</div>
+                </div>
+                {studio?.convenience?.map((item, index) => (
+                  <div className="item-container" key={index}>
+                    <div className="icons-container">
+                      <i className="icons info" />
+                    </div>
+                    <div className="description">{item}</div>
+                  </div>
+                ))}
+              </div>
+            </section>
+            <div className="obud-line" />
+
+            <section className="map-container">
+              <div className="container-title">위치 정보</div>
               <ProductMap addr={studio?.addr || ''} />
-              <div className="obud-map-address">{studio?.addr || ''}</div>
             </section>
           </div>
         </TabPane>
@@ -80,3 +160,289 @@ const StudioDetail = ({ studio }: Props) => {
 };
 
 export default StudioDetail;
+
+const useClassList = (studioId: Studio['id']) => {
+  return useQuery(['class-list', studioId], () => getLessons(studioId), { select: (data) => data.value });
+};
+
+const PRODUCT_MAX_WIDTH = `${688 + 30}px`;
+
+export const SStudioDetail = styled.article`
+  width: 100%;
+  max-width: ${PRODUCT_MAX_WIDTH};
+
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+
+  ${MOBILE} {
+    max-width: 100%;
+  }
+
+  .obud-padding-container {
+    padding: 40px 15px 0;
+    font-weight: normal;
+
+    color: #000;
+
+    ${MOBILE} {
+      padding: 24px 15px;
+    }
+  }
+
+  .obud-line {
+    position: relative;
+    width: 100%;
+    height: 1px;
+
+    background-color: ${(props) => props.theme.core_color_slate_50};
+
+    margin: 40px 0;
+
+    ${MOBILE} {
+      margin: 20px 0;
+    }
+
+    .load-more {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+
+      background-color: ${(props) => props.theme.core_color_slate_50};
+      border-radius: 8px;
+      padding: 4px 12px;
+
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: ${(props) => props.theme.core_color_slate_900};
+    }
+  }
+
+  .obud-studio-detail-step-container {
+    width: 100%;
+    max-width: ${PRODUCT_MAX_WIDTH};
+
+    margin: 0 auto;
+
+    ${MOBILE} {
+      max-width: 100%;
+      padding: 0 0 8px 0;
+    }
+  }
+
+  .obud-studio-detail-option-container {
+    width: 100%;
+    max-width: ${PRODUCT_MAX_WIDTH};
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    ${MOBILE} {
+      display: flex;
+      flex-direction: column;
+
+      max-width: 100%;
+      padding: 0;
+
+      gap: 12px;
+    }
+
+    .obud-images-container {
+      width: 100%;
+      position: relative;
+
+      .studio-detail-list {
+        display: none;
+        ${MOBILE} {
+          display: block;
+        }
+      }
+
+      .product-images {
+        ${MOBILE} {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .obud-option-container {
+    width: 100%;
+    position: relative;
+  }
+
+  .obud-studio-detail-contents-container {
+    width: 100%;
+    max-width: ${PRODUCT_MAX_WIDTH};
+
+    margin: 0 auto;
+
+    font-size: 13px;
+    color: ${(props) => props?.theme?.sub_color_slate_700};
+
+    * {
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    ${MOBILE} {
+      width: 100%;
+      padding: 0;
+
+      overflow: hidden;
+    }
+  }
+
+  .lesson-container {
+    .container-title {
+      font-size: 1.7rem;
+      font-weight: 700;
+      line-height: 140%;
+
+      padding-top: 15px;
+      padding-bottom: 5px;
+
+      ${MOBILE} {
+        font-size: 1.6rem;
+      }
+    }
+
+    .card {
+      display: flex;
+      margin-bottom: 4px;
+      padding: 16px;
+      justify-content: space-between;
+      border-bottom: 1px solid #e5e5e5;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .content-container {
+        padding: 4px;
+        .content-title {
+          font-size: 1.6rem;
+          font-weight: 700;
+          line-height: 140%;
+          color: ${(props) => props?.theme?.core_color_slate_900};
+          margin-bottom: 4px;
+        }
+      }
+
+      .image {
+        border: 1px solid #e5e5e5 !important;
+      }
+    }
+  }
+
+  .place-container {
+    .address {
+      padding: 8px 0;
+    }
+
+    .item-container {
+      display: flex;
+      align-items: center;
+      padding: 8px 0;
+
+      .description {
+        margin-left: 4px;
+        color: ${(props) => props?.theme?.sub_color_slate_700};
+      }
+    }
+  }
+
+  .information-container {
+    .address {
+      padding: 8px 0;
+    }
+
+    .item-container {
+      display: flex;
+      align-items: center;
+      padding: 8px 0;
+
+      .description {
+        margin-left: 4px;
+        color: ${(props) => props?.theme?.sub_color_slate_700};
+      }
+    }
+  }
+
+  .container-title {
+    font-size: 1.7rem;
+    font-weight: 700;
+    line-height: 140%;
+
+    padding-top: 15px;
+    padding-bottom: 5px;
+
+    ${MOBILE} {
+      font-size: 1.6rem;
+    }
+  }
+
+  .obud-studio-map {
+    width: 100%;
+    max-width: ${PRODUCT_MAX_WIDTH};
+
+    padding: 0 0 104px;
+    margin: 0 auto;
+
+    font-size: 1.6rem;
+    color: #000;
+
+    ${MOBILE} {
+      max-width: 100%;
+      padding: 0;
+    }
+  }
+
+  .map-address {
+    font-size: 1.3rem;
+    padding-top: 5px;
+  }
+
+  .icons-container {
+    width: 13px;
+    height: 13px;
+    margin-right: 4px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .location {
+      width: 13px;
+      height: 15px;
+    }
+    .url {
+      width: 15px;
+      height: 15px;
+    }
+    .parking {
+      width: 11px;
+      height: 15px;
+    }
+    .info {
+      width: 15px;
+      height: 15px;
+    }
+    .home {
+      width: 20px;
+      height: 17px;
+    }
+    .contact {
+      width: 20px;
+      height: 17px;
+    }
+  }
+`;
