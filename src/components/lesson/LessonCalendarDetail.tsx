@@ -126,7 +126,7 @@ const LessonCalendarDetail = ({ data, onSelectOrder, onChangeDate, onReturnData,
     onSelectOrder(schedules[findIndex]);
   };
 
-  const filteredSchedules = schedules?.sort((a, b) => (a.startDate > b.startDate ? 1 : -1)) ?? [];
+  const filteredSchedules = schedules?.sort((a, b) => (a.startDate >= b.startDate ? 1 : -1)) ?? [];
 
   return (
     <SLessonCalendarDetail>
@@ -261,6 +261,7 @@ export const SLessonCalendarDetail = styled.article`
     border-top: 1px solid #555555;
     border-right: 1px solid #555555;
 
+    margin-top: 3px;
     margin-left: 6px;
     top: -1px;
     position: relative;

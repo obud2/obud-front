@@ -21,7 +21,7 @@ export const Tabs = ({ children, defaultTab }: TabsProps) => {
   const router = useRouter();
   const { query } = router;
 
-  const [activeKey, setActiveKey] = useState(query.tab || defaultTab || 'homd');
+  const [activeKey, setActiveKey] = useState(query.tab || defaultTab || 'home');
   const initialTabRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -32,6 +32,7 @@ export const Tabs = ({ children, defaultTab }: TabsProps) => {
 
   const handleTabClick = (key: string) => {
     setActiveKey(key);
+    router.push({ query: { ...query, tab: key } });
   };
 
   return (
