@@ -73,6 +73,32 @@ export const SBooking = styled.div`
     }
   }
 
+  .booking-number-container {
+    width: 924px;
+    height: 100%;
+
+    ${MOBILE} {
+      width: 100%;
+    }
+
+    .booking-number {
+      width: 100%;
+
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+
+      gap: 32px;
+
+      margin: 24px 0;
+
+      ${MOBILE} {
+        gap: 16px;
+        flex-direction: column;
+      }
+    }
+  }
+
   .booking-pay-info-container {
     width: 448px;
     height: 100%;

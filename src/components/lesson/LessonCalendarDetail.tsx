@@ -1,17 +1,17 @@
+import { MOBILE } from '@/styled/variablesStyles';
+import { ScheduleWithTime } from '@components/lesson/option/LessonReservationDrawer';
 import _ from 'lodash';
 import moment from 'moment';
 import { SetStateAction, useEffect, useState } from 'react';
-import { ScheduleWithTime } from '@components/lesson/option/LessonReservationDrawer';
-import PlanCalendar from './option/item/PlanCalendar';
-import { MOBILE } from '@/styled/variablesStyles';
 import styled from 'styled-components';
 import CustomButton from '../common/button/CustomButton';
+import PlanCalendar from './option/item/PlanCalendar';
 
 const DEFAULT_OPTION: ScheduleWithTime['payOption'] = { title: '선택안함', price: 0, maxMember: 0 };
 
 type Props = {
   data: { date: string[]; day: Record<string, ScheduleWithTime[]> };
-  onSelectOrder: (e: string) => void;
+  onSelectOrder: (selectTime: ScheduleWithTime) => void;
   onChangeDate: (e: SetStateAction<string>) => void;
   onReturnData: (e: {
     selectDate: string;
@@ -29,7 +29,6 @@ const LessonCalendarDetail = ({ data, onSelectOrder, onChangeDate, onReturnData,
   const [selectCount, setSelectCount] = useState(0);
   const [selectOption, setSelectOption] = useState<ScheduleWithTime['payOption']>(DEFAULT_OPTION);
   const [selectOptionCount, setSelectOptionCount] = useState<number>(0);
-  const [total, setTotal] = useState<number>(0);
   const [schedules, setSchedules] = useState<ScheduleWithTime[]>([]);
   const [optionList, setOptionList] = useState<ScheduleWithTime['payOption'][]>([]);
 
@@ -50,17 +49,6 @@ const LessonCalendarDetail = ({ data, onSelectOrder, onChangeDate, onReturnData,
       selectOption,
       selectOptionCount: selectOptionCount || 0,
     });
-
-    let price = 0;
-
-    if (selectTime?.id) {
-      const basicPrice = Number(selectTime?.price || 0) * selectCount;
-      const optionPrice = Number(selectOption?.price || 0) * selectOptionCount;
-
-      price = basicPrice + optionPrice;
-    }
-
-    setTotal(price);
   }, [selectDate, selectTime, selectCount, selectOption, selectOptionCount]);
 
   useEffect(() => {
@@ -135,6 +123,7 @@ const LessonCalendarDetail = ({ data, onSelectOrder, onChangeDate, onReturnData,
     }
 
     setSelectTime(schedules[findIndex] || {});
+    onSelectOrder(schedules[findIndex]);
   };
 
   const filteredSchedules =
@@ -149,7 +138,7 @@ const LessonCalendarDetail = ({ data, onSelectOrder, onChangeDate, onReturnData,
       <div className="card-wrapper">
         {filteredSchedules.map((item) => {
           return (
-            <div key={item.id} className="card" onClick={() => onChangeTime(item)}>
+            <div key={item.id} className="card">
               <div className="first-line-wrapper">
                 <div className="item1">
                   <div style={{ fontWeight: 700 }}>{moment(item.startDate).format('HH:mm')}</div>
@@ -177,7 +166,14 @@ const LessonCalendarDetail = ({ data, onSelectOrder, onChangeDate, onReturnData,
                   )}
                 </div>
                 <div className="item3">
-                  <CustomButton borderRadius="8px" fontWeight="bold" fontSize="14px" height="24px" width="70px" onClick={onSelectOrder}>
+                  <CustomButton
+                    borderRadius="8px"
+                    fontWeight="bold"
+                    fontSize="14px"
+                    height="24px"
+                    width="70px"
+                    onClick={() => onChangeTime(item)}
+                  >
                     예약
                   </CustomButton>
                 </div>

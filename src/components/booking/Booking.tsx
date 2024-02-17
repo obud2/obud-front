@@ -28,6 +28,7 @@ import FallBackLoading from '@components/loading/FallBackLoading';
 import BookingCouponModal from './modals/BookingCouponModal';
 import { Coupon, CouponDiscountType } from '@/entities/coupon';
 import { createCoupon, listCoupons } from '@/service/CouponService';
+import PlanNumberOfPeopleCheck from '../lesson/option/item/PlanNumberOfPeopleCheck';
 
 const Booking = () => {
   const router = useRouter();
@@ -37,7 +38,7 @@ const Booking = () => {
   const [currentCoupon, setCurrentCoupon] = useState<Coupon | null>(null);
   const [couponCode, setCouponCode] = useState<string>('');
 
-  const { order } = useContext(OrderContext);
+  const { order, setOrder } = useContext(OrderContext);
   const { user } = useContext(UserContext);
 
   const price = (order ?? []).reduce((acc, it) => {
@@ -60,9 +61,7 @@ const Booking = () => {
   const activeCoupons = (coupons ?? []).filter((it) => !!it.canBeApplied).filter((it) => price >= it.minOrderPriceAmount);
 
   const [userInfo, setUserInfo] = useState<{ name?: string; hp?: string; email?: string }>({});
-
   const [payMethod, setPayMethod] = useState<(typeof PAYMENT_METHOD)[number]['id']>(PAYMENT_METHOD[0].id);
-
   const [isAgree, setIsAgree] = useState({
     policy: false,
     check: false,
@@ -287,8 +286,10 @@ const Booking = () => {
       : ''
     : '';
 
+  console.log('order', order);
+
   return (
-    <React.Fragment>
+    <>
       <BookingBase subTitle="예약 수업 정보" list={order} subDate={undefined} />
 
       <SBooking>
@@ -317,6 +318,24 @@ const Booking = () => {
               value={userInfo?.hp || ''}
               onChange={(e) => onChangeInputValue('hp', e.target.value)}
               disabled={isAllLoading}
+            />
+          </main>
+        </section>
+
+        <section className="booking-number-container">
+          <header className="booking-header">
+            <p className="booking-title">인원 선택</p>
+          </header>
+
+          <main className="booking-number">
+            <PlanNumberOfPeopleCheck
+              placeholder="인원"
+              disabled={false}
+              maxNumber={(order[0].maxMember ?? 0) - (order[0].currentMember ?? 0)}
+              value={order[0].reservationCount || 0}
+              onChange={(e) => {
+                setOrder([{ ...order[0], reservationCount: e }]);
+              }}
             />
           </main>
         </section>
@@ -362,13 +381,15 @@ const Booking = () => {
             <CustomButton width="120px" onClick={() => setOpenCouponModal(true)} disabled={isAllLoading || !activeCoupons.length}>
               쿠폰 선택
             </CustomButton>
-            <BookingCouponModal
-              scheduleId={scheduleId}
-              price={price}
-              open={openCouponModal}
-              onClose={() => setOpenCouponModal(false)}
-              setCoupon={setCurrentCoupon}
-            />
+            {openCouponModal && (
+              <BookingCouponModal
+                scheduleId={scheduleId}
+                price={price}
+                open={openCouponModal}
+                onClose={() => setOpenCouponModal(false)}
+                setCoupon={setCurrentCoupon}
+              />
+            )}
           </div>
           <div className="booking-coupon-input-wrapper">
             <CustomInput
@@ -435,7 +456,7 @@ const Booking = () => {
       </SBooking>
 
       <FallBackLoading isLoading={isLoading || isProcessingPayment} />
-    </React.Fragment>
+    </>
   );
 };
 

@@ -1,18 +1,17 @@
 import ProductImages from '@/components/studio/detail/images/ProductImages';
 import ProductPolicy from '@/components/studio/detail/policy/ProductPolicy';
 import { Lesson } from '@/entities/lesson';
+import { Studio } from '@/entities/studio';
+import { getStudio } from '@/service/StudioService';
+import { useRouter } from 'next/router';
+import { useQuery } from 'react-query';
+import CustomImage from '../common/image/CustomImage';
+import { TabPane, Tabs } from '../common/tab/Tabs';
 import Share from '../option/Share';
+import LessonCalendar from './LessonCalendar';
 import { SLesson } from './LessonDetail.styled';
 import LessonDetailList from './LessonDetailList';
 import { SLessonOption } from './option/LessonOption.styled';
-import { useRouter } from 'next/router';
-import { Tabs, TabPane } from '../common/tab/Tabs';
-import { Studio } from '@/entities/studio';
-import { useQuery } from 'react-query';
-import { getStudio } from '@/service/StudioService';
-import CustomImage from '../common/image/CustomImage';
-import LessonReservation from './option/LessonReservation';
-import LessonCalendar from './LessonCalendar';
 
 type Props = {
   lesson: Lesson;
@@ -107,8 +106,6 @@ const LessonDetail = ({ lesson }: Props) => {
           </section>
         </TabPane>
       </Tabs>
-
-      <LessonReservation lesson={lesson} />
 
       <section className="obud-lesson-policy">
         <ProductPolicy info={lesson?.studios?.information || ''} policy={lesson?.studios?.refundPolicy || ''} />

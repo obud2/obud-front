@@ -101,14 +101,7 @@ const LessonCalendar = ({ lesson }: Props) => {
       alert('', '예약날짜를 선택해주세요.');
       check = false;
     }
-    // if (!body.selectTime?.format) {
-    //   alert('', '예약시간을 선택해주세요.');
-    //   check = false;
-    // }
-    // if (!(body.selectCount > 0)) {
-    //   alert('', '예약 인원수를 선택해주세요.');
-    //   check = false;
-    // }
+
     if (body.selectOption && body.selectOption?.title !== '선택안함' && !(body.selectOptionCount > 0)) {
       alert('', '추가 옵션수를 선택해주세요.');
       check = false;
@@ -122,15 +115,16 @@ const LessonCalendar = ({ lesson }: Props) => {
   };
 
   // TODO: Fix
-  const onSelectOrder = () => {
+  const onSelectOrder = (selectTime: ScheduleWithTime) => {
     if (validateCheck()) {
       const param: Order = {
-        planId: body.selectTime?.id || '',
-        instructor: body.selectTime?.instructor || '',
-        price: body.selectTime?.price || 0,
-        startDate: body.selectTime?.startDate || '',
-        endDate: body.selectTime?.endDate || '',
-        reservationCount: body.selectCount || 0,
+        planId: selectTime.id || '',
+        instructor: selectTime.instructor || '',
+        price: selectTime.price || 0,
+        startDate: selectTime.startDate || '',
+        endDate: selectTime.endDate || '',
+        // control in booking page
+        reservationCount: 1,
 
         // option
         payOption: body.selectOption && body.selectOption.title !== '선택안함' ? body.selectOption : {},
@@ -140,9 +134,11 @@ const LessonCalendar = ({ lesson }: Props) => {
         lessonTitle: lesson?.title || '',
         lessonImages: lesson?.images || [],
         studiosTitle: lesson?.studios?.title || '',
-        instructorName: body.selectTime?.instructorInfo?.name || '',
+        instructorName: selectTime.instructorInfo?.name || '',
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        format: body.selectTime!.format!,
+        format: selectTime.format!,
+        maxMember: selectTime.maxMember,
+        currentMember: selectTime.currentMember,
       };
 
       setOrder([param]);

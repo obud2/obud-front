@@ -4,7 +4,7 @@ import { SBookingBase } from './BookingBase.styled';
 
 import BookingItem from '../items/BookingItem';
 
-const HEADER = ['상품정보', '날짜', '시간', '기본금액', '인원', '추가옵션', '예약금액'];
+const HEADER = ['상품정보', '날짜', '시간'];
 
 const BookingBase = ({ subTitle, subDate, list }) => {
   return (
