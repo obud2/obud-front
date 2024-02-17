@@ -126,10 +126,7 @@ const LessonCalendarDetail = ({ data, onSelectOrder, onChangeDate, onReturnData,
     onSelectOrder(schedules[findIndex]);
   };
 
-  const filteredSchedules =
-    schedules
-      ?.sort((a, b) => (a.startDate > b.startDate ? 1 : -1))
-      .filter((item) => !item.isTimeOut && item.reservationStatus !== 'impossible' && item.maxMember - item.currentMember > 0) ?? [];
+  const filteredSchedules = schedules?.sort((a, b) => (a.startDate > b.startDate ? 1 : -1)) ?? [];
 
   return (
     <SLessonCalendarDetail>
@@ -173,8 +170,11 @@ const LessonCalendarDetail = ({ data, onSelectOrder, onChangeDate, onReturnData,
                     height="24px"
                     width="70px"
                     onClick={() => onChangeTime(item)}
+                    disabled={item.isTimeOut || item.reservationStatus === 'impossible' || item.maxMember - item.currentMember === 0}
                   >
-                    예약
+                    {item.isTimeOut || item.reservationStatus === 'impossible' || item.maxMember - item.currentMember === 0
+                      ? '마감'
+                      : '예약'}
                   </CustomButton>
                 </div>
               </div>

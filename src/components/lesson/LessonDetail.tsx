@@ -70,9 +70,7 @@ const LessonDetail = ({ lesson }: Props) => {
           {!!lesson?.contents && (
             <section className="obud-lesson-detail-contents-container" dangerouslySetInnerHTML={{ __html: lesson.contents }} />
           )}
-          {!!studio?.contents && (
-            <section className="obud-lesson-detail-contents-container" dangerouslySetInnerHTML={{ __html: studio.contents }} />
-          )}
+
           <section className="obud-lesson-studio">
             <div className="obud-lesson-studio-title">장소 정보</div>
             <div className="line" />
