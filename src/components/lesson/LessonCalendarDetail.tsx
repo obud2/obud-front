@@ -173,7 +173,7 @@ const LessonCalendarDetail = ({ data, onSelectOrder, onChangeDate, onReturnData,
                     onClick={() => onChangeTime(item)}
                     disabled={disabled}
                     style={{
-                      color: disabled ? 'grey' : 'black',
+                      color: disabled ? 'grey' : 'white',
                     }}
                   >
                     {disabled ? '마감' : '예약'}
