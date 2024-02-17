@@ -18,15 +18,15 @@ type Props = {
   lesson: Lesson;
 };
 
+const plugins = [
+  new Arrow(),
+  new Pagination({ type: 'fraction' }),
+  new AutoPlay({ duration: 6000, direction: 'NEXT', stopOnHover: false }),
+];
+
 const LessonDetailList = ({ lesson }: Props) => {
   const { matchese } = useContext(LayoutContext);
   const [flicking, setFlicking] = useState<ObudImage[]>([]);
-
-  const plugins = [
-    new Arrow(),
-    new Pagination({ type: 'fraction' }),
-    new AutoPlay({ duration: 6000, direction: 'NEXT', stopOnHover: false }),
-  ];
 
   useEffect(() => {
     setFlicking(lesson.images);

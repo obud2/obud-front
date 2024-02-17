@@ -1,4 +1,3 @@
-import ProductImages from '@/components/studio/detail/images/ProductImages';
 import ProductPolicy from '@/components/studio/detail/policy/ProductPolicy';
 import { Lesson } from '@/entities/lesson';
 import { Studio } from '@/entities/studio';
@@ -12,6 +11,7 @@ import LessonCalendar from './LessonCalendar';
 import { SLesson } from './LessonDetail.styled';
 import LessonDetailList from './LessonDetailList';
 import { SLessonOption } from './option/LessonOption.styled';
+import ProductImages from '../studio/detail/images/ProductImages';
 
 type Props = {
   lesson: Lesson;
@@ -34,6 +34,7 @@ const LessonDetail = ({ lesson }: Props) => {
           <div className="lesson-detail-list">
             <LessonDetailList lesson={lesson} />
           </div>
+
           <div className="product-images">
             <ProductImages images={lesson?.images || []} />
           </div>
