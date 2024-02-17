@@ -11,6 +11,8 @@ import { Studio } from '@/entities/studio';
 import { useQuery } from 'react-query';
 import { getStudio } from '@/service/StudioService';
 import CustomImage from '../common/image/CustomImage';
+import LessonReservation from './option/LessonReservation';
+import LessonCalendar from './LessonCalendar';
 
 type Props = {
   lesson: Lesson;
@@ -62,24 +64,30 @@ const LessonDetail = ({ lesson }: Props) => {
       <Tabs>
         <TabPane tab={TabType.RESERVATION} tabName="예약하기">
           <div className="obud-padding-container">
-            <section className="obud-line" />
-            <div className="obud-option-container">{/* <StudioOption studio={studio || {}} /> */}</div>
-            <section className="obud-line" />
-            <section className="obud-studio-map">
-              <div className="obud-map-title">위치 정보</div>
-              {/* <ProductMap addr={studio?.addr || ''} /> */}
-              {/* <div className="obud-map-address">{studio?.addr || ''}</div> */}
-            </section>
+            <LessonCalendar lesson={lesson} />
           </div>
         </TabPane>
         <TabPane tab={TabType.DETAIL} tabName="상세정보">
-          <section className="obud-lesson-detail-contents-container" dangerouslySetInnerHTML={{ __html: lesson?.contents || '' }} />
-          <section className="obud-lesson-detail-contents-container" dangerouslySetInnerHTML={{ __html: studio?.contents || '' }} />
+          {!!lesson?.contents && (
+            <section className="obud-lesson-detail-contents-container" dangerouslySetInnerHTML={{ __html: lesson.contents }} />
+          )}
+          {!!studio?.contents && (
+            <section className="obud-lesson-detail-contents-container" dangerouslySetInnerHTML={{ __html: studio.contents }} />
+          )}
           <section className="obud-lesson-studio">
             <div className="obud-lesson-studio-title">장소 정보</div>
             <div className="line" />
             <div className="studio-container">
-              {studio && <CustomImage src={studio?.images[0].url || ''} alt={studio?.title} width={100} height={100} layout="fixed" />}
+              {studio && (
+                <CustomImage
+                  className="studio-image"
+                  src={studio?.images[0].url || ''}
+                  alt={studio?.title}
+                  width={100}
+                  height={100}
+                  layout="fixed"
+                />
+              )}
               <div className="detail-container">
                 <div className="title-wrapper">
                   <div className="title">{lesson.studios.title}</div>
@@ -100,7 +108,7 @@ const LessonDetail = ({ lesson }: Props) => {
         </TabPane>
       </Tabs>
 
-      <section className="obud-line" />
+      <LessonReservation lesson={lesson} />
 
       <section className="obud-lesson-policy">
         <ProductPolicy info={lesson?.studios?.information || ''} policy={lesson?.studios?.refundPolicy || ''} />

@@ -156,6 +156,10 @@ export const SLesson = styled.article`
     .studio-container {
       display: flex;
 
+      .studio-image {
+        border: 1px solid #e5e5e5 !important;
+      }
+
       .detail-container {
         flex: 1;
         padding: 8px 16px;
