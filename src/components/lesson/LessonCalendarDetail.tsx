@@ -134,6 +134,7 @@ const LessonCalendarDetail = ({ data, onSelectOrder, onChangeDate, onReturnData,
       <div className="line" />
       <div className="card-wrapper">
         {filteredSchedules.map((item) => {
+          const disabled = item.isTimeOut || item.reservationStatus === 'impossible' || item.maxMember - item.currentMember === 0;
           return (
             <div key={item.id} className="card">
               <div className="first-line-wrapper">
@@ -170,11 +171,12 @@ const LessonCalendarDetail = ({ data, onSelectOrder, onChangeDate, onReturnData,
                     height="24px"
                     width="70px"
                     onClick={() => onChangeTime(item)}
-                    disabled={item.isTimeOut || item.reservationStatus === 'impossible' || item.maxMember - item.currentMember === 0}
+                    disabled={disabled}
+                    style={{
+                      color: disabled ? 'grey' : 'black',
+                    }}
                   >
-                    {item.isTimeOut || item.reservationStatus === 'impossible' || item.maxMember - item.currentMember === 0
-                      ? '마감'
-                      : '예약'}
+                    {disabled ? '마감' : '예약'}
                   </CustomButton>
                 </div>
               </div>
@@ -190,6 +192,7 @@ const LessonCalendarDetail = ({ data, onSelectOrder, onChangeDate, onReturnData,
 export default LessonCalendarDetail;
 
 export const SLessonCalendarDetail = styled.article`
+  font-family: OpenSans;
   width: 100%;
   padding: 0 10px 10px 10px;
 

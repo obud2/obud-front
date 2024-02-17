@@ -31,7 +31,9 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head>{/* TODO: Default Font loading */}</Head>
+        <Head>
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" />
+        </Head>
         {/* TODO: remove loader component */}
         <div className="loader">
           <div className="loader_background" />
