@@ -33,6 +33,7 @@ type User = {
 };
 
 type SnsUser = User & { isSns: boolean; snsType: 'KAKAO_SNS' | 'GOOGLE_SNS' | 'NAVER_SNS' | 'APPLE_SNS' };
+
 export const UserContext = React.createContext<{
   user: SnsUser | null;
   isLoading: boolean;
