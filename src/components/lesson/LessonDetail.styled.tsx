@@ -48,7 +48,7 @@ export const SLesson = styled.article`
     width: 100%;
     max-width: ${PRODUCT_MAX_WIDTH};
 
-    margin: 0 auto;
+    margin: 0 auto 12px;
 
     display: flex;
     flex-direction: column;
@@ -95,7 +95,7 @@ export const SLesson = styled.article`
     width: 100%;
     max-width: ${PRODUCT_MAX_WIDTH};
 
-    margin: 8px auto 0;
+    margin: 20px auto;
 
     padding: 10px 16px;
 
@@ -134,7 +134,67 @@ export const SLesson = styled.article`
 
     ${MOBILE} {
       max-width: 100%;
-      padding: 24px 0px;
+      padding: 0px 0px 24px;
+    }
+  }
+
+  .obud-lesson-studio {
+    padding: 16px;
+
+    .obud-lesson-studio-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .line {
+      padding: 8px;
+      height: 1px;
+      border-top: 1px solid ${(props) => props.theme.core_color_slate_50};
+    }
+
+    .studio-container {
+      display: flex;
+
+      .detail-container {
+        flex: 1;
+        padding: 8px 16px;
+
+        .title-wrapper {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 4px;
+
+          .title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 4px;
+          }
+
+          .detail {
+            margin: 5px 0 15px 0;
+            font-size: 13px;
+            color: #555555;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+          }
+
+          .arrow-icon {
+            width: 7px;
+            height: 7px;
+
+            transform: rotate(45deg);
+            border-top: 1px solid #555555;
+            border-right: 1px solid #555555;
+
+            margin-left: 3px;
+            top: -1px;
+            position: relative;
+          }
+        }
+      }
     }
   }
 `;

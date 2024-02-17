@@ -68,17 +68,17 @@ export const getSpecialList = () => {
   });
 };
 
-export const getStudio = (id, userId) => {
+export const getStudio = (id, userId): Promise<Studio> => {
   const user = userId ? `?userId=${userId}` : '';
 
   return new Promise((resolve) => {
     axiosInstance
       .get(`studios/${id}${user}`)
       .then((response) => {
-        resolve(response?.data?.value || {});
+        resolve((response?.data?.value || {}) as Studio);
       })
       .catch(() => {
-        resolve({});
+        resolve({} as Studio);
       });
   });
 };
@@ -98,9 +98,6 @@ export const getStudio = (id, userId) => {
  */
 const limit = 15;
 export const getLessons = (studioId) => {
-  // const keywordTemp = keyword ? `&keyword=${keyword}` : '';
-  // const cursorTemp = cursor ? `&cursor=${cursor}` : '';
-
   return new Promise((resolve) => {
     axiosInstance.get(`studios/lesson?studiosId=${studioId}&limit=${limit}`).then((response) => {
       resolve(response.data);

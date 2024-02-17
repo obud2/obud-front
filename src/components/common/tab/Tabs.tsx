@@ -1,10 +1,9 @@
-import { StudioTabType } from '@/components/studio/detail/StudioDetail';
 import { useRouter } from 'next/router';
 import React, { ReactNode, useRef } from 'react';
 import { STabs } from './Tabs.styled';
 
 type TabPaneProps = {
-  tab: StudioTabType;
+  tab: string;
   tabName: string; // displayName
   children: ReactNode;
 };
