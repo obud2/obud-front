@@ -140,7 +140,6 @@ const LessonCalendarDetail = ({ data, onSelectOrder, onChangeDate, onReturnData,
               <div className="first-line-wrapper">
                 <div className="item1">
                   <div style={{ fontWeight: 700 }}>
-                    {' '}
                     {moment(item.startDate).format('HH:mm')} - {moment(item.endDate).format('HH:mm')}
                   </div>
                 </div>
