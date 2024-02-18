@@ -151,29 +151,28 @@ const LessonCalendarDetail = ({ data, onSelectOrder, onChangeDate, onReturnData,
                 </div>
               </div>
               <div className="second-line-wrapper">
-                <div className="item1" />
-                <div className="item2">
+                <div className="item1">
                   {item.description && (
                     <>
                       <div className="detail" onClick={() => toggleDetailView(item.id)}>
-                        {detailViewStates[item.id] ? '접기' : '상세보기'}
+                        {detailViewStates[item.id] ? '상세 접기' : '상세 보기'}
                         <div className={`arrow-icon ${detailViewStates[item.id] ? 'up' : 'down'}`} />
                       </div>
                       {detailViewStates[item.id] && <div className="description">{item.description}</div>}
                     </>
                   )}
                 </div>
-                <div className="item3">
+                <div className="item2">
                   <CustomButton
                     borderRadius="8px"
-                    fontWeight="bold"
                     fontSize="14px"
                     height="24px"
-                    width="70px"
+                    width="50px"
                     onClick={() => onChangeTime(item)}
                     disabled={disabled}
                     style={{
                       color: disabled ? 'grey' : 'white',
+                      padding: 0,
                     }}
                   >
                     {disabled ? '마감' : '예약'}
@@ -222,23 +221,30 @@ export const SLessonCalendarDetail = styled.article`
   .first-line-wrapper {
     display: flex;
     gap: 8px;
+    .item1 {
+      width: 80px;
+    }
+    .item2 {
+      flex: 1;
+    }
+    .item3 {
+      text-align: right;
+      width: 80px;
+    }
   }
 
   .second-line-wrapper {
     display: flex;
     gap: 8px;
     margin-top: 8px;
-  }
 
-  .item1 {
-    width: 80px;
-  }
-  .item2 {
-    flex: 1;
-  }
-  .item3 {
-    text-align: right;
-    width: 80px;
+    .item1 {
+      flex: 1;
+    }
+    .item2 {
+      text-align: right;
+      width: 70px;
+    }
   }
 
   .detail {

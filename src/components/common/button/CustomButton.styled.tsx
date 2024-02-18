@@ -80,8 +80,8 @@ export const SCustomButton = styled.button<SCustomButtonProps>`
     props.disabled &&
     css`
       color: #000000;
-      background-color: #e3e3e3 !important;
-      border: 1px solid #cccccc !important;
+      background-color: #eeeff1 !important;
+      border: 1px solid #eeeff1 !important;
       cursor: not-allowed;
     `}
 

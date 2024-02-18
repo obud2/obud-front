@@ -80,6 +80,7 @@ export const SClassList = styled.div`
         border-top: 1px solid #565656;
         border-right: 1px solid #565656;
 
+        margin-top: 3px;
         margin-left: 5px;
         top: -1px;
         position: relative;
