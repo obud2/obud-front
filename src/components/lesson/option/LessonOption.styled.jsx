@@ -60,6 +60,7 @@ export const SLessonOption = styled.div`
       border-top: 1px solid #555555;
       border-right: 1px solid #555555;
 
+      margin-top: 3px;
       margin-left: 3px;
       top: -1px;
       position: relative;

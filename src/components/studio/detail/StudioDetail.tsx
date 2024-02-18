@@ -41,6 +41,8 @@ const StudioDetail = ({ studio }: Props) => {
   const validLessons = lessons?.filter((lesson) => !lesson.isSoldOut) ?? [];
   const slicedLessons = validLessons.slice(0, 2);
 
+  console.log('studio', studio);
+
   return (
     <SStudioDetail>
       <section className="obud-studio-detail-option-container">
@@ -101,7 +103,17 @@ const StudioDetail = ({ studio }: Props) => {
 
             <section className="place-container">
               <div className="container-title">장소 정보</div>
-              <div className="address">{studio?.addr || ''}</div>
+
+              <div className="item-container">
+                <div className="icons-container">
+                  <i className="icons location" />
+                </div>
+                <div className="description">
+                  {studio?.addr && <span>{studio.addr}</span>}
+                  {studio?.addrDetail && <span> {studio.addrDetail}</span>}
+                </div>
+              </div>
+
               {studio?.serviceCenter && (
                 <div className="item-container">
                   <div className="icons-container">
@@ -133,6 +145,11 @@ const StudioDetail = ({ studio }: Props) => {
                   </div>
                   <div className="description">{studio?.parking ? '주차 가능' : '주차 불가능'}</div>
                 </div>
+                {studio?.parkingInfo && (
+                  <div className="parking-info">
+                    <div className="parking-description">{studio?.parkingInfo}</div>
+                  </div>
+                )}
                 {studio?.convenience?.map((item, index) => (
                   <div className="item-container" key={index}>
                     <div className="icons-container">
@@ -141,12 +158,6 @@ const StudioDetail = ({ studio }: Props) => {
                     <div className="description">{item}</div>
                   </div>
                 ))}
-                {studio?.parkingInfo && (
-                  <div className="parking-info">
-                    <div className="parking-title">추가 주차 정보</div>
-                    <div className="parking-description">{studio?.parkingInfo}</div>
-                  </div>
-                )}
               </div>
             </section>
             <div className="obud-line" />
@@ -358,6 +369,7 @@ export const SStudioDetail = styled.article`
       display: flex;
       align-items: center;
       padding: 8px 0;
+      margin-left: 10px;
 
       .description {
         margin-left: 4px;
@@ -375,6 +387,7 @@ export const SStudioDetail = styled.article`
       display: flex;
       align-items: center;
       padding: 8px 0;
+      margin-left: 10px;
 
       .description {
         margin-left: 4px;
@@ -383,7 +396,8 @@ export const SStudioDetail = styled.article`
     }
 
     .parking-info {
-      padding: 8px 0;
+      padding-bottom: 8px;
+      margin-left: 32px;
 
       .parking-title {
         font-size: 1.3rem;
