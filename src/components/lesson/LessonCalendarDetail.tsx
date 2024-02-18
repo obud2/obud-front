@@ -139,29 +139,21 @@ const LessonCalendarDetail = ({ data, onSelectOrder, onChangeDate, onReturnData,
             <div key={item.id} className="card">
               <div className="first-line-wrapper">
                 <div className="item1">
-                  <div style={{ fontWeight: 700 }}>{moment(item.startDate).format('HH:mm')}</div>
-                  <div>{moment(item.endDate).diff(moment(item.startDate), 'minutes')}분</div>
+                  <div style={{ fontWeight: 700 }}>
+                    {moment(item.startDate).format('HH:mm')} - {moment(item.endDate).format('HH:mm')}
+                  </div>
                 </div>
+
                 <div className="item2">
-                  <div style={{ fontWeight: 700 }}>{item.title}</div>
-                  <div>{item.instructor && item.instructor !== 'x' && <p style={{ color: 'grey' }}>w/{item.instructor}</p>}</div>
-                </div>
-                <div className="item3">
                   <div>{item.price.toLocaleString()}원</div>
                 </div>
               </div>
               <div className="second-line-wrapper">
                 <div className="item1">
-                  {item.description && (
-                    <>
-                      <div className="detail" onClick={() => toggleDetailView(item.id)}>
-                        {detailViewStates[item.id] ? '상세 접기' : '상세 보기'}
-                        <div className={`arrow-icon ${detailViewStates[item.id] ? 'up' : 'down'}`} />
-                      </div>
-                      {detailViewStates[item.id] && <div className="description">{item.description}</div>}
-                    </>
-                  )}
+                  <div style={{ fontWeight: 700 }}>{item.title}</div>
+                  <div>{item.instructor && item.instructor !== 'x' && <p style={{ color: 'grey' }}>w/{item.instructorInfo.name}</p>}</div>
                 </div>
+
                 <div className="item2">
                   <CustomButton
                     borderRadius="8px"
@@ -178,6 +170,17 @@ const LessonCalendarDetail = ({ data, onSelectOrder, onChangeDate, onReturnData,
                     {disabled ? '마감' : '예약'}
                   </CustomButton>
                 </div>
+              </div>
+              <div className="thrid-line-wrapper">
+                {item.description && (
+                  <>
+                    <div className="detail" onClick={() => toggleDetailView(item.id)}>
+                      <div className={`arrow-icon ${detailViewStates[item.id] ? 'up' : 'down'}`} />
+                      {detailViewStates[item.id] ? '상세 접기' : '상세 보기'}
+                    </div>
+                    {detailViewStates[item.id] && <div className="description">{item.description}</div>}
+                  </>
+                )}
               </div>
             </div>
           );
@@ -221,30 +224,23 @@ export const SLessonCalendarDetail = styled.article`
   .first-line-wrapper {
     display: flex;
     gap: 8px;
-    .item1 {
-      width: 80px;
-    }
-    .item2 {
-      flex: 1;
-    }
-    .item3 {
-      text-align: right;
-      width: 80px;
-    }
   }
 
   .second-line-wrapper {
     display: flex;
     gap: 8px;
     margin-top: 8px;
+  }
 
-    .item1 {
-      flex: 1;
-    }
-    .item2 {
-      text-align: right;
-      width: 70px;
-    }
+  .item1 {
+    flex: 1;
+    display: flex;
+    gap: 6px;
+  }
+
+  .item2 {
+    text-align: right;
+    width: 80px;
   }
 
   .detail {
@@ -268,7 +264,7 @@ export const SLessonCalendarDetail = styled.article`
     border-right: 1px solid #555555;
 
     margin-top: 3px;
-    margin-left: 6px;
+    margin-right: 6px;
     top: -1px;
     position: relative;
 
