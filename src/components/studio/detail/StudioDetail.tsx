@@ -93,7 +93,7 @@ const StudioDetail = ({ studio }: Props) => {
                 </div>
               ))}
             </section>
-            <div className="obud-line">
+            <div className="load-more-line">
               {validLessons.length > 2 && (
                 <div onClick={() => router.replace({ query: { ...query, tab: 'reservation' } })} className="load-more">
                   더보기
@@ -206,11 +206,27 @@ export const SStudioDetail = styled.article`
     color: #000;
 
     ${MOBILE} {
-      padding: 24px 15px;
+      padding: 24px 0;
     }
   }
 
   .obud-line {
+    position: relative;
+    width: 100%;
+    height: 5px;
+
+    background-color: ${(props) => props.theme.core_color_slate_50};
+
+    margin: 40px 0;
+
+    ${MOBILE} {
+      margin: 12px 0;
+    }
+
+
+  }
+
+  .load-more-line {
     position: relative;
     width: 100%;
     height: 1px;
@@ -220,7 +236,7 @@ export const SStudioDetail = styled.article`
     margin: 40px 0;
 
     ${MOBILE} {
-      margin: 20px 0;
+      margin: 12px 0;
     }
 
     .load-more {
@@ -230,7 +246,7 @@ export const SStudioDetail = styled.article`
       transform: translateX(-50%);
 
       background-color: ${(props) => props.theme.core_color_slate_50};
-      border-radius: 8px;
+      border-radius: 12px;
       padding: 4px 12px;
 
       font-size: 1.1rem;
@@ -249,6 +265,7 @@ export const SStudioDetail = styled.article`
       max-width: 100%;
       padding: 0 0 8px 0;
     }
+    
   }
 
   .obud-studio-detail-option-container {
@@ -319,12 +336,14 @@ export const SStudioDetail = styled.article`
   }
 
   .lesson-container {
+    padding: 0 10px;
+
     .container-title {
       font-size: 1.7rem;
       font-weight: 700;
       line-height: 140%;
 
-      padding-top: 15px;
+      padding-top: 5px;
       padding-bottom: 5px;
 
       ${MOBILE} {
@@ -334,8 +353,7 @@ export const SStudioDetail = styled.article`
 
     .card {
       display: flex;
-      margin-bottom: 4px;
-      padding: 16px;
+      padding: 10px;
       justify-content: space-between;
       border-bottom: 1px solid #e5e5e5;
 
@@ -361,6 +379,8 @@ export const SStudioDetail = styled.article`
   }
 
   .place-container {
+    padding: 0 10px;
+
     .address {
       padding: 8px 0;
     }
@@ -379,6 +399,8 @@ export const SStudioDetail = styled.article`
   }
 
   .information-container {
+    padding: 0 10px;
+
     .address {
       padding: 8px 0;
     }
@@ -413,13 +435,17 @@ export const SStudioDetail = styled.article`
     }
   }
 
+  .map-container {
+    padding: 0 10px;
+  }
+
   .container-title {
     font-size: 1.7rem;
     font-weight: 700;
     line-height: 140%;
 
-    padding-top: 15px;
-    padding-bottom: 5px;
+    padding-top: 8px;
+    padding-bottom: 8px;
 
     ${MOBILE} {
       font-size: 1.6rem;
