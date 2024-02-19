@@ -253,7 +253,7 @@ export const SBooking = styled.div`
       .booking-discount-price {
         display: flex;
         justify-content: space-between;
-        font-size: 1.4rem;
+        font-size: 1.6rem;
         font-weight: normal;
         color: #ea4335;
         padding: 4px 0;
@@ -262,7 +262,7 @@ export const SBooking = styled.div`
       .booking-final-price {
         display: flex;
         justify-content: space-between;
-        font-weight: normal;
+        font-size: 1.6rem;
         padding: 4px 0;
         font-weight: bold;
         margin-top: 12px;
