@@ -48,7 +48,7 @@ export const SBooking = styled.div`
   }
 
   .booking-user-info-container {
-    width: 924px;
+    flex: 1;
     height: 100%;
 
     ${MOBILE} {
@@ -74,7 +74,7 @@ export const SBooking = styled.div`
   }
 
   .booking-number-container {
-    width: 924px;
+    flex: 1;
     height: 100%;
 
     ${MOBILE} {
@@ -85,8 +85,8 @@ export const SBooking = styled.div`
       width: 100%;
 
       display: flex;
-      align-items: flex-start;
-      justify-content: flex-start;
+      align-items: flex-end;
+      justify-content: space-between;
 
       gap: 32px;
 
@@ -94,13 +94,20 @@ export const SBooking = styled.div`
 
       ${MOBILE} {
         gap: 16px;
-        flex-direction: column;
+        /* flex-direction: column; */
       }
+    }
+
+    .booking-total-price {
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 140%;
+      color: #555555;
     }
   }
 
   .booking-pay-info-container {
-    width: 448px;
+    flex: 1;
     height: 100%;
 
     ${MOBILE} {
@@ -134,7 +141,7 @@ export const SBooking = styled.div`
       width: 100%;
 
       padding: 24px;
-      margin-bottom: 24px;
+      margin-bottom: 40px;
 
       display: flex;
       align-items: center;
@@ -160,6 +167,25 @@ export const SBooking = styled.div`
 
       margin: 24px 0;
       padding: 12x 0;
+    }
+
+    .booking-coupon-container {
+      width: 100%;
+
+      padding: 24px 0;
+      margin-bottom: 40px;
+
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+
+      flex-wrap: wrap;
+
+      gap: 5px;
+
+      ${MOBILE} {
+        padding: 0;
+      }
     }
 
     .booking-coupon-input-wrapper {
@@ -206,12 +232,11 @@ export const SBooking = styled.div`
       display: flex;
       flex-direction: column;
 
-      margin: 24px 0;
+      margin: 15px 0 24px 0;
 
       font-size: 1.6rem;
       font-weight: 700;
       line-height: 140%;
-      color: ${(props) => props.theme.main_color_slate_500};
 
       ${MOBILE} {
         font-size: 1.4rem;
@@ -232,19 +257,16 @@ export const SBooking = styled.div`
         font-weight: normal;
         color: #ea4335;
         padding: 4px 0;
-        padding-left: 8px;
       }
 
       .booking-final-price {
         display: flex;
         justify-content: space-between;
-        font-size: 1.8rem;
         font-weight: normal;
-        color: #ea4335;
         padding: 4px 0;
-        color: black;
         font-weight: bold;
         margin-top: 12px;
+        margin-bottom: 24px;
       }
     }
   }
