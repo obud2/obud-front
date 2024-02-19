@@ -3,15 +3,10 @@ import { MOBILE } from '@/styled/variablesStyles';
 
 export const SClassList = styled.div`
   .class-item-list-container {
-    padding: 16px 0;
+    margin-bottom: 50px;
 
     display: flex;
     flex-direction: column;
-    gap: 16px;
-
-    ${MOBILE} {
-      padding: 16px 0;
-    }
 
     .class-item {
       width: 100%;
