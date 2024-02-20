@@ -420,10 +420,12 @@ const Booking = () => {
               <p>주문 금액</p>
               <p>{addComma(price)}원</p>
             </div>
-            <div className="booking-discount-price">
-              <p>쿠폰 할인</p>
-              <p>{addComma(getCouponDiscount(currentCoupon))}원</p>
-            </div>
+            {currentCoupon && (
+              <div className="booking-discount-price">
+                <p>쿠폰 할인</p>
+                <p>{addComma(getCouponDiscount(currentCoupon))}원</p>
+              </div>
+            )}
             <div className="booking-final-price">
               <p>최종 결제금액</p>
               <p>{addComma(finalPrice)}원</p>
