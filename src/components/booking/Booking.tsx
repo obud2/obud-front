@@ -286,8 +286,6 @@ const Booking = () => {
       : ''
     : '';
 
-  console.log('order', order);
-
   return (
     <>
       <BookingBase subTitle="예약 수업 정보" list={order} subDate={undefined} />
@@ -378,15 +376,14 @@ const Booking = () => {
               <CustomButton width="120px" onClick={() => setOpenCouponModal(true)} disabled={isAllLoading || !activeCoupons.length}>
                 쿠폰 선택
               </CustomButton>
-              {openCouponModal && (
-                <BookingCouponModal
-                  scheduleId={scheduleId}
-                  price={price}
-                  open={openCouponModal}
-                  onClose={() => setOpenCouponModal(false)}
-                  setCoupon={setCurrentCoupon}
-                />
-              )}
+
+              <BookingCouponModal
+                scheduleId={scheduleId}
+                price={price}
+                open={openCouponModal}
+                onClose={() => setOpenCouponModal(false)}
+                setCoupon={setCurrentCoupon}
+              />
             </div>
             <div className="booking-coupon-input-wrapper">
               <CustomInput

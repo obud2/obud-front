@@ -1,7 +1,6 @@
 import CustomButton from '@/components/common/button/CustomButton';
 import CouponItem from '@/components/common/coupon/Coupon';
 import Modal from '@/components/common/modal/Modal';
-import FallBackLoading from '@/components/loading/FallBackLoading';
 import { Coupon } from '@/entities/coupon';
 import { listCoupons } from '@/service/CouponService';
 import { useQuery } from 'react-query';
@@ -18,7 +17,7 @@ type Props = {
 const BookingCouponModal = ({ open, onClose, setCoupon, scheduleId, price }: Props) => {
   const { data: coupons } = useCoupons(scheduleId);
 
-  if (!coupons || !scheduleId) return <FallBackLoading isLoading />;
+  if (!coupons || !scheduleId) return null;
 
   return (
     <Modal open={open} close={onClose} ref={{} as any}>
