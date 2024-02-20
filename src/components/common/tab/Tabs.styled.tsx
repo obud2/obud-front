@@ -33,6 +33,14 @@ export const STabs = styled.div`
     justify-content: center;
     padding: 10px 20px;
     flex: 1;
+
+    font-size: 15px;
+    font-weight: 500;
+    
+    ${MOBILE} {
+      font-size: 14px;
+    }
+
     &.active {
       background-color: ${(props) => props.theme.main_color_slate_500};
       color: #fff;

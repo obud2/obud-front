@@ -41,8 +41,6 @@ const StudioDetail = ({ studio }: Props) => {
   const validLessons = lessons?.filter((lesson) => !lesson.isSoldOut) ?? [];
   const slicedLessons = validLessons.slice(0, 2);
 
-  console.log('studio', studio);
-
   return (
     <SStudioDetail>
       <section className="obud-studio-detail-option-container">
@@ -222,8 +220,6 @@ export const SStudioDetail = styled.article`
     ${MOBILE} {
       margin: 12px 0;
     }
-
-
   }
 
   .load-more-line {
@@ -265,7 +261,6 @@ export const SStudioDetail = styled.article`
       max-width: 100%;
       padding: 0 0 8px 0;
     }
-    
   }
 
   .obud-studio-detail-option-container {
@@ -365,7 +360,7 @@ export const SStudioDetail = styled.article`
         padding: 4px;
         .content-title {
           font-size: 1.6rem;
-          font-weight: 700;
+          font-weight: 500;
           line-height: 140%;
           color: ${(props) => props?.theme?.core_color_slate_900};
           margin-bottom: 4px;

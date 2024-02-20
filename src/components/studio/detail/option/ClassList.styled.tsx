@@ -19,6 +19,8 @@ export const SClassList = styled.div`
 
       cursor: pointer;
 
+      padding: 10px 0;
+
       &.isSoldOut {
         /* font-style: italic; */
         color: #a4a4a4;
