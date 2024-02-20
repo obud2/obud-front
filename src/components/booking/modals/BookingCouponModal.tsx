@@ -25,7 +25,7 @@ const BookingCouponModal = ({ open, onClose, setCoupon, scheduleId, price }: Pro
         <header className="coupon-header">
           <div className="coupon-title">보유한 쿠폰</div>
         </header>
-        <div className="coupon-list-container">
+        <div>
           {coupons.length === 0 && <div className="coupon-empty">보유한 쿠폰이 없습니다.</div>}
           {coupons.map((coupon) => {
             // eslint-disable-next-line no-nested-ternary
@@ -100,11 +100,6 @@ const Wrapper = styled.div`
 
       gap: 5px;
     }
-  }
-
-  .coupon-list-container {
-    max-height: 80vh;
-    overflow-y: auto;
   }
 
   .coupon-empty {

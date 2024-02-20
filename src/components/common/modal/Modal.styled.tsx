@@ -46,7 +46,7 @@ export const SModal = styled.div<SModalProps>`
 
     opacity: 0;
 
-    overflow-y: auto;
+    overflow-y: hidden;
     overflow-x: none;
 
     position: fixed;
