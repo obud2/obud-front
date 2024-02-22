@@ -7,9 +7,9 @@ import SearchForm from './SearchForm';
 
 const SearchModal = ({ isOpen, isClose }) => {
   return (
-    <Modal open={isOpen} close={isClose}>
+    <Modal open={isOpen} close={isClose} ref={{}}>
       <SSearchModal>
-        <SearchForm onClickBack={isClose} />
+        <SearchForm />
       </SSearchModal>
     </Modal>
   );
