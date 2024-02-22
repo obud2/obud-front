@@ -64,8 +64,6 @@ export const SMyCoupon = styled.div`
   }
 
   .coupon-list-container {
-    max-height: 80vh;
-    overflow-y: auto;
   }
 
   .coupon-empty {
