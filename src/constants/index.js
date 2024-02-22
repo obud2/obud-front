@@ -61,11 +61,12 @@ const VISIT = `ID_${PROJECT_ID}_LOG_VISIT`;
 
 function isJwtExpired(token) {
   // Decode the payload part of the JWT
-  const payload = token?.split('.')[1];
+  const payload = (token || '')?.split('.')[1];
   if (!payload) {
     return false;
   }
-  const decodedPayload = JSON.parse(atob(payload));
+
+  const decodedPayload = JSON.parse(Buffer.from(payload, 'base64'));
 
   // Get the current time and convert to Unix timestamp in seconds
   const currentTime = Math.floor(Date.now() / 1000);
