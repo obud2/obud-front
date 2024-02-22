@@ -34,6 +34,8 @@ module.exports = {
 
     '@typescript-eslint/no-explicit-any': 'off',
     'react/no-children-prop': 'off',
+    'no-spaced-func': 'off',
+    'func-call-spacing': 'off',
 
     // General
     'no-var': 'error', // var 금지
@@ -85,8 +87,6 @@ module.exports = {
     'import/named': 'off',
     'no-param-reassign': 'off',
     'no-nested-ternary': 'off',
-    'no-spaced-func': 'warn',
-    'func-call-spacing': 'warn',
 
     'import/no-extraous-dependencies': 'off',
     'import/no-extraneous-dependencies': 'off',

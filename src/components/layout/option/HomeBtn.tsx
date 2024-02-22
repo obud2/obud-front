@@ -1,11 +1,15 @@
-import React from 'react';
+import { useEffect } from 'react';
 
 import { useRouter } from 'next/router';
 
 import { SHomeBtn } from './HomeBtn.styled';
 
-const HomeBtn = ({ active, onClick }) => {
+const HomeBtn = ({ onClick }) => {
   const router = useRouter();
+
+  useEffect(() => {
+    router.prefetch('/class');
+  }, []);
 
   const onClickBack = () => {
     if (onClick) onClick();
@@ -13,7 +17,7 @@ const HomeBtn = ({ active, onClick }) => {
   };
 
   return (
-    <SHomeBtn active={active} onClick={onClickBack} aria-label="홈 버튼">
+    <SHomeBtn onClick={onClickBack} aria-label="홈 버튼">
       <i className="icons menu_home" />
     </SHomeBtn>
   );
