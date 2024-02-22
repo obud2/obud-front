@@ -67,6 +67,8 @@ export const SModal = styled.div<SModalProps>`
 
     height: auto;
     min-height: 104px;
+    max-height: 90vh;
+    overflow-y: auto;
     display: inline-block;
 
     margin: 80px auto;
@@ -75,7 +77,6 @@ export const SModal = styled.div<SModalProps>`
     box-shadow: rgb(62 80 96 / 20%) 0px 4px 20px;
 
     border-radius: 3px;
-    overflow: hidden;
 
     opacity: 0;
     transition: opacity 0.25s ease-out;

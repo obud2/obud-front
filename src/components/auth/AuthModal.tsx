@@ -51,7 +51,7 @@ const AuthModal = () => {
   };
 
   const contentsByRender = (type) => {
-    let temp = '';
+    let temp: React.ReactElement | null = null;
 
     switch (type) {
       case 'login':
@@ -81,7 +81,7 @@ const AuthModal = () => {
   };
 
   return (
-    <Modal open={auth?.isOpen} close={onClickCloseAuth}>
+    <Modal open={auth?.isOpen} close={onClickCloseAuth} ref={{}}>
       <SAuthModal>
         <header className="auth-header">
           <h3>{titleByRender(auth?.type)}</h3>
