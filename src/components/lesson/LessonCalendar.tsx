@@ -47,40 +47,41 @@ const LessonCalendar = ({ lesson }: Props) => {
     selectOption: {},
     selectOptionCount: 0,
   });
-  const [currentDate, setCurrentDate] = useState('');
-
-  const fetchData = async () => {
-    const thisMonthSchedules = await getMonthSchedules(id, currentDate);
-    const nextMonth = moment(currentDate).add(1, 'months').format(dateFormat);
-    const nextMonthSchedules = await getMonthSchedules(id, nextMonth);
-
-    const schedules: ScheduleWithTime[] = [...thisMonthSchedules, ...nextMonthSchedules].map((it) => {
-      const date = moment(it.startDate).format('YYYY-MM-DD');
-      const startTime = moment(it.startDate).format('HH:mm');
-      const endTime = moment(it.endDate).format('HH:mm');
-      return { ...it, format: { date, startTime, endTime } };
-    });
-
-    const dateSet = new Set(schedules.map((a) => a?.format?.date).filter((a): a is string => !!a));
-    const date = Array.from(dateSet).sort((a, b) => (a < b ? -1 : 1)) || [];
-    const day = schedules.reduce((acc, cur) => {
-      const date = cur?.format?.date;
-      if (!date) {
-        return acc;
-      }
-      if (!acc[date]) {
-        acc[date] = [cur];
-      } else {
-        acc[date].push(cur);
-      }
-      return acc;
-    }, {} as Record<string, ScheduleWithTime[]>);
-    setData({ date, day });
-  };
+  const [currentDate, setCurrentDate] = useState(moment().format(dateFormat));
 
   useEffect(() => {
+    const fetchData = async () => {
+      const thisMonthSchedules = await getMonthSchedules(id, currentDate);
+      const nextMonth = moment(currentDate).add(1, 'months').format(dateFormat);
+      const nextMonthSchedules = await getMonthSchedules(id, nextMonth);
+
+      const schedules: ScheduleWithTime[] = [...thisMonthSchedules, ...nextMonthSchedules].map((it) => {
+        const date = moment(it.startDate).format('YYYY-MM-DD');
+        const startTime = moment(it.startDate).format('HH:mm');
+        const endTime = moment(it.endDate).format('HH:mm');
+        return { ...it, format: { date, startTime, endTime } };
+      });
+
+      const dateSet = new Set(schedules.map((a) => a?.format?.date).filter((a): a is string => !!a));
+      const date = Array.from(dateSet).sort((a, b) => (a < b ? -1 : 1)) || [];
+      const day = schedules.reduce((acc, cur) => {
+        const date = cur?.format?.date;
+        if (!date) {
+          return acc;
+        }
+        if (!acc[date]) {
+          acc[date] = [cur];
+        } else {
+          acc[date].push(cur);
+        }
+        return acc;
+      }, {} as Record<string, ScheduleWithTime[]>);
+
+      setData({ date, day });
+    };
+
     fetchData();
-  }, [currentDate]);
+  }, [currentDate, setData]);
 
   const onChangeDate = (e) => {
     const date = moment(e).format(dateFormat);
