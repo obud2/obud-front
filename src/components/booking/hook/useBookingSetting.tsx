@@ -1,11 +1,13 @@
 /* eslint-disable no-alert */
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { IMP_CODE, PG } from 'src/constants';
 
 import alert from 'src/helpers/alert';
 import { RequestPayParams } from '@/portone';
 import { PAYMENT_METHOD } from '@components/booking/Booking.option';
+import { useQueryClient } from 'react-query';
+import router from 'next/router';
 import { Order } from '@/context/OrderContext';
 import { orderComplete, createOrder, payCancel, orderFail } from '@/service/OrderService';
 
@@ -32,7 +34,94 @@ type PayOptions = {
 };
 
 const useBookingSetting = () => {
+  const queryClient = useQueryClient();
+
+  const completedRef = useRef<boolean>(false);
+
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+
+  useEffect(() => {
+    const jquery = document.createElement('script');
+    const iamport = document.createElement('script');
+
+    jquery.src = 'https://code.jquery.com/jquery-1.12.4.min.js';
+    iamport.src = 'https://cdn.iamport.kr/v1/iamport.js';
+
+    document.head.appendChild(jquery);
+    document.head.appendChild(iamport);
+
+    const handleMessage = async (event: MessageEvent) => {
+      const { data } = event;
+      const parsedData = JSON.parse(data);
+      const response = parsedData.payResultParams;
+
+      const merchant = {
+        merchant_uid: response.merchant_uid,
+        imp_uid: response.imp_uid,
+        payInfo: response,
+      };
+
+      if (response.imp_uid && response.status === 'paid') {
+        if (completedRef.current) {
+          return;
+        }
+        try {
+          completedRef.current = true;
+          setIsProcessingPayment(true);
+          const data = await orderComplete(merchant);
+          const orderStatus = data.orderStatus || 'FAIL';
+
+          queryClient.invalidateQueries(['my-order-list'], { refetchInactive: true });
+
+          if (orderStatus === 'COMPLETE') {
+            alert('', '감사합니다. <br /> 예약이 완료되었습니다.', '', '', () => {
+              setTimeout(() => {
+                completedRef.current = false;
+              }, 30_000);
+              router.replace('/my/order');
+            });
+          }
+          if (orderStatus === 'FAIL') {
+            if (data.error) {
+              alert('', data.error, '', '', () => {
+                router.push('/class');
+              });
+            } else {
+              alert('', '예약에 실패했습니다. 결제는 자동 취소됩니다.', '', '', () => {
+                router.push('/class');
+              });
+            }
+          }
+        } catch (err) {
+          alert('', '죄송합니다. 예약에 실패하였습니다. <br /> 잠시 후 다시 시도해주세요.');
+        } finally {
+          setIsProcessingPayment(false);
+        }
+      }
+    };
+
+    const userAgent = navigator.userAgent;
+    if (/isIOS/.test(userAgent)) {
+      window.addEventListener('message', handleMessage);
+    } else if (/isAndroid/i.test(userAgent)) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      document.addEventListener('message', handleMessage);
+    }
+
+    return () => {
+      document.head.removeChild(jquery);
+      document.head.removeChild(iamport);
+
+      if (/isIOS/.test(userAgent)) {
+        window.removeEventListener('message', handleMessage);
+      } else if (/isAndroid/i.test(userAgent)) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        document.removeEventListener('message', handleMessage);
+      }
+    };
+  }, []);
 
   const impPayNative = async (createOrderParams: CreateOrderParam[], payOptions: PayOptions): Promise<void> => {
     if (typeof window === 'undefined' || !window.IMP) {
@@ -69,7 +158,7 @@ const useBookingSetting = () => {
         reason: '결제 중 취소',
       };
 
-      // 주문 성공 -> Native IMPort로 넘어가야 함.
+      // 결제 성공
       try {
         await orderComplete(merchant);
         return;
