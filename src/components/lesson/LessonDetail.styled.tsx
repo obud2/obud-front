@@ -179,7 +179,7 @@ export const SLesson = styled.article`
           .detail {
             margin: 5px 0 15px 0;
             font-size: 13px;
-            color: #555555;
+            color: #1d64d0;
             display: flex;
             align-items: center;
             cursor: pointer;
@@ -190,11 +190,10 @@ export const SLesson = styled.article`
             height: 7px;
 
             transform: rotate(45deg);
-            border-top: 1px solid #555555;
-            border-right: 1px solid #555555;
+            border-top: 1px solid #1d64d0;
+            border-right: 1px solid #1d64d0;
 
             margin-left: 3px;
-            top: -1px;
             position: relative;
           }
         }
