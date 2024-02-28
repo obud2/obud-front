@@ -247,7 +247,7 @@ export const SLessonCalendarDetail = styled.article`
     cursor: pointer;
     display: flex;
     align-items: center;
-    color: #555555;
+    color: #1d64d0;
   }
 
   .description {
@@ -260,8 +260,8 @@ export const SLessonCalendarDetail = styled.article`
     height: 7px;
 
     transform: rotate(45deg);
-    border-top: 1px solid #555555;
-    border-right: 1px solid #555555;
+    border-top: 1px solid #1d64d0;
+    border-right: 1px solid #1d64d0;
 
     margin-top: 3px;
     margin-right: 6px;

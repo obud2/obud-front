@@ -11,6 +11,7 @@ export const SClassList = styled.div`
     .class-item {
       width: 100%;
       height: 64px;
+      padding: 10px;
 
       display: flex;
       align-items: center;

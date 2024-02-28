@@ -71,7 +71,7 @@ const StudioDetail = ({ studio }: Props) => {
             <section className="lesson-container">
               <div className="container-title">예약</div>
               {slicedLessons.map((lesson) => (
-                <div key={lesson.id} className="card" onClick={() => router.push(`/lesson/${lesson.id}`)}>
+                <div key={lesson.id} className="card" onClick={() => router.push(`/lesson/${lesson.id}`)} style={{ cursor: 'pointer' }}>
                   <div className="content-container">
                     <div className="content-title">{lesson.title}</div>
                     <div className="content-price">
