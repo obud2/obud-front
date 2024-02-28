@@ -173,7 +173,7 @@ const useBookingSetting = () => {
       userCode: IMP_CODE, // 가맹점 식별코드
       payParams: requestPayParams,
       type: 'payment', //     결제와 본인인증을 구분하기 위한 필드
-      returnUrl: window.location.href,
+      returnUrl: 'https://www.obud.co/booking',
     };
 
     // TODO: move to hook
