@@ -33,7 +33,7 @@ import PlanNumberOfPeopleCheck from '../lesson/option/item/PlanNumberOfPeopleChe
 const Booking = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { impPay, impPayNative, isProcessingPayment } = useBookingSetting();
+  const { impPay, impPayNative } = useBookingSetting();
   const [openCouponModal, setOpenCouponModal] = useState(false);
   const [currentCoupon, setCurrentCoupon] = useState<Coupon | null>(null);
   const [couponCode, setCouponCode] = useState<string>('');
@@ -457,7 +457,7 @@ const Booking = () => {
         </section>
       </SBooking>
 
-      <FallBackLoading isLoading={isLoading || isProcessingPayment} />
+      <FallBackLoading isLoading={isLoading} />
     </>
   );
 };

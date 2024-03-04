@@ -1,6 +1,5 @@
 /* eslint-disable no-alert */
-import { useEffect, useRef, useState } from 'react';
-
+import { useEffect, useRef } from 'react';
 import { IMP_CODE, PG } from 'src/constants';
 
 import alert from 'src/helpers/alert';
@@ -35,10 +34,7 @@ type PayOptions = {
 
 const useBookingSetting = () => {
   const queryClient = useQueryClient();
-
   const completedRef = useRef<boolean>(false);
-
-  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
 
   useEffect(() => {
     const jquery = document.createElement('script');
@@ -67,7 +63,7 @@ const useBookingSetting = () => {
         }
         try {
           completedRef.current = true;
-          setIsProcessingPayment(true);
+
           const data = await orderComplete(merchant);
           const orderStatus = data.orderStatus || 'FAIL';
 
@@ -94,8 +90,6 @@ const useBookingSetting = () => {
           }
         } catch (err) {
           alert('', '죄송합니다. 예약에 실패하였습니다. <br /> 잠시 후 다시 시도해주세요.');
-        } finally {
-          setIsProcessingPayment(false);
         }
       }
     };
@@ -127,8 +121,6 @@ const useBookingSetting = () => {
     if (typeof window === 'undefined' || !window.IMP) {
       throw new Error('결제 준비가 되지 않았어요. 개발자에게 문의해주세요!');
     }
-
-    setIsProcessingPayment(true);
     const { merchantUid } = await createOrder(createOrderParams);
 
     const requestPayParams: RequestPayParams = {
@@ -236,7 +228,6 @@ const useBookingSetting = () => {
 
       // 결제 모듈 띄우기 및 결제 처리
       setLoading(false);
-      setIsProcessingPayment(false);
 
       return await new Promise((resolve) => {
         window.IMP?.request_pay(requestPayParams, (rsp) => {
@@ -254,7 +245,7 @@ const useBookingSetting = () => {
           };
 
           setLoading(true);
-          setIsProcessingPayment(true);
+
           if (rsp.imp_uid && rsp.status === 'paid' && rsp.success) {
             // 결제 성공
             orderComplete(merchant)
@@ -267,9 +258,6 @@ const useBookingSetting = () => {
                   orderStatus: 'FAIL',
                   error: rsp.error_msg || '예약 완료에 실패했습니다.',
                 });
-              })
-              .finally(() => {
-                setIsProcessingPayment(false);
               });
           } else {
             // 결제 실패
@@ -286,9 +274,6 @@ const useBookingSetting = () => {
                   orderStatus: 'FAIL',
                   error: rsp.error_msg || '결제에 실패했습니다.',
                 });
-              })
-              .finally(() => {
-                setIsProcessingPayment(false);
               });
           }
         });
@@ -299,7 +284,7 @@ const useBookingSetting = () => {
     }
   };
 
-  return { impPay, impPayNative, isProcessingPayment };
+  return { impPay, impPayNative };
 };
 
 export default useBookingSetting;
