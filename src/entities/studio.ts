@@ -1,5 +1,9 @@
 import { ObudImage } from './common';
 
+/**
+ * @important Studio is Deprecated. use Place / Program instead
+ */
+
 export type Studio = {
   addr: string; // deprecated
   address?: string; // new. use this instead

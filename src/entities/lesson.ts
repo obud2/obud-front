@@ -1,6 +1,10 @@
 import { ObudImage } from './common';
 import { Studio } from './studio';
 
+/**
+ * @important Lesson is Deprecated. use Place / Program instead
+ */
+
 export type Lesson = {
   contents: string;
   createdAt: number;
