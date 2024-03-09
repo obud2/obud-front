@@ -87,6 +87,7 @@ module.exports = {
     'import/named': 'off',
     'no-param-reassign': 'off',
     'no-nested-ternary': 'off',
+    'function-paren-newline': 'off',
 
     'import/no-extraous-dependencies': 'off',
     'import/no-extraneous-dependencies': 'off',

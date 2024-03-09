@@ -1,6 +1,31 @@
+import { useQuery } from 'react-query';
+import { SearchService } from 'src/service/SearchService';
+
 import styled from 'styled-components';
 
-export const SSearchKeyword = styled.div`
+const SearchKeyword = ({ onClick }) => {
+  const { data } = useQuery(['keyword'], () => SearchService.listKeywords(), {
+    select: (data) => data.value?.filter((item) => item.id !== 'test'),
+  });
+
+  return (
+    <SSearchKeyword>
+      <p className="keyword-title">인기검색어</p>
+
+      <div className="keyword-container">
+        {data?.map((item) => (
+          <div key={item.id} className="keyword-item" onClick={() => onClick(item.id)}>
+            {item.id || ''}
+          </div>
+        ))}
+      </div>
+    </SSearchKeyword>
+  );
+};
+
+export default SearchKeyword;
+
+const SSearchKeyword = styled.div`
   width: 100%;
   padding: 30px 0;
 

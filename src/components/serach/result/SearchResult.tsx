@@ -1,8 +1,50 @@
+import { useRouter } from 'next/router';
+
+import { useQuery } from 'react-query';
+
+import StudioList from '@components/studio/StudioList';
+import FallBackLoading from '@components/loading/FallBackLoading';
+import { MOBILE, MAX_WIDTH, TABLET, TABLET_MAX_WIDTH } from '@/styled/variablesStyles';
 import styled from 'styled-components';
+import { SearchService } from '@/service/SearchService';
 
-import { MAX_WIDTH, MOBILE, TABLET, TABLET_MAX_WIDTH } from 'src/styled/variablesStyles';
+const SearchResult = () => {
+  const router = useRouter();
+  const { keyword, date } = router.query;
 
-export const SSearchResult = styled.div`
+  const { data, isLoading } = useQuery(['search-result', keyword, date], () =>
+    SearchService.listSearchResults({ keyword: keyword as string, date: date as string }),
+  );
+
+  return (
+    <>
+      <SSearchResult>
+        <div className="search-keyword-container">
+          <div className="search-icon">
+            <i className="icons search active" />
+          </div>
+
+          <div>
+            <p className="result-title">{keyword || date || '-'}</p>
+
+            <p className="result-length">
+              <b>{data?.length || 0}</b>
+              개의 통합검색 결과가 있습니다.
+            </p>
+          </div>
+        </div>
+
+        <StudioList title="All Place" list={data || []} />
+      </SSearchResult>
+
+      <FallBackLoading isLoading={isLoading} />
+    </>
+  );
+};
+
+export default SearchResult;
+
+const SSearchResult = styled.div`
   width: 100%;
 
   padding: 60px 0 60px;
