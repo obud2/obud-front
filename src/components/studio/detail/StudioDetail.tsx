@@ -14,6 +14,7 @@ import { MOBILE } from 'src/styled/variablesStyles';
 import { getLessons } from '@/service/StudioService';
 import CustomImage from '@/components/common/image/CustomImage';
 import { useRouter } from 'next/router';
+import PassList from './option/PassList';
 
 type Props = {
   studio: Studio;
@@ -168,6 +169,9 @@ const StudioDetail = ({ studio }: Props) => {
         </TabPane>
         <TabPane tab="reservation" tabName="예약">
           <ClassList studioId={studio?.id || ''} />
+        </TabPane>
+        <TabPane tab="pass" tabName="패스">
+          <PassList placeId={studio?.id || ''} />
         </TabPane>
       </Tabs>
     </SStudioDetail>

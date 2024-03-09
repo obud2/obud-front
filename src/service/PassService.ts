@@ -23,8 +23,8 @@ type GetPassDetailRequest = {
 };
 
 export const getPassDetail = async (request: GetPassDetailRequest): Promise<PassDetail> => {
-  const response = await axiosInstance.get<PassDetail>(`/pass/${request.passId}`);
-  return response.data;
+  const response = await axiosInstance.get<{ value: PassDetail }>(`/pass/${request.passId}`);
+  return response.data.value;
 };
 
 type ListUserPassesRequest = {
