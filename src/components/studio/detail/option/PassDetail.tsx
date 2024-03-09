@@ -48,6 +48,13 @@ const PassDetail = () => {
 
       <div className="info">
         <div className="info-title">환불 규정</div>
+        <div className="info-item">
+          <span style={{ color: 'red' }}>결제일</span>
+          <span>{'로부터 3일 이내이며 미 예약 시 : 100% 환불\n'}</span>
+          <span style={{ color: 'red' }}>결제일</span>
+          <span>{'로부터 3일 이후 혹은 예약 이후에는 '}</span>
+          <span style={{ fontWeight: 'bold' }}>해당 장소(스튜디오)의 내규에 따라 위약금 차감 후 환불됩니다.</span>
+        </div>
         <div className="info-item">{passDetail.refundPolicy}</div>
       </div>
 
@@ -85,9 +92,10 @@ const SPassDetail = styled.div`
       margin-bottom: 8px;
     }
     .info-item {
-      display: flex;
+      white-space: pre-wrap;
       font-size: 1.2rem;
       font-weight: 400;
+      line-height: 1.4;
       color: ${(props) => props.theme.main_color_slate_400};
 
       .pass-arrow-icon {
