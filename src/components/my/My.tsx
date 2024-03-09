@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { useRouter } from 'next/router';
 import { loginCheck } from 'src/constants';
 
-import { SMy } from './My.styled';
-
 import BaseTab from '@components/base/BaseTab';
 import TabPanel from '@components/tabPanel/TabPanel';
 
-import MyEdit from './edit/MyEdit';
-import WishList from './wish/WishList';
-import MyOrder from './order/MyOrder';
+import { MAX_WIDTH, MOBILE, TABLET, TABLET_MAX_WIDTH } from '@/styled/variablesStyles';
+import styled from 'styled-components';
 import MyCoupon from './coupon/MyCoupon';
+import MyEdit from './edit/MyEdit';
+import MyOrder from './order/MyOrder';
 import MyPass from './pass/MyPass';
+import WishList from './wish/WishList';
 
 type TabType = {
   id: string;
@@ -76,3 +76,62 @@ const My = () => {
 };
 
 export default My;
+
+const SMy = styled.div`
+  width: 100%;
+  max-width: ${MAX_WIDTH};
+  padding: 80px 15px 32px;
+
+  margin: 0 auto;
+
+  ${TABLET} {
+    max-width: ${TABLET_MAX_WIDTH};
+  }
+
+  ${MOBILE} {
+    max-width: 100%;
+    padding: 10px 15px 32px;
+  }
+
+  .obud-my-article {
+    width: 100%;
+
+    display: flex;
+    padding-top: 40px;
+
+    ${MOBILE} {
+      flex-direction: column;
+      padding-top: 0;
+    }
+
+    .my-tab-container {
+      width: 17%;
+      height: auto;
+
+      ${TABLET} {
+        width: 13%;
+      }
+
+      ${MOBILE} {
+        width: 100%;
+        margin-bottom: 24px;
+
+        display: none;
+      }
+    }
+
+    .my-list-container {
+      width: 83%;
+      height: auto;
+
+      ${TABLET} {
+        width: 87%;
+      }
+
+      ${MOBILE} {
+        width: 100%;
+        margin-top: 20px;
+      }
+    }
+  }
+`;
