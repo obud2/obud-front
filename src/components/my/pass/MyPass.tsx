@@ -1,12 +1,17 @@
+import Chip from '@/components/common/chip/Chip';
+import UserPassItem from '@/components/common/pass/UserPass';
 import FallBackLoading from '@/components/loading/FallBackLoading';
+import { UserPassStatus } from '@/entities/pass';
+import { listUserPasses } from '@/service/PassService';
 import { MOBILE } from '@/styled/variablesStyles';
+import { useState } from 'react';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
-import { listUserPasses } from '@/service/PassService';
-import UserPassItem from '@/components/common/pass/UserPass';
 
 const MyPass = () => {
-  const { data: userPasses } = useUserPasses();
+  const [status, setStatus] = useState<UserPassStatus>('IN_USE');
+
+  const { data: userPasses } = useUserPasses(status);
 
   if (!userPasses) return <FallBackLoading isLoading />;
 
@@ -15,8 +20,13 @@ const MyPass = () => {
       <div className="coupon-header">
         <div className="coupon-title">보유한 패스</div>
       </div>
+      <div className="coupon-description">
+        <Chip style={{ background: status === 'IN_USE' ? '#F5F5F5' : 'white' }} label="사용중" onClick={() => setStatus('IN_USE')} />
+        <Chip style={{ background: status === 'EXPIRED' ? '#F5F5F5' : 'white' }} label="만료" onClick={() => setStatus('EXPIRED')} />
+        <Chip style={{ background: status === 'CANCELLED' ? '#F5F5F5' : 'white' }} label="해지" onClick={() => setStatus('CANCELLED')} />
+      </div>
       <div className="coupon-list-container">
-        {userPasses.length === 0 && <div className="coupon-empty">보유한 쿠폰이 없습니다.</div>}
+        {userPasses.length === 0 && <div className="coupon-empty">보유한 패스가 없습니다.</div>}
         {userPasses.map((userPass) => (
           <UserPassItem key={userPass.id} userPass={userPass} />
         ))}
@@ -27,8 +37,8 @@ const MyPass = () => {
 
 export default MyPass;
 
-const useUserPasses = () => {
-  return useQuery('userPasses/me', () => listUserPasses(), { select: (data) => data.value });
+const useUserPasses = (status: UserPassStatus) => {
+  return useQuery(['userPasses/me', status], () => listUserPasses({ status }), { select: (data) => data.value });
 };
 
 export const SMyPass = styled.div`
@@ -63,6 +73,12 @@ export const SMyPass = styled.div`
     }
   }
 
+  .coupon-description {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
   .coupon-list-container {
   }
 
@@ -77,7 +93,7 @@ export const SMyPass = styled.div`
     font-size: 1.4rem;
     font-family: '400';
 
-    margin-top: 20px;
+    margin-top: 40px;
 
     color: ${(props) => props.theme.main_color_slate_500};
   }

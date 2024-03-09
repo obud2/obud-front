@@ -43,3 +43,13 @@ export const listUserPasses = async (request: ListUserPassesRequest = {}): Promi
   const response = await axiosInstance.get<ListUserPassesResponse>(`/pass/users/me?${searchParams.toString()}`);
   return response.data;
 };
+
+type GetUserPassRequest = {
+  userPassId: UserPass['id'];
+};
+
+export const getUserPass = async (request: GetUserPassRequest): Promise<UserPass | undefined> => {
+  const response = await listUserPasses();
+
+  return response.value.find((userPass) => userPass.id === request.userPassId);
+};

@@ -1,26 +1,52 @@
 import { UserPass } from '@/entities/pass';
 import styled from 'styled-components';
+import moment from 'moment';
+import { useRouter } from 'next/router';
 
 type Props = {
   userPass: UserPass;
-  error?: string;
 };
 
-const UserPassItem = ({ userPass, error }: Props) => {
+const UserPassItem = ({ userPass }: Props) => {
+  const router = useRouter();
+
+  const handleReservation = () => {
+    router.push(`/class/${userPass.place.id}`);
+  };
+
+  const handleDetail = () => {
+    router.push(`/my/pass/${userPass.id}`);
+  };
+
   return (
     <SUserPass>
-      {!!error && <div style={{ fontWeight: 600, color: 'red', marginBottom: 6, textAlign: 'start' }}>{error}</div>}
       <div className="pass-item-title-wrapper">
         <span className="pass-item-title">{userPass.pass.title}</span>
       </div>
-      {/* <div className="pass-item-title-wrapper">
-        <span className="pass-item-title">{`${discount} 할인쿠폰`}</span>
-        {coupon.maxDiscountAmount && <span className="pass-item-max-discount">(최대 {coupon.maxDiscountAmount.toLocaleString()}원)</span>}
+      <div className="pass-item-description-wrapper">
+        <div className="pass-item">
+          {userPass.place.title} - {userPass.pass.durationInDays}일
+        </div>
+        <div className="pass-item">
+          {moment(userPass.startDate).format('YYYY.MM.DD')} ~ {moment(userPass.endDate).format('YYYY.MM.DD')}
+          {/* D-Day는  구매일(결제일)로부터 카운트한다 */}
+          <span className="d-day">(D-{moment(userPass.endDate).diff(moment(userPass.createdAt), 'days')})</span>
+        </div>
+        <div className="pass-item option">
+          <span>
+            예약 횟수: ({userPass.totalReservations} / {userPass.pass.maxReservations})
+          </span>
+          <span>
+            취소 횟수: ({userPass.totalCancels} / {userPass.pass.maxCancels})
+          </span>
+        </div>
       </div>
-      {!!coupon.minOrderPriceAmount && (
-        <div className="pass-item-min-order-price">최소 주문 금액: {coupon.minOrderPriceAmount.toLocaleString()}원</div>
-      )}
-      {coupon.endDate && <div className="pass-item-date">{moment(coupon.endDate).format('YYYY.MM.DD')} 까지 적용 가능</div>} */}
+      <div className="pass-button-wrapper">
+        <button className="detail" onClick={handleDetail}>
+          상세보기
+        </button>
+        <button onClick={handleReservation}>예약하기</button>
+      </div>
     </SUserPass>
   );
 };
@@ -28,12 +54,9 @@ const UserPassItem = ({ userPass, error }: Props) => {
 export default UserPassItem;
 
 const SUserPass = styled.div`
-  padding: 20px;
+  padding: 12px;
   margin-bottom: 16px;
-
-  border-radius: 8px;
-  border: 1px solid #e0e0e0;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  border-top: 1px solid #f5f5f5;
 
   .pass-item-title-wrapper {
     display: flex;
@@ -46,11 +69,44 @@ const SUserPass = styled.div`
       font-weight: bold;
       color: ${(props) => props.theme.main_color_slate_500};
     }
+  }
 
-    .pass-item-max-discount {
+  .pass-item-description-wrapper {
+    .pass-item {
+      padding: 4px 0;
       font-size: 1.2rem;
       font-weight: 400;
       color: ${(props) => props.theme.main_color_slate_400};
+      .d-day {
+        padding: 0 4px;
+      }
+    }
+    .option {
+      font-size: 1.1rem;
+      span {
+        margin-right: 8px;
+      }
+    }
+  }
+
+  .pass-button-wrapper {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    button {
+      padding: 8px 16px;
+      border-radius: 8px;
+      background-color: ${(props) => props.theme.main_color_slate_500};
+      color: white;
+      font-size: 1.2rem;
+      font-weight: 400;
+      cursor: pointer;
+
+      &.detail {
+        background-color: white;
+        color: ${(props) => props.theme.main_color_slate_500};
+        border: 1px solid ${(props) => props.theme.main_color_slate_500};
+      }
     }
   }
 
