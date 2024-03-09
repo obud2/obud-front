@@ -1,6 +1,8 @@
 import MetaHeader from '@components/common/meta/MetaHeader';
 import Layout from '@components/layout/Layout';
-import MobileMy from '@components/my/MobileMy';
+import dynamic from 'next/dynamic';
+
+const MobileMy = dynamic(() => import('@components/my/MobileMy'), { ssr: false });
 
 const Index = () => {
   return (

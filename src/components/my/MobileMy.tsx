@@ -1,16 +1,26 @@
+import { UserPass, UserPassStatus } from '@/entities/pass';
+import { FeatureFlagService } from '@/service/FeatureFlagService';
+import { PassService } from '@/service/PassService';
 import MobileAuth from '@components/layout/auth/MobileAuth';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 import { SlArrowRight } from 'react-icons/sl';
+import { useQuery } from 'react-query';
 import { ADMIN, INSTRUCTOR, STUDIO } from 'src/constants';
 import { UserContext } from 'src/context/UserContext';
 import styled from 'styled-components';
 import { TABS, TabType } from './My';
-import { FeatureFlagService } from '@/service/FeatureFlagService';
+
+import 'swiper/css';
+import 'swiper/css/pagination';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
+import moment from 'moment';
 
 const MobileMy = () => {
   const router = useRouter();
   const { user } = useContext(UserContext);
+  const { data: userPasses } = useUserPasses('IN_USE');
 
   const [tabs, setTabs] = useState<TabType[]>(TABS);
 
@@ -19,6 +29,10 @@ const MobileMy = () => {
       setTabs([{ id: 'pass', title: '패스 관리' }, ...TABS]);
     }
   }, []);
+
+  const handleClickPass = (userPass: UserPass) => {
+    router.push(`/class/${userPass.place.id}?tab=reservation`);
+  };
 
   const onClickMyPageItem = (id: string) => {
     if (id === 'admin') {
@@ -43,6 +57,39 @@ const MobileMy = () => {
         <MobileAuth />
       </header>
 
+      {FeatureFlagService.isPassFeatureEnabled() && (
+        <main className="mobile-my-main">
+          {userPasses && userPasses?.length === 0 && <div></div>}
+          {userPasses && userPasses.length > 0 && (
+            <Swiper
+              style={
+                {
+                  '--swiper-pagination-color': '#4E5C4F',
+                  '--swiper-pagination-bullet-inactive-color': '#999999',
+                  '--swiper-pagination-bullet-inactive-opacity': '1',
+                  '--swiper-pagination-bullet-size': '6px',
+                  '--swiper-pagination-bullet-horizontal-gap': '4px',
+                } as any
+              }
+              pagination
+              modules={[Pagination]}
+            >
+              {userPasses.map((userPass) => (
+                <SwiperSlide key={userPass.id}>
+                  <Card onClick={() => handleClickPass(userPass)}>
+                    <div className="title">{userPass.pass.title}</div>
+                    <div className="description">{userPass.pass.durationInDays}일권</div>
+                    <div className="description">
+                      만료일: {moment(userPass.endDate).format('YYYY-MM-DD')} (D-{moment(userPass.endDate).diff(moment(), 'days')})
+                    </div>
+                  </Card>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          )}
+        </main>
+      )}
+
       <main className="mobile-my-main">
         {tabs?.map((item) => (
           <div key={item?.id} className="mobile-my-menu-tab-list" onClick={() => onClickMyPageItem(item?.id)}>
@@ -62,6 +109,36 @@ const MobileMy = () => {
 };
 
 export default MobileMy;
+
+const useUserPasses = (status: UserPassStatus) => {
+  return useQuery(['userPasses/me', status], () => PassService.listUserPasses({ status }), { select: (data) => data.value });
+};
+
+const Card = styled.div`
+  background: ${(props) => props.theme.main_color_slate_500};
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  color: #fff;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  width: 300px;
+  padding: 20px 32px;
+  height: 120px;
+  margin: 0 5px;
+
+  .title {
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+
+  .description {
+    font-size: 1.2rem;
+    margin-top: 8px;
+  }
+`;
 
 const SMobileMy = styled.div`
   width: 100%;
@@ -83,6 +160,22 @@ const SMobileMy = styled.div`
       font-size: 1.3rem;
       margin-bottom: 10px;
     }
+  }
+
+  .swiper {
+    width: 100%;
+    height: 100%;
+  }
+
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .mobile-my-main {
