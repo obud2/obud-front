@@ -6,19 +6,19 @@ import { getUserId } from 'src/constants';
 
 import { useQuery } from 'react-query';
 
-import { SMyOrder } from './MyOrder.styled';
-
 import MyOrderList from './MyOrderList';
 import CountCheck from '@components/common/countCheck/CountCheck';
 import FallBackLoading from '@components/loading/FallBackLoading';
 import { myReservations } from '@/service/UserService';
+import styled from 'styled-components';
+import { MOBILE } from '@/styled/variablesStyles';
 
 const MyOrder = () => {
   const userId = getUserId();
 
   const fetchData = async () => {
     const res = await myReservations();
-    const dateSet = new Set();
+    const dateSet = new Set<string>();
     const dateToItems = {};
 
     res.value?.forEach((a) => {
@@ -27,7 +27,7 @@ const MyOrder = () => {
       dateSet.add(date);
     });
 
-    Array.from(dateSet)?.forEach((a) => {
+    Array.from(dateSet)?.forEach((a: string) => {
       dateToItems[a] = [];
     });
 
@@ -80,3 +80,36 @@ const MyOrder = () => {
 };
 
 export default MyOrder;
+
+const SMyOrder = styled.div`
+  width: 100%;
+  margin-bottom: 104px;
+
+  ${MOBILE} {
+    margin-bottom: 0;
+  }
+
+  .order-list-header {
+    width: 100%;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 10px;
+
+    .order-list-title {
+      font-size: 1.6rem;
+      font-family: 400;
+
+      color: ${(props) => props.theme.main_color_slate_500};
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      gap: 5px;
+    }
+  }
+`;
