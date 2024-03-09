@@ -2,7 +2,7 @@ import Chip from '@/components/common/chip/Chip';
 import UserPassItem from '@/components/common/pass/UserPass';
 import FallBackLoading from '@/components/loading/FallBackLoading';
 import { UserPassStatus } from '@/entities/pass';
-import { listUserPasses } from '@/service/PassService';
+import { PassService } from '@/service/PassService';
 import { MOBILE } from '@/styled/variablesStyles';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
@@ -38,7 +38,7 @@ const MyPass = () => {
 export default MyPass;
 
 const useUserPasses = (status: UserPassStatus) => {
-  return useQuery(['userPasses/me', status], () => listUserPasses({ status }), { select: (data) => data.value });
+  return useQuery(['userPasses/me', status], () => PassService.listUserPasses({ status }), { select: (data) => data.value });
 };
 
 export const SMyPass = styled.div`

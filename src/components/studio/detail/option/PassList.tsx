@@ -1,5 +1,5 @@
 import { Place } from '@/entities/place';
-import { listPasses } from '@/service/PassService';
+import { PassService } from '@/service/PassService';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useQuery } from 'react-query';
@@ -31,7 +31,7 @@ const PassList = ({ placeId }: Props) => {
 };
 
 const usePasses = (placeId: Place['id']) => {
-  return useQuery(['passes', placeId], () => listPasses({ placeId }), { select: (data) => data?.value });
+  return useQuery(['passes', placeId], () => PassService.listPasses({ placeId }), { select: (data) => data?.value });
 };
 
 const SPassList = styled.div`

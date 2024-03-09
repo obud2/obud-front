@@ -1,6 +1,5 @@
-import { getPassDetail } from '@/service/PassService';
+import { PassService } from '@/service/PassService';
 import { useRouter } from 'next/router';
-import React from 'react';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 
@@ -60,7 +59,7 @@ const PassDetail = () => {
 };
 
 const usePass = (passId: number) => {
-  return useQuery(['pass', passId], () => getPassDetail({ passId }));
+  return useQuery(['pass', passId], () => PassService.getPassDetail({ passId }));
 };
 
 export default PassDetail;

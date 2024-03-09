@@ -1,5 +1,5 @@
 import { UserPass } from '@/entities/pass';
-import { getUserPass } from '@/service/PassService';
+import { PassService } from '@/service/PassService';
 import moment from 'moment';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
@@ -62,7 +62,7 @@ const MyPassDetail = () => {
 export default MyPassDetail;
 
 const useUserPass = (userPassId: UserPass['id']) => {
-  return useQuery([`userPasses/${userPassId}`], () => getUserPass({ userPassId }));
+  return useQuery([`userPasses/${userPassId}`], () => PassService.getUserPass({ userPassId }));
 };
 
 export const SMyPassDetail = styled.div`
