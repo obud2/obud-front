@@ -20,7 +20,7 @@ const BookingCouponModal = ({ open, onClose, setCoupon, scheduleId, price }: Pro
   if (!coupons || !scheduleId) return null;
 
   return (
-    <Modal open={open} close={onClose} ref={{} as any}>
+    <Modal open={open} close={onClose}>
       <Wrapper>
         <header className="coupon-header">
           <div className="coupon-title">보유한 쿠폰</div>

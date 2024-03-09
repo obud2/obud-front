@@ -27,7 +27,7 @@ const PolicyModal = ({ isOpen, isClose, type }) => {
   }, [type]);
 
   return (
-    <Modal open={isOpen} close={isClose} ref={{}}>
+    <Modal open={isOpen} close={isClose}>
       <SPolicyModal>
         <header className="policy-header">
           <h3>{title}</h3>

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { SBaseTab } from './BaseTab.styled';
 
 const BaseTab = ({ tabs, value, onChange }: any) => {

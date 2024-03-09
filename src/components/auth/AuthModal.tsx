@@ -81,7 +81,7 @@ const AuthModal = () => {
   };
 
   return (
-    <Modal open={auth?.isOpen} close={onClickCloseAuth} ref={{}}>
+    <Modal open={auth?.isOpen} close={onClickCloseAuth}>
       <SAuthModal>
         <header className="auth-header">
           <h3>{titleByRender(auth?.type)}</h3>

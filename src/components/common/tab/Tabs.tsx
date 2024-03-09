@@ -39,23 +39,29 @@ export const Tabs = ({ children, defaultTab }: TabsProps) => {
     <STabs>
       <div className="tabs-container">
         <div className="tabs-header">
-          {React.Children.map(children, (child: any, idx) => (
-            <div
-              key={idx}
-              ref={child.props.tab === activeKey ? initialTabRef : null}
-              className={`tab-wrapper ${activeKey === child.props.tab ? 'active' : ''}`}
-              onClick={() => handleTabClick(child.props.tab)}
-            >
-              {child.props.tabName}
-            </div>
-          ))}
+          {React.Children.map(children, (child: any, idx) => {
+            if (!child) return null;
+            return (
+              <div
+                key={idx}
+                ref={child.props.tab === activeKey ? initialTabRef : null}
+                className={`tab-wrapper ${activeKey === child.props.tab ? 'active' : ''}`}
+                onClick={() => handleTabClick(child.props.tab)}
+              >
+                {child.props.tabName}
+              </div>
+            );
+          })}
         </div>
         <div className="tabs-content">
-          {React.Children.map(children, (child: any, idx: number) => (
-            <div key={idx} className={activeKey === child.props.tab ? 'visible-tab' : 'hidden-tab'}>
-              {child}
-            </div>
-          ))}
+          {React.Children.map(children, (child: any, idx: number) => {
+            if (!child) return null;
+            return (
+              <div key={idx} className={activeKey === child.props.tab ? 'visible-tab' : 'hidden-tab'}>
+                {child}
+              </div>
+            );
+          })}
         </div>
       </div>
     </STabs>
