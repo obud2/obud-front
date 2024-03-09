@@ -33,7 +33,7 @@ const WithdrawModal = ({ isOpen, isClose }) => {
   };
 
   return (
-    <Modal open={isOpen} close={isClose} disableEnforceFocus ref={{}}>
+    <Modal open={isOpen} close={isClose} disableEnforceFocus>
       <SWithdrawModal>
         <header className="withdraw-header">
           <h3>회원탈퇴</h3>

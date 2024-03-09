@@ -1,16 +1,24 @@
 import MobileAuth from '@components/layout/auth/MobileAuth';
 import { useRouter } from 'next/router';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { SlArrowRight } from 'react-icons/sl';
 import { ADMIN, INSTRUCTOR, STUDIO } from 'src/constants';
 import { UserContext } from 'src/context/UserContext';
 import styled from 'styled-components';
-import { TAB } from './My';
+import { TABS, TabType } from './My';
+import { FeatureFlagService } from '@/service/FeatureFlagService';
 
 const MobileMy = () => {
   const router = useRouter();
-
   const { user } = useContext(UserContext);
+
+  const [tabs, setTabs] = useState<TabType[]>(TABS);
+
+  useEffect(() => {
+    if (FeatureFlagService.isPassFeatureEnabled()) {
+      setTabs([{ id: 'pass', title: '패스 관리' }, ...TABS]);
+    }
+  }, []);
 
   const onClickMyPageItem = (id: string) => {
     if (id === 'admin') {
@@ -21,21 +29,11 @@ const MobileMy = () => {
   };
 
   const adminPageShow = () => {
-    let result = false;
-
-    if (user?.userGroup === ADMIN) {
-      result = true;
+    if (user?.userGroup === ADMIN || user?.userGroup === STUDIO || user?.userGroup === INSTRUCTOR) {
+      return true;
     }
 
-    if (user?.userGroup === STUDIO) {
-      result = true;
-    }
-
-    if (user?.userGroup === INSTRUCTOR) {
-      result = true;
-    }
-
-    return result;
+    return false;
   };
 
   return (
@@ -46,7 +44,7 @@ const MobileMy = () => {
       </header>
 
       <main className="mobile-my-main">
-        {TAB?.map((item) => (
+        {tabs?.map((item) => (
           <div key={item?.id} className="mobile-my-menu-tab-list" onClick={() => onClickMyPageItem(item?.id)}>
             <p>{item?.title}</p>
             <SlArrowRight />
@@ -55,7 +53,6 @@ const MobileMy = () => {
         {adminPageShow() && (
           <div className="mobile-my-menu-tab-list" onClick={() => onClickMyPageItem('admin')}>
             <p>호스트 페이지</p>
-
             <SlArrowRight />
           </div>
         )}

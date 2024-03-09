@@ -3,8 +3,6 @@ export interface ModalProps {
   readonly close?: any;
   readonly children?: any;
   readonly disableEnforceFocus?: boolean;
-
-  readonly ref: any;
 }
 
 export interface SModalProps {

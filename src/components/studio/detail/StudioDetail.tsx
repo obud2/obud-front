@@ -15,6 +15,9 @@ import { getLessons } from '@/service/StudioService';
 import CustomImage from '@/components/common/image/CustomImage';
 import { useRouter } from 'next/router';
 import PassList from './option/PassList';
+import { FeatureFlagService } from '@/service/FeatureFlagService';
+import { Place } from '@/entities/place';
+import { PassService } from '@/service/PassService';
 
 type Props = {
   studio: Studio;
@@ -28,6 +31,7 @@ const StudioDetail = ({ studio }: Props) => {
   const queryClient = useQueryClient();
 
   const { data: lessons } = useClassList(studio?.id);
+  const { data: passes } = usePasses(studio?.id);
 
   const onClickWish = async (checked: boolean) => {
     if (checked) {
@@ -41,6 +45,8 @@ const StudioDetail = ({ studio }: Props) => {
 
   const validLessons = lessons?.filter((lesson) => !lesson.isSoldOut) ?? [];
   const slicedLessons = validLessons.slice(0, 2);
+
+  console.log('pass', passes);
 
   return (
     <SStudioDetail>
@@ -170,9 +176,11 @@ const StudioDetail = ({ studio }: Props) => {
         <TabPane tab="reservation" tabName="예약">
           <ClassList studioId={studio?.id || ''} />
         </TabPane>
-        <TabPane tab="pass" tabName="패스">
-          <PassList placeId={studio?.id || ''} />
-        </TabPane>
+        {FeatureFlagService.isPassFeatureEnabled() && passes && passes.length > 0 && (
+          <TabPane tab="pass" tabName="패스">
+            <PassList placeId={studio?.id || ''} />
+          </TabPane>
+        )}
       </Tabs>
     </SStudioDetail>
   );
@@ -182,6 +190,10 @@ export default StudioDetail;
 
 const useClassList = (studioId: Studio['id']) => {
   return useQuery(['class-list', studioId], () => getLessons(studioId), { select: (data) => data.value });
+};
+
+const usePasses = (placeId: Place['id']) => {
+  return useQuery(['passes', placeId], () => PassService.listPasses({ placeId }), { select: (data) => data?.value });
 };
 
 const PRODUCT_MAX_WIDTH = `${688 + 30}px`;
