@@ -46,8 +46,6 @@ const StudioDetail = ({ studio }: Props) => {
   const validLessons = lessons?.filter((lesson) => !lesson.isSoldOut) ?? [];
   const slicedLessons = validLessons.slice(0, 2);
 
-  console.log('pass', passes);
-
   return (
     <SStudioDetail>
       <section className="obud-studio-detail-option-container">
