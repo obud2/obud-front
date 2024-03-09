@@ -31,7 +31,13 @@ const PassDetail = () => {
       <div className="info">
         <div className="info-title">적용 프로그램</div>
         {passDetail.programs.map((program) => (
-          <div key={program.id} className="info-item">
+          <div
+            key={program.id}
+            className="info-item info-clickable"
+            onClick={() => {
+              router.push(`/lesson/${program.id}`);
+            }}
+          >
             <div>{program.title}</div>
             <div className="pass-arrow-icon" />
           </div>
@@ -128,6 +134,10 @@ const SPassDetail = styled.div`
         top: -1px;
         position: relative;
       }
+    }
+    .info-clickable {
+      display: flex;
+      align-items: center;
     }
   }
 
