@@ -54,7 +54,7 @@ const getUserPass = async (request: GetUserPassRequest): Promise<UserPass | unde
   return response.value.find((userPass) => userPass.id === request.userPassId);
 };
 
-type PurchasePassRequest = {
+export type PurchasePassRequest = {
   passId: Pass['id'];
 };
 
@@ -63,8 +63,8 @@ type PurchasePassResponse = {
 };
 
 const purchasePass = async (request: PurchasePassRequest): Promise<PurchasePassResponse> => {
-  const response = await axiosInstance.post<PurchasePassResponse>(`/payments/pass/${request.passId}`);
-  return response.data;
+  const response = await axiosInstance.post<{ value: PurchasePassResponse }>(`/payments/pass/${request.passId}`);
+  return response.data.value;
 };
 
 type PurchasePassCompleteRequest = {
@@ -83,6 +83,15 @@ const purchasePassComplete = async (request: PurchasePassCompleteRequest): Promi
   return response.data;
 };
 
+type PurchasePassFailRequest = {
+  passId: Pass['id'];
+  merchantUid: string;
+};
+
+const purchasePassFail = async (request: PurchasePassFailRequest): Promise<void> => {
+  await axiosInstance.post(`/payments/pass/${request.passId}/fail`, request);
+};
+
 export const PassService = {
   listPasses,
   getPassDetail,
@@ -90,4 +99,5 @@ export const PassService = {
   getUserPass,
   purchasePass,
   purchasePassComplete,
+  purchasePassFail,
 };

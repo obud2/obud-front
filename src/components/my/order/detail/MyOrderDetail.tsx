@@ -1,27 +1,18 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import React, { useState } from 'react';
-
 import moment from 'moment';
-
 import { addComma } from 'src/constants';
 import { useRouter } from 'next/router';
-
 import { useQuery, useQueryClient } from 'react-query';
 import { myOrderItem } from 'src/service/UserService';
 import { reservationCancel } from 'src/service/OrderService';
-
 import { PAYMENT_METHOD } from '@components/booking/Booking.option';
-
 import BookingBase from '@components/booking/base/BookingBase';
 import FallBackLoading from '@components/loading/FallBackLoading';
-
-import { SMyOrderDetail } from './MyOrderDetail.styled';
-
 import CustomButton from '@components/common/button/CustomButton';
-
 import alert from 'src/helpers/alert';
 import CancelModal from './CancelModal';
+import styled from 'styled-components';
+import { MAX_WIDTH, TABLET, TABLET_MAX_WIDTH, MOBILE } from '@/styled/variablesStyles';
 
 const MyOrderDetail = () => {
   const queryClient = useQueryClient();
@@ -34,7 +25,7 @@ const MyOrderDetail = () => {
 
   const fetchData = async () => {
     const res = await myOrderItem(id);
-    const obj = res?.value || [];
+    const obj = (res as any)?.value || [];
 
     const nowDate = moment().valueOf();
     const date = moment(obj.startDate).format('YYYY-MM-DD');
@@ -76,13 +67,13 @@ const MyOrderDetail = () => {
   };
 
   const onClickPayCancel = () => {
-    alert('', '예약을 취소하시겠습니까? <br /> 취소 및 환불 규정을 확인해 주세요.', '취소', '확인', (_) => {
-      if (_) {
+    alert('', '예약을 취소하시겠습니까? <br /> 취소 및 환불 규정을 확인해 주세요.', '취소', '확인', () => {
+      if (data) {
         setUseLoading(true);
         setIsCancelModalOpen(false);
 
         reservationCancel(data[0]?.id)
-          .then((res) => {
+          .then((res: any) => {
             if (res?.status === 200) {
               alert('', '예약 취소되었습니다. <br /> 환불은 마이페이지 > 예약현황에서 <br /> 확인해 주세요.', '', '', () => {
                 router.push('/my/order');
@@ -106,9 +97,8 @@ const MyOrderDetail = () => {
   const isAllLoading = useLoading || isLoading;
 
   return (
-    <React.Fragment>
+    <>
       <BookingBase
-        title="예약확인"
         subTitle="예약 수업 정보"
         subDate={`주문일자 : ${moment(data?.[0]?.createdAt).format('YYYY-MM-DD')}`}
         list={data || []}
@@ -183,8 +173,100 @@ const MyOrderDetail = () => {
       />
 
       <FallBackLoading isLoading={isAllLoading} />
-    </React.Fragment>
+    </>
   );
 };
 
 export default MyOrderDetail;
+
+const SMyOrderDetail = styled.div`
+  width: 100%;
+  max-width: ${MAX_WIDTH};
+  padding: 0 15px;
+  padding-bottom: 32px;
+
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: center;
+
+  gap: 32px;
+
+  ${TABLET} {
+    max-width: ${TABLET_MAX_WIDTH};
+  }
+
+  ${MOBILE} {
+    max-width: 100%;
+    flex-direction: column;
+    gap: 45px;
+  }
+
+  .booking-info-container {
+    width: 100%;
+    height: 100%;
+    font-size: 1.4rem;
+
+    border-bottom: 1px solid ${(props) => props.theme.core_color_slate_50};
+
+    &:last-child {
+      border: none;
+    }
+
+    ${MOBILE} {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      border-bottom: none;
+    }
+
+    .booking-header {
+      width: 100%;
+
+      padding-bottom: 8px;
+      border-bottom: 1px solid ${(props) => props.theme.core_color_slate_50};
+
+      font-size: 1.8rem;
+      font-weight: 600;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      ${MOBILE} {
+        font-size: 1.6rem;
+      }
+    }
+
+    .booking-content {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding: 20px;
+      gap: 10px;
+
+      color: #565656;
+
+      .booking-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &.cancel {
+          color: #f25656;
+        }
+      }
+    }
+
+    .booking-pay-footer {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+
+      ${MOBILE} {
+        margin-top: 20px;
+      }
+    }
+  }
+`;

@@ -2,6 +2,7 @@ import { PassService } from '@/service/PassService';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
+import alert from '@/helpers/alert';
 
 const PassDetail = () => {
   const router = useRouter();
@@ -9,6 +10,18 @@ const PassDetail = () => {
   const id = Number(passId as string);
 
   const { data: passDetail } = usePass(id);
+  const { data: userPasses } = useUserPasses();
+
+  const handlePurchase = () => {
+    if (!passDetail || !userPasses) return;
+
+    if (userPasses.find((userPass) => userPass.pass.id === passDetail.id)) {
+      alert('', '이미 해당 프로그램의 패스를 보유하고 있습니다.\n마이페이지 > 나의 패스를 확인해 주세요.');
+      return;
+    }
+
+    router.push(`/purchase/pass/${passDetail.id}`);
+  };
 
   if (!passDetail) return null;
 
@@ -59,7 +72,7 @@ const PassDetail = () => {
       </div>
 
       <div className="button-wrapper">
-        <button>구매하기</button>
+        <button onClick={handlePurchase}>구매하기</button>
       </div>
     </SPassDetail>
   );
@@ -67,6 +80,10 @@ const PassDetail = () => {
 
 const usePass = (passId: number) => {
   return useQuery(['pass', passId], () => PassService.getPassDetail({ passId }));
+};
+
+const useUserPasses = () => {
+  return useQuery('userPasses', () => PassService.listUserPasses({ status: 'IN_USE' }), { select: (data) => data?.value });
 };
 
 export default PassDetail;
