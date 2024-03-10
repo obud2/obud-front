@@ -134,8 +134,11 @@ const LessonCalendar = ({ lesson }: Props) => {
         // Items
         lessonTitle: lesson?.title || '',
         lessonImages: lesson?.images || [],
+        lessonId: lesson?.id || '',
+        studiosId: lesson?.studios?.id || '',
         studiosTitle: lesson?.studios?.title || '',
         instructorName: selectTime.instructorInfo?.name || '',
+
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         format: selectTime.format!,
         maxMember: selectTime.maxMember,

@@ -16,6 +16,7 @@ export type Order = {
       }
     | Record<never, never>;
   payOptionCount: number;
+  lessonId: string;
   lessonTitle: string;
   lessonImages: {
     key: string;
@@ -25,6 +26,7 @@ export type Order = {
     upload: boolean;
     url: string;
   }[];
+  studiosId: string;
   studiosTitle: string;
   instructorName: string;
   format: {

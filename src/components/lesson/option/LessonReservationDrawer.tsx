@@ -161,8 +161,10 @@ const LessonReservationDrawer = ({ lesson, isOpen, isClose }: { lesson: any; isO
         payOptionCount: body.selectOptionCount,
 
         // Items
+        lessonId: lesson?.id || '',
         lessonTitle: lesson?.title || '',
         lessonImages: lesson?.images || [],
+        studiosId: lesson?.studios?.id || '',
         studiosTitle: lesson?.studios?.title || '',
         instructorName: body.selectTime?.instructorInfo?.name || '',
         format: body.selectTime!.format!,

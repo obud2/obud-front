@@ -19,12 +19,10 @@ const ProductPolicy = ({ info, policy }: Props) => {
 
 const PolicyContainer = ({ title, content }: { title: string; content: string }) => {
   return (
-    content && (
-      <div className="product-policy-container">
-        <p className="product-policy-title">{title}</p>
-        <div className="product-policy-contents">{content || '-'}</div>
-      </div>
-    )
+    <div className="product-policy-container">
+      <p className="product-policy-title">{title}</p>
+      <div className="product-policy-contents">{content || '-'}</div>
+    </div>
   );
 };
 

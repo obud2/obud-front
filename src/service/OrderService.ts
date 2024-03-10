@@ -1,6 +1,7 @@
 import axiosInstance from '@/constants/AxiosInstance';
 import { AxiosResponse } from 'axios';
 import { CreateOrderParam } from '@components/booking/hook/useBookingSetting';
+import { Order } from '@/context/OrderContext';
 
 /**
  *
@@ -8,19 +9,15 @@ import { CreateOrderParam } from '@components/booking/hook/useBookingSetting';
  * @returns
  */
 export const createOrder = async (params: CreateOrderParam[]): Promise<{ merchantUid: string }> => {
-    return await axiosInstance
-      .post<{ value: { merchantUid: string }}>('order', { orders: params })
-      .then((res) => {
-          return res.data.value;
-      });
+  return await axiosInstance.post<{ value: { merchantUid: string } }>('order', { orders: params }).then((res) => {
+    return res.data.value;
+  });
 };
 
 export const orderComplete = async (param: any) =>
-  axiosInstance
-    .post<{ value: { orderStatus?: 'COMPLETE' | 'FAIL'; error?: string; } }>('order/complete', param)
-    .then((res) => {
-      return res.data.value;
-    });
+  axiosInstance.post<{ value: { orderStatus?: 'COMPLETE' | 'FAIL'; error?: string } }>('order/complete', param).then((res) => {
+    return res.data.value;
+  });
 
 export const orderFail = (param: any): Promise<void> => {
   return new Promise((resolve, reject) => {
@@ -37,9 +34,7 @@ export const orderFail = (param: any): Promise<void> => {
   });
 };
 
-export const payCancel = async (param: any): Promise<AxiosResponse<void>> =>
-  axiosInstance
-    .post<void>('order/payCancel', param);
+export const payCancel = async (param: any): Promise<AxiosResponse<void>> => axiosInstance.post<void>('order/payCancel', param);
 
 export const reservationCancel = (id) => {
   return new Promise((resolve, reject) => {
@@ -61,4 +56,28 @@ export const cancelCheck = (id) => {
       })
       .catch(reject);
   });
+};
+
+type GetTotalPriceFromOrdersRequest = {
+  orders: Order[];
+};
+
+const getTotalPriceFromOrders = (request: GetTotalPriceFromOrdersRequest): number => {
+  const { orders = [] } = request;
+
+  return orders.reduce((acc, it) => {
+    const price = Number(it.price ?? 0);
+    const reservationCount = Number(it.reservationCount ?? 0);
+    const payOptionPrice = Number((it.payOption as any).price ?? 0);
+    const payOptionCount = Number(it.payOptionCount ?? 0);
+
+    const basePrice = price * reservationCount;
+    const optionPrice = payOptionPrice ? payOptionPrice * payOptionCount : 0;
+
+    return acc + basePrice + optionPrice;
+  }, 0);
+};
+
+export const OrderService = {
+  getTotalPriceFromOrders,
 };

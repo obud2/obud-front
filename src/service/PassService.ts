@@ -92,6 +92,22 @@ const purchasePassFail = async (request: PurchasePassFailRequest): Promise<void>
   await axiosInstance.post(`/payments/pass/${request.passId}/fail`, request);
 };
 
+type GetUsableUserPassRequest = {
+  userPasses?: UserPass[];
+  programId: string;
+};
+
+/**
+ * 사용 가능한 패스 조회
+ * UserPass안의 Program에 해당 프로그램이 있는지 확인
+ * 여러개일 경우, 첫번째 패스를 반환
+ */
+const getUsableUserPass = (req: GetUsableUserPassRequest): UserPass | undefined => {
+  const { userPasses = [], programId } = req;
+
+  return userPasses.find((userPass) => userPass.programs.some((program) => program.id === programId));
+};
+
 export const PassService = {
   listPasses,
   getPassDetail,
@@ -100,4 +116,5 @@ export const PassService = {
   purchasePass,
   purchasePassComplete,
   purchasePassFail,
+  getUsableUserPass,
 };

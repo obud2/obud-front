@@ -94,9 +94,24 @@ const getCouponTypeMessage = (request: GetCouponTypeMessageRequest): string => {
   return '';
 };
 
+type ListActiveCouponsRequest = {
+  coupons?: Coupon[];
+  price: number;
+};
+
+/**
+ * 적용 가능한 쿠폰 리스트
+ */
+const listActiveCoupons = (request: ListActiveCouponsRequest): Coupon[] => {
+  const { coupons = [], price } = request;
+
+  return coupons.filter((it) => !!it.canBeApplied).filter((it) => price >= it.minOrderPriceAmount);
+};
+
 export const CouponService = {
   listCoupons,
   createCoupon,
   getCouponDiscountPrice,
   getCouponTypeMessage,
+  listActiveCoupons,
 };
