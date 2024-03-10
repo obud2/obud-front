@@ -26,7 +26,6 @@ const BookingBase = ({ subTitle, subDate, list }) => {
             <BookingItem
               key={`booking-item-key-${item?.id}`}
               lessonId={item?.lessonId}
-              images={item?.lessonImages?.[0]?.url || item?.images?.[0]?.url}
               title={item?.lessonTitle || ''}
               studiosTitle={item?.studiosTitle || ''}
               date={item?.format?.date || ''}

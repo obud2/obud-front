@@ -1,85 +1,57 @@
-import React from 'react';
-
-import _ from 'lodash';
-import moment from 'moment';
-import { getUserId } from 'src/constants';
+import { useState } from 'react';
 
 import { useQuery } from 'react-query';
 
-import MyOrderList from './MyOrderList';
+import { ReservationStatus } from '@/entities/reservation';
+import { ReserveService } from '@/service/ReserveService';
+import { MOBILE } from '@/styled/variablesStyles';
 import CountCheck from '@components/common/countCheck/CountCheck';
 import FallBackLoading from '@components/loading/FallBackLoading';
-import { myReservations } from '@/service/UserService';
 import styled from 'styled-components';
-import { MOBILE } from '@/styled/variablesStyles';
+import MyOrderList from './MyOrderList';
 
 const MyOrder = () => {
-  const userId = getUserId();
+  const [selectedTab, setSelectedTab] = useState<ReservationStatus>('UPCOMING');
 
-  const fetchData = async () => {
-    const res = await myReservations();
-    const dateSet = new Set<string>();
-    const dateToItems = {};
-
-    res.value?.forEach((a) => {
-      const date = moment(a?.createdAt).format('YYYYMMDD');
-
-      dateSet.add(date);
-    });
-
-    Array.from(dateSet)?.forEach((a: string) => {
-      dateToItems[a] = [];
-    });
-
-    res.value?.forEach((a) => {
-      const date = moment(a?.createdAt).format('YYYYMMDD');
-
-      if (dateToItems[date]) dateToItems[date]?.push(a);
-    });
-
-    const sortedKeys = _.cloneDeep(
-      Object.keys(dateToItems).sort((a, b) => {
-        const aSort = Number(a);
-        const bSort = Number(b);
-
-        return aSort > bSort ? -1 : 1;
-      }),
-    );
-
-    const sortedObj = {};
-    sortedKeys.forEach((key) => {
-      const keyFormat = moment(key).format('YYYY-MM-DD');
-
-      sortedObj[keyFormat] = dateToItems[key];
-    });
-
-    return {
-      total: res?.value?.length ?? 0,
-      list: sortedObj,
-    };
-  };
-
-  const { data, isLoading } = useQuery(['my-order-list', userId], fetchData, { enabled: !!userId });
+  const { data: reservations = [], isLoading } = useReservations(selectedTab);
 
   return (
-    <React.Fragment>
+    <>
       <SMyOrder>
         <div className="order-list-header">
           <div className="order-list-title">
             예약내역
-            <CountCheck count={data?.total ?? 0} />
+            <CountCheck count={reservations?.length ?? 0} />
           </div>
         </div>
 
-        <MyOrderList list={data?.list || {}} />
+        <div className="chip-wrapper">
+          <div className={selectedTab === 'UPCOMING' ? 'chip active' : 'chip'} onClick={() => setSelectedTab('UPCOMING')}>
+            이용 예정
+          </div>
+          <div className={selectedTab === 'COMPLETED' ? 'chip active' : 'chip'} onClick={() => setSelectedTab('COMPLETED')}>
+            지난 예약
+          </div>
+          <div className={selectedTab === 'CANCELLED' ? 'chip active' : 'chip'} onClick={() => setSelectedTab('CANCELLED')}>
+            취소된 예약
+          </div>
+        </div>
+
+        <MyOrderList reservations={reservations} />
       </SMyOrder>
 
       <FallBackLoading isLoading={isLoading} />
-    </React.Fragment>
+    </>
   );
 };
 
 export default MyOrder;
+
+const useReservations = (type: ReservationStatus) => {
+  return useQuery(['reservations/me', type], () => ReserveService.listReservations({ type }), {
+    select: (data) => data.value,
+  });
+};
 
 const SMyOrder = styled.div`
   width: 100%;
@@ -87,6 +59,29 @@ const SMyOrder = styled.div`
 
   ${MOBILE} {
     margin-bottom: 0;
+  }
+
+  .chip-wrapper {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+
+    .chip {
+      padding: 4px 8px;
+      border-radius: 20px;
+      border: 1px solid #e5e5e5;
+      font-size: 1.2rem;
+      font-family: 400;
+      cursor: pointer;
+
+      &:hover {
+        background: #f5f5f5;
+      }
+    }
+
+    .chip.active {
+      background: #f5f5f5;
+    }
   }
 
   .order-list-header {

@@ -47,6 +47,25 @@ export const SBooking = styled.div`
     }
   }
 
+  .booking-user-pass {
+    .booking-user-pass-item {
+      width: 100%;
+      padding: 24px 0;
+      border-bottom: 1px solid ${(props) => props.theme.core_color_slate_50};
+      font-size: 1.2rem;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 24px;
+
+      ${MOBILE} {
+        gap: 16px;
+      }
+    }
+  }
+
   .booking-user-info-container {
     flex: 1;
     height: 100%;

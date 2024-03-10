@@ -1,11 +1,10 @@
 import { textSilce } from '@/constants';
 import { LayoutContext } from '@/context/LayoutContext';
 import { MOBILE } from '@/styled/variablesStyles';
-import CustomImage from '@components/common/image/CustomImage';
 import { useContext } from 'react';
 import styled, { css } from 'styled-components';
 
-const BookingItem = ({ lessonId, title, studiosTitle, images, date, time, disabled }) => {
+const BookingItem = ({ lessonId, title, studiosTitle, date, time, disabled }) => {
   const { matchese } = useContext(LayoutContext);
 
   const onClickGoPlan = () => {
@@ -22,25 +21,20 @@ const BookingItem = ({ lessonId, title, studiosTitle, images, date, time, disabl
         <WebRender
           title={title || ''}
           studiosTitle={studiosTitle || ''}
-          images={images || ''}
           date={date || ''}
           time={time || ''}
           onClickGoPlan={onClickGoPlan}
-          disabled={disabled}
         />
       )}
     </SBookingItem>
   );
 };
 
-const WebRender = ({ title, studiosTitle, images, date, time, onClickGoPlan, disabled }) => {
+const WebRender = ({ title, studiosTitle, date, time, onClickGoPlan }) => {
   return (
     <>
       {/* 상품정보 */}
       <li className="booking-item cursor" onClick={onClickGoPlan}>
-        <CustomImage src={images} width="88" height="88" alt="class-image" layout="fixed" />
-        {disabled && <div className="image-disabled-background" />}
-
         <div className="booking-title">
           <h4 className="booking-studios-title">{textSilce(studiosTitle || '', 18)}</h4>
           <p>{title || '-'}</p>

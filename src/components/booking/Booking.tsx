@@ -19,12 +19,13 @@ const Booking = () => {
   const { user } = useContext(UserContext);
 
   const { data: userPasses } = useUserPasses();
-  const usableUserPass = PassService.getUsableUserPass({ userPasses, programId: order[0].lessonId });
+  const usableUserPass = PassService.getUsableUserPass({ userPasses, programId: order[0]?.lessonId || '' });
 
   const [userInfo, setUserInfo] = useState<{ name?: string; hp?: string; email?: string }>({});
 
   const [isLoading, setIsLoading] = useState(false);
   const [isUserInfoBring, setIsUserInfoBring] = useState(true);
+  const scheduleId = order[0]?.planId;
 
   // 상품 없으면 장바구니로 이동.
   useEffect(() => {
@@ -89,7 +90,15 @@ const Booking = () => {
           </main>
         </section>
 
-        {usableUserPass && <BookingWithPass />}
+        {usableUserPass && (
+          <BookingWithPass
+            userInfo={userInfo}
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
+            scheduleId={scheduleId}
+            usableUserPass={usableUserPass}
+          />
+        )}
         {!usableUserPass && <BookingWithoutPass isLoading={isLoading} setIsLoading={setIsLoading} userInfo={userInfo} />}
       </SBooking>
 

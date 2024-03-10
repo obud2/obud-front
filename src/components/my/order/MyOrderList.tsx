@@ -2,16 +2,16 @@ import React from 'react';
 
 import { useRouter } from 'next/router';
 
-import moment from 'moment';
 import MyOrderItem from './MyOrderItem';
 import { MOBILE } from '@/styled/variablesStyles';
 import styled from 'styled-components';
+import { Reservation } from '@/entities/reservation';
 
 type Props = {
-  list: Record<string, any[]>;
+  reservations: Reservation[];
 };
 
-const MyOrderList = ({ list }: Props) => {
+const MyOrderList = ({ reservations }: Props) => {
   const router = useRouter();
 
   const onClickOrderDetail = (id) => {
@@ -20,26 +20,17 @@ const MyOrderList = ({ list }: Props) => {
 
   return (
     <SMyOrderList>
-      {list && Object?.entries(list)?.length > 0 ? (
-        Object?.entries(list)?.map((item) => {
-          const date = item?.[0] || '';
-          const orderList = item?.[1] || [];
-
-          return (
-            <div className="order-list-container" key={`my-order-list-${date}`}>
-              <div className="order-date-header">주문일자 {moment(date).format('YYYY-MM-DD')}</div>
-
-              <div className="order-date-main">
-                {orderList &&
-                  orderList?.length > 0 &&
-                  orderList?.map((a) => <MyOrderItem key={a?.id} data={a} onClickOrderDetail={onClickOrderDetail} />)}
-              </div>
+      {reservations.map((reservation) => {
+        return (
+          <div className="order-list-container" key={reservation.id}>
+            {/* <div className="order-date-header">주문일자 {moment(reservation.reserveAt).format('YYYY-MM-DD')}</div> */}
+            <div className="order-date-main">
+              <MyOrderItem reservation={reservation} onClickOrderDetail={onClickOrderDetail} />
             </div>
-          );
-        })
-      ) : (
-        <p className="empty-text">예약 된 상품이 없습니다.</p>
-      )}
+          </div>
+        );
+      })}
+      {reservations.length === 0 && <p className="empty-text">예약 된 상품이 없습니다.</p>}
     </SMyOrderList>
   );
 };

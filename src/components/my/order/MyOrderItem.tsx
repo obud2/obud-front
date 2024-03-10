@@ -1,72 +1,64 @@
 import { SlArrowRight } from 'react-icons/sl';
-
 import moment from 'moment';
-
 import { MOBILE } from '@/styled/variablesStyles';
 import CustomButton from '@components/common/button/CustomButton';
-import CustomImage from '@components/common/image/CustomImage';
 import styled from 'styled-components';
+import { Reservation } from '@/entities/reservation';
 
-const MyOrderItem = ({ data, onClickOrderDetail }) => {
+type Props = {
+  reservation: Reservation;
+  onClickOrderDetail: (id: string) => void;
+};
+
+const MyOrderItem = ({ reservation, onClickOrderDetail }: Props) => {
   const statusRender = () => {
     let status = '';
 
-    switch (data?.orderStatus) {
-      case 'CANCEL':
+    switch (reservation.status as string) {
+      case 'CANCELLED':
+      case 'CANCEL': // deprecated
         status = '취소완료';
         break;
-      case 'COMPLETE':
+      case 'COMPLETED':
+      case 'CONFIRMED': // deprecated
         status = '결제 완료';
         break;
-      case 'FAIL':
-        status = '결제 실패';
-        break;
-      case 'WAIT':
-        status = '결제 대기중';
-        break;
-      case 'REFUSAL':
-        status = '취소 거절';
-        break;
-      case 'CANCELING':
-        status = '취소처리중';
+      case 'UPCOMING':
+        status = '이용 예정';
         break;
     }
 
-    return <p className={data?.orderStatus}>{status}</p>;
+    return <p className={reservation.status}>{status}</p>;
   };
 
   return (
     <SMyOrderItem>
       <section className="order-item-mobile-header">
         {statusRender()}
-        <button onClick={() => onClickOrderDetail(data?.id)}>
+        <button onClick={() => onClickOrderDetail(reservation.id)}>
           상세보기
           <SlArrowRight />
         </button>
       </section>
 
       <section className="order-item-container">
-        <section className="order-item-image-container">
-          <CustomImage src={data?.images?.url || data?.images?.[0]?.url || ''} layout="fill" />
-        </section>
-
         <section className="order-item-contents-container">
-          <p className="order-item-studio-title">{data?.studiosTitle || ''}</p>
-          <p className="order-item-lesson-title">{data?.lessonTitle || ''}</p>
+          <p className="order-item-studio-title">{reservation.place.title}</p>
+          <p className="order-item-lesson-title">{reservation.program.title}</p>
 
           <div className="order-item-option">
-            <p>{moment(data?.startDate).format('YYYY.MM.DD (ddd)')}</p>
+            <p>{moment(reservation.schedule.startDate).format('YYYY.MM.DD (ddd)')}</p>
             <p>•</p>
-            <p>{`${moment(data?.startDate).format('HH:mm')}`}</p>
+            <p>{`${moment(reservation.schedule.endDate).format('HH:mm')}`}</p>
             <p>•</p>
-            <p>{`${data?.reservationCount}명`}</p>
+            <p>{`${reservation.reservationCount}명`}</p>
           </div>
         </section>
 
         <section className="order-item-status-container">{statusRender()}</section>
 
         <section className="order-item-detail-container">
-          <CustomButton variant="outlined" onClick={() => onClickOrderDetail(data?.id)}>
+          <CustomButton variant="outlined" onClick={() => onClickOrderDetail(reservation.id)}>
             상세보기
           </CustomButton>
         </section>
@@ -206,22 +198,13 @@ const SMyOrderItem = styled.div`
     }
   }
 
-  .CANCEL {
+  .CANCELLED {
     color: #ec3519;
   }
-  .COMPLETE {
+  .COMPLETED {
     color: ${(props) => props.theme.main_color_slate_400};
   }
-  .FAIL {
+  .UPCOMING {
     color: ${(props) => props.theme.core_color_slate_600};
-  }
-  .WAIT {
-    color: ${(props) => props.theme.main_color_slate_400};
-  }
-  .REFUSAL {
-    color: #ec3519;
-  }
-  .CANCELING {
-    color: #ec3519;
   }
 `;
