@@ -1,7 +1,4 @@
-import React from 'react';
-
 import { SBookingBase } from './BookingBase.styled';
-
 import BookingItem from '../items/BookingItem';
 
 const HEADER = ['상품정보', '날짜', '시간'];

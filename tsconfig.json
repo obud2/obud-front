@@ -41,7 +41,6 @@
     "**/*.tsx",
     "**/*.js",
     "**/*.jsx",
-    "src/components/my/order/MyOrder.tsx"
   ],
   "exclude": [
     "node_modules"
