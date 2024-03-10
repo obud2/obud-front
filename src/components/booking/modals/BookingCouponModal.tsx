@@ -2,7 +2,7 @@ import CustomButton from '@/components/common/button/CustomButton';
 import CouponItem from '@/components/common/coupon/Coupon';
 import Modal from '@/components/common/modal/Modal';
 import { Coupon } from '@/entities/coupon';
-import { listCoupons } from '@/service/CouponService';
+import { CouponService } from '@/service/CouponService';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 
@@ -65,7 +65,7 @@ const BookingCouponModal = ({ open, onClose, setCoupon, scheduleId, price }: Pro
 };
 
 const useCoupons = (scheduleId?: string) => {
-  return useQuery(['coupons/me', { scheduleId }], () => listCoupons({ scheduleId }), {
+  return useQuery(['coupons/me', { scheduleId }], () => CouponService.listCoupons({ scheduleId }), {
     enabled: !!scheduleId,
   });
 };

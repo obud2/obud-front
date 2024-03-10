@@ -1,5 +1,5 @@
 import axiosInstance from '@/constants/AxiosInstance';
-import { Coupon } from '@/entities/coupon';
+import { Coupon, CouponDiscountType } from '@/entities/coupon';
 
 type ListCouponsRequest = {
   page?: number;
@@ -12,7 +12,7 @@ type ListCouponsResponse = {
   value: Coupon[];
 };
 
-export const listCoupons = async (request: ListCouponsRequest = {}) => {
+const listCoupons = async (request: ListCouponsRequest = {}) => {
   const searchParams = new URLSearchParams();
 
   if (request.page) {
@@ -34,8 +34,69 @@ type CreateCouponRequest = {
   scheduleId: string;
 };
 
-export const createCoupon = async (request: CreateCouponRequest): Promise<Coupon> => {
+const createCoupon = async (request: CreateCouponRequest): Promise<Coupon> => {
   const { code, scheduleId } = request;
   const res = await axiosInstance.post<{ value: Coupon }>(`/coupon/me?code=${code.toLocaleUpperCase()}&scheduleId=${scheduleId}`);
   return res.data.value;
+};
+
+type GetCouponDiscountPriceRequest = {
+  coupon: Coupon | null;
+  price: number;
+};
+
+// 쿠폰 할인 금액 계산
+const getCouponDiscountPrice = (request: GetCouponDiscountPriceRequest): number => {
+  const { coupon, price } = request;
+
+  if (!coupon || !price) return 0;
+
+  if (coupon.minOrderPriceAmount > price) return 0;
+
+  if (coupon.discountType === CouponDiscountType.AMOUNT) {
+    if (coupon.maxDiscountAmount === 0) {
+      return Math.min(coupon.discountAmount, price);
+    }
+
+    return Math.min(coupon.discountAmount, coupon.maxDiscountAmount, price);
+  }
+
+  if (coupon.discountType === CouponDiscountType.PERCENTAGE) {
+    const discount = Math.round(price * (coupon.discountAmount / 100));
+    if (coupon.maxDiscountAmount === 0) {
+      return discount;
+    }
+
+    return Math.min(discount, coupon.maxDiscountAmount);
+  }
+
+  return 0;
+};
+
+// 쿠폰 할인 타입에 따른 메시지 표시
+type GetCouponTypeMessageRequest = {
+  coupon: Coupon | null;
+};
+
+const getCouponTypeMessage = (request: GetCouponTypeMessageRequest): string => {
+  const { coupon } = request;
+
+  if (!coupon) return '';
+
+  if (coupon.discountType === CouponDiscountType.AMOUNT) {
+    return `${coupon.discountAmount.toLocaleString()}원 할인`;
+  }
+
+  if (coupon.discountType === CouponDiscountType.PERCENTAGE) {
+    return `${coupon.discountAmount}% 할인`;
+  }
+
+  return '';
+};
+
+export const CouponService = {
+  listCoupons,
+  createCoupon,
+  getCouponDiscountPrice,
+  getCouponTypeMessage,
 };

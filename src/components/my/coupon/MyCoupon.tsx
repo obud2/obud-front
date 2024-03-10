@@ -1,9 +1,9 @@
 import CouponItem from '@/components/common/coupon/Coupon';
 import FallBackLoading from '@/components/loading/FallBackLoading';
+import { CouponService } from '@/service/CouponService';
 import { MOBILE } from '@/styled/variablesStyles';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
-import { listCoupons } from '@/service/CouponService';
 
 const MyCoupon = () => {
   const { data: coupons } = useCoupons();
@@ -28,7 +28,7 @@ const MyCoupon = () => {
 export default MyCoupon;
 
 const useCoupons = () => {
-  return useQuery('coupons/me', () => listCoupons());
+  return useQuery('coupons/me', () => CouponService.listCoupons());
 };
 
 export const SMyCoupon = styled.div`

@@ -1,10 +1,36 @@
+import { MOBILE } from '@/styled/variablesStyles';
 import styled from 'styled-components';
-
-import { MOBILE } from 'src/styled/variablesStyles';
 
 const PRODUCT_MAX_WIDTH = `${688 + 30}px`;
 
-export const SProductPolicy = styled.div`
+type Props = {
+  info: string;
+  policy: string;
+};
+
+const ProductPolicy = ({ info, policy }: Props) => {
+  return (
+    <SProductPolicy>
+      <PolicyContainer title="이용 안내" content={info} />
+      <PolicyContainer title="환불 규정" content={policy} />
+    </SProductPolicy>
+  );
+};
+
+const PolicyContainer = ({ title, content }: { title: string; content: string }) => {
+  return (
+    content && (
+      <div className="product-policy-container">
+        <p className="product-policy-title">{title}</p>
+        <div className="product-policy-contents">{content || '-'}</div>
+      </div>
+    )
+  );
+};
+
+export default ProductPolicy;
+
+const SProductPolicy = styled.div`
   width: 100%;
   max-width: ${PRODUCT_MAX_WIDTH};
 
