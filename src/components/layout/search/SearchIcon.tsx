@@ -1,10 +1,9 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 
-import { SSearchIcon } from './SearchIcon.styled';
-
-import SearchModal from '@components/serach/SearchModal';
+import SearchModal from '@/components/search/SearchModal';
 import { useRouter } from 'next/router';
 import { LayoutContext } from 'src/context/LayoutContext';
+import styled from 'styled-components';
 
 const SearchIcon = ({ reverse }) => {
   const router = useRouter();
@@ -22,14 +21,28 @@ const SearchIcon = ({ reverse }) => {
   };
 
   return (
-    <React.Fragment>
-      <SSearchIcon reverse={reverse} onClick={onClickSearchIcon}>
+    <>
+      <SSearchIcon onClick={onClickSearchIcon}>
         <i className={`icons search ${reverse ? '' : 'active'}`} />
       </SSearchIcon>
-
       <SearchModal isOpen={isOpen} isClose={onClickSearchIcon} />
-    </React.Fragment>
+    </>
   );
 };
 
 export default SearchIcon;
+
+const SSearchIcon = styled.button`
+  min-width: 20px;
+  height: 100%;
+
+  &:hover {
+    opacity: 0.5;
+  }
+
+  .icons {
+    width: 22px;
+    height: 22px;
+    aspect-ratio: 1 / 1;
+  }
+`;

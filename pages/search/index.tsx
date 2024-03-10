@@ -1,7 +1,5 @@
-import React from 'react';
-
 import Layout from '@components/layout/Layout';
-import Search from '@components/serach/Search';
+import Search from '@/components/search/Search';
 import MetaHeader from '@components/common/meta/MetaHeader';
 
 const Index = () => {
