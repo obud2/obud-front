@@ -59,6 +59,7 @@ const MobileMy = () => {
 
       {FeatureFlagService.isPassFeatureEnabled() && (
         <main className="mobile-my-main">
+          <div className="pass-title">보유 패스</div>
           {userPasses && userPasses?.length === 0 && <div></div>}
           {userPasses && userPasses.length > 0 && (
             <Swiper
@@ -188,6 +189,13 @@ const SMobileMy = styled.div`
     flex-direction: column;
 
     gap: 5px;
+
+    .pass-title {
+      color: #555555;
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
 
     .mobile-my-menu-tab-list {
       width: 100%;
