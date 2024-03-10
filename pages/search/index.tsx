@@ -4,7 +4,7 @@ import MetaHeader from '@components/common/meta/MetaHeader';
 
 const Index = () => {
   return (
-    <Layout headerHide footerHide>
+    <Layout footerHide>
       <MetaHeader title="obud :: 검색" />
       <Search />
     </Layout>
