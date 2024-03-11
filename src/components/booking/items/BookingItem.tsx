@@ -57,8 +57,6 @@ const WebRender = ({ title, studiosTitle, date, time, onClickGoPlan }) => {
 const MobileRender = ({ title, studiosTitle, date, time }) => {
   return (
     <>
-      {/* 이미지 영역 */}
-
       {/* 옵션 영역 */}
       <div className="booking-mobile-data-container">
         {/* 제목 */}

@@ -37,7 +37,7 @@ const MyOrder = () => {
           </div>
         </div>
 
-        <MyOrderList reservations={reservations} />
+        {!isLoading && <MyOrderList reservations={reservations} />}
       </SMyOrder>
 
       <FallBackLoading isLoading={isLoading} />
@@ -47,8 +47,8 @@ const MyOrder = () => {
 
 export default MyOrder;
 
-const useReservations = (type: ReservationStatus) => {
-  return useQuery(['reservations/me', type], () => ReserveService.listReservations({ type }), {
+const useReservations = (status: ReservationStatus) => {
+  return useQuery(['reservations/me', status], () => ReserveService.listReservations({ status }), {
     select: (data) => data.value,
   });
 };

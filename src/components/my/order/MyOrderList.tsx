@@ -14,7 +14,7 @@ type Props = {
 const MyOrderList = ({ reservations }: Props) => {
   const router = useRouter();
 
-  const onClickOrderDetail = (id) => {
+  const onClickOrderDetail = (id: Reservation['id']) => {
     router.push(`/my/order/${id}`);
   };
 

@@ -4,6 +4,7 @@ import { MOBILE } from '@/styled/variablesStyles';
 import CustomButton from '@components/common/button/CustomButton';
 import styled from 'styled-components';
 import { Reservation } from '@/entities/reservation';
+import { ReserveService } from '@/service/ReserveService';
 
 type Props = {
   reservation: Reservation;
@@ -11,30 +12,10 @@ type Props = {
 };
 
 const MyOrderItem = ({ reservation, onClickOrderDetail }: Props) => {
-  const statusRender = () => {
-    let status = '';
-
-    switch (reservation.status as string) {
-      case 'CANCELLED':
-      case 'CANCEL': // deprecated
-        status = '취소완료';
-        break;
-      case 'COMPLETED':
-      case 'CONFIRMED': // deprecated
-        status = '결제 완료';
-        break;
-      case 'UPCOMING':
-        status = '이용 예정';
-        break;
-    }
-
-    return <p className={reservation.status}>{status}</p>;
-  };
-
   return (
     <SMyOrderItem>
       <section className="order-item-mobile-header">
-        {statusRender()}
+        {ReserveService.getReservationStatusText(reservation.status)}
         <button onClick={() => onClickOrderDetail(reservation.id)}>
           상세보기
           <SlArrowRight />
@@ -53,10 +34,14 @@ const MyOrderItem = ({ reservation, onClickOrderDetail }: Props) => {
             <p>•</p>
             <p>{`${reservation.reservationCount}명`}</p>
           </div>
+
+          {reservation.payment.merchandiseType === 'PASS' && (
+            <div className="order-item-pass-info">
+              <p>{reservation.payment.pass?.title}</p>
+            </div>
+          )}
         </section>
-
-        <section className="order-item-status-container">{statusRender()}</section>
-
+        <section className="order-item-status-container">{ReserveService.getReservationStatusText(reservation.status)}</section>
         <section className="order-item-detail-container">
           <CustomButton variant="outlined" onClick={() => onClickOrderDetail(reservation.id)}>
             상세보기
@@ -124,18 +109,6 @@ const SMyOrderItem = styled.div`
 
     gap: 16px;
 
-    .order-item-image-container {
-      min-width: 89px;
-      aspect-ratio: 1 / 1;
-
-      border: 0.5px solid #eeeeee;
-      position: relative;
-
-      ${MOBILE} {
-        min-width: 50px;
-      }
-    }
-
     .order-item-contents-container {
       flex: 1;
       display: flex;
@@ -161,8 +134,17 @@ const SMyOrderItem = styled.div`
         font-size: 14px;
         font-weight: bold;
       }
+
       .order-item-lesson-title {
         font-size: 12px;
+      }
+
+      .order-item-pass-info {
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 1.4;
+        margin-top: 4px;
+        color: ${(props) => props.theme.main_color_slate_300};
       }
     }
 

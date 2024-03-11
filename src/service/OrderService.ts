@@ -47,7 +47,13 @@ export const reservationCancel = (id) => {
   });
 };
 
-export const cancelCheck = (id) => {
+type CancelCheckRequest = {
+  id: string;
+};
+
+const cancelCheck = (req: CancelCheckRequest): Promise<any> => {
+  const { id } = req;
+
   return new Promise((resolve, reject) => {
     axiosInstance
       .get(`reservation/cancel/check/${id}`)
@@ -80,4 +86,5 @@ const getTotalPriceFromOrders = (request: GetTotalPriceFromOrdersRequest): numbe
 
 export const OrderService = {
   getTotalPriceFromOrders,
+  cancelCheck,
 };

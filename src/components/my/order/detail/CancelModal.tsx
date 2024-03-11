@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import React, { Suspense, useState } from 'react';
 
 import moment from 'moment';
@@ -8,11 +6,11 @@ import 'moment/locale/ko';
 import { addComma, textSilce } from 'src/constants';
 
 import { useQuery } from 'react-query';
-import { cancelCheck } from 'src/service/OrderService';
 
 import Modal from '@components/common/modal/Modal';
 import { SCancelModal } from './CancelModal.styled';
 import CustomButton from '@components/common/button/CustomButton';
+import { OrderService } from '@/service/OrderService';
 
 const CancelModal = ({ id, isOpen, isClose, isLoading, onClickPayCancel }) => {
   return (
@@ -25,7 +23,7 @@ const CancelModal = ({ id, isOpen, isClose, isLoading, onClickPayCancel }) => {
 };
 
 const FetchData = ({ id, isClose, isLoading, onClickPayCancel }) => {
-  const { data } = useQuery(['cancel-check', id], () => cancelCheck(id), { enabled: !!id, suspense: true });
+  const { data } = useQuery(['cancel-check', id], () => OrderService.cancelCheck({ id }), { enabled: !!id, suspense: true });
 
   const [isOpen, setIsOpen] = useState(true);
 
