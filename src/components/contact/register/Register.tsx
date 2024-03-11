@@ -18,6 +18,7 @@ import alert from 'src/helpers/alert';
 
 type Form = {
   placeTitle: string;
+  email: string;
   sns: string;
   program: string;
   representative: string;
@@ -28,6 +29,7 @@ type Form = {
 
 const EMPTY_BODY: Form = {
   placeTitle: '',
+  email: '',
   sns: '',
   program: '',
   representative: '',
@@ -66,10 +68,11 @@ const Register = () => {
       alert('', '공간의 인스타그램 주소를 알려주세요');
       return;
     }
-    if (!body.placeTitle) {
-      alert('', '진행하는 프로그램에 대해 알려주세요');
+    if (!body.email) {
+      alert('', '연락드릴 이메일 주소를 알려주세요');
       return;
     }
+
     if (!body.representative || !body.phone) {
       alert('', '담당자 성함과 연락처를 알려주세요');
       return;
@@ -111,7 +114,7 @@ const Register = () => {
 
           <CustomInput
             name="sns"
-            label="인스타그램 주소를 알려주세요."
+            label="공간의 인스타그램 주소를 알려주세요"
             placeholder="@abc_def"
             type="text"
             point
@@ -123,20 +126,8 @@ const Register = () => {
           <Spacing spacing="30" />
 
           <CustomInput
-            name="program"
-            label="진행하는 프로그램에 대해 알려주세요."
-            type="text"
-            value={body?.program || ''}
-            point
-            variant="outlined"
-            onChange={onChangeInputValue}
-            disabled={isLoading}
-          />
-          <Spacing spacing="30" />
-
-          <CustomInput
             name="representative"
-            label="담당자 성함과 직책을 알려주세요"
+            label="담당자 성함을 알려주세요"
             type="text"
             value={body?.representative || ''}
             point
@@ -145,10 +136,21 @@ const Register = () => {
             disabled={isLoading}
           />
           <Spacing spacing="30" />
+          <CustomInput
+            name="email"
+            label="연락드릴 이메일 주소를 알려주세요"
+            type="text"
+            value={body?.email || ''}
+            point
+            variant="outlined"
+            onChange={onChangeInputValue}
+            disabled={isLoading}
+          />
 
+          <Spacing spacing="30" />
           <CustomInput
             name="phone"
-            label="연락처를 알려주세요. (핸드폰 번호)"
+            label="핸드폰 번호를 알려주세요"
             type="tel"
             value={body?.phone || ''}
             point
