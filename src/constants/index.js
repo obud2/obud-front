@@ -1,4 +1,3 @@
-import moment from 'moment';
 import { getCookie, setCookie, removeCookie } from '@/helpers/cookies';
 import { Auth } from 'aws-amplify';
 
@@ -260,75 +259,6 @@ export const firstTextUpperCase = (text) => {
 
   return `${first}${last}`;
 };
-
-/**
- *
- * @param {Number} createdAt
- * @param {String} format 변환되는 스트링 값
- * ex) format = . (yyyy.mm.dd)
- * ex) format = - (yyyy-mm-dd)
- *
- * @returns Format(yyyy.mm.dd)
- */
-export const setCreatedAt = (createdAt, format) => {
-  if (!(createdAt > 0)) return '-';
-
-  const dt = new Date(Number(createdAt));
-  const addDt =
-    dt.getFullYear() +
-    format +
-    `00${(dt.getMonth() + 1).toString()}`.slice(-2) +
-    format +
-    `00${dt.getDate().toString()}`.slice(-2) +
-    format +
-    `00${dt.getHours().toString()}`.slice(-2) +
-    { format } +
-    `00${dt.getMinutes().toString()}`.slice(-2);
-
-  return addDt.slice(0, 10);
-};
-
-// 시간 형식 변경
-export const timeFormat = (seconds) => {
-  if (isNaN(seconds)) {
-    return '0:00';
-  }
-
-  const date = new Date(seconds * 1000);
-  const hh = date.getUTCHours();
-  const mm = date.getUTCMinutes();
-  const ss = date.getUTCSeconds().toString().padStart(2, '0');
-  if (hh) {
-    return `${hh}:${mm.toString().padStart(2, '0')}:${ss}`;
-  }
-  return `${mm}:${ss}`;
-};
-
-// 시간 체크
-export const diffToText = (date) => {
-  const diff = moment().diff(moment(Number(date)), 'days');
-
-  if (diff < 1) {
-    const hour = moment().diff(moment(Number(date)), 'hours');
-    const minute = moment().diff(moment(Number(date)), 'minutes');
-    const second = moment().diff(moment(Number(date)), 'seconds');
-
-    if (hour < 1) {
-      if (minute < 1) {
-        return `${Math.abs(second || 1)}초 전`;
-      } else {
-        return `${minute}분 전`;
-      }
-    } else {
-      return `${hour}시간 전`;
-    }
-  } else if (diff < 364) {
-    return `${moment().diff(moment(Number(date)), 'days')}일 전`;
-  } else {
-    return moment(Number(date)).format('YYYY-MM-DD');
-  }
-};
-
 export const textSilce = (title, silce) => {
   if (!title) return;
 
