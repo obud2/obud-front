@@ -6,8 +6,8 @@ import PurchasePass from '@/components/purchase/PurchasePass';
 
 const Index = () => {
   return (
-    <Layout scrollBtnHide addonBeforeHeader="backTic" addonAfterHeader="empty" headerTitle="패스구매" mobileNavigationHide>
-      <MetaHeader title="obud :: 패스구매" />
+    <Layout scrollBtnHide addonBeforeHeader="backTic" addonAfterHeader="empty" headerTitle="패스 구매" mobileNavigationHide>
+      <MetaHeader title="obud :: 패스 구매" />
       <PurchasePass />
     </Layout>
   );

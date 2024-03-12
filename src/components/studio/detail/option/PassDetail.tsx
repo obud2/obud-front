@@ -12,8 +12,6 @@ const PassDetail = () => {
   const { data: passDetail } = usePass(id);
   const { data: userPasses } = useUserPasses();
 
-  console.log(passDetail, 'passDetail');
-
   const handlePurchase = () => {
     if (!passDetail || !userPasses) return;
 
@@ -48,7 +46,7 @@ const PassDetail = () => {
       </div>
 
       <div className="info">
-        <div className="info-title">사용 기한</div>
+        <div className="info-title">이용 기한</div>
         <div className="info-item">{passDetail.durationInDays}일</div>
       </div>
 
@@ -67,17 +65,17 @@ const PassDetail = () => {
         <div className="info-item">{passDetail.notice}</div>
       </div>
 
-      <div className="info">
+      {/* <div className="info">
         <div className="info-title">환불 규정</div>
         <div className="info-item">
           <span style={{ color: 'red' }}>결제일</span>
-          <span>{'로부터 3일 이내이며 미 예약 시 : 100% 환불\n'}</span>
+          <span>{'로부터 5일 이내이며 미 예약 시 : 100% 환불\n'}</span>
           <span style={{ color: 'red' }}>결제일</span>
-          <span>{'로부터 3일 이후 혹은 예약 이후에는 '}</span>
+          <span>{'로부터 5일 이후 혹은 예약 시 '}</span>
           <span style={{ fontWeight: 'bold' }}>해당 장소(스튜디오)의 내규에 따라 위약금 차감 후 환불됩니다.</span>
         </div>
-        <div className="info-item">{passDetail.refundPolicy}</div>
-      </div>
+        {passDetail.refundPolicy && <div className="refund-info-item">{passDetail.refundPolicy}</div>}
+      </div> */}
 
       <div className="button-wrapper">
         <button onClick={handlePurchase}>구매하기</button>
@@ -98,8 +96,10 @@ export default PassDetail;
 
 const SPassDetail = styled.div`
   width: 100%;
+  max-width: 768px;
+  margin: 0 auto;
   height: 100%;
-  padding: 16px;
+  padding: 40px 16px 16px 16px;
 
   .title {
     font-size: 1.6rem;
@@ -137,6 +137,16 @@ const SPassDetail = styled.div`
         position: relative;
       }
     }
+
+    .refund-info-item {
+      white-space: pre-wrap;
+      font-size: 1.2rem;
+      font-weight: 400;
+      background-color: #eeeff1;
+      border-radius: 5px;
+      margin-top: 10px;
+      padding: 5px;
+    }
     .info-clickable {
       display: flex;
       align-items: center;
@@ -151,7 +161,6 @@ const SPassDetail = styled.div`
     button {
       width: 100%;
       height: 48px;
-      border-radius: 8px;
       background-color: ${(props) => props.theme.main_color_slate_500};
       color: white;
       font-size: 1.6rem;
