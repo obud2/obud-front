@@ -3,11 +3,12 @@ import alert from '@/helpers/alert';
 import { PassService } from '@/service/PassService';
 import moment from 'moment';
 import { useRouter } from 'next/router';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import styled from 'styled-components';
 
 const MyPassDetail = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const { id } = router.query;
   const userPassId = Number(id as string);
 
@@ -29,6 +30,8 @@ const MyPassDetail = () => {
         } catch (e) {
           const error = e as { message: string };
           alert('', error.message || '환불 신청에 실패하였습니다. 다시 시도해주세요.', '확인');
+        } finally {
+          queryClient.invalidateQueries();
         }
       }
     });
