@@ -54,6 +54,14 @@ const getUserPass = async (request: GetUserPassRequest): Promise<UserPass | unde
   return response.value.find((userPass) => userPass.id === request.userPassId);
 };
 
+type RefundUserPassRequest = {
+  userPassId: UserPass['id'];
+};
+
+const refundUserPass = async (request: RefundUserPassRequest): Promise<void> => {
+  await axiosInstance.post(`/payments/pass/users/me/${request.userPassId}/refund`);
+};
+
 export type PurchasePassRequest = {
   passId: Pass['id'];
 };
@@ -113,6 +121,7 @@ export const PassService = {
   getPassDetail,
   listUserPasses,
   getUserPass,
+  refundUserPass,
   purchasePass,
   purchasePassComplete,
   purchasePassFail,

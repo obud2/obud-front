@@ -1,4 +1,5 @@
 import { UserPass } from '@/entities/pass';
+import alert from '@/helpers/alert';
 import { PassService } from '@/service/PassService';
 import moment from 'moment';
 import { useRouter } from 'next/router';
@@ -16,6 +17,22 @@ const MyPassDetail = () => {
 
   // 결제일 3일 이후면 버튼 사라짐
   const isRefundButtonActive = moment().diff(moment(userPass.createdAt), 'days') < 3;
+
+  const onClickRefund = () => {
+    alert('', '환불 신청하시겠습니까?', '취소', '확인', async (res) => {
+      if (res) {
+        try {
+          await PassService.refundUserPass({ userPassId: userPass.id });
+          alert('', '환불 신청이 완료되었습니다.', '확인', '', () => {
+            router.push('/my/pass');
+          });
+        } catch (e) {
+          const error = e as { message: string };
+          alert('', error.message || '환불 신청에 실패하였습니다. 다시 시도해주세요.', '확인');
+        }
+      }
+    });
+  };
 
   return (
     <SMyPassDetail>
@@ -54,7 +71,11 @@ const MyPassDetail = () => {
         <div className="item">{userPass.pass.refundPolicy}</div>
       </div>
 
-      {isRefundButtonActive && <button className="refund-button">환불 신청</button>}
+      {isRefundButtonActive && (
+        <button className="refund-button" onClick={onClickRefund}>
+          환불 신청
+        </button>
+      )}
     </SMyPassDetail>
   );
 };

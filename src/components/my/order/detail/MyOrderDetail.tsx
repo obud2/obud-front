@@ -32,8 +32,8 @@ const MyOrderDetail = () => {
   };
 
   const onClickPayCancel = () => {
-    alert('', '예약을 취소하시겠습니까? <br /> 취소 및 환불 규정을 확인해 주세요.', '취소', '확인', () => {
-      if (reservation) {
+    alert('', '예약을 취소하시겠습니까? <br /> 취소 및 환불 규정을 확인해 주세요.', '취소', '확인', (res) => {
+      if (reservation && res) {
         setUseLoading(true);
         setIsCancelModalOpen(false);
 
@@ -60,8 +60,8 @@ const MyOrderDetail = () => {
   };
 
   const onClickReserveCancelByPass = () => {
-    alert('예약을 취소하시겠습니까?', '- 취소 가능 횟수가 차감됩니다 <br />- 취소 후 복구가 불가합니다.', '취소', '확인', async () => {
-      if (reservation) {
+    alert('예약을 취소하시겠습니까?', '- 취소 가능 횟수가 차감됩니다 <br />- 취소 후 복구가 불가합니다.', '취소', '확인', async (res) => {
+      if (reservation && res) {
         setUseLoading(true);
         setIsCancelModalOpen(false);
 
