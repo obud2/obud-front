@@ -47,7 +47,7 @@ const BookingWithPass = ({ userInfo, isLoading, setIsLoading, scheduleId, usable
   };
 
   return (
-    <section>
+    <section style={{ flex: 0.6 }}>
       <header className="booking-header">
         <p className="booking-title">사용 가능한 패스</p>
       </header>

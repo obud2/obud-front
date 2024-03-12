@@ -4,6 +4,8 @@ import { MOBILE, TABLET } from 'src/styled/variablesStyles';
 
 export const SWishList = styled.div`
   width: 100%;
+  max-width: 768px;
+  margin: 0 auto;
   margin-bottom: 104px;
 
   .wish-list-header {
@@ -18,7 +20,6 @@ export const SWishList = styled.div`
     .wish-list-title {
       font-size: 1.6rem;
       font-family: 400;
-
 
       display: flex;
       align-items: center;

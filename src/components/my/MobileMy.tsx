@@ -60,7 +60,13 @@ const MobileMy = () => {
       {FeatureFlagService.isPassFeatureEnabled() && (
         <main className="mobile-my-main">
           <div className="pass-title">보유 패스</div>
-          {userPasses && userPasses?.length === 0 && <div></div>}
+          {userPasses && userPasses?.length === 0 && (
+            <div style={{ margin: '0 auto' }}>
+              <Card style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ fontSize: '14px' }}>보유한 패스가 없습니다.</div>
+              </Card>
+            </div>
+          )}
           {userPasses && userPasses.length > 0 && (
             <Swiper
               style={
@@ -78,8 +84,8 @@ const MobileMy = () => {
               {userPasses.map((userPass) => (
                 <SwiperSlide key={userPass.id}>
                   <Card onClick={() => handleClickPass(userPass)}>
-                    <div className="title">{userPass.pass.title}</div>
-                    <div className="description">{userPass.pass.durationInDays}일권</div>
+                    <div className="title">{userPass.place.title}</div>
+                    <div className="description">{userPass.pass.title}</div>
                     <div className="description">
                       만료일: {moment(userPass.endDate).format('YYYY-MM-DD')} (D-{moment(userPass.endDate).diff(moment(), 'days')})
                     </div>

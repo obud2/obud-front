@@ -78,14 +78,16 @@ const PurchasePass = () => {
           <div className="purchase-title">패스 구매하기</div>
         </header>
         <main className="purchase-content">
-          <div className="purchase-content-title">{passDetail?.place.title}</div>
+          <div className="purchase-content-title">{passDetail?.title}</div>
+
+          <div className="purchase-info">{passDetail?.place.title}</div>
+          <div className="pass-detail">예약 가능 프로그램</div>
+
           {passDetail?.programs.map((program) => (
             <div className="purchase-info" key={program.id}>
               <p>{program.title}</p>
             </div>
           ))}
-          <div className="purchase-info">{passDetail?.title}</div>
-          <div className="pass-detail">{passDetail?.durationInDays}일권</div>
         </main>
       </section>
 
@@ -111,13 +113,30 @@ const PurchasePass = () => {
 
       <section className="purchase-info-container">
         <header className="purchase-header">
-          <div className="purchase-title">환불 규정</div>
+          <div className="purchase-title">환불 규정 </div>
         </header>
-
+        <div className="purchase-content">
+          <div>
+            <span style={{ color: 'red' }}>결제일</span>
+            <span>{' 포함 5일 이내이며 미 예약 시 : 100% 환불\n'}</span>
+          </div>
+          <div>
+            <span style={{ color: 'red' }}>결제일</span>
+            <span>{' 포함 5일 이내 예약 혹은 6일 부터 '}</span>
+            <span style={{ fontWeight: 'bold' }}>해당 장소에서 환불을 처리합니다. 장소의 내규에 따라 위약금 차감 후 환불됩니다.</span>
+          </div>
+        </div>
+        {passDetail?.refundPolicy && (
+          <div className="purchase-refund-place-info">
+            <div style={{ marginBottom: '5px' }}>장소 내규</div>
+            {passDetail?.refundPolicy}
+          </div>
+        )}
         <CustomCheckBox
           label="예약 서비스 이용을 위한 개인정보 수집 및 제3자 제공, 취소/환불 규정을 확인하였으며 이에 동의합니다."
           value={isChecked}
           onClick={(e: boolean) => setIsChecked(e)}
+          style={{ marginTop: '30px' }}
         />
       </section>
 
@@ -220,6 +239,17 @@ const SPurchasePass = styled.div`
         margin-top: 12px;
       }
     }
+
+    .purchase-refund-place-info {
+      width: 100%;
+      white-space: pre-wrap;
+      font-size: 1.1rem;
+      font-weight: 400;
+      background-color: #eeeff1;
+      border-radius: 5px;
+      padding: 10px;
+      margin: 0 5px;
+    }
   }
 
   .purchase-pay-footer {
@@ -234,7 +264,6 @@ const SPurchasePass = styled.div`
     button {
       width: 100%;
       height: 48px;
-      border-radius: 8px;
       background-color: ${(props) => props.theme.main_color_slate_500};
       color: white;
       font-size: 1.6rem;
