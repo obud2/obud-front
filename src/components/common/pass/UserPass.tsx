@@ -45,7 +45,7 @@ const UserPassItem = ({ userPass }: Props) => {
         <button className="detail" onClick={handleDetail}>
           상세보기
         </button>
-        <button onClick={handleReservation}>예약하기</button>
+        {userPass.status === 'IN_USE' && <button onClick={handleReservation}>예약하기</button>}
       </div>
     </SUserPass>
   );
