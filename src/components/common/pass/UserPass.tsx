@@ -24,9 +24,7 @@ const UserPassItem = ({ userPass }: Props) => {
         <span className="pass-item-title">{userPass.pass.title}</span>
       </div>
       <div className="pass-item-description-wrapper">
-        <div className="pass-item">
-          {userPass.place.title} - {userPass.pass.durationInDays}일
-        </div>
+        <div className="pass-item">{userPass.place.title}</div>
         <div className="pass-item">
           {moment(userPass.startDate).format('YYYY.MM.DD')} ~ {moment(userPass.endDate).format('YYYY.MM.DD')}
           {/* D-Day는  구매일(결제일)로부터 카운트한다 */}

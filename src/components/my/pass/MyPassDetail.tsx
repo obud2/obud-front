@@ -71,7 +71,7 @@ const MyPassDetail = () => {
 
       <div className="title">환불 규정</div>
       <div className="info">
-        <div className="item">{userPass.pass.refundPolicy}</div>
+        <div className="refund-item">{userPass.pass.refundPolicy}</div>
       </div>
 
       {isRefundButtonActive && (
@@ -92,6 +92,8 @@ const useUserPass = (userPassId: UserPass['id']) => {
 export const SMyPassDetail = styled.div`
   padding: 12px;
   width: 100%;
+  max-width: 768px;
+  margin: 0 auto;
   margin-bottom: 104px;
 
   .title {
@@ -107,10 +109,14 @@ export const SMyPassDetail = styled.div`
     padding: 12px 0;
     font-size: 1.2rem;
     font-weight: 400;
-    color: ${(props) => props.theme.main_color_slate_400};
 
     .item {
       padding: 4px 0;
+    }
+
+    .refund-item {
+      padding: 4px 0;
+      background-color: #ccc;
     }
   }
 

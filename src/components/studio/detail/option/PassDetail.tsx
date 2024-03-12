@@ -12,6 +12,8 @@ const PassDetail = () => {
   const { data: passDetail } = usePass(id);
   const { data: userPasses } = useUserPasses();
 
+  console.log(passDetail, 'passDetail');
+
   const handlePurchase = () => {
     if (!passDetail || !userPasses) return;
 
