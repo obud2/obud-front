@@ -15,7 +15,6 @@ const PassList = ({ placeId }: Props) => {
 
   return (
     <SPassList>
-      <div className="banner">정규권과 원데이 클래스를 할인된 가격에 구매하세요!</div>
       {passes?.length === 0 && <div>패스가 없습니다.</div>}
       {passes?.map((pass) => (
         <div className="pass-item" key={pass.id} onClick={() => router.push(`/class/${placeId}/pass/${pass.id}`)}>
