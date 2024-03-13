@@ -20,6 +20,11 @@ const PurchasePass = () => {
 
   const [isChecked, setIsChecked] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const handleToggle = () => {
+    setIsExpanded(!isExpanded); // 토글 시 상태를 변경
+  };
 
   const { data: passDetail } = usePassDetail(passId);
 
@@ -113,30 +118,40 @@ const PurchasePass = () => {
 
       <section className="purchase-info-container">
         <header className="purchase-header">
-          <div className="purchase-title">환불 규정 </div>
+          <div className="purchase-title" onClick={handleToggle}>
+            환불 규정
+            <div className={`arrow-icon ${isExpanded ? 'down' : 'up'}`} />
+          </div>
         </header>
-        <div className="purchase-content">
+
+        {isExpanded && (
           <div>
-            <span style={{ color: 'red' }}>결제일</span>
-            <span>{' 포함 5일 이내이며 미 예약 시 : 100% 환불\n'}</span>
-          </div>
-          <div>
-            <span style={{ color: 'red' }}>결제일</span>
-            <span>{' 포함 5일 이내 예약 혹은 6일 부터 '}</span>
-            <span style={{ fontWeight: 'bold' }}>해당 장소에서 환불을 처리합니다. 장소의 내규에 따라 위약금 차감 후 환불됩니다.</span>
-          </div>
-        </div>
-        {passDetail?.refundPolicy && (
-          <div className="purchase-refund-place-info">
-            <div style={{ marginBottom: '5px' }}>장소 내규</div>
-            {passDetail?.refundPolicy}
+            <div className="purchase-content">
+              <div>
+                <span style={{ color: 'red' }}>결제일</span>
+                <span>{' 포함 5일 이내이며 미 예약 시 : 100% 환불\n'}</span>
+              </div>
+              <div>
+                <span style={{ color: 'red' }}>결제일</span>
+                <span>{' 포함 5일 이내 예약 혹은 6일 부터 '}</span>
+                <span style={{ fontWeight: 'bold', lineHeight: '1.6' }}>
+                  해당 장소에서 환불을 처리합니다. 장소의 내부 환불 규정에 따라 환불됩니다.
+                </span>
+              </div>
+            </div>
+            {passDetail?.refundPolicy && (
+              <div className="purchase-refund-place-info">
+                <div style={{ marginBottom: '5px' }}>장소 내부 환불 규정</div>
+                {passDetail?.refundPolicy}
+              </div>
+            )}
           </div>
         )}
         <CustomCheckBox
           label="예약 서비스 이용을 위한 개인정보 수집 및 제3자 제공, 취소/환불 규정을 확인하였으며 이에 동의합니다."
           value={isChecked}
           onClick={(e: boolean) => setIsChecked(e)}
-          style={{ marginTop: '30px' }}
+          style={{ marginTop: '30px', lineHeight: '1.6' }}
         />
       </section>
 
@@ -207,6 +222,11 @@ const SPurchasePass = styled.div`
       ${MOBILE} {
         font-size: 1.6rem;
       }
+
+      .purchase-title {
+        display: flex;
+        align-items: center;
+      }
     }
 
     .purchase-content {
@@ -275,5 +295,25 @@ const SPurchasePass = styled.div`
         color: #a2a2a2;
       }
     }
+  }
+
+  .arrow-icon {
+    width: 10px;
+    height: 10px;
+
+    transform: rotate(135deg);
+    border-top: 2px solid #1d64d0;;
+    border-right: 2px solid #1d64d0;;
+
+    margin-left: 8px;
+
+    top: -2px;
+    position: relative;
+
+    &.down {
+      transform: rotate(-45deg);
+      top: 2px;
+    }
+
   }
 `;
