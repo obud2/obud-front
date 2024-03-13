@@ -11,6 +11,7 @@ import BookingBase from './base/BookingBase';
 import { PassService } from '@/service/PassService';
 import BookingWithPass from './BookingWithPass';
 import BookingWithoutPass from './BookingWithoutPass';
+import useBookingSetting from './hook/useBookingSetting';
 
 const Booking = () => {
   const router = useRouter();
@@ -18,11 +19,11 @@ const Booking = () => {
   const { order } = useContext(OrderContext);
   const { user } = useContext(UserContext);
 
+  const { impPay, impPayNative } = useBookingSetting();
   const { data: userPasses } = useUserPasses();
   const usableUserPass = PassService.getUsableUserPass({ userPasses, programId: order[0]?.lessonId || '' });
 
   const [userInfo, setUserInfo] = useState<{ name?: string; hp?: string; email?: string }>({});
-
   const [isLoading, setIsLoading] = useState(false);
   const [isUserInfoBring, setIsUserInfoBring] = useState(true);
   const scheduleId = order[0]?.planId;
@@ -99,7 +100,15 @@ const Booking = () => {
             usableUserPass={usableUserPass}
           />
         )}
-        {!usableUserPass && <BookingWithoutPass isLoading={isLoading} setIsLoading={setIsLoading} userInfo={userInfo} />}
+        {!usableUserPass && (
+          <BookingWithoutPass
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
+            userInfo={userInfo}
+            impPay={impPay}
+            impPayNative={impPayNative}
+          />
+        )}
       </SBooking>
 
       <FallBackLoading isLoading={isLoading} />

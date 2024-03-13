@@ -13,16 +13,19 @@ import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { PAYMENT_METHOD } from './Booking.option';
-import useBookingSetting, { CreateOrderParam } from './hook/useBookingSetting';
+import { CreateOrderParam } from './hook/useBookingSetting';
 import BookingCouponModal from './modals/BookingCouponModal';
+import { PayOptions } from '../purchase/hook/usePurchasePass';
 
 type Props = {
   isLoading: boolean;
   setIsLoading: (value: boolean) => void;
   userInfo: { name?: string; hp?: string; email?: string };
+  impPay: (createOrderParams: CreateOrderParam[], payOption: PayOptions, setIsLoading: (value: boolean) => void) => Promise<any>;
+  impPayNative: (createOrderParams: CreateOrderParam[], payOption: PayOptions) => Promise<any>;
 };
 
-const BookingWithoutPass = ({ isLoading, setIsLoading, userInfo }: Props) => {
+const BookingWithoutPass = ({ isLoading, setIsLoading, userInfo, impPay, impPayNative }: Props) => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { order, setOrder } = useContext(OrderContext);
@@ -36,7 +39,6 @@ const BookingWithoutPass = ({ isLoading, setIsLoading, userInfo }: Props) => {
 
   const scheduleId = order[0]?.planId;
   const { data: coupons } = useCoupons(scheduleId);
-  const { impPay, impPayNative } = useBookingSetting();
 
   const price = OrderService.getTotalPriceFromOrders({ orders: order });
   const discountedPrice = price - CouponService.getCouponDiscountPrice({ coupon: currentCoupon, price });
