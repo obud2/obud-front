@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 
 import styled from 'styled-components';
 import { DateSelector } from '@/components/discover/DateSelector';
+import { Separator } from '@/components/common/separator/Separator';
+import { FilterSelector } from '@/components/discover/FilterSelector';
 
 const Discover = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -75,6 +77,14 @@ const Discover = () => {
 
         {/* 날짜 선택 */}
         <DateSelector />
+        <div style={{
+            marginTop: '17px',
+            marginBottom: '15px',
+          }}
+        >
+          <Separator />
+        </div>
+        <FilterSelector />
       </SSearch>
     </div>
   );
