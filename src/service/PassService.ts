@@ -4,6 +4,7 @@ import { Place } from '@/entities/place';
 
 type ListPassesRequest = {
   placeId: Place['id'];
+  status?: 'ACTIVE';
 };
 
 type ListPassesResponse = {
@@ -13,6 +14,9 @@ type ListPassesResponse = {
 const listPasses = async (request: ListPassesRequest): Promise<ListPassesResponse> => {
   const searchParams = new URLSearchParams();
   searchParams.set('placeId', request.placeId);
+  if (request.status) {
+    searchParams.set('status', request.status);
+  }
 
   const response = await axiosInstance.get<ListPassesResponse>(`/pass?${searchParams.toString()}`);
   return response.data;

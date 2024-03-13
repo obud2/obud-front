@@ -191,7 +191,7 @@ const useClassList = (studioId: Studio['id']) => {
 };
 
 const usePasses = (placeId: Place['id']) => {
-  return useQuery(['passes', placeId], () => PassService.listPasses({ placeId }), { select: (data) => data?.value });
+  return useQuery(['passes', placeId], () => PassService.listPasses({ placeId, status: 'ACTIVE' }), { select: (data) => data?.value });
 };
 
 const PRODUCT_MAX_WIDTH = `${688 + 30}px`;

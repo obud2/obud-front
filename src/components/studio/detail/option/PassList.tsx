@@ -30,7 +30,7 @@ const PassList = ({ placeId }: Props) => {
 };
 
 const usePasses = (placeId: Place['id']) => {
-  return useQuery(['passes', placeId], () => PassService.listPasses({ placeId }), { select: (data) => data?.value });
+  return useQuery(['passes', placeId], () => PassService.listPasses({ placeId, status: 'ACTIVE' }), { select: (data) => data?.value });
 };
 
 const SPassList = styled.div`
