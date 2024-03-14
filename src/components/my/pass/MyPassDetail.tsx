@@ -16,9 +16,6 @@ const MyPassDetail = () => {
 
   if (!userPass) return null;
 
-  // 결제일 3일 이후면 버튼 사라짐
-  const isRefundButtonActive = moment().diff(moment(userPass.createdAt), 'days') < 3;
-
   const onClickRefund = () => {
     alert('', '환불 신청하시겠습니까?', '취소', '확인', async (res) => {
       if (res) {
@@ -95,7 +92,7 @@ const MyPassDetail = () => {
         </div>
       </div>
 
-      {isRefundButtonActive && (
+      {userPass.canUserRefund && (
         <button className="refund-button" onClick={onClickRefund}>
           환불 신청
         </button>

@@ -34,6 +34,8 @@ export type UserPassStatus = 'IN_USE' | 'EXPIRED' | 'CANCELLED';
 export type UserPass = {
   id: number;
   status: UserPassStatus;
+  canReserve: boolean;
+  canUserRefund: boolean;
   user: {
     name: string;
     phone: string;
