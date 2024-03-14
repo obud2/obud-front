@@ -103,6 +103,28 @@ const StudioDetail = ({ studio }: Props) => {
               )}
             </div>
 
+            {passes && passes.length > 0 && (
+              <>
+                <section className="pass-container">
+                  <div className="pass-title-container">
+                    <span className="pass-title">패스/회원권 가격</span>
+                    <span className="pass-purchase-button" onClick={() => router.replace({ query: { ...query, tab: 'pass' } })}>
+                      구매하러 가기
+                    </span>
+                    <div className="arrow-icon"></div>
+                  </div>
+                  {passes.map((pass) => (
+                    <div key={pass.id} className="pass-item">
+                      <span>{pass.title}</span>
+                      <span className="pass-dotted-line"></span>
+                      <span>{pass.price.toLocaleString()}</span>
+                    </div>
+                  ))}
+                </section>
+                <div className="obud-line" />
+              </>
+            )}
+
             <section className="place-container">
               <div className="container-title">장소 정보</div>
 
@@ -245,7 +267,7 @@ export const SStudioDetail = styled.article`
     margin: 40px 0;
 
     ${MOBILE} {
-      margin: 12px 0;
+      margin: 10px 0;
     }
 
     .load-more {
@@ -261,6 +283,8 @@ export const SStudioDetail = styled.article`
       font-size: 1.1rem;
       font-weight: 700;
       color: ${(props) => props.theme.core_color_slate_900};
+
+      cursor: pointer;
     }
   }
 
@@ -382,6 +406,61 @@ export const SStudioDetail = styled.article`
 
       .image {
         border: 1px solid #e5e5e5 !important;
+      }
+    }
+  }
+
+  .pass-container {
+    padding: 10px;
+
+    .pass-title-container {
+      display: flex;
+      align-items: center;
+      padding: 30px 0;
+
+      ${MOBILE} {
+        padding: 10px 0;
+      }
+
+      .pass-title {
+        font-size: 1.7rem;
+        font-weight: 700;
+
+        ${MOBILE} {
+          font-size: 1.6rem;
+        }
+      }
+
+      .pass-purchase-button {
+        color: #1d64d0;
+        margin-left: 10px;
+        cursor: pointer;
+      }
+
+      .arrow-icon {
+        width: 7px;
+        height: 7px;
+
+        transform: rotate(45deg);
+        border-top: 1px solid #1d64d0;
+        border-right: 1px solid #1d64d0;
+
+        margin-top: 3px;
+        margin-right: 6px;
+        top: -1px;
+        position: relative;
+      }
+    }
+
+    .pass-item {
+      display: flex;
+      align-items: center;
+      margin: 2px 10px;
+
+      .pass-dotted-line {
+        border-bottom: 1px dotted ${(props) => props.theme.core_color_slate_200};
+        flex: 1;
+        margin: 0 5px;
       }
     }
   }
