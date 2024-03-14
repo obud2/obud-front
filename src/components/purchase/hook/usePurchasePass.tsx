@@ -70,6 +70,7 @@ const usePurchasePass = ({ passId }: { passId: Pass['id'] }) => {
           });
         } catch (err) {
           alert('', '죄송합니다. 예약에 실패하였습니다. <br /> 잠시 후 다시 시도해주세요.');
+          alert('', `${JSON.stringify(response)}`);
         }
       } else {
         if (completedRef.current) return;
