@@ -1,15 +1,14 @@
 import { UserPass, UserPassStatus } from '@/entities/pass';
-import { FeatureFlagService } from '@/service/FeatureFlagService';
 import { PassService } from '@/service/PassService';
 import MobileAuth from '@components/layout/auth/MobileAuth';
 import { useRouter } from 'next/router';
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { SlArrowRight } from 'react-icons/sl';
 import { useQuery } from 'react-query';
 import { ADMIN, INSTRUCTOR, STUDIO } from 'src/constants';
 import { UserContext } from 'src/context/UserContext';
 import styled from 'styled-components';
-import { TABS, TabType } from './My';
+import { TABS } from './My';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -21,14 +20,6 @@ const MobileMy = () => {
   const router = useRouter();
   const { user } = useContext(UserContext);
   const { data: userPasses } = useUserPasses('IN_USE');
-
-  const [tabs, setTabs] = useState<TabType[]>(TABS);
-
-  useEffect(() => {
-    if (FeatureFlagService.isPassFeatureEnabled()) {
-      setTabs([{ id: 'pass', title: '패스 관리' }, ...TABS]);
-    }
-  }, []);
 
   const handleClickPass = (userPass: UserPass) => {
     router.push(`/class/${userPass.place.id}?tab=reservation`);
@@ -57,48 +48,46 @@ const MobileMy = () => {
         <MobileAuth />
       </header>
 
-      {FeatureFlagService.isPassFeatureEnabled() && (
-        <main className="mobile-my-main">
-          <div className="pass-title">보유 패스</div>
-          {userPasses && userPasses?.length === 0 && (
-            <div style={{ margin: '0 auto' }}>
-              <Card style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <div style={{ fontSize: '14px' }}>보유한 패스가 없습니다.</div>
-              </Card>
-            </div>
-          )}
-          {userPasses && userPasses.length > 0 && (
-            <Swiper
-              style={
-                {
-                  '--swiper-pagination-color': '#4E5C4F',
-                  '--swiper-pagination-bullet-inactive-color': '#999999',
-                  '--swiper-pagination-bullet-inactive-opacity': '1',
-                  '--swiper-pagination-bullet-size': '6px',
-                  '--swiper-pagination-bullet-horizontal-gap': '4px',
-                } as any
-              }
-              pagination
-              modules={[Pagination]}
-            >
-              {userPasses.map((userPass) => (
-                <SwiperSlide key={userPass.id}>
-                  <Card onClick={() => handleClickPass(userPass)}>
-                    <div className="title">{userPass.place.title}</div>
-                    <div className="description">{userPass.pass.title}</div>
-                    <div className="description">
-                      만료일: {moment(userPass.endDate).format('YYYY-MM-DD')} (D-{moment(userPass.endDate).diff(moment(), 'days')})
-                    </div>
-                  </Card>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          )}
-        </main>
-      )}
+      <main className="mobile-my-main">
+        <div className="pass-title">보유 패스</div>
+        {userPasses && userPasses?.length === 0 && (
+          <div style={{ margin: '0 auto' }}>
+            <Card style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div style={{ fontSize: '14px' }}>보유한 패스가 없습니다.</div>
+            </Card>
+          </div>
+        )}
+        {userPasses && userPasses.length > 0 && (
+          <Swiper
+            style={
+              {
+                '--swiper-pagination-color': '#4E5C4F',
+                '--swiper-pagination-bullet-inactive-color': '#999999',
+                '--swiper-pagination-bullet-inactive-opacity': '1',
+                '--swiper-pagination-bullet-size': '6px',
+                '--swiper-pagination-bullet-horizontal-gap': '4px',
+              } as any
+            }
+            pagination
+            modules={[Pagination]}
+          >
+            {userPasses.map((userPass) => (
+              <SwiperSlide key={userPass.id}>
+                <Card onClick={() => handleClickPass(userPass)}>
+                  <div className="title">{userPass.place.title}</div>
+                  <div className="description">{userPass.pass.title}</div>
+                  <div className="description">
+                    만료일: {moment(userPass.endDate).format('YYYY-MM-DD')} (D-{moment(userPass.endDate).diff(moment(), 'days')})
+                  </div>
+                </Card>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        )}
+      </main>
 
       <main className="mobile-my-main">
-        {tabs?.map((item) => (
+        {TABS.map((item) => (
           <div key={item?.id} className="mobile-my-menu-tab-list" onClick={() => onClickMyPageItem(item?.id)}>
             <p>{item?.title}</p>
             <SlArrowRight />

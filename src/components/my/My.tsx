@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { useRouter } from 'next/router';
 import { loginCheck } from 'src/constants';
@@ -13,7 +13,6 @@ import MyEdit from './edit/MyEdit';
 import MyOrder from './order/MyOrder';
 import MyPass from './pass/MyPass';
 import WishList from './wish/WishList';
-import { FeatureFlagService } from '@/service/FeatureFlagService';
 
 export type TabType = {
   id: string;
@@ -21,6 +20,7 @@ export type TabType = {
 };
 
 export const TABS: TabType[] = [
+  { id: 'pass', title: '패스 관리' },
   { id: 'order', title: '예약 내역' },
   { id: 'coupon', title: '쿠폰 관리' },
   { id: 'wish', title: '위시 리스트' },
@@ -31,13 +31,8 @@ const My = () => {
   const router = useRouter();
   const { type } = router.query;
 
-  const [tabs, setTabs] = useState<TabType[]>(TABS);
-
   useEffect(() => {
     if (!loginCheck()) router.push('/');
-    if (FeatureFlagService.isPassFeatureEnabled()) {
-      setTabs([{ id: 'pass', title: '패스 관리' }, ...TABS]);
-    }
   }, []);
 
   const onChangeTabValue = (_: TabType['title'], data: TabType) => {
@@ -48,7 +43,7 @@ const My = () => {
     <SMy>
       <article className="obud-my-article">
         <section className="my-tab-container">
-          <BaseTab tabs={tabs} value={type} onChange={onChangeTabValue} />
+          <BaseTab tabs={TABS} value={type} onChange={onChangeTabValue} />
         </section>
 
         <section className="my-list-container">

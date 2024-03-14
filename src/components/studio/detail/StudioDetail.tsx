@@ -15,7 +15,6 @@ import { getLessons } from '@/service/StudioService';
 import CustomImage from '@/components/common/image/CustomImage';
 import { useRouter } from 'next/router';
 import PassList from './option/PassList';
-import { FeatureFlagService } from '@/service/FeatureFlagService';
 import { Place } from '@/entities/place';
 import { PassService } from '@/service/PassService';
 
@@ -174,7 +173,7 @@ const StudioDetail = ({ studio }: Props) => {
         <TabPane tab="reservation" tabName="예약">
           <ClassList studioId={studio?.id || ''} />
         </TabPane>
-        {FeatureFlagService.isPassFeatureEnabled() && passes && passes.length > 0 && (
+        {passes && passes.length > 0 && (
           <TabPane tab="pass" tabName="패스">
             <PassList placeId={studio?.id || ''} />
           </TabPane>
