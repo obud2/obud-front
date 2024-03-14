@@ -77,7 +77,7 @@ const MobileMy = () => {
                   <div className="title">{userPass.place.title}</div>
                   <div className="description">{userPass.pass.title}</div>
                   <div className="description">
-                    만료일: {moment(userPass.endDate).format('YYYY-MM-DD')} (D-{moment(userPass.endDate).diff(moment(), 'days')})
+                    만료일: {moment(userPass.endDate).format('YYYY-MM-DD')} (D-{moment(userPass.endDate).diff(moment(), 'days')+1})
                   </div>
                 </Card>
               </SwiperSlide>

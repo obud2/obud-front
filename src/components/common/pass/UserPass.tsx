@@ -27,8 +27,8 @@ const UserPassItem = ({ userPass }: Props) => {
         <div className="pass-item">{userPass.place.title}</div>
         <div className="pass-item">
           {moment(userPass.startDate).format('YYYY.MM.DD')} ~ {moment(userPass.endDate).format('YYYY.MM.DD')}
-          {/* D-Day는  구매일(결제일)로부터 카운트한다 */}
-          <span className="d-day">(D-{moment(userPass.endDate).diff(moment(userPass.createdAt), 'days')})</span>
+          {/* D-Day는  오늘날짜 기준으로 카운트한다 */}
+          <span className="d-day">(D-{moment(userPass.endDate).diff(moment(), 'days') + 1})</span>
         </div>
         <div className="pass-item option">
           <span>
