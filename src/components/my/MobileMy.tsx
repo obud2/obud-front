@@ -77,7 +77,15 @@ const MobileMy = () => {
                   <div className="title">{userPass.place.title}</div>
                   <div className="description">{userPass.pass.title}</div>
                   <div className="description">
-                    만료일: {moment(userPass.endDate).format('YYYY-MM-DD')} (D-{moment(userPass.endDate).diff(moment(), 'days')+1})
+                    만료일: {moment(userPass.endDate).format('YYYY-MM-DD')} (D-{moment(userPass.endDate).diff(moment(), 'days') + 1})
+                  </div>
+                  <div className="description option">
+                    <span>
+                      예약 횟수: ({userPass.totalReservations} / {userPass.pass.maxReservations})
+                    </span>
+                    <span>
+                      취소 횟수: ({userPass.totalCancels} / {userPass.pass.maxCancels})
+                    </span>
                   </div>
                 </Card>
               </SwiperSlide>
@@ -133,6 +141,13 @@ const Card = styled.div`
   .description {
     font-size: 1.2rem;
     margin-top: 8px;
+  }
+
+  .option {
+    font-size: 1.1rem;
+    span {
+      margin-right: 8px;
+    }
   }
 `;
 
