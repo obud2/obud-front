@@ -92,8 +92,6 @@ const Wrapper = styled.div`
       font-size: 1.6rem;
       font-weight: 400;
 
-      color: ${(props) => props.theme.main_color_slate_500};
-
       display: flex;
       align-items: center;
       justify-content: center;
@@ -114,7 +112,5 @@ const Wrapper = styled.div`
     font-weight: 400;
 
     margin: 20px 0;
-
-    color: ${(props) => props.theme.main_color_slate_500};
   }
 `;

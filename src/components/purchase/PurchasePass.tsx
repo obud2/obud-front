@@ -89,7 +89,7 @@ const PurchasePass = () => {
           <div className="pass-detail">예약 가능 프로그램</div>
 
           {passDetail?.programs.map((program) => (
-            <div className="purchase-info" key={program.id}>
+            <div className="purchase-info" key={program.id} style={{ cursor: 'pointer' }}>
               <p>{program.title}</p>
             </div>
           ))}
@@ -118,7 +118,7 @@ const PurchasePass = () => {
 
       <section className="purchase-info-container">
         <header className="purchase-header">
-          <div className="purchase-title" onClick={handleToggle}>
+          <div className="purchase-title" onClick={handleToggle} style={{ cursor: 'pointer' }}>
             환불 규정
             <div className={`arrow-icon ${isExpanded ? 'down' : 'up'}`} />
           </div>

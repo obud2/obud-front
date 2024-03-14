@@ -29,7 +29,7 @@ const PassDetail = () => {
     <SPassDetail>
       <div className="title">{passDetail.title}</div>
       <div className="info">
-        <div className="info-title">적용 프로그램</div>
+        <div className="info-title">예약 가능 프로그램</div>
         {passDetail.programs.map((program) => (
           <div
             key={program.id}
@@ -42,7 +42,7 @@ const PassDetail = () => {
             <div className="pass-arrow-icon" />
           </div>
         ))}
-        {passDetail.programs.length === 0 && <div className="info-item">적용 프로그램이 없습니다.</div>}
+        {passDetail.programs.length === 0 && <div className="info-item">예약 가능한 프로그램이 없습니다.</div>}
       </div>
 
       <div className="info">
@@ -150,6 +150,7 @@ const SPassDetail = styled.div`
     .info-clickable {
       display: flex;
       align-items: center;
+      cursor:pointer;
     }
   }
 

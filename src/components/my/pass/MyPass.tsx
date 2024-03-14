@@ -65,8 +65,6 @@ export const SMyPass = styled.div`
       font-size: 1.6rem;
       font-family: '400';
 
-      color: ${(props) => props.theme.main_color_slate_500};
-
       display: flex;
       align-items: center;
       justify-content: center;
@@ -96,7 +94,5 @@ export const SMyPass = styled.div`
     font-family: '400';
 
     margin-top: 40px;
-
-    color: ${(props) => props.theme.main_color_slate_500};
   }
 `;

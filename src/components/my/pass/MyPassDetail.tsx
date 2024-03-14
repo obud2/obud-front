@@ -42,9 +42,23 @@ const MyPassDetail = () => {
       <div className="title">패스 상세 정보</div>
       <div className="info">
         <div className="item">{userPass.pass.title}</div>
-        <div className="item">
-          {userPass.place.title} - {userPass.pass.durationInDays}일
-        </div>
+        <div className="item">{userPass.place.title}</div>
+      </div>
+
+      <div className="title">예약 가능 프로그램</div>
+      <div className="info">
+        {userPass.programs.map((program) => (
+          <div className="item" key={program.id} style={{ cursor: 'pointer' }}>
+            <div
+              onClick={() => {
+                router.push(`/lesson/${program.id}`);
+              }}
+            >
+              {program.title}
+            </div>
+            <div className="pass-arrow-icon" />
+          </div>
+        ))}
       </div>
 
       <div className="title">유효 기간</div>
@@ -53,7 +67,7 @@ const MyPassDetail = () => {
         <div className="item">종료일: {moment(userPass.endDate).format('YYYY.MM.DD')}</div>
       </div>
 
-      <div className="title">에약 정보</div>
+      <div className="title">예약 정보</div>
       <div className="info">
         <div className="item">
           예약 횟수: ({userPass.totalReservations} / {userPass.pass.maxReservations})
@@ -71,7 +85,14 @@ const MyPassDetail = () => {
 
       <div className="title">환불 규정</div>
       <div className="info">
-        <div className="refund-item">{userPass.pass.refundPolicy}</div>
+        <div className="item">{'결제일 포함 5일 이내이며 미 예약 시 : 100% 환불\n'}</div>
+        <div className="item" style={{ lineHeight: '1.6' }}>
+          결제일로부터 6일 이후 혹은 예약 시 해당 장소에서 환불을 처리합니다. 장소의 내부 환불 규정에 따라 환불됩니다.
+        </div>
+        <div className="refund-item">
+          <div style={{ marginBottom: '5px' }}>장소 내부 환불 규정</div>
+          {userPass.pass.refundPolicy}
+        </div>
       </div>
 
       {isRefundButtonActive && (
@@ -101,7 +122,6 @@ export const SMyPassDetail = styled.div`
     font-weight: 600;
     padding: 12px 0;
     border-bottom: 1px solid ${(props) => props.theme.main_color_slate_400};
-    color: ${(props) => props.theme.main_color_slate_500};
     display: flex;
   }
 
@@ -111,23 +131,40 @@ export const SMyPassDetail = styled.div`
     font-weight: 400;
 
     .item {
+      display: flex;
+      align-items: center;
       padding: 4px 0;
     }
 
     .refund-item {
-      padding: 4px 0;
-      background-color: #ccc;
+      background-color: #eeeff1;
+      border-radius: 5px;
+      padding: 10px;
+      margin: 5px;
     }
+  }
+
+  .pass-arrow-icon {
+    width: 6px;
+    height: 6px;
+
+    transform: rotate(45deg);
+    border-top: 1px solid #565656;
+    border-right: 1px solid #565656;
+
+    margin-top: 5px;
+    margin-left: 5px;
+    top: -1px;
+    position: relative;
   }
 
   .refund-button {
     width: 100%;
     height: 48px;
-    border-radius: 8px;
     background-color: white;
     border: 1px solid ${(props) => props.theme.main_color_slate_500};
     color: ${(props) => props.theme.main_color_slate_500};
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     font-weight: 700;
     margin-top: 24px;
   }
