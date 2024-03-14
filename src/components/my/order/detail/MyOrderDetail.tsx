@@ -13,7 +13,7 @@ import { Reservation } from '@/entities/reservation';
 import { ReserveService } from '@/service/ReserveService';
 import { LayoutContext } from '@/context/LayoutContext';
 
-const HEADER = ['상품정보', '날짜', '시간'];
+const HEADER = ['상품정보', '날짜', '시간', '예약 수단'];
 
 const MyOrderDetail = () => {
   const router = useRouter();
@@ -98,7 +98,7 @@ const MyOrderDetail = () => {
         </header>
 
         <ul className="booking-item-header-container">
-          {HEADER?.map((item) => (
+          {HEADER.map((item) => (
             <li key={`booking-header-item-${item}`} className="booking-header-item">
               {item}
             </li>
@@ -140,18 +140,18 @@ const MyOrderDetail = () => {
                     <p>{reservation.program.title || '-'}</p>
                   </div>
                 </li>
-
                 {/* 날짜 */}
                 <li className="booking-item">
                   <p>{moment(reservation.schedule.startDate).format('YYYY-MM-DD')}</p>
                 </li>
-
                 {/* 시간 */}
                 <li className="booking-item">
                   <p>
                     {moment(reservation.schedule.startDate).format('HH:mm')}~{moment(reservation.schedule.endDate).format('HH:mm')}
                   </p>
                 </li>
+                {/* 예약 수단 */}
+                <li className="booking-item">{reservation.payment.pass ? <p>{reservation.payment.pass.title}</p> : <p>단건 결제</p>}</li>
               </>
             )}
           </ul>
