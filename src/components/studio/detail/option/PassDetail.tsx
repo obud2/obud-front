@@ -3,17 +3,28 @@ import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import alert from '@/helpers/alert';
+import { loginCheck } from '@/constants';
+import useAuthModal from '@/store/useAuthModal';
 
 const PassDetail = () => {
   const router = useRouter();
   const { passId } = router.query;
   const id = Number(passId as string);
 
+  const { onClickOpenAuth } = useAuthModal((state) => ({
+    onClickOpenAuth: state.onClickOpenAuth,
+  }));
+
   const { data: passDetail } = usePass(id);
   const { data: userPasses } = useUserPasses();
 
   const handlePurchase = () => {
     if (!passDetail || !userPasses) return;
+
+    if (!loginCheck()) {
+      onClickOpenAuth('login');
+      return false;
+    }
 
     if (userPasses.find((userPass) => userPass.pass.id === passDetail.id)) {
       alert('', '이미 해당 프로그램의 패스를 보유하고 있습니다.\n마이페이지 > 나의 패스를 확인해 주세요.');
@@ -150,7 +161,7 @@ const SPassDetail = styled.div`
     .info-clickable {
       display: flex;
       align-items: center;
-      cursor:pointer;
+      cursor: pointer;
     }
   }
 
