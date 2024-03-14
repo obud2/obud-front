@@ -62,7 +62,7 @@ const PurchasePass = () => {
         await impPay(payOption, setIsLoading);
         queryClient.invalidateQueries();
         alert('', '결제가 완료되었습니다.', '', '', () => {
-          router.push('/my/pass');
+          router.push('/my');
         });
       } catch (error) {
         // eslint-disable-next-line no-console

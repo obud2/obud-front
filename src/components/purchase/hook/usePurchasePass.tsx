@@ -66,7 +66,7 @@ const usePurchasePass = ({ passId }: { passId: Pass['id'] }) => {
             setTimeout(() => {
               completedRef.current = false;
             }, 30_000);
-            router.replace('/my/pass');
+            router.replace('/my');
           });
         } catch (err) {
           alert('', '죄송합니다. 예약에 실패하였습니다. <br /> 잠시 후 다시 시도해주세요.');
