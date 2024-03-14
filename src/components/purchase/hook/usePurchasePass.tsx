@@ -48,6 +48,8 @@ const usePurchasePass = ({ passId }: { passId: Pass['id'] }) => {
       const parsedData = JSON.parse(data);
       const response = parsedData.payResultParams;
 
+      alert('', `${JSON.stringify(response)}`);
+
       if (response.imp_uid && response.status === 'paid') {
         if (completedRef.current) return;
 
