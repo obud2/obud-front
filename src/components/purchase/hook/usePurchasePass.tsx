@@ -48,16 +48,8 @@ const usePurchasePass = ({ passId }: { passId: Pass['id'] }) => {
       const parsedData = JSON.parse(data);
       const response = parsedData.payResultParams;
 
-      alert(
-        '',
-        `
-      merchant_uid: ${response.merchant_uid}<br/>
-      imp_uid: ${response.imp_uid}<br/>
-      status: ${response.status}<br/>
-      completedRef: ${completedRef.current}
-      amount: ${response.amount}
-      `,
-      );
+      // eslint-disable-next-line no-alert
+      window.alert(JSON.stringify(response));
 
       if (response.imp_uid && response.status === 'paid') {
         if (completedRef.current) return;
@@ -81,7 +73,6 @@ const usePurchasePass = ({ passId }: { passId: Pass['id'] }) => {
           });
         } catch (err) {
           alert('', '죄송합니다. 예약에 실패하였습니다. <br /> 잠시 후 다시 시도해주세요.');
-          alert('', `${JSON.stringify(response)}`);
         }
       } else {
         if (completedRef.current) return;
@@ -93,7 +84,6 @@ const usePurchasePass = ({ passId }: { passId: Pass['id'] }) => {
             router.push('/class');
           });
         } catch (err) {
-          alert('', JSON.stringify(err));
           alert('', '죄송합니다. 예약에 실패하였습니다. <br /> 잠시 후 다시 시도해주세요.');
         }
       }
