@@ -48,7 +48,16 @@ const usePurchasePass = ({ passId }: { passId: Pass['id'] }) => {
       const parsedData = JSON.parse(data);
       const response = parsedData.payResultParams;
 
-      alert('', `${JSON.stringify(response)}`);
+      alert(
+        '',
+        `
+      merchant_uid: ${response.merchant_uid}<br/>
+      imp_uid: ${response.imp_uid}<br/>
+      status: ${response.status}<br/>
+      completedRef: ${completedRef.current}
+      amount: ${response.amount}
+      `,
+      );
 
       if (response.imp_uid && response.status === 'paid') {
         if (completedRef.current) return;
