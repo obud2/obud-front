@@ -48,9 +48,6 @@ const usePurchasePass = ({ passId }: { passId: Pass['id'] }) => {
       const parsedData = JSON.parse(data);
       const response = parsedData.payResultParams;
 
-      // eslint-disable-next-line no-alert
-      window.alert(JSON.stringify(response));
-
       if (response.imp_uid && response.status === 'paid') {
         if (completedRef.current) return;
 
@@ -61,7 +58,7 @@ const usePurchasePass = ({ passId }: { passId: Pass['id'] }) => {
             passId,
             merchantUid: response.merchant_uid,
             impUid: response.imp_uid,
-            payAmount: parsedData.amount,
+            payAmount: Number(response.paid_amount),
           });
           queryClient.invalidateQueries();
 
