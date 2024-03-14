@@ -123,6 +123,12 @@ const MyOrderDetail = () => {
                     {moment(reservation.schedule.endDate).format('HH:mm')}
                   </p>
                 </div>
+                {reservation.payment.pass && (
+                  <div className="booking-mobile-title">
+                    <p>예약수단</p>
+                    <p>{reservation.payment.pass.title}</p>
+                  </div>
+                )}
               </div>
             )}
             {!matchese && (
@@ -451,7 +457,7 @@ const SBookingBase = styled.div`
     width: 100%;
 
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 
     padding: 24px 0;
     gap: 24px;
@@ -460,6 +466,7 @@ const SBookingBase = styled.div`
 
     ${MOBILE} {
       padding: 18px 16px;
+      flex-direction: column;
     }
   }
 `;
