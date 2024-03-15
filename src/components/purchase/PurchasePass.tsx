@@ -9,12 +9,15 @@ import CustomRadio, { CustomRadioItem } from '../common/radio/CustomRadio';
 import usePurchasePass, { PayOptions } from './hook/usePurchasePass';
 import { UserContext } from '@/context/UserContext';
 import alert from '@/helpers/alert';
+import { Pass } from '@/entities/pass';
 
-const PurchasePass = () => {
+type Props = {
+  passId: Pass['id'];
+};
+
+const PurchasePass = ({ passId }: Props) => {
   const queryClient = useQueryClient();
   const router = useRouter();
-  const { passId: id } = router.query;
-  const passId = Number(id as string);
 
   const { user } = useContext(UserContext);
 
