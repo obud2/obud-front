@@ -5,7 +5,7 @@ import alert from 'src/helpers/alert';
 import { RequestPayParams } from '@/portone';
 import { PAYMENT_METHOD } from '@components/booking/Booking.option';
 import { useQueryClient } from 'react-query';
-import router from 'next/router';
+import { useRouter } from 'next/router';
 import { Order } from '@/context/OrderContext';
 import { PassService } from '@/service/PassService';
 import { Pass } from '@/entities/pass';
@@ -30,10 +30,13 @@ export type PayOptions = {
 };
 
 const usePurchasePass = ({ passId }: { passId: Pass['id'] }) => {
+  const router = useRouter();
   const queryClient = useQueryClient();
   const completedRef = useRef<boolean>(false);
 
   useEffect(() => {
+    const { passId: purchasedPassId } = router.query;
+
     const jquery = document.createElement('script');
     const iamport = document.createElement('script');
 
@@ -55,7 +58,7 @@ const usePurchasePass = ({ passId }: { passId: Pass['id'] }) => {
           completedRef.current = true;
 
           await PassService.purchasePassComplete({
-            passId,
+            passId: Number(purchasedPassId),
             merchantUid: response.merchant_uid,
             impUid: response.imp_uid,
             payAmount: response.paid_amount,
@@ -76,7 +79,7 @@ const usePurchasePass = ({ passId }: { passId: Pass['id'] }) => {
 
         try {
           completedRef.current = true;
-          await PassService.purchasePassFail({ passId, merchantUid: response.merchant_uid });
+          await PassService.purchasePassFail({ passId: Number(purchasedPassId), merchantUid: response.merchant_uid });
           alert('', '예약에 실패했습니다. 결제는 자동 취소됩니다.', '', '', () => {
             router.push('/class');
           });
@@ -107,7 +110,7 @@ const usePurchasePass = ({ passId }: { passId: Pass['id'] }) => {
         document.removeEventListener('message', handleMessage);
       }
     };
-  }, [passId]);
+  }, [router]);
 
   const impPayNative = async (payOptions: PayOptions): Promise<void> => {
     if (typeof window === 'undefined' || !window.IMP) {
@@ -148,12 +151,16 @@ const usePurchasePass = ({ passId }: { passId: Pass['id'] }) => {
       }
     }
 
+    // return 후 pass id를 알아야 한다.
+    const returnUrlSearchParams = new URLSearchParams();
+    returnUrlSearchParams.append('passId', passId.toString());
+
     const params = {
       method: 'IAMPORT_PAYMENT',
       userCode: IMP_CODE, //  가맹점 식별코드
       payParams: requestPayParams,
       type: 'payment', //     결제와 본인인증을 구분하기 위한 필드
-      returnUrl: window.location.href,
+      returnUrl: `${window.location.href}?${returnUrlSearchParams.toString()}`,
     };
 
     window.ReactNativeWebView?.postMessage(JSON.stringify(params));
