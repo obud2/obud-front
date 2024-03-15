@@ -5,8 +5,6 @@ import { useRouter } from 'next/router';
 import { useContext } from 'react';
 import { SlArrowRight } from 'react-icons/sl';
 import { useQuery } from 'react-query';
-import { ADMIN, INSTRUCTOR, STUDIO } from 'src/constants';
-import { UserContext } from 'src/context/UserContext';
 import styled from 'styled-components';
 import { TABS } from './My';
 
