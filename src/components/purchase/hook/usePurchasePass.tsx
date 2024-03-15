@@ -35,7 +35,7 @@ const usePurchasePass = ({ passId }: { passId: Pass['id'] }) => {
   const completedRef = useRef<boolean>(false);
 
   useEffect(() => {
-    const { passId: purchasedPassId } = router.query;
+    if (!passId) return;
 
     const jquery = document.createElement('script');
     const iamport = document.createElement('script');
@@ -51,6 +51,16 @@ const usePurchasePass = ({ passId }: { passId: Pass['id'] }) => {
       const parsedData = JSON.parse(data);
       const response = parsedData.payResultParams;
 
+      // eslint-disable-next-line no-alert
+      window.alert(
+        `${JSON.stringify({
+          passId,
+          merchantUid: response.merchant_uid,
+          impUid: response.imp_uid,
+          payAmount: response.paid_amount,
+        })} passID = ${passId} `,
+      );
+
       if (response.imp_uid && response.status === 'paid') {
         if (completedRef.current) return;
 
@@ -58,7 +68,7 @@ const usePurchasePass = ({ passId }: { passId: Pass['id'] }) => {
           completedRef.current = true;
 
           await PassService.purchasePassComplete({
-            passId: Number(purchasedPassId),
+            passId,
             merchantUid: response.merchant_uid,
             impUid: response.imp_uid,
             payAmount: response.paid_amount,
@@ -79,7 +89,7 @@ const usePurchasePass = ({ passId }: { passId: Pass['id'] }) => {
 
         try {
           completedRef.current = true;
-          await PassService.purchasePassFail({ passId: Number(purchasedPassId), merchantUid: response.merchant_uid });
+          await PassService.purchasePassFail({ passId, merchantUid: response.merchant_uid });
           alert('', '예약에 실패했습니다. 결제는 자동 취소됩니다.', '', '', () => {
             router.push('/class');
           });
@@ -110,7 +120,7 @@ const usePurchasePass = ({ passId }: { passId: Pass['id'] }) => {
         document.removeEventListener('message', handleMessage);
       }
     };
-  }, [router]);
+  }, [passId]);
 
   const impPayNative = async (payOptions: PayOptions): Promise<void> => {
     if (typeof window === 'undefined' || !window.IMP) {
