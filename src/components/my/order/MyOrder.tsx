@@ -5,7 +5,6 @@ import { useQuery } from 'react-query';
 import { ReservationStatus } from '@/entities/reservation';
 import { ReserveService } from '@/service/ReserveService';
 import { MOBILE } from '@/styled/variablesStyles';
-import CountCheck from '@components/common/countCheck/CountCheck';
 import FallBackLoading from '@components/loading/FallBackLoading';
 import styled from 'styled-components';
 import MyOrderList from './MyOrderList';

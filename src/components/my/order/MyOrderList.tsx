@@ -6,6 +6,7 @@ import MyOrderItem from './MyOrderItem';
 import { MOBILE } from '@/styled/variablesStyles';
 import styled from 'styled-components';
 import { Reservation } from '@/entities/reservation';
+
 type Props = {
   reservations: Reservation[];
 };

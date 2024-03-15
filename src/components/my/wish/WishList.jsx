@@ -11,7 +11,6 @@ import _ from 'lodash';
 
 import WishItem from './WishItem';
 import CustomButton from '@components/common/button/CustomButton';
-import CountCheck from '@components/common/countCheck/CountCheck';
 import FallBackLoading from '@components/loading/FallBackLoading';
 
 const WishList = () => {
