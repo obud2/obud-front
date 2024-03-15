@@ -31,8 +31,8 @@ const MobileMy = () => {
         <MobileAuth />
       </header>
 
-      <main className="mobile-my-main">
-        <div className="pass-title">보유 패스</div>
+      <main className="mobile-my-pass">
+        <div className="pass-title">보유한 패스</div>
         {userPasses && userPasses?.length === 0 && (
           <div style={{ margin: '0 auto' }}>
             <Card style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -110,7 +110,7 @@ const Card = styled.div`
 
   width: 300px;
   padding: 20px 32px;
-  height: 120px;
+  height: 130px;
   margin: 0 5px;
 
   .title {
@@ -169,27 +169,39 @@ const SMobileMy = styled.div`
     align-items: center;
   }
 
-  .mobile-my-main {
+  .mobile-my-pass {
     width: 100%;
-    padding: 12px 0;
+    padding: 25px 0;
 
     border-bottom: 1px solid rgba(171, 182, 165, 0.2);
 
     display: flex;
     flex-direction: column;
 
-    gap: 5px;
-
     .pass-title {
       color: #555555;
-      font-size: 1.3rem;
-      margin-bottom: 10px;
+      font-size: 1.4rem;
       font-weight: bold;
+      margin-bottom: 15px;
     }
+  }
+
+  .mobile-my-main {
+      width: 100%;
+      padding: 15px 0;
+
+      border-bottom: 1px solid rgba(171, 182, 165, 0.2);
+
+      display: flex;
+      flex-direction: column;
+
+      gap: 5px;
+    }
+
 
     .mobile-my-menu-tab-list {
       width: 100%;
-      height: 60px;
+      height: 50px;
 
       display: flex;
       align-items: center;
@@ -207,5 +219,6 @@ const SMobileMy = styled.div`
         color: ${(props) => props.theme.main_color_slate_200};
       }
     }
-  }
+
+  
 `;
