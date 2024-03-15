@@ -58,7 +58,7 @@ const usePurchasePass = ({ passId }: { passId: Pass['id'] }) => {
             passId,
             merchantUid: response.merchant_uid,
             impUid: response.imp_uid,
-            payAmount: Number(response.paid_amount),
+            payAmount: response.paid_amount,
           });
           queryClient.invalidateQueries();
 
@@ -107,7 +107,7 @@ const usePurchasePass = ({ passId }: { passId: Pass['id'] }) => {
         document.removeEventListener('message', handleMessage);
       }
     };
-  }, []);
+  }, [passId]);
 
   const impPayNative = async (payOptions: PayOptions): Promise<void> => {
     if (typeof window === 'undefined' || !window.IMP) {
