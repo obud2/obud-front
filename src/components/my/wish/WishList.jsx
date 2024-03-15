@@ -58,11 +58,6 @@ const WishList = () => {
     <React.Fragment>
       <SWishList>
         <div className="wish-list-header">
-          <div className="wish-list-title">
-            저장한 장소
-            <CountCheck count={data && (data?.filter((a) => a?.studioInfo)?.length ?? 0)} />
-          </div>
-
           <CustomButton variant="outlined" onClick={onClickWishListButton} isLoading={isAllLoading} disabled={isAllLoading}>
             {editList?.length > 0 ? '삭제' : '편집'}
           </CustomButton>

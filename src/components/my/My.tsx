@@ -22,8 +22,8 @@ export type TabType = {
 export const TABS: TabType[] = [
   { id: 'pass', title: '패스 관리' },
   { id: 'order', title: '예약 내역' },
-  { id: 'coupon', title: '쿠폰 관리' },
-  { id: 'wish', title: '위시 리스트' },
+  { id: 'coupon', title: '나의 쿠폰' },
+  { id: 'wish', title: '저장한 장소' },
   { id: 'edit', title: '프로필 수정' },
 ];
 
