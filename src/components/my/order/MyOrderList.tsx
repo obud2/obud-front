@@ -6,7 +6,7 @@ import MyOrderItem from './MyOrderItem';
 import { MOBILE } from '@/styled/variablesStyles';
 import styled from 'styled-components';
 import { Reservation } from '@/entities/reservation';
-
+import CountCheck from '@/components/common/countCheck/CountCheck';
 type Props = {
   reservations: Reservation[];
 };
@@ -20,6 +20,7 @@ const MyOrderList = ({ reservations }: Props) => {
 
   return (
     <SMyOrderList>
+      {reservations?.length > 0 && <div className="total-reservation-count">총 {reservations.length}건</div>}
       {reservations.map((reservation) => {
         return (
           <div className="order-list-container" key={reservation.id}>
@@ -44,16 +45,25 @@ const SMyOrderList = styled.div`
   flex-direction: column;
   font-size: 13px;
 
+  .total-reservation-count {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 15px 0;
+
+    ${MOBILE} {
+      margin: 10px 0 15px 2px;
+    }
+  }
+
   .empty-text {
     color: ${(props) => props.theme.main_color_slate_300};
   }
 
   .order-list-container {
     width: 100%;
-    margin-bottom: 40px;
 
     ${MOBILE} {
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
 
     .order-date-header {

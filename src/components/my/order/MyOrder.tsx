@@ -18,13 +18,6 @@ const MyOrder = () => {
   return (
     <>
       <SMyOrder>
-        <div className="order-list-header">
-          <div className="order-list-title">
-            예약내역
-            <CountCheck count={reservations?.length ?? 0} />
-          </div>
-        </div>
-
         <div className="chip-wrapper">
           <div className={selectedTab === 'UPCOMING' ? 'chip active' : 'chip'} onClick={() => setSelectedTab('UPCOMING')}>
             이용 예정
@@ -66,47 +59,23 @@ const SMyOrder = styled.div`
   .chip-wrapper {
     display: flex;
     gap: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 
     .chip {
       padding: 4px 8px;
       border-radius: 20px;
-      border: 1px solid #e5e5e5;
+      border: 1px solid #fff;
       font-size: 1.2rem;
       font-family: 400;
       cursor: pointer;
 
       &:hover {
-        background: #f5f5f5;
+        border-color: #f5f5f5;
       }
     }
 
     .chip.active {
-      background: #f5f5f5;
-    }
-  }
-
-  .order-list-header {
-    width: 100%;
-    height: 32px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    margin-bottom: 10px;
-
-    .order-list-title {
-      font-size: 1.6rem;
-      font-family: 400;
-
-      color: ${(props) => props.theme.main_color_slate_500};
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      gap: 5px;
+      border-color: #000;
     }
   }
 `;

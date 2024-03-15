@@ -59,7 +59,7 @@ const WishList = () => {
       <SWishList>
         <div className="wish-list-header">
           <div className="wish-list-title">
-            위시리스트
+            저장한 장소
             <CountCheck count={data && (data?.filter((a) => a?.studioInfo)?.length ?? 0)} />
           </div>
 

@@ -17,9 +17,6 @@ const MyPass = () => {
 
   return (
     <SMyPass>
-      <div className="coupon-header">
-        <div className="coupon-title">보유한 패스</div>
-      </div>
       <div className="coupon-description">
         <Chip style={{ background: status === 'IN_USE' ? '#F5F5F5' : 'white' }} label="사용중" onClick={() => setStatus('IN_USE')} />
         <Chip style={{ background: status === 'EXPIRED' ? '#F5F5F5' : 'white' }} label="만료" onClick={() => setStatus('EXPIRED')} />

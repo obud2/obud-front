@@ -7,7 +7,7 @@ import MyOrderDetail from '@components/my/order/detail/MyOrderDetail';
 
 const Index = () => {
   return (
-    <Layout scrollBtnHide addonBeforeHeader="backTic" addonAfterHeader="empty" headerTitle="예약내역" mobileNavigationHide>
+    <Layout scrollBtnHide addonBeforeHeader="backTic" addonAfterHeader="empty" headerTitle="예약내역">
       <MetaHeader title="obud :: 예약내역" />
       <MyOrderDetail />
     </Layout>

@@ -60,16 +60,15 @@ const SMyOrderItem = styled.div`
   display: flex;
   align-items: center;
 
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  box-shadow: 1px 1px 5px -1px #e5e5e5;
+  padding: 20px;
+
   ${MOBILE} {
     gap: 15px;
     flex-direction: column;
     align-items: flex-start;
-
-    border: 1px solid #e5e5e5;
-    border-radius: 10px;
-    box-shadow: 1px 1px 5px -1px #e5e5e5;
-
-    padding: 20px;
   }
 
   .order-item-mobile-header {

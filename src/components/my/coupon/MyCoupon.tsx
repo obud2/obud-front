@@ -12,9 +12,6 @@ const MyCoupon = () => {
 
   return (
     <SMyCoupon>
-      <div className="coupon-header">
-        <div className="coupon-title">보유한 쿠폰</div>
-      </div>
       <div className="coupon-list-container">
         {coupons.length === 0 && <div className="coupon-empty">보유한 쿠폰이 없습니다.</div>}
         {coupons.map((coupon) => (

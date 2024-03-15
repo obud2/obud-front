@@ -44,7 +44,6 @@ const MobileMy = () => {
   return (
     <SMobileMy>
       <header className="mobile-my-header">
-        <p className="hello-message">안녕하세요.</p>
         <MobileAuth />
       </header>
 
@@ -162,7 +161,7 @@ const SMobileMy = styled.div`
 
   .mobile-my-header {
     width: 100%;
-    padding: 40px 0 32px;
+    padding: 32px 0;
 
     border-bottom: 1px solid rgba(171, 182, 165, 0.2);
 

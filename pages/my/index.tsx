@@ -6,7 +6,7 @@ const MobileMy = dynamic(() => import('@components/my/MobileMy'), { ssr: false }
 
 const Index = () => {
   return (
-    <Layout>
+    <Layout headerTitle="마이 페이지" addonBeforeHeader>
       <MetaHeader title="obud :: 마이페이지" />
       <MobileMy />
     </Layout>
