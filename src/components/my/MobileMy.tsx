@@ -18,7 +18,6 @@ import moment from 'moment';
 
 const MobileMy = () => {
   const router = useRouter();
-  const { user } = useContext(UserContext);
   const { data: userPasses } = useUserPasses('IN_USE');
 
   const handleClickPass = (userPass: UserPass) => {
