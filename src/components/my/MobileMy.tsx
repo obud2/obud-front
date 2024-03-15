@@ -26,19 +26,7 @@ const MobileMy = () => {
   };
 
   const onClickMyPageItem = (id: string) => {
-    if (id === 'admin') {
-      window.open('https://admin.obud.co/pages/auth/login');
-    } else {
-      router.push(`/my/${id}`);
-    }
-  };
-
-  const adminPageShow = () => {
-    if (user?.userGroup === ADMIN || user?.userGroup === STUDIO || user?.userGroup === INSTRUCTOR) {
-      return true;
-    }
-
-    return false;
+    router.push(`/my/${id}`);
   };
 
   return (
@@ -100,12 +88,6 @@ const MobileMy = () => {
             <SlArrowRight />
           </div>
         ))}
-        {adminPageShow() && (
-          <div className="mobile-my-menu-tab-list" onClick={() => onClickMyPageItem('admin')}>
-            <p>호스트 페이지</p>
-            <SlArrowRight />
-          </div>
-        )}
       </main>
     </SMobileMy>
   );
