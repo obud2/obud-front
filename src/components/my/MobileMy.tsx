@@ -2,7 +2,6 @@ import { UserPass, UserPassStatus } from '@/entities/pass';
 import { PassService } from '@/service/PassService';
 import MobileAuth from '@components/layout/auth/MobileAuth';
 import { useRouter } from 'next/router';
-import { useContext } from 'react';
 import { SlArrowRight } from 'react-icons/sl';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
@@ -79,12 +78,15 @@ const MobileMy = () => {
       </main>
 
       <main className="mobile-my-main">
-        {TABS.map((item) => (
-          <div key={item?.id} className="mobile-my-menu-tab-list" onClick={() => onClickMyPageItem(item?.id)}>
-            <p>{item?.title}</p>
-            <SlArrowRight />
-          </div>
-        ))}
+        {TABS.map(
+          (item) =>
+            item.id !== 'edit' && ( // '프로필수정' 은 제외
+              <div key={item?.id} className="mobile-my-menu-tab-list" onClick={() => onClickMyPageItem(item?.id)}>
+                <p>{item?.title}</p>
+                <SlArrowRight />
+              </div>
+            ),
+        )}
       </main>
     </SMobileMy>
   );

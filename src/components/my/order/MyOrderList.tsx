@@ -6,7 +6,6 @@ import MyOrderItem from './MyOrderItem';
 import { MOBILE } from '@/styled/variablesStyles';
 import styled from 'styled-components';
 import { Reservation } from '@/entities/reservation';
-import CountCheck from '@/components/common/countCheck/CountCheck';
 type Props = {
   reservations: Reservation[];
 };

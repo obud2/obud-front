@@ -17,23 +17,12 @@ export const SMobileAuth = styled.div`
     .have-auto-title-containers {
       display: flex;
       align-items: center;
-      justify-content: space-between;
 
-      .have-auth-title {
-        width: 100%;
+      .auth-name {
+        font-size: 1.6rem;
+        font-weight: 400;
+        line-height: 140%;
         color: #555555;
-
-        .auth-name {
-          font-size: 1.6rem;
-          font-weight: 400;
-          line-height: 140%;
-        }
-
-        .auth-email {
-          font-size: 1.3rem;
-          font-weight: 400;
-          line-height: 140%;
-        }
       }
 
       .auth-logout-container {
@@ -115,5 +104,17 @@ export const SMobileAuth = styled.div`
         color: ${(props) => props.theme.main_color_slate_400};
       }
     }
+  }
+
+  .arrow-icon {
+    width: 8px;
+    height: 8px;
+
+    transform: rotate(45deg);
+    border-top: 1.5px solid ${(props) => props.theme.core_color_slate_200};
+    border-right: 1.5px solid ${(props) => props.theme.core_color_slate_200};
+
+    margin-left: 4px;
+    top: -2px;
   }
 `;

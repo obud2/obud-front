@@ -59,10 +59,13 @@ const MobileAuth = () => {
       <div className="auth-title-container">
         {isLogin ? (
           <div className="have-auto-title-containers">
-            <div className="have-auth-title">
-              <p className="auth-name">{user?.name || 'Unkown'}</p>
-              <p className="auth-email">{user?.email || '-'}</p>
-            </div>
+            <p className="auth-name">{user?.name || 'Unkown'}님</p>
+            <div
+              className="arrow-icon"
+              onClick={() => {
+                router.push('/my/edit');
+              }}
+            />
           </div>
         ) : (
           <div className="have-no-auto-title-container">
