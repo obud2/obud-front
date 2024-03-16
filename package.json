@@ -14,6 +14,7 @@
   "dependencies": {
     "@egjs/flicking-plugins": "^4.7.1",
     "@egjs/react-flicking": "^4.11.1",
+    "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-separator": "^1.0.3",
     "@react-google-maps/api": "^2.19.2",
     "aws-amplify": "^4.3.43",

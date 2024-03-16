@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { useRouter } from 'next/router';
+import { FaRegCalendarAlt } from 'react-icons/fa';
+import { CalendarModal } from '@/components/discover/CalendarModal';
 
 export const DateSelector = () => {
     const router = useRouter();
@@ -31,7 +33,7 @@ export const DateSelector = () => {
         });
     }, []);
 
-    const handleDateClick = (date) => {
+    const onClickDate = (date) => {
         router.push({
             pathname: '/discover',
             query: {
@@ -45,20 +47,26 @@ export const DateSelector = () => {
         <Swiper slidesPerView={7}>
           {twoWeeks.map(({ date, text }) => {
             return (
-              <SwiperSlide key={text} onClick={(() => handleDateClick(date))}>
+              <SwiperSlide key={text} onClick={(() => onClickDate(date))}>
                 <span className={activeDate === date ? 'active' : ''}>{text}</span>
               </SwiperSlide>
             );
         })}
         </Swiper>
+        <CalendarModal>
+          <FaRegCalendarAlt style={{ width: 23, height: 23 }} />
+        </CalendarModal>
       </SDateSelector>
     );
 };
 
 const SDateSelector = styled.div`
   overflow-x: auto;
-  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 4px;
+  padding: 0 18px;
 
   .swiper {
     width: 100%;
