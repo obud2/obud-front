@@ -67,7 +67,7 @@ const MyOrderDetail = () => {
 
         try {
           await ReserveService.cancelReserveUsingPass({ id: reservation.id });
-          alert('', '예약 취소되었습니다. <br /> 환불은 마이페이지 > 예약현황에서 <br /> 확인해 주세요.', '', '', () => {
+          alert('', '예약이 취소되었습니다.', '', '', () => {
             router.push('/my/order');
           });
         } catch (err) {
