@@ -54,7 +54,7 @@ export const SSheetPrimitiveClose = styled(SheetPrimitive.Close)`
 const SSheetPrimitiveContent = styled(SheetPrimitive.Content)`
     position: fixed; 
     z-index: 50; 
-    padding: 1.5rem; 
+    padding: 32px 36px; 
     gap: 1rem; 
     transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -122,12 +122,15 @@ const SSheetFooter = styled.div`
 
 const SheetFooter = ({
   className,
+  children,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <SSheetFooter
     className={className}
     {...props}
-  />
+  >
+    {children}
+  </SSheetFooter>
 );
 
 SheetFooter.displayName = 'SheetFooter';
@@ -139,7 +142,7 @@ const SheetTitle = React.forwardRef<
   <SheetPrimitive.Title
     ref={ref}
     className={className}
-    style={{ fontSize: '1.125rem', lineHeight: '1.75rem', fontWeight: 600 }}
+    style={{ fontSize: '14px', lineHeight: '16.41px', fontWeight: 700 }}
     {...props}
   />
 ));
