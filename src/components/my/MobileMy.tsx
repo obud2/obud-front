@@ -17,8 +17,12 @@ const MobileMy = () => {
   const router = useRouter();
   const { data: userPasses } = useUserPasses('IN_USE');
 
-  const handleClickPass = (userPass: UserPass) => {
+  const handleClickPassReserve = (userPass: UserPass) => {
     router.push(`/class/${userPass.place.id}?tab=reservation`);
+  };
+
+  const handleClickPassDetail = (userPass: UserPass) => {
+    router.push(`my/pass/${userPass.id}`);
   };
 
   const onClickMyPageItem = (id: string) => {
@@ -56,12 +60,11 @@ const MobileMy = () => {
           >
             {userPasses.map((userPass) => (
               <SwiperSlide key={userPass.id}>
-                <Card onClick={() => handleClickPass(userPass)}>
-                  <div className="title">{userPass.place.title}</div>
-                  <div className="description">{userPass.pass.title}</div>
-                  <div className="description">
-                    만료일: {moment(userPass.endDate).format('YYYY-MM-DD')} (D-{moment(userPass.endDate).diff(moment(), 'days') + 1})
+                <Card>
+                  <div className="title">
+                    {userPass.pass.title} (D-{moment(userPass.endDate).diff(moment(), 'days') + 1})
                   </div>
+                  <div className="description">{userPass.place.title}</div>
                   <div className="description option">
                     <span>
                       예약 횟수: ({userPass.totalReservations} / {userPass.pass.maxReservations})
@@ -69,6 +72,15 @@ const MobileMy = () => {
                     <span>
                       취소 횟수: ({userPass.totalCancels} / {userPass.pass.maxCancels})
                     </span>
+                  </div>
+                  <div className="link">
+                    <div className="link-item" onClick={() => handleClickPassReserve(userPass)}>
+                      예약 하기
+                    </div>
+                    <div className="vline" />
+                    <div className="link-item" onClick={() => handleClickPassDetail(userPass)}>
+                      상세 보기
+                    </div>
                   </div>
                 </Card>
               </SwiperSlide>
@@ -119,15 +131,38 @@ const Card = styled.div`
   }
 
   .description {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     margin-top: 8px;
   }
 
   .option {
-    font-size: 1.1rem;
+    font-size: 1rem;
     span {
       margin-right: 8px;
     }
+  }
+
+  .link {
+    width: 100%;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin-top: 10px;
+    gap: 40px;
+  }
+
+  .link-item {
+    text-align: center;
+    position: relative;
+  }
+
+  .vline {
+    padding-top: 2px;
+    width: 1px;
+    height: 80%;
+    background-color: #fff;
   }
 `;
 
@@ -169,6 +204,11 @@ const SMobileMy = styled.div`
     align-items: center;
   }
 
+  .swiper .swiper-pagination {
+    position: relative;
+    margin-top: 20px;
+  }
+
   .mobile-my-pass {
     width: 100%;
     padding: 25px 0;
@@ -187,38 +227,35 @@ const SMobileMy = styled.div`
   }
 
   .mobile-my-main {
-      width: 100%;
-      padding: 15px 0;
+    width: 100%;
+    padding: 15px 0;
 
-      border-bottom: 1px solid rgba(171, 182, 165, 0.2);
+    border-bottom: 1px solid rgba(171, 182, 165, 0.2);
 
-      display: flex;
-      flex-direction: column;
+    display: flex;
+    flex-direction: column;
 
-      gap: 5px;
+    gap: 5px;
+  }
+
+  .mobile-my-menu-tab-list {
+    width: 100%;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    color: #555555;
+    font-size: 1.3rem;
+
+    cursor: pointer;
+
+    svg {
+      width: 12px;
+      height: 12px;
+
+      color: ${(props) => props.theme.main_color_slate_200};
     }
-
-
-    .mobile-my-menu-tab-list {
-      width: 100%;
-      height: 50px;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      color: #555555;
-      font-size: 1.3rem;
-
-      cursor: pointer;
-
-      svg {
-        width: 12px;
-        height: 12px;
-
-        color: ${(props) => props.theme.main_color_slate_200};
-      }
-    }
-
-  
+  }
 `;
