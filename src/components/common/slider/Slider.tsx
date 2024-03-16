@@ -45,41 +45,64 @@ const SSliderPrimitiveRange = styled(SliderPrimitive.Range)`
 
 const SSliderPrimitiveThumbText = styled.div`
     padding-top: 20px;
-    transform: translateX(-50%);
+    transform: translateX(-10px);
+    width: 32px;
+    text-align: center;
 `;
 
 const Slider = React.forwardRef<
   React.ElementRef<typeof SliderPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root> & {valueMap?: any}
->(({ className, tabIndex, valueMap, ...props }, ref) => (
-  <SSliderPrimitiveRoot
-    ref={ref}
-    className={className}
-    {...props}
-  >
-    <SSliderPrimitiveTrack>
-      <SSliderPrimitiveRange />
-    </SSliderPrimitiveTrack>
-    {(props.value ?? props.defaultValue ?? []).map((value, index) => {
-        console.log(value);
-        return (
-          <SSliderPrimitiveThumb
-            key={value}
-            className="rt-SliderThumb"
-            {...(tabIndex !== undefined ? { tabIndex } : undefined)}
-          >
-            <SSliderPrimitiveThumbText key={value + index}>
-              <div>
-                {valueMap.find((v) => v.value === value)?.text || ''}
-                <span>{value}</span>
-              </div>
-            </SSliderPrimitiveThumbText>
-          </SSliderPrimitiveThumb>
-           );
-    })}
+>(({ className, tabIndex, valueMap, ...props }, ref) => {
+  const [thumbText, setThumbText] = React.useState(['', '']);
 
-  </SSliderPrimitiveRoot>
-));
+  const getThumbText = React.useCallback((values) => {
+    const [firstValue, secondValue] = values || ['', ''];
+
+    setThumbText([
+      valueMap.find((v) => v.value === firstValue)?.text,
+      valueMap.find((v) => v.value === secondValue)?.text,
+    ]);
+  }, [props.defaultValue]);
+
+  React.useEffect(() => {
+    getThumbText(props.defaultValue);
+  }, [props.defaultValue]);
+
+  const handleValueChange = (values) => {
+    getThumbText(values);
+  };
+
+  return (
+    <SSliderPrimitiveRoot
+      ref={ref}
+      className={className}
+      {...props}
+      onValueChange={(values) => {
+        handleValueChange(values);
+        props.onValueChange?.(values);
+      }}
+    >
+      <SSliderPrimitiveTrack>
+        <SSliderPrimitiveRange />
+      </SSliderPrimitiveTrack>
+      {(props.value ?? props.defaultValue ?? []).map((value, index) => {
+          return (
+            <SSliderPrimitiveThumb
+              key={value}
+              className="rt-SliderThumb"
+              {...(tabIndex !== undefined ? { tabIndex } : undefined)}
+            >
+              <SSliderPrimitiveThumbText>
+                {thumbText[index]}
+              </SSliderPrimitiveThumbText>
+            </SSliderPrimitiveThumb>
+          );
+      })}
+
+    </SSliderPrimitiveRoot>
+  );
+});
 Slider.displayName = SliderPrimitive.Root.displayName;
 
 export { Slider };

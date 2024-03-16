@@ -1,40 +1,55 @@
 import CustomButton from '@/components/common/button/CustomButton';
-import { FilterModal } from '@/components/discover/FilterModal';
-import { ProgramFilterModal } from '@/components/discover/ProgramFilterModal';
+import { FilterModal } from '@/components/discover/filter-modal/FilterModal';
 import React from 'react';
 import { RiArrowDownSLine, RiSendPlaneLine } from 'react-icons/ri';
 import styled from 'styled-components';
 import 'swiper/css';
 
 export const FilterSelector = () => {
+    const onClickMyLocation = () => {
+      alert('내 주변 click!');
+    };
+
     return (
       <SFilterSelector style={{
         padding: '0 18px 10px 18px',
       }}
       >
-        <CustomButton variant="outlined" onClick={() => { console.log('123)'); }}>
+        <CustomButton variant="outlined" onClick={onClickMyLocation}>
           <span>내주변</span>
           <RiSendPlaneLine style={{ width: 16, height: 16 }} />
         </CustomButton>
 
         <SFilterSelector>
           <FilterModal>
-            <CustomButton variant="outlined" onClick={() => { console.log('123)'); }}>
+            <CustomButton
+              variant="outlined" // eslint-disable-next-line @typescript-eslint/no-empty-function
+              onClick={() => {}}
+            >
               <span>지역</span>
               <RiArrowDownSLine style={{ width: 16, height: 16 }} />
             </CustomButton>
           </FilterModal>
 
-          <ProgramFilterModal>
-            <CustomButton variant="outlined" onClick={() => { console.log('123)'); }}>
+          <FilterModal>
+            <CustomButton
+              variant="outlined" // eslint-disable-next-line @typescript-eslint/no-empty-function
+              onClick={() => {}}
+            >
               <span>프로그램</span>
               <RiArrowDownSLine style={{ width: 16, height: 16 }} />
             </CustomButton>
-          </ProgramFilterModal>
-          <CustomButton variant="outlined" onClick={() => { console.log('123)'); }}>
-            <span>시간</span>
-            <RiArrowDownSLine style={{ width: 16, height: 16 }} />
-          </CustomButton>
+          </FilterModal>
+
+          <FilterModal>
+            <CustomButton
+              variant="outlined" // eslint-disable-next-line @typescript-eslint/no-empty-function
+              onClick={() => {}}
+            >
+              <span>시간</span>
+              <RiArrowDownSLine style={{ width: 16, height: 16 }} />
+            </CustomButton>
+          </FilterModal>
         </SFilterSelector>
       </SFilterSelector>
     );

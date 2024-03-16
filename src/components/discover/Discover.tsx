@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { DateSelector } from '@/components/discover/DateSelector';
 import { Separator } from '@/components/common/separator/Separator';
-import { FilterSelector } from '@/components/discover/FilterSelector';
+import { FilterSelector } from '@/components/discover/filter-modal/FilterSelector';
 import Map from '@/components/discover/Map';
 
 const Discover = () => {

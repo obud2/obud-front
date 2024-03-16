@@ -1,11 +1,12 @@
 import CustomButton from '@/components/common/button/CustomButton';
 import { Separator } from '@/components/common/separator/Separator';
 import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTrigger } from '@/components/common/sheet/Sheet';
-import { FilterBox } from '@/components/discover/filter/FilterBox';
-import { FilterSlider } from '@/components/discover/filter/FilterSlider';
+import { FilterBox } from '@/components/discover/filter-modal/filter-box/FilterBox';
+import { FilterProgram } from '@/components/discover/filter-modal/filter-box/FilterProgram';
+import { FilterSlider } from '@/components/discover/filter-modal/filter-box/FilterSlider';
 import React, { useState } from 'react';
 
-export const ProgramFilterModal = ({ children }) => {
+export const FilterModal = ({ children }) => {
     // const router = useRouter();
     const [modalOpen, setModalOpen] = useState(false);
 
@@ -30,10 +31,10 @@ export const ProgramFilterModal = ({ children }) => {
         <SheetHeader>
           <SheetDescription>
             <div style={{ textAlign: 'left' }}>
-              <CustomButton style={{ padding: '0 14px' }} borderRadius="20px" variant="outlined" onClick={() => { console.log('123)'); }}>
-                <span>요가</span>
-              </CustomButton>
-
+              <FilterBox title="프로그램">
+                <FilterProgram />
+              </FilterBox>
+              <Separator />
               <FilterBox title="시작 시간">
                 <FilterSlider />
               </FilterBox>

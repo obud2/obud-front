@@ -54,7 +54,7 @@ export const SSheetPrimitiveClose = styled(SheetPrimitive.Close)`
 const SSheetPrimitiveContent = styled(SheetPrimitive.Content)`
     position: fixed; 
     z-index: 50; 
-    padding: 32px 36px; 
+    padding: 16px 16px; 
     gap: 1rem; 
     transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);

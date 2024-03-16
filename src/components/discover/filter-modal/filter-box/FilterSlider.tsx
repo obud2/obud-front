@@ -58,16 +58,15 @@ const TimeValueMap = [{
 }];
 
 export const FilterSlider = () => {
-    const [value, setValue] = useState([9, 12]);
+    const [value] = useState([9, 12]);
 
     const handleValueChange = (e) => {
         console.log(e);
     };
 
-    // const [startDate, endDate] = value;
     return (
       <div>
-        <Slider max={18} step={1} defaultValue={value} onValueChange={handleValueChange} valueMap={TimeValueMap} />
+        <Slider max={17} step={1} defaultValue={value} onValueChange={handleValueChange} valueMap={TimeValueMap} />
       </div>
     );
 };
