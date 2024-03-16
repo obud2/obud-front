@@ -1,13 +1,16 @@
 import CustomButton from '@/components/common/button/CustomButton';
 import { FilterModal } from '@/components/discover/filter-modal/FilterModal';
+import { useMap } from '@/context/MapContext';
 import React from 'react';
 import { RiArrowDownSLine, RiSendPlaneLine } from 'react-icons/ri';
 import styled from 'styled-components';
 import 'swiper/css';
 
 export const FilterSelector = () => {
+  const { aroundSearch } = useMap();
+
     const onClickMyLocation = () => {
-      alert('내 주변 click!');
+      aroundSearch();
     };
 
     return (

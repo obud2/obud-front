@@ -7,6 +7,7 @@ import { DateSelector } from '@/components/discover/DateSelector';
 import { Separator } from '@/components/common/separator/Separator';
 import { FilterSelector } from '@/components/discover/filter-modal/FilterSelector';
 import Map from '@/components/discover/Map';
+import { MapProvider } from '@/context/MapContext';
 
 const Discover = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -59,37 +60,39 @@ const Discover = () => {
         height: '100%',
       }}
     >
-      <SSearch>
-        <div className="obud-search-container">
-          {isLoading ? (
-            <i className="icons svg-loading active" />
+      <MapProvider>
+        <SSearch>
+          <div className="obud-search-container">
+            {isLoading ? (
+              <i className="icons svg-loading active" />
           ) : (
             <i className="icons search active" onClick={() => onSearch(value, '')} />
           )}
 
-          <input
-            className="search-input"
-            placeholder="검색어를 입력해주세요."
-            value={value}
-            onChange={onChangeInput}
-            onKeyDown={onKeyDownInput}
-            ref={inputRef}
-            disabled={isLoading}
-          />
-        </div>
+            <input
+              className="search-input"
+              placeholder="검색어를 입력해주세요."
+              value={value}
+              onChange={onChangeInput}
+              onKeyDown={onKeyDownInput}
+              ref={inputRef}
+              disabled={isLoading}
+            />
+          </div>
 
-        {/* 날짜 선택 */}
-        <DateSelector />
-        <div style={{
+          {/* 날짜 선택 */}
+          <DateSelector />
+          <div style={{
             marginTop: '17px',
             marginBottom: '15px',
           }}
-        >
-          <Separator />
-        </div>
-        <FilterSelector />
-      </SSearch>
-      <Map />
+          >
+            <Separator />
+          </div>
+          <FilterSelector />
+        </SSearch>
+        <Map />
+      </MapProvider>
     </div>
   );
 };
