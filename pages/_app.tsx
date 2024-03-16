@@ -2,6 +2,7 @@ import Head from 'next/head';
 
 import '@/assets/scss/style.scss';
 import '@/styles/globals.css';
+import '@/styles/map.css';
 
 import { DehydratedState, QueryClient, QueryClientProvider } from 'react-query';
 import { Hydrate } from 'react-query/hydration';

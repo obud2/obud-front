@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { DateSelector } from '@/components/discover/DateSelector';
 import { Separator } from '@/components/common/separator/Separator';
 import { FilterSelector } from '@/components/discover/FilterSelector';
+import Map from '@/components/discover/Map';
 
 const Discover = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -54,6 +55,8 @@ const Discover = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        flexDirection: 'column',
+        height: '100%',
       }}
     >
       <SSearch>
@@ -86,6 +89,7 @@ const Discover = () => {
         </div>
         <FilterSelector />
       </SSearch>
+      <Map />
     </div>
   );
 };

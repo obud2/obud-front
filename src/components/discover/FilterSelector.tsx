@@ -30,7 +30,7 @@ const SFilterSelector = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 0 18px;
+  padding: 0 18px 10px 18px;
 
   button {
     display: flex;
