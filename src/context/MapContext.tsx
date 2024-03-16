@@ -27,7 +27,7 @@ export const MapProvider = ({ children }: PropsWithChildren) => {
     const [searchable, setSearchable] = useState(false);
 
     const { loaded, coordinates, error } = useGeolocation();
-    const mapRef = useRef();
+    const mapsRef = useRef<naver.maps.Map>();
     const initCoordinates = useRef<{lat: number, lng: number}>();
 
     const setAroundMarker = () => {
@@ -45,9 +45,10 @@ export const MapProvider = ({ children }: PropsWithChildren) => {
         ];
 
         positions.forEach((position) => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const marker = new window.naver.maps.Marker({
                 position: new window.naver.maps.LatLng(position.lat, position.lng),
-                map: mapRef.current,
+                map: mapsRef.current,
                 icon: {
                     content: `<div class="obud-marker">
                         ${LocationSVG}
@@ -69,12 +70,13 @@ export const MapProvider = ({ children }: PropsWithChildren) => {
             scaleControl: true,
         };
 
-        mapRef.current = new window.naver.maps.Map('obud-map', mapOptions);
+        mapsRef.current = new window.naver.maps.Map('obud-map', mapOptions);
 
         if (coordinates?.lat && coordinates?.lng) {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const marker = new window.naver.maps.Marker({
                 position: new window.naver.maps.LatLng(coordinates.lat, coordinates.lng),
-                map: mapRef.current,
+                map: mapsRef.current,
                 icon: {
                     content: '<span class="obud-current-marker" />',
                 },
@@ -86,7 +88,7 @@ export const MapProvider = ({ children }: PropsWithChildren) => {
             };
         }
 
-        window.naver.maps.Event.addListener(mapRef.current, 'center_changed', (e) => {
+        window.naver.maps.Event.addListener(mapsRef.current, 'center_changed', () => {
             setSearchable(true);
         });
 
@@ -94,7 +96,18 @@ export const MapProvider = ({ children }: PropsWithChildren) => {
     };
 
     const aroundSearch = () => {
-        console.log('around');
+        if (!error && mapsRef.current && initCoordinates.current) {
+            const position = window.naver.maps.LatLng({
+                lat: initCoordinates.current?.lat,
+                lng: initCoordinates.current?.lng,
+            });
+
+            mapsRef.current.panTo(
+                position,
+            );
+        }
+
+        setSearchable(false);
     };
 
     const research = () => {

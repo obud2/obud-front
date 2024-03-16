@@ -44,6 +44,7 @@
   "devDependencies": {
     "@next/bundle-analyzer": "^13.5.4",
     "@types/lodash": "^4.14.191",
+    "@types/navermaps": "^3.7.4",
     "@types/node": "18.11.18",
     "@types/react-dom": "^18.0.10",
     "@types/react-query": "^1.2.9",
