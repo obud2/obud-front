@@ -160,7 +160,7 @@ const BookingWithoutPass = ({ isLoading, setIsLoading, userInfo, impPay, impPayN
 
         if (orderStatus === 'COMPLETE') {
           alert('', '감사합니다. <br /> 예약이 완료되었습니다.', '', '', () => {
-            router.push('/my/order');
+            router.replace('/my/order');
           });
         }
         if (orderStatus === 'FAIL') {

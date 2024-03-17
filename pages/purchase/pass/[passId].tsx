@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Layout from '@components/layout/Layout';
 import MetaHeader from '@components/common/meta/MetaHeader';
 import PurchasePass from '@/components/purchase/PurchasePass';

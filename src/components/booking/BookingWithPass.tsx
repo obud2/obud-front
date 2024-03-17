@@ -34,7 +34,7 @@ const BookingWithPass = ({ userInfo, isLoading, setIsLoading, scheduleId, usable
         userPassId: usableUserPass.id,
       });
       alert('', '감사합니다. <br /> 예약이 완료되었습니다.', '', '', () => {
-        router.push('/my/order');
+        router.replace('/my/order');
       });
       queryClient.invalidateQueries();
     } catch (err) {
