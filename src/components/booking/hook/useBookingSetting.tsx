@@ -50,15 +50,6 @@ const useBookingSetting = () => {
       const { data } = event;
       const parsedData = JSON.parse(data);
       const response = parsedData.payResultParams;
-      const url = parsedData.url;
-      const searchParams = new URLSearchParams(url);
-
-      // pass 결제 관련된 메시지일 경우 이를 무시해야 한다.
-      // pass 결제인지 여부는 url의 SearchParam을 통해 확인한다
-      // 추후 native에서 보내는 메시지 타입의 변경잎 필요할 수도 있다.
-      if (searchParams.get('passId')) {
-        return;
-      }
 
       const merchant = {
         merchant_uid: response.merchant_uid,
@@ -104,8 +95,12 @@ const useBookingSetting = () => {
 
     const userAgent = navigator.userAgent;
     if (/isIOS/.test(userAgent)) {
+      window.removeEventListener('message', handleMessage);
       window.addEventListener('message', handleMessage);
     } else if (/isAndroid/i.test(userAgent)) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      document.removeEventListener('message', handleMessage);
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       document.addEventListener('message', handleMessage);
