@@ -58,9 +58,8 @@ const useBookingSetting = () => {
       };
 
       if (response.imp_uid && response.status === 'paid') {
-        if (completedRef.current) {
-          return;
-        }
+        if (completedRef.current) return;
+
         try {
           completedRef.current = true;
 

@@ -51,6 +51,9 @@ const usePurchasePass = ({ passId }: { passId: Pass['id'] }) => {
       const parsedData = JSON.parse(data);
       const response = parsedData.payResultParams;
 
+      // eslint-disable-next-line no-alert
+      window.alert(data);
+
       if (response.imp_uid && response.status === 'paid') {
         if (completedRef.current) return;
 
