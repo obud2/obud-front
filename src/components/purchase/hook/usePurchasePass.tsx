@@ -121,7 +121,11 @@ const usePurchasePass = ({ passId }: { passId: Pass['id'] }) => {
     if (typeof window === 'undefined' || !window.IMP) {
       throw new Error('결제 준비가 되지 않았어요. 개발자에게 문의해주세요!');
     }
-    const { merchantUid } = await PassService.purchasePass({ passId });
+    const { merchantUid } = await PassService.purchasePass({
+      passId,
+      userName: payOptions.userInfo.name,
+      userPhone: payOptions.userInfo.hp,
+    });
 
     const requestPayParams: RequestPayParams = {
       app_scheme: 'obud',
@@ -182,7 +186,11 @@ const usePurchasePass = ({ passId }: { passId: Pass['id'] }) => {
     window.IMP.init(IMP_CODE);
 
     // 주문 생성
-    const { merchantUid } = await PassService.purchasePass({ passId });
+    const { merchantUid } = await PassService.purchasePass({
+      passId,
+      userName: payOptions.userInfo.name,
+      userPhone: payOptions.userInfo.hp,
+    });
     const requestPayParams: RequestPayParams = {
       app_scheme: 'obud',
       pg: PG,

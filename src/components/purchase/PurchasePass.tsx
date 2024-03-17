@@ -1,6 +1,6 @@
 import { PassService } from '@/service/PassService';
 import { useRouter } from 'next/router';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import styled from 'styled-components';
 import { MAX_WIDTH, TABLET, TABLET_MAX_WIDTH, MOBILE } from '@/styled/variablesStyles';
@@ -10,6 +10,7 @@ import usePurchasePass, { PayOptions } from './hook/usePurchasePass';
 import { UserContext } from '@/context/UserContext';
 import alert from '@/helpers/alert';
 import { Pass } from '@/entities/pass';
+import CustomInput from '@components/common/input/CustomInput';
 
 type Props = {
   passId: Pass['id'];
@@ -24,6 +25,28 @@ const PurchasePass = ({ passId }: Props) => {
   const [isChecked, setIsChecked] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isUserInfoBring, setIsUserInfoBring] = useState(true);
+  const [userInfo, setUserInfo] = useState<{ name?: string; hp?: string; email?: string }>({});
+
+  // 회원 정보 불러오기
+  useEffect(() => {
+    onClickUserInfoBring(true);
+  }, [user]);
+
+  // 회원 정보 불러오기 토글
+  const onClickUserInfoBring = (loadUser: boolean) => {
+    if (loadUser) {
+      setUserInfo({ name: user?.name, hp: user?.phone, email: user?.email });
+    } else {
+      setUserInfo({});
+    }
+    setIsUserInfoBring(loadUser);
+  };
+
+  // 예약자 정보 인풋
+  const onChangeInputValue = (key: 'name' | 'hp' | 'email', value: string) => {
+    setUserInfo((prev) => ({ ...prev, [key]: value }));
+  };
 
   const handleToggle = () => {
     setIsExpanded(!isExpanded); // 토글 시 상태를 변경
@@ -43,8 +66,8 @@ const PurchasePass = ({ passId }: Props) => {
     const payOption: PayOptions = {
       payMethod: 'card',
       userInfo: {
-        name: user.name,
-        hp: user.phone,
+        name: userInfo?.name || user.name,
+        hp: userInfo?.hp || user.phone,
         email: user.email,
       },
       title: passDetail?.title || '',
@@ -80,7 +103,6 @@ const PurchasePass = ({ passId }: Props) => {
 
   return (
     <SPurchasePass>
-      {/* 예약자 정보 영역 */}
       <section className="purchase-info-container">
         <header className="purchase-header">
           <div className="purchase-title">패스 구매하기</div>
@@ -96,6 +118,35 @@ const PurchasePass = ({ passId }: Props) => {
               <p>{program.title}</p>
             </div>
           ))}
+        </main>
+      </section>
+
+      {/* 예약자 정보 영역 */}
+      <section className="booking-user-info-container">
+        <header className="booking-header">
+          <p className="booking-title">구매자 정보</p>
+          <CustomCheckBox label="회원 정보 불러오기" value={isUserInfoBring} onClick={onClickUserInfoBring} disabled={isLoading} />
+        </header>
+
+        <main className="booking-user-info">
+          <CustomInput
+            point
+            label="예약자명"
+            type="text"
+            placeholder="예약자명을 입력해주세요."
+            value={userInfo?.name || ''}
+            onChange={(e) => onChangeInputValue('name', e.target.value)}
+            disabled={isLoading}
+          />
+          <CustomInput
+            point
+            label="휴대전화"
+            type="tel"
+            placeholder="'-'없이 입력"
+            value={userInfo?.hp || ''}
+            onChange={(e) => onChangeInputValue('hp', e.target.value)}
+            disabled={isLoading}
+          />
         </main>
       </section>
 
@@ -170,7 +221,9 @@ const PurchasePass = ({ passId }: Props) => {
 };
 
 const usePassDetail = (passId: number) => {
-  return useQuery(['pass', passId], () => PassService.getPassDetail({ passId }));
+  return useQuery(['pass', passId], () => PassService.getPassDetail({ passId }), {
+    enabled: !!passId,
+  });
 };
 
 export default PurchasePass;
@@ -314,6 +367,53 @@ const SPurchasePass = styled.div`
     &.down {
       transform: rotate(-45deg);
       top: 2px;
+    }
+  }
+
+  .booking-header {
+    width: 100%;
+
+    padding-bottom: 16px;
+    border-bottom: 1px solid;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .booking-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      line-height: 140%;
+
+      ${MOBILE} {
+        font-size: 1.6rem;
+      }
+    }
+  }
+
+  .booking-user-info-container {
+    flex: 1;
+    height: 100%;
+
+    ${MOBILE} {
+      width: 100%;
+    }
+
+    .booking-user-info {
+      width: 100%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      gap: 32px;
+
+      margin: 24px 0;
+
+      ${MOBILE} {
+        gap: 16px;
+        flex-direction: column;
+      }
     }
   }
 `;

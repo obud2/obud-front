@@ -68,6 +68,8 @@ const refundUserPass = async (request: RefundUserPassRequest): Promise<void> => 
 
 export type PurchasePassRequest = {
   passId: Pass['id'];
+  userName: string;
+  userPhone: string;
 };
 
 type PurchasePassResponse = {
@@ -75,7 +77,10 @@ type PurchasePassResponse = {
 };
 
 const purchasePass = async (request: PurchasePassRequest): Promise<PurchasePassResponse> => {
-  const response = await axiosInstance.post<{ value: PurchasePassResponse }>(`/payments/pass/${request.passId}`);
+  const response = await axiosInstance.post<{ value: PurchasePassResponse }>(`/payments/pass/${request.passId}`, {
+    userName: request.userName,
+    userPhone: request.userPhone,
+  });
   return response.data.value;
 };
 
