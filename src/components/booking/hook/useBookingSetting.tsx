@@ -1,5 +1,5 @@
 /* eslint-disable no-alert */
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { IMP_CODE, PG } from 'src/constants';
 
 import alert from 'src/helpers/alert';
@@ -36,17 +36,8 @@ const useBookingSetting = () => {
   const queryClient = useQueryClient();
   const completedRef = useRef<boolean>(false);
 
-  useEffect(() => {
-    const jquery = document.createElement('script');
-    const iamport = document.createElement('script');
-
-    jquery.src = 'https://code.jquery.com/jquery-1.12.4.min.js';
-    iamport.src = 'https://cdn.iamport.kr/v1/iamport.js';
-
-    document.head.appendChild(jquery);
-    document.head.appendChild(iamport);
-
-    const handleMessage = async (event: MessageEvent) => {
+  const handleMessage = useCallback(
+    async (event: MessageEvent) => {
       const { data } = event;
       const parsedData = JSON.parse(data);
       const response = parsedData.payResultParams;
@@ -91,16 +82,24 @@ const useBookingSetting = () => {
           alert('', '죄송합니다. 예약에 실패하였습니다. <br /> 잠시 후 다시 시도해주세요.');
         }
       }
-    };
+    },
+    [queryClient, router],
+  );
+
+  useEffect(() => {
+    const jquery = document.createElement('script');
+    const iamport = document.createElement('script');
+
+    jquery.src = 'https://code.jquery.com/jquery-1.12.4.min.js';
+    iamport.src = 'https://cdn.iamport.kr/v1/iamport.js';
+
+    document.head.appendChild(jquery);
+    document.head.appendChild(iamport);
 
     const userAgent = navigator.userAgent;
     if (/isIOS/.test(userAgent)) {
-      window.removeEventListener('message', handleMessage);
       window.addEventListener('message', handleMessage);
     } else if (/isAndroid/i.test(userAgent)) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      document.removeEventListener('message', handleMessage);
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       document.addEventListener('message', handleMessage);
@@ -118,7 +117,7 @@ const useBookingSetting = () => {
         document.removeEventListener('message', handleMessage);
       }
     };
-  }, []);
+  }, [handleMessage]);
 
   const impPayNative = async (createOrderParams: CreateOrderParam[], payOptions: PayOptions): Promise<void> => {
     if (typeof window === 'undefined' || !window.IMP) {
