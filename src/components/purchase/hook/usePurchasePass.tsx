@@ -50,6 +50,15 @@ const usePurchasePass = ({ passId }: { passId: Pass['id'] }) => {
       const { data } = event;
       const parsedData = JSON.parse(data);
       const response = parsedData.payResultParams;
+      const url = parsedData.url;
+      const searchParams = new URLSearchParams(url);
+
+      // pass 결제가 아닌 일반 결제와 관련된 메시지일 경우 이를 무시해야 한다.
+      // pass 결제인지 여부는 url의 SearchParam을 통해 확인한다
+      // 추후 native에서 보내는 메시지 타입의 변경잎 필요할 수도 있다.
+      if (!searchParams.get('passId')) {
+        return;
+      }
 
       if (response.imp_uid && response.status === 'paid') {
         if (completedRef.current) return;
