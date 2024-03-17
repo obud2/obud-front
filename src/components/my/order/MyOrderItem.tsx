@@ -30,7 +30,7 @@ const MyOrderItem = ({ reservation, onClickOrderDetail }: Props) => {
           <div className="order-item-option">
             <p>{moment(reservation.schedule.startDate).format('YYYY.MM.DD (ddd)')}</p>
             <p>•</p>
-            <p>{`${moment(reservation.schedule.endDate).format('HH:mm')}`}</p>
+            <p>{`${moment(reservation.schedule.startDate).format('HH:mm')}`}</p>
             <p>•</p>
             <p>{`${reservation.reservationCount}명`}</p>
           </div>
