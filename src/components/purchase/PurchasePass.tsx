@@ -131,9 +131,9 @@ const PurchasePass = ({ passId }: Props) => {
         <main className="booking-user-info">
           <CustomInput
             point
-            label="예약자명"
+            label="구매자명"
             type="text"
-            placeholder="예약자명을 입력해주세요."
+            placeholder="구매자명을 입력해주세요."
             value={userInfo?.name || ''}
             onChange={(e) => onChangeInputValue('name', e.target.value)}
             disabled={isLoading}
