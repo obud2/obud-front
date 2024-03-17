@@ -38,7 +38,8 @@ const BookingWithPass = ({ userInfo, isLoading, setIsLoading, scheduleId, usable
       });
       queryClient.invalidateQueries();
     } catch (err) {
-      alert('', '죄송합니다. 예약에 실패하였습니다. <br /> 잠시 후 다시 시도해주세요.', '', '', () => {
+      const error = err as { message: string };
+      alert('', error.message || '죄송합니다. 예약에 실패하였습니다. <br /> 잠시 후 다시 시도해주세요.', '', '', () => {
         router.push('/class');
       });
     } finally {

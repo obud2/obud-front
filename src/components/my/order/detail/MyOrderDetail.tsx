@@ -49,8 +49,9 @@ const MyOrderDetail = () => {
 
             setUseLoading(false);
           })
-          .catch(() => {
-            alert('', '오류가 발생하였습니다. <br /> 잠시 후 다시시도해주세요.');
+          .catch((err) => {
+            const error = err as { message: string };
+            alert('', error.message || '오류가 발생하였습니다. <br /> 잠시 후 다시시도해주세요.');
           })
           .finally(() => {
             queryClient.invalidateQueries();
@@ -71,7 +72,8 @@ const MyOrderDetail = () => {
             router.push('/my/order');
           });
         } catch (err) {
-          alert('', '예약 취소에 실패했습니다. <br /> 고객센터에 문의해주세요.');
+          const error = err as { message: string };
+          alert('', error.message || '예약 취소에 실패했습니다. <br /> 고객센터에 문의해주세요.');
         } finally {
           setUseLoading(false);
           queryClient.invalidateQueries();
