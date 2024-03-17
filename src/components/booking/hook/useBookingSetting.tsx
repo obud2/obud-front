@@ -1,5 +1,5 @@
 /* eslint-disable no-alert */
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useContext, useEffect, useRef } from 'react';
 import { IMP_CODE, PG } from 'src/constants';
 
 import alert from 'src/helpers/alert';
@@ -7,7 +7,7 @@ import { RequestPayParams } from '@/portone';
 import { PAYMENT_METHOD } from '@components/booking/Booking.option';
 import { useQueryClient } from 'react-query';
 import router from 'next/router';
-import { Order } from '@/context/OrderContext';
+import { Order, OrderContext } from '@/context/OrderContext';
 import { orderComplete, createOrder, payCancel, orderFail } from '@/service/OrderService';
 
 export type CreateOrderParam = {
@@ -35,12 +35,15 @@ type PayOptions = {
 const useBookingSetting = () => {
   const queryClient = useQueryClient();
   const completedRef = useRef<boolean>(false);
+  const { finishedOrder, setFinishedOrder } = useContext(OrderContext);
 
   const handleMessage = useCallback(
     async (event: MessageEvent) => {
       const { data } = event;
       const parsedData = JSON.parse(data);
       const response = parsedData.payResultParams;
+
+      if (finishedOrder.includes(response.imp_uid)) return;
 
       const merchant = {
         merchant_uid: response.merchant_uid,
@@ -56,6 +59,7 @@ const useBookingSetting = () => {
 
           const data = await orderComplete(merchant);
           const orderStatus = data.orderStatus || 'FAIL';
+          setFinishedOrder(response.imp_uid);
 
           queryClient.invalidateQueries(['my-order-list'], { refetchInactive: true });
 
@@ -83,7 +87,7 @@ const useBookingSetting = () => {
         }
       }
     },
-    [queryClient, router],
+    [queryClient, router, finishedOrder, setFinishedOrder],
   );
 
   useEffect(() => {

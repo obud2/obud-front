@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useContext, useEffect, useRef } from 'react';
 import { IMP_CODE, PG } from 'src/constants';
 
 import alert from 'src/helpers/alert';
@@ -6,7 +6,7 @@ import { RequestPayParams } from '@/portone';
 import { PAYMENT_METHOD } from '@components/booking/Booking.option';
 import { useQueryClient } from 'react-query';
 import { useRouter } from 'next/router';
-import { Order } from '@/context/OrderContext';
+import { Order, OrderContext } from '@/context/OrderContext';
 import { PassService } from '@/service/PassService';
 import { Pass } from '@/entities/pass';
 
@@ -33,6 +33,7 @@ const usePurchasePass = ({ passId }: { passId: Pass['id'] }) => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const completedRef = useRef<boolean>(false);
+  const { finishedOrder, setFinishedOrder } = useContext(OrderContext);
 
   const handleMessage = useCallback(
     async (event: MessageEvent) => {
@@ -41,6 +42,8 @@ const usePurchasePass = ({ passId }: { passId: Pass['id'] }) => {
       const { data } = event;
       const parsedData = JSON.parse(data);
       const response = parsedData.payResultParams;
+
+      if (finishedOrder.includes(response.imp_uid)) return;
 
       if (response.imp_uid && response.status === 'paid') {
         if (completedRef.current) return;
@@ -54,6 +57,7 @@ const usePurchasePass = ({ passId }: { passId: Pass['id'] }) => {
             impUid: response.imp_uid,
             payAmount: response.paid_amount,
           });
+          setFinishedOrder(response.imp_uid);
           queryClient.invalidateQueries();
 
           alert('', '감사합니다. <br /> 예약이 완료되었습니다.', '', '', () => {
@@ -79,7 +83,7 @@ const usePurchasePass = ({ passId }: { passId: Pass['id'] }) => {
         }
       }
     },
-    [passId, queryClient, router],
+    [passId, queryClient, router, finishedOrder, setFinishedOrder],
   );
 
   useEffect(() => {
