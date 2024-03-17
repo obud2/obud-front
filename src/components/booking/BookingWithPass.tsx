@@ -32,6 +32,8 @@ const BookingWithPass = ({ userInfo, isLoading, setIsLoading, scheduleId, usable
       await ReserveService.reserveUsingPass({
         scheduleId,
         userPassId: usableUserPass.id,
+        userName: userInfo.name,
+        userPhone: userInfo.hp,
       });
       alert('', '감사합니다. <br /> 예약이 완료되었습니다.', '', '', () => {
         router.replace('/my/order');

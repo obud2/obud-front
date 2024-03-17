@@ -5,6 +5,8 @@ import { Reservation, ReservationStatus } from '@/entities/reservation';
 type ReserveUsingPassRequest = {
   scheduleId: string;
   userPassId: UserPass['id'];
+  userName: string;
+  userPhone: string;
 };
 
 type ReserveUsingPassResponse = {
