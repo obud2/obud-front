@@ -5,6 +5,7 @@ import CustomButton from '@components/common/button/CustomButton';
 import styled from 'styled-components';
 import { Reservation } from '@/entities/reservation';
 import { ReserveService } from '@/service/ReserveService';
+import CustomImage from '@/components/common/image/CustomImage';
 
 type Props = {
   reservation: Reservation;
@@ -23,6 +24,9 @@ const MyOrderItem = ({ reservation, onClickOrderDetail }: Props) => {
       </section>
 
       <section className="order-item-container">
+        <section className="order-item-image-container">
+          <CustomImage src={reservation.images[0]?.url ?? ''} layout="fill" />
+        </section>
         <section className="order-item-contents-container">
           <p className="order-item-studio-title">{reservation.place.title}</p>
           <p className="order-item-lesson-title">{reservation.program.title}</p>
@@ -107,6 +111,16 @@ const SMyOrderItem = styled.div`
     align-items: center;
 
     gap: 16px;
+
+    .order-item-image-container {
+      min-width: 89px;
+      aspect-ratio: 1 / 1;
+      border: 0.5px solid #eeeeee;
+      position: relative;
+      ${MOBILE} {
+        min-width: 50px;
+      }
+    }
 
     .order-item-contents-container {
       flex: 1;
