@@ -46,14 +46,13 @@ const MyOrderDetail = () => {
             } else {
               alert('', res?.message || '오류가 발생하였습니다. <br /> 잠시 후 다시시도해주세요.');
             }
-
-            setUseLoading(false);
           })
           .catch((err) => {
             const error = err as { message: string };
             alert('', error.message || '오류가 발생하였습니다. <br /> 잠시 후 다시시도해주세요.');
           })
           .finally(() => {
+            setUseLoading(false);
             queryClient.invalidateQueries();
           });
       }
