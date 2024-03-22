@@ -66,12 +66,20 @@ const MyPassDetail = () => {
 
       <div className="title">예약 정보</div>
       <div className="info">
-        <div className="item">
-          예약 횟수: ({userPass.totalReservations} / {userPass.pass.maxReservations})
-        </div>
-        <div className="item">
-          취소 횟수: ({userPass.totalCancels} / {userPass.pass.maxCancels})
-        </div>
+        {userPass.pass.maxReservations !== null ? (
+          <div className="item">
+            예약 횟수: ({userPass.totalReservations} / {userPass.pass.maxReservations})
+          </div>
+        ) : (
+          <div className="item">예약 횟수: ({userPass.totalReservations} / 무제한)</div>
+        )}
+        {userPass.pass.maxCancels !== null ? (
+          <div className="item">
+            취소 횟수: ({userPass.totalCancels} / {userPass.pass.maxCancels})
+          </div>
+        ) : (
+          <div className="item">취소 횟수: ({userPass.totalCancels} / 무제한)</div>
+        )}
       </div>
 
       <div className="title">결제 정보</div>

@@ -63,7 +63,11 @@ const PassDetail = () => {
 
       <div className="info">
         <div className="info-title">예약 가능 횟수</div>
-        <div className="info-item">{passDetail.maxReservations}회</div>
+        {passDetail.maxReservations !== null ? (
+          <div className="info-item">{passDetail.maxReservations}회</div>
+        ) : (
+          <div className="info-item">무제한</div>
+        )}
       </div>
 
       <div className="info">

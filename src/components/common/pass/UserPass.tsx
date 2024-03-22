@@ -31,12 +31,20 @@ const UserPassItem = ({ userPass }: Props) => {
           <span className="d-day">(D-{moment(userPass.endDate).diff(moment(), 'days') + 1})</span>
         </div>
         <div className="pass-item option">
-          <span>
-            예약 횟수: ({userPass.totalReservations} / {userPass.pass.maxReservations})
-          </span>
-          <span>
-            취소 횟수: ({userPass.totalCancels} / {userPass.pass.maxCancels})
-          </span>
+          {userPass.pass.maxReservations !== null ? (
+            <span>
+              예약 횟수: ({userPass.totalReservations} / {userPass.pass.maxReservations})
+            </span>
+          ) : (
+            <span>예약 횟수: ({userPass.totalReservations} / 무제한)</span>
+          )}
+          {userPass.pass.maxCancels !== null ? (
+            <span>
+              취소 횟수: ({userPass.totalCancels} / {userPass.pass.maxCancels})
+            </span>
+          ) : (
+            <span>취소 횟수: ({userPass.totalCancels} / 무제한)</span>
+          )}
         </div>
       </div>
       <div className="pass-button-wrapper">
