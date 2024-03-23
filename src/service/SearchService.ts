@@ -1,4 +1,5 @@
 import axiosInstance from '@/constants/AxiosInstance';
+import { Place } from '@/entities/place';
 import { Keyword } from '@/entities/search';
 import { Studio } from '@/entities/studio';
 
@@ -26,7 +27,27 @@ const listKeywords = async () => {
   return response.data;
 };
 
+type AroundSearchRequest = {
+  categoryIds: string[];
+  date: string;
+  startTime: string;
+  endTime: string;
+  latitude: number;
+  longitude: number;
+};
+
+type AroundSearchResponse = {
+  value: Place[];
+};
+
+const aroundSearch = async (params: AroundSearchRequest) => {
+  const response = await axiosInstance.get<AroundSearchResponse>('search/around', { params });
+
+  return response.data;
+};
+
 export const SearchService = {
   listSearchResults,
   listKeywords,
+  aroundSearch,
 };

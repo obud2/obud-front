@@ -4,7 +4,8 @@ import { Auth } from 'aws-amplify';
 /**
  * API 호출 URL
  */
-export const API_URL = 'https://api.obud.co';
+// export const API_URL = 'https://api.obud.co';
+export const API_URL = 'http://localhost:8000';
 export const APP_URL = 'https://www.obud.co';
 
 /**

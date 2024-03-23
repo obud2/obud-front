@@ -142,7 +142,7 @@ const SheetTitle = React.forwardRef<
   <SheetPrimitive.Title
     ref={ref}
     className={className}
-    style={{ fontSize: '14px', lineHeight: '16.41px', fontWeight: 700 }}
+    style={{ fontSize: '14px', lineHeight: '16.41px', fontWeight: 700, padding: '0 8px' }}
     {...props}
   />
 ));

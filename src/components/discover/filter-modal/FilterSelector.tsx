@@ -1,4 +1,5 @@
 import CustomButton from '@/components/common/button/CustomButton';
+import { FilterType, useFilter } from '@/components/discover/filter-modal/FilterContext';
 import { FilterModal } from '@/components/discover/filter-modal/FilterModal';
 import { useMap } from '@/context/MapContext';
 import React from 'react';
@@ -7,6 +8,7 @@ import styled from 'styled-components';
 import 'swiper/css';
 
 export const FilterSelector = () => {
+  const { setSelectedFilter } = useFilter();
   const { aroundSearch } = useMap();
 
     const onClickMyLocation = () => {
@@ -37,7 +39,7 @@ export const FilterSelector = () => {
           <FilterModal>
             <CustomButton
               variant="outlined" // eslint-disable-next-line @typescript-eslint/no-empty-function
-              onClick={() => {}}
+              onClick={() => { setSelectedFilter(FilterType.PROGRAM); }}
             >
               <span>프로그램</span>
               <RiArrowDownSLine style={{ width: 16, height: 16 }} />
@@ -47,7 +49,7 @@ export const FilterSelector = () => {
           <FilterModal>
             <CustomButton
               variant="outlined" // eslint-disable-next-line @typescript-eslint/no-empty-function
-              onClick={() => {}}
+              onClick={() => { setSelectedFilter(FilterType.TIME); }}
             >
               <span>시간</span>
               <RiArrowDownSLine style={{ width: 16, height: 16 }} />

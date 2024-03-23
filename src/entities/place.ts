@@ -22,4 +22,6 @@ export type Place = {
   sortOrder: number;
   wishCount: number;
   viewCount: number;
+  latitude: number;
+  longitude: number;
 };

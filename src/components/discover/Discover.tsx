@@ -8,8 +8,14 @@ import { Separator } from '@/components/common/separator/Separator';
 import { FilterSelector } from '@/components/discover/filter-modal/FilterSelector';
 import Map from '@/components/discover/Map';
 import { MapProvider } from '@/context/MapContext';
+import { FilterProvider } from '@/components/discover/filter-modal/FilterContext';
+import { Place } from '@/entities/place';
 
-const Discover = () => {
+type props = {
+  places: Place[]
+}
+
+const Discover = ({ places } :props) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
@@ -60,7 +66,7 @@ const Discover = () => {
         height: '100%',
       }}
     >
-      <MapProvider>
+      <MapProvider places={places}>
         <SSearch>
           <div className="obud-search-container">
             {isLoading ? (
@@ -89,7 +95,10 @@ const Discover = () => {
           >
             <Separator />
           </div>
-          <FilterSelector />
+
+          <FilterProvider>
+            <FilterSelector />
+          </FilterProvider>
         </SSearch>
         <Map />
       </MapProvider>

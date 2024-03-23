@@ -1,3 +1,4 @@
+import { Place } from '@/entities/place';
 import useGeolocation from '@/hook/useGeolocation';
 import { createContext, PropsWithChildren, useMemo, useRef, useEffect, useState, useContext } from 'react';
 
@@ -23,31 +24,20 @@ const MapContext = createContext<{
     // eslint-disable-next-line @typescript-eslint/no-empty-function
 }>({ research: () => {}, searchable: false, loaded: false, aroundSearch: () => {} });
 
-export const MapProvider = ({ children }: PropsWithChildren) => {
+export const MapProvider = ({ children, places: initPlaces }: PropsWithChildren<{places: Place[]}>) => {
+    const removePlaces = useRef<any>([]);
     const [searchable, setSearchable] = useState(false);
 
+    const [places, setPlaces] = useState(initPlaces || []);
     const { loaded, coordinates, error } = useGeolocation();
     const mapsRef = useRef<naver.maps.Map>();
     const initCoordinates = useRef<{lat: number, lng: number}>();
 
     const setAroundMarker = () => {
-        const positions = [
-            {
-                lat: 37.5620246,
-                lng: 127.0382293,
-                title: '해요요가',
-            },
-            {
-                lat: 37.5640311,
-                lng: 127.03898,
-                title: '그린랩',
-            },
-        ];
-
-        positions.forEach((position) => {
+       removePlaces.current = places.map((position) => {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const marker = new window.naver.maps.Marker({
-                position: new window.naver.maps.LatLng(position.lat, position.lng),
+            return new window.naver.maps.Marker({
+                position: new window.naver.maps.LatLng(position.latitude, position.longitude),
                 map: mapsRef.current,
                 icon: {
                     content: `<div class="obud-marker">
@@ -59,11 +49,19 @@ export const MapProvider = ({ children }: PropsWithChildren) => {
         });
     };
 
+    const removeAroundMarker = () => {
+        removePlaces.current.forEach((marker) => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            marker.setMap(marker);
+        });
+    };
+
     const init = () => {
         const location = {
             lat: coordinates?.lat || 37.5634554,
             lng: coordinates?.lng || 127.0375937,
         };
+
         const mapOptions = {
             center: new window.naver.maps.LatLng(location.lat, location.lng),
             zoom: 16,
@@ -114,6 +112,15 @@ export const MapProvider = ({ children }: PropsWithChildren) => {
         setSearchable(false);
         console.log('research');
     };
+
+    useEffect(() => {
+        setAroundMarker();
+    }, [places]);
+
+    useEffect(() => {
+        removeAroundMarker();
+        setPlaces(initPlaces);
+    }, [initPlaces]);
 
     useEffect(() => {
         if (loaded) {
