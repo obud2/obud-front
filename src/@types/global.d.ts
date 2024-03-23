@@ -3,6 +3,7 @@ declare global {
     ReactNativeWebView: {
       postMessage: (message: string) => void;
     };
+    naver: naver.maps;
   }
 }
 
