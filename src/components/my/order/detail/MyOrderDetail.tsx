@@ -197,7 +197,7 @@ const MyOrderDetail = () => {
                 </div>
               )}
 
-              {!!reservation.payment.cancelAmount && (
+              {(!!reservation.payment.cancelAmount || reservation.status === 'CANCELLED') && (
                 <div className="booking-info cancel">
                   <p>환불 금액</p>
                   <p>{reservation.payment.cancelAmount?.toLocaleString() || 0}원</p>
