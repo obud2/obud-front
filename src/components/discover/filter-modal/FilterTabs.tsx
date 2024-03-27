@@ -13,8 +13,8 @@ export const FilterTabs = () => {
 
     return (
       <SFilterTabs>
-        <div>
-          <span>
+        <div onClick={() => { setSelectedFilter(FilterType.REGION); scrollToElement('filter-region'); }}>
+          <span className={selectedFilter === FilterType.REGION ? 'selected' : ''}>
             지역
           </span>
         </div>

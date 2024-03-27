@@ -5,6 +5,7 @@ import { useFilter } from '@/components/discover/filter-modal/FilterContext';
 import { FilterTabs } from '@/components/discover/filter-modal/FilterTabs';
 import { FilterBox } from '@/components/discover/filter-modal/filter-box/FilterBox';
 import { FilterProgram } from '@/components/discover/filter-modal/filter-box/FilterProgram';
+import { FilterRegion } from '@/components/discover/filter-modal/filter-box/FilterRegion';
 import { FilterSlider } from '@/components/discover/filter-modal/filter-box/FilterSlider';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
@@ -12,7 +13,7 @@ import React, { useState } from 'react';
 export const FilterModal = ({ children }) => {
   const router = useRouter();
 
-  const { programs, time } = useFilter();
+  const { regions, programs, time } = useFilter();
   const [modalOpen, setModalOpen] = useState(false);
 
   const setQuery = () => {
@@ -20,6 +21,12 @@ export const FilterModal = ({ children }) => {
 
     if (time) {
       query += `startTime=${time[0]}&endTime=${time[1]}`;
+    }
+
+    if (regions.length) {
+      regions.forEach((region) => {
+        query += `&region=${region}`;
+      });
     }
 
     if (programs.length) {
@@ -42,6 +49,11 @@ export const FilterModal = ({ children }) => {
           <FilterTabs />
           <SheetDescription>
             <div style={{ textAlign: 'left', paddingBottom: 330, overflow: 'auto', height: 300 }}>
+
+              <FilterBox title="지역" id="filter-region">
+                <FilterRegion />
+              </FilterBox>
+              <Separator />
 
               <FilterBox title="프로그램" id="filter-program">
                 <FilterProgram />

@@ -29,7 +29,7 @@ export const FilterSelector = () => {
           <FilterModal>
             <CustomButton
               variant="outlined" // eslint-disable-next-line @typescript-eslint/no-empty-function
-              onClick={() => {}}
+              onClick={() => { setSelectedFilter(FilterType.REGION); }}
             >
               <span>지역</span>
               <RiArrowDownSLine style={{ width: 16, height: 16 }} />
