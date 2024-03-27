@@ -64,7 +64,7 @@ export const MapProvider = ({ children, places: initPlaces }: PropsWithChildren<
 
         const mapOptions = {
             center: new window.naver.maps.LatLng(location.lat, location.lng),
-            zoom: 16,
+            zoom: 12,
             scaleControl: true,
         };
 
@@ -124,6 +124,7 @@ export const MapProvider = ({ children, places: initPlaces }: PropsWithChildren<
 
     useEffect(() => {
         if (loaded) {
+            // getAddress();
             init();
         }
     }, [loaded]);
