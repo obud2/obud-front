@@ -1,10 +1,69 @@
 import CustomImage from '@/components/common/image/CustomImage';
+import { loginCheck } from '@/constants';
 import { DisplayType, useMap } from '@/context/MapContext';
+import useAuthModal from '@/store/useAuthModal';
+import { format } from 'date-fns';
 import Link from 'next/link';
+import { useContext } from 'react';
+import { RiArrowRightSLine } from 'react-icons/ri';
 import styled from 'styled-components';
+import { OrderContext, Order } from 'src/context/OrderContext';
+import { useRouter } from 'next/router';
+import { ScheduleWithTime } from '@components/lesson/option/LessonReservationDrawer';
+import moment from 'moment';
+
+const DEFAULT_OPTION: ScheduleWithTime['payOption'] = { title: '선택안함', price: 0, maxMember: 0 };
 
 export const List = () => {
+  const router = useRouter();
     const { places, setType, reset } = useMap();
+    const { onClickOpenAuth } = useAuthModal((state) => ({
+      onClickOpenAuth: state.onClickOpenAuth,
+    }));
+
+    const { setOrder } = useContext(OrderContext);
+
+    const hadleReservation = (schedule: any, lesson: any) => {
+      if (!loginCheck()) {
+        onClickOpenAuth('login');
+        return false;
+      }
+
+      const date = moment(schedule.startDate).format('YYYY-MM-DD');
+      const startTime = moment(schedule.startDate).format('HH:mm');
+      const endTime = moment(schedule.endDate).format('HH:mm');
+
+      const param: Order = {
+        planId: schedule.id || '',
+        instructor: schedule.instructor || '',
+        price: schedule.price || 0,
+        startDate: schedule.startDate || '',
+        endDate: schedule.endDate || '',
+        // control in booking page
+        reservationCount: 1,
+
+        // option
+        payOption: DEFAULT_OPTION,
+        payOptionCount: 0,
+
+        // Items
+        lessonTitle: lesson?.title || '',
+        lessonImages: lesson?.images || [],
+        lessonId: lesson?.id || '',
+        studiosId: lesson?.studios?.id || '',
+        studiosTitle: lesson?.studios?.title || '',
+        instructorName: schedule.instructorInfo?.name || '',
+
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        format: { date, startTime, endTime }!,
+        maxMember: schedule.maxMember,
+        currentMember: schedule.currentMember,
+      };
+
+      setOrder([param]);
+      router.push('/booking');
+    };
+
     return (
 
       <div
@@ -35,6 +94,41 @@ export const List = () => {
                 </div>
               </div>
             </Link>
+
+            <div className="program">
+
+              {
+  place?.programs?.map((program) => {
+    return (
+      <div key={program.id}>
+        <div className="program-title">
+          <p>{program?.title}</p>
+          <Link href={`/lesson/${program.id}`}>
+            <div className="more"><span>더보기</span><RiArrowRightSLine /></div>
+          </Link>
+        </div>
+
+        <div className="program-schedules">
+          {
+          program?.schedules?.map((schedule) => {
+            return (
+              <div key={schedule.id} className="program-schedules-time" onClick={() => hadleReservation(schedule, program)}>
+                <div>
+                  <span>{format(new Date(schedule.updatedAt), 'hh:mm')}</span>
+                  <span>{schedule.scheduleTitlePreset?.title}</span>
+                </div>
+              </div>
+);
+          })
+        }
+        </div>
+
+      </div>
+);
+  })
+}
+
+            </div>
           </div>
 );
       })}
@@ -56,7 +150,7 @@ const SList = styled.div`
 
     .wrap {
         display: flex;
-        padding: 23px;
+        padding: 20px 23px 0;
         gap: 10px
     }
 
@@ -82,5 +176,57 @@ const SList = styled.div`
         bottom: 20px;
         color: #ffffff;
         font-size: 13px;
+    }
+
+    .program {
+      padding: 20px 23px;
+    }
+
+    .program-title {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      p {
+        font-weight: 400;
+      }
+    }
+
+    .more {
+      display: flex;
+      align-items: center;
+    }
+
+    .program-schedules {
+      display: grid;
+      grid-template-columns: 84px 84px 84px;
+      gap: 24px;
+      padding: 10px 0;
+    }
+
+    .program-schedules-time {
+        display: inline-block;
+
+      div {
+        display: flex;
+        gap: 2px;
+        border-radius: 10px;
+        border: 1px solid #D9D9D9;
+        width: 84px;
+        height: 43px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        span {
+          font-size: 11px;    
+          text-align: center;
+          word-break: keep-all;
+        }
+
+        &:hover {
+          background-color: #344235;
+          color: #ffffff;
+        }
+      }
     }
 `;

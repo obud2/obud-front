@@ -1,3 +1,4 @@
+import { Lesson } from '@/entities/lesson';
 import { ObudImage } from './common';
 
 /**
@@ -36,6 +37,7 @@ export type Studio = {
   viewCnt: number;
   wishCount: number;
   wishInfo: any; // TODO:
+  schedules?: Lesson[];
 };
 
 export type StudioRefund = {

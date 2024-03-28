@@ -70,7 +70,9 @@ export const MapProvider = ({ children }: PropsWithChildren) => {
         endTime = TimeValueMap.find((item) => item.value === (endTime ? parseInt(endTime as string, 10) : 0))?.time.toString();
       }
 
-    const { data: initPlaces } = useQuery(['aroundSearch', latitude, longitude], () => SearchService.aroundSearch({ categoryIds: categoryIds as string[], date: date as string, startTime: startTime as string, endTime: endTime as string, latitude, longitude }));
+    const { data: initPlaces } = useQuery(['aroundSearch', latitude, longitude, categoryIds, startTime, endTime, date], () =>
+    SearchService.aroundSearch({ categoryIds: categoryIds as string[], date: date as string, startTime: startTime as string, endTime: endTime as string, latitude, longitude }),
+    );
 
     const setAroundMarker = () => {
        removePlaces.current = places?.map((position) => {

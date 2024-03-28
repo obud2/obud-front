@@ -29,4 +29,7 @@ export type Lesson = {
   minPrice: number;
   maxPrice: number;
   isSoldOut: boolean;
+  scheduleTitlePreset?: {
+    title: string;
+  };
 };

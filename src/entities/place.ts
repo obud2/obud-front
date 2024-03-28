@@ -1,6 +1,8 @@
 // studio / lesson is deprecated
 // use place / program instead
 
+import { Studio } from '@/entities/studio';
+
 export type Place = {
   id: string;
   status: string;
@@ -25,4 +27,5 @@ export type Place = {
   latitude: number;
   longitude: number;
   region: string;
+  programs?: Studio[];
 };

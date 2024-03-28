@@ -1,7 +1,7 @@
 import CustomButton from '@/components/common/button/CustomButton';
 import { FilterType, useFilter } from '@/components/discover/filter-modal/FilterContext';
 import { FilterModal } from '@/components/discover/filter-modal/FilterModal';
-import { useMap } from '@/context/MapContext';
+import { DisplayType, useMap } from '@/context/MapContext';
 import React from 'react';
 import { RiArrowDownSLine, RiSendPlaneLine } from 'react-icons/ri';
 import styled from 'styled-components';
@@ -9,7 +9,7 @@ import 'swiper/css';
 
 export const FilterSelector = () => {
   const { setSelectedFilter } = useFilter();
-  const { aroundSearch } = useMap();
+  const { aroundSearch, type } = useMap();
 
     const onClickMyLocation = () => {
       aroundSearch();
@@ -20,10 +20,15 @@ export const FilterSelector = () => {
         padding: '0 18px 10px 18px',
       }}
       >
-        <CustomButton variant="outlined" onClick={onClickMyLocation}>
-          <span>내주변</span>
-          <RiSendPlaneLine style={{ width: 16, height: 16 }} />
-        </CustomButton>
+
+        {
+          type === DisplayType.MAP && (
+            <CustomButton variant="outlined" onClick={onClickMyLocation}>
+              <span>내주변</span>
+              <RiSendPlaneLine style={{ width: 16, height: 16 }} />
+            </CustomButton>
+          )
+        }
 
         <SFilterSelector>
           <FilterModal>
