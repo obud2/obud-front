@@ -80,8 +80,6 @@ export const FilterSlider = () => {
     const { time, setTime } = useFilter();
 
     return (
-      <div>
-        <Slider max={17} step={1} defaultValue={time} onValueChange={setTime} valueMap={TimeValueMap} />
-      </div>
+      <Slider min={0} max={17} step={1} defaultValue={time} onValueChange={setTime} valueMap={TimeValueMap} />
     );
 };

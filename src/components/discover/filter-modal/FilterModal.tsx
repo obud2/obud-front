@@ -41,7 +41,7 @@ export const FilterModal = ({ children }) => {
   const handleResetClick = () => {
     setRegions([]);
     setPrograms([]);
-    setTime([8, 11]);
+    setTime([0, 17]);
   };
 
   return (

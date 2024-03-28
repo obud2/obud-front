@@ -80,6 +80,8 @@ const Slider = React.forwardRef<
       {...props}
       onValueChange={(values) => {
         handleValueChange(values);
+      }}
+      onValueCommit={(values) => {
         props.onValueChange?.(values);
       }}
     >
