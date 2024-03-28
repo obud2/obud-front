@@ -67,7 +67,10 @@ const StudioDetail = ({ studio }: Props) => {
             <Share isHide={false} data={studio} title={studio?.title || ''} />
           </div>
         </div>
+        <div className='obud-studio-content'>{studio?.contents}</div>
       </SStudioOption>
+
+      
 
       <Tabs defaultTab="home">
         <TabPane tab="home" tabName="홈">

@@ -24,7 +24,7 @@ export const SStudioOption = styled.div`
 
   .obud-studio-header {
     width: 100%;
-    padding: 16px;
+    padding: 0 16px;
     display: flex;
     align-items: center;
 
@@ -53,6 +53,11 @@ export const SStudioOption = styled.div`
         margin-left: auto;
       }
     }
+  }
+
+  .obud-studio-content {
+    padding: 5px 16px 10px 16px;
+    font-size: 13px;
   }
 
   .obud-studio-option {
