@@ -6,6 +6,7 @@ import { SlArrowRight } from 'react-icons/sl';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import { TABS } from './My';
+import FallBackLoading from '../loading/FallBackLoading';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -15,7 +16,7 @@ import moment from 'moment';
 
 const MobileMy = () => {
   const router = useRouter();
-  const { data: userPasses } = useUserPasses('IN_USE');
+  const { data: userPasses, isLoading } = useUserPasses('IN_USE');
 
   const handleClickPassReserve = (userPass: UserPass) => {
     router.push(`/class/${userPass.place.id}?tab=reservation`);
@@ -37,14 +38,21 @@ const MobileMy = () => {
 
       <main className="mobile-my-pass">
         <div className="pass-title">보유한 패스</div>
-        {userPasses && userPasses?.length === 0 && (
+
+        {isLoading && (
+          <div style={{ margin: '0 auto' }}>
+            <FallBackLoading isLoading={isLoading} />
+          </div>
+        )}
+
+        {!isLoading && userPasses && userPasses?.length === 0 && (
           <div style={{ margin: '0 auto' }}>
             <Card style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <div style={{ fontSize: '14px' }}>보유한 패스가 없습니다.</div>
             </Card>
           </div>
         )}
-        {userPasses && userPasses.length > 0 && (
+        {!isLoading && userPasses && userPasses.length > 0 && (
           <Swiper
             style={
               {
@@ -67,18 +75,14 @@ const MobileMy = () => {
                   <div className="description">{userPass.place.title}</div>
                   <div className="description option">
                     {userPass.pass.maxReservations !== null ? (
-                      <span>
-                        예약 횟수: ({userPass.totalReservations} / {userPass.pass.maxReservations})
-                      </span>
+                      <span>예약가능: {userPass.pass.maxReservations - userPass.totalReservations}</span>
                     ) : (
-                      <span>예약 횟수: ({userPass.totalReservations} / 무제한)</span>
+                      <span>예약가능: 무제한</span>
                     )}
                     {userPass.pass.maxCancels !== null ? (
-                      <span>
-                        취소 횟수: ({userPass.totalCancels} / {userPass.pass.maxCancels})
-                      </span>
+                      <span>취소가능: {userPass.pass.maxCancels - userPass.totalCancels}</span>
                     ) : (
-                      <span>취소 횟수: ({userPass.totalCancels} / 무제한)</span>
+                      <span>취소가능: 무제한</span>
                     )}
                   </div>
                   <div className="link">
@@ -120,7 +124,7 @@ const useUserPasses = (status: UserPassStatus) => {
 
 const Card = styled.div`
   background: ${(props) => props.theme.main_color_slate_500};
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   color: #fff;
 
@@ -128,9 +132,9 @@ const Card = styled.div`
   flex-direction: column;
   align-items: flex-start;
 
-  width: 300px;
+  width: 100%;
   padding: 20px 32px;
-  height: 130px;
+  height: auto;
   margin: 0 5px;
 
   .title {
@@ -152,11 +156,11 @@ const Card = styled.div`
 
   .link {
     width: 100%;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px;
+    padding-top: 10px;
     margin-top: 10px;
     gap: 40px;
   }
@@ -169,7 +173,7 @@ const Card = styled.div`
   .vline {
     padding-top: 2px;
     width: 1px;
-    height: 80%;
+    height: 15px;
     background-color: #fff;
   }
 `;

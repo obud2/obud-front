@@ -119,8 +119,6 @@ const SPassDetail = styled.div`
   .title {
     font-size: 1.6rem;
     font-weight: 600;
-
-    color: ${(props) => props.theme.main_color_slate_500};
   }
 
   .info {
@@ -136,15 +134,16 @@ const SPassDetail = styled.div`
       font-size: 1.2rem;
       font-weight: 400;
       line-height: 1.4;
-      color: ${(props) => props.theme.main_color_slate_400};
+      color: #4c4c4c;
+      padding-bottom: 8px;
 
       .pass-arrow-icon {
         width: 6px;
         height: 6px;
 
         transform: rotate(45deg);
-        border-top: 1px solid #565656;
-        border-right: 1px solid #565656;
+        border-top: 1px solid #1d64d0;
+        border-right: 1px solid #1d64d0;
 
         margin-top: 3px;
         margin-left: 5px;
@@ -180,7 +179,7 @@ const SPassDetail = styled.div`
       background-color: ${(props) => props.theme.main_color_slate_500};
       color: white;
       font-size: 1.6rem;
-      font-weight: 700;
+      font-weight: 500;
     }
   }
 `;

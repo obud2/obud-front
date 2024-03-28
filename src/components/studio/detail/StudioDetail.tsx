@@ -43,7 +43,7 @@ const StudioDetail = ({ studio }: Props) => {
   };
 
   const validLessons = lessons?.filter((lesson) => !lesson.isSoldOut) ?? [];
-  const slicedLessons = validLessons.slice(0, 2);
+  const slicedLessons = validLessons.slice(0, 3);
 
   return (
     <SStudioDetail>
@@ -95,29 +95,29 @@ const StudioDetail = ({ studio }: Props) => {
                 </div>
               ))}
             </section>
-            <div className="load-more-line">
-              {validLessons.length > 2 && (
+
+            {validLessons.length > 3 ? (
+              <div className="load-more-line">
                 <div onClick={() => router.replace({ query: { ...query, tab: 'reservation' } })} className="load-more">
                   더보기
-                </div>
-              )}
-            </div>
+                </div>{' '}
+              </div>
+            ) : (
+              <div className="obud-line" />
+            )}
 
             {passes && passes.length > 0 && (
               <>
                 <section className="pass-container">
                   <div className="pass-title-container">
                     <span className="pass-title">패스/회원권 가격</span>
-                    <span className="pass-purchase-button" onClick={() => router.replace({ query: { ...query, tab: 'pass' } })}>
-                      구매하러 가기
-                    </span>
-                    <div className="arrow-icon"></div>
                   </div>
                   {passes.map((pass) => (
-                    <div key={pass.id} className="pass-item">
+                    <div key={pass.id} className="pass-item" onClick={() => router.push(`/class/${studio?.id}/pass/${pass.id}`)}>
                       <span>{pass.title}</span>
                       <span className="pass-dotted-line"></span>
-                      <span>{pass.price.toLocaleString()}</span>
+                      <span style={{ color: '#1d64d0' }}>{pass.price.toLocaleString()}원</span>
+                      <div className="arrow-icon"></div>
                     </div>
                   ))}
                 </section>
@@ -160,8 +160,8 @@ const StudioDetail = ({ studio }: Props) => {
             </section>
             <div className="obud-line" />
 
-            <section className="information-container">
-              <div className="container-title">편의시설</div>
+            <section className="parking-container">
+              <div className="container-title">주차 안내</div>
               <div>
                 <div className="item-container">
                   <div className="icons-container">
@@ -174,6 +174,12 @@ const StudioDetail = ({ studio }: Props) => {
                     <div className="parking-description">{studio?.parkingInfo}</div>
                   </div>
                 )}
+              </div>
+            </section>
+            <div className="obud-line" />
+            <section className="information-container">
+              <div className="container-title">편의시설</div>
+              <div>
                 {studio?.convenience?.map((item, index) => (
                   <div className="item-container" key={index}>
                     <div className="icons-container">
@@ -267,7 +273,7 @@ export const SStudioDetail = styled.article`
     margin: 40px 0;
 
     ${MOBILE} {
-      margin: 10px 0;
+      margin: 10px 0 20px 0;
     }
 
     .load-more {
@@ -368,7 +374,7 @@ export const SStudioDetail = styled.article`
   }
 
   .lesson-container {
-    padding: 0 10px;
+    padding: 0 15px;
 
     .container-title {
       font-size: 1.7rem;
@@ -385,7 +391,7 @@ export const SStudioDetail = styled.article`
 
     .card {
       display: flex;
-      padding: 10px;
+      padding: 10px 0;
       justify-content: space-between;
       border-bottom: 1px solid #e5e5e5;
 
@@ -394,9 +400,8 @@ export const SStudioDetail = styled.article`
       }
 
       .content-container {
-        padding: 4px;
         .content-title {
-          font-size: 1.6rem;
+          font-size: 1.5rem;
           font-weight: 500;
           line-height: 140%;
           color: ${(props) => props?.theme?.core_color_slate_900};
@@ -411,7 +416,7 @@ export const SStudioDetail = styled.article`
   }
 
   .pass-container {
-    padding: 10px;
+    padding: 15px;
 
     .pass-title-container {
       display: flex;
@@ -436,26 +441,12 @@ export const SStudioDetail = styled.article`
         margin-left: 10px;
         cursor: pointer;
       }
-
-      .arrow-icon {
-        width: 7px;
-        height: 7px;
-
-        transform: rotate(45deg);
-        border-top: 1px solid #1d64d0;
-        border-right: 1px solid #1d64d0;
-
-        margin-top: 3px;
-        margin-right: 6px;
-        top: -1px;
-        position: relative;
-      }
     }
 
     .pass-item {
       display: flex;
       align-items: center;
-      margin: 2px 10px;
+      margin: 10px 0;
 
       .pass-dotted-line {
         border-bottom: 1px dotted ${(props) => props.theme.core_color_slate_200};
@@ -463,10 +454,23 @@ export const SStudioDetail = styled.article`
         margin: 0 5px;
       }
     }
+    .arrow-icon {
+      width: 7px;
+      height: 7px;
+
+      transform: rotate(45deg);
+      border-top: 1px solid #1d64d0;
+      border-right: 1px solid #1d64d0;
+
+      margin-top: 3px;
+      margin-left: 3px;
+      top: -1px;
+      position: relative;
+    }
   }
 
   .place-container {
-    padding: 0 10px;
+    padding: 0 15px;
 
     .address {
       padding: 8px 0;
@@ -476,7 +480,6 @@ export const SStudioDetail = styled.article`
       display: flex;
       align-items: center;
       padding: 8px 0;
-      margin-left: 10px;
 
       .description {
         margin-left: 4px;
@@ -485,8 +488,40 @@ export const SStudioDetail = styled.article`
     }
   }
 
+  .parking-container {
+    padding: 0 15px;
+
+    .item-container {
+      display: flex;
+      align-items: center;
+      padding: 8px 0;
+
+      .description {
+        margin-left: 4px;
+        color: ${(props) => props?.theme?.sub_color_slate_700};
+      }
+    }
+
+    .parking-info {
+      padding-bottom: 8px;
+      margin-left: 22px;
+
+      .parking-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        line-height: 140%;
+        color: ${(props) => props?.theme?.core_color_slate_900};
+        margin-bottom: 4px;
+      }
+
+      .parking-description {
+        color: ${(props) => props?.theme?.sub_color_slate_700};
+      }
+    }
+  }
+
   .information-container {
-    padding: 0 10px;
+    padding: 0 15px;
 
     .address {
       padding: 8px 0;
@@ -496,7 +531,6 @@ export const SStudioDetail = styled.article`
       display: flex;
       align-items: center;
       padding: 8px 0;
-      margin-left: 10px;
 
       .description {
         margin-left: 4px;
