@@ -43,8 +43,8 @@ const SButton = styled.button<SCustomButtonProps>`
   text-align: center;
   font-size: 12px;
   background-color: transparent;
-      color: ${(props) => props?.theme?.sub_color_slate_500};
-      border: 1px solid ${(props) => props?.theme?.sub_color_slate_400};
+  color: ${(props) => props?.theme?.sub_color_slate_500};
+  border: 1px solid ${(props) => props?.theme?.sub_color_slate_400};
   border-radius: 20px;
   ${(props) =>
     props.backgroundColor &&

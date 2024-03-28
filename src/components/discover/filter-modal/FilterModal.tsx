@@ -13,10 +13,10 @@ import React, { useState } from 'react';
 export const FilterModal = ({ children }) => {
   const router = useRouter();
 
-  const { regions, programs, time } = useFilter();
+  const { regions, programs, time, setRegions, setPrograms, setTime } = useFilter();
   const [modalOpen, setModalOpen] = useState(false);
 
-  const setQuery = () => {
+  const handleSetQueryClick = () => {
     let query = '';
 
     if (time) {
@@ -37,6 +37,13 @@ export const FilterModal = ({ children }) => {
       router.push(`${router.pathname}?${query}`);
       setModalOpen(false);
   };
+
+  const handleResetClick = () => {
+    setRegions([]);
+    setPrograms([]);
+    setTime([8, 11]);
+  };
+
   return (
     <Sheet open={modalOpen} onOpenChange={(e) => setModalOpen(e)}>
       <SheetTrigger onClick={() => setModalOpen(true)} asChild>{children}</SheetTrigger>
@@ -48,7 +55,7 @@ export const FilterModal = ({ children }) => {
           <SheetTitle>필터</SheetTitle>
           <FilterTabs />
           <SheetDescription>
-            <div style={{ textAlign: 'left', paddingBottom: 330, overflow: 'auto', height: 300 }}>
+            <div style={{ textAlign: 'left', overflow: 'auto', height: 300 }}>
 
               <FilterBox title="지역" id="filter-region">
                 <FilterRegion />
@@ -76,10 +83,10 @@ export const FilterModal = ({ children }) => {
         </div>
         <SheetFooter>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 40px' }}>
-            <CustomButton style={{ padding: '0 20px' }} borderRadius="20px" variant="outlined" onClick={() => { console.log('123)'); }}>
+            <CustomButton style={{ padding: '0 20px' }} borderRadius="20px" variant="outlined" onClick={handleResetClick}>
               <span>초기화</span>
             </CustomButton>
-            <CustomButton style={{ padding: '0 20px' }} borderRadius="20px" onClick={setQuery}>
+            <CustomButton style={{ padding: '0 20px' }} borderRadius="20px" onClick={handleSetQueryClick}>
               <span>적용</span>
             </CustomButton>
           </div>

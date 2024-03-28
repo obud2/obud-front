@@ -17,7 +17,7 @@ const FilterContext = createContext<{
     setTime: (time: [number, number]) => void
     time: [number, number]
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-}>({ selectedFilter: null, setSelectedFilter: () => {}, regions: [], setRegions: () => {}, programs: [], setPrograms: () => {}, time: [0, 17], setTime: () => {} });
+}>({ selectedFilter: null, setSelectedFilter: () => {}, regions: [], setRegions: () => {}, programs: [], setPrograms: () => {}, time: [8, 11], setTime: () => {} });
 
 export const FilterProvider = ({ children }: PropsWithChildren) => {
     const router = useRouter();
@@ -47,5 +47,9 @@ export const FilterProvider = ({ children }: PropsWithChildren) => {
 };
 
 export const useFilter = () => {
+    return useContext(FilterContext);
+};
+
+export const useTempFilter = () => {
     return useContext(FilterContext);
 };

@@ -1,5 +1,5 @@
 import { useFilter } from '@/components/discover/filter-modal/FilterContext';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 export const RegionValueMap = [{
@@ -147,17 +147,20 @@ const SRegionButton = styled.button`
 
 const FilterRegionSub = ({ subRegion }: {subRegion: any}) => {
     const { regions, setRegions } = useFilter();
+    // const [tempRegions, setTempRegions] = useState(regions);
+
+    useEffect(() => {
+        setRegions(regions);
+    }, [regions]);
 
     const handleSubRegionClick = (value) => {
-        const index = regions.findIndex((region) => region === value);
+        const items = [...regions];
 
-        if (index > -1) {
-            regions.splice(index, 1);
+        if (items.includes(value)) {
+            setRegions(items.filter((item) => item !== value));
         } else {
-            regions.push(value);
+            setRegions([...items, value]);
         }
-
-        setRegions(regions);
     };
 
     return (
@@ -173,7 +176,7 @@ const FilterRegionSub = ({ subRegion }: {subRegion: any}) => {
       >
         {
             subRegion.map((sub) => {
-                const isActive = regions.findIndex((region) => region === sub.value) > -1;
+                const isActive = regions.includes(sub.value);
 
                 return (
                   <SRegionButton key={sub.text + sub.value} onClick={() => handleSubRegionClick(sub.value)} className={isActive ? 'active' : ''}>
