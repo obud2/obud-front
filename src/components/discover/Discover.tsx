@@ -7,15 +7,11 @@ import { DateSelector } from '@/components/discover/DateSelector';
 import { Separator } from '@/components/common/separator/Separator';
 import { FilterSelector } from '@/components/discover/filter-modal/FilterSelector';
 import Map from '@/components/discover/Map';
-import { MapProvider } from '@/context/MapContext';
+import { DisplayType, MapProvider, useMap } from '@/context/MapContext';
 import { FilterProvider } from '@/components/discover/filter-modal/FilterContext';
-import { Place } from '@/entities/place';
+import { List } from '@/components/discover/List';
 
-type props = {
-  places: Place[]
-}
-
-const Discover = ({ places } :props) => {
+const Discover = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
@@ -66,7 +62,7 @@ const Discover = ({ places } :props) => {
         height: '100%',
       }}
     >
-      <MapProvider places={places}>
+      <MapProvider>
         <SSearch>
           <div className="obud-search-container">
             {isLoading ? (
@@ -100,10 +96,17 @@ const Discover = ({ places } :props) => {
             <FilterSelector />
           </FilterProvider>
         </SSearch>
-        <Map />
+
+        <Display />
       </MapProvider>
     </div>
   );
+};
+
+const Display = () => {
+  const { type } = useMap();
+
+  return type === DisplayType.MAP ? <Map /> : <List />;
 };
 
 export default Discover;

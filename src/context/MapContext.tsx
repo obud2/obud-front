@@ -1,6 +1,12 @@
+import { TimeValueMap } from '@/components/discover/filter-modal/filter-box/FilterSlider';
 import { Place } from '@/entities/place';
 import useGeolocation from '@/hook/useGeolocation';
+import { SearchService } from '@/service/SearchService';
+import { format } from 'date-fns';
+import { useRouter } from 'next/router';
 import { createContext, PropsWithChildren, useMemo, useRef, useEffect, useState, useContext } from 'react';
+import { useQuery } from 'react-query';
+import { setTimeout } from 'timers';
 
 const LocationSVG = `
 <svg class="location-marker" width="16" height="21" viewBox="0 0 16 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -15,28 +21,61 @@ const LocationSVG = `
 </svg>
 `;
 
+export enum DisplayType {
+    LIST,
+    MAP
+  }
+
 const MapContext = createContext<{
     searchable: boolean
     loaded: boolean
     research: () => void
-
     aroundSearch: () => void
+    selectedPlace: Place | null
+    type: DisplayType
+    setType: (type: DisplayType) => void
+    places: Place[]
+    reset: () => void
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-}>({ research: () => {}, searchable: false, loaded: false, aroundSearch: () => {} });
+}>({ research: () => {}, searchable: false, loaded: false, aroundSearch: () => {}, selectedPlace: null, type: DisplayType.MAP, setType: () => {}, places: [], reset: () => {} });
 
-export const MapProvider = ({ children, places: initPlaces }: PropsWithChildren<{places: Place[]}>) => {
+export const MapProvider = ({ children }: PropsWithChildren) => {
+    const [selectedPlace, setSelectedPlace] = useState<null | Place>(null);
+
+  const [type, setType] = useState<DisplayType>(DisplayType.MAP);
+
+    const router = useRouter();
+    // eslint-disable-next-line prefer-const
+    let { categoryIds, date, startTime, endTime } = router.query;
     const removePlaces = useRef<any>([]);
     const [searchable, setSearchable] = useState(false);
 
-    const [places, setPlaces] = useState(initPlaces || []);
-    const { loaded, coordinates, error } = useGeolocation();
+    const [places, setPlaces] = useState<Place[] >([]);
+    const { location: { loaded, coordinates, error }, onSuccess } = useGeolocation();
     const mapsRef = useRef<naver.maps.Map>();
     const initCoordinates = useRef<{lat: number, lng: number}>();
 
+    const latitude = coordinates?.lat || 37.5634554;
+    const longitude = coordinates?.lng || 127.0375937;
+
+    if (!date) {
+        date = format(new Date(), 'yyyy-MM-dd');
+      }
+
+      if (startTime) {
+        startTime = TimeValueMap.find((item) => item.value === (startTime ? parseInt(startTime as string, 10) : 0))?.time.toString();
+      }
+
+      if (endTime) {
+        endTime = TimeValueMap.find((item) => item.value === (endTime ? parseInt(endTime as string, 10) : 0))?.time.toString();
+      }
+
+    const { data: initPlaces } = useQuery(['aroundSearch', latitude, longitude], () => SearchService.aroundSearch({ categoryIds: categoryIds as string[], date: date as string, startTime: startTime as string, endTime: endTime as string, latitude, longitude }));
+
     const setAroundMarker = () => {
-       removePlaces.current = places.map((position) => {
+       removePlaces.current = places?.map((position) => {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            return new window.naver.maps.Marker({
+            const marker = new window.naver.maps.Marker({
                 position: new window.naver.maps.LatLng(position.latitude, position.longitude),
                 map: mapsRef.current,
                 icon: {
@@ -46,11 +85,17 @@ export const MapProvider = ({ children, places: initPlaces }: PropsWithChildren<
                     </div>`,
                 },
             });
+
+            window.naver.maps.Event.addListener(marker, 'click', () => {
+                setSelectedPlace(position);
+            });
+
+            return marker;
         });
     };
 
     const removeAroundMarker = () => {
-        removePlaces.current.forEach((marker) => {
+        removePlaces.current?.forEach((marker) => {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             marker.setMap(marker);
         });
@@ -64,7 +109,7 @@ export const MapProvider = ({ children, places: initPlaces }: PropsWithChildren<
 
         const mapOptions = {
             center: new window.naver.maps.LatLng(location.lat, location.lng),
-            zoom: 12,
+            zoom: 11,
             scaleControl: true,
         };
 
@@ -89,8 +134,6 @@ export const MapProvider = ({ children, places: initPlaces }: PropsWithChildren<
         window.naver.maps.Event.addListener(mapsRef.current, 'center_changed', () => {
             setSearchable(true);
         });
-
-        setAroundMarker();
     };
 
     const aroundSearch = () => {
@@ -110,7 +153,12 @@ export const MapProvider = ({ children, places: initPlaces }: PropsWithChildren<
 
     const research = () => {
         setSearchable(false);
-        console.log('research');
+
+        const center = mapsRef.current?.getCenter();
+
+        if (center?.x && center?.y) {
+            onSuccess({ coords: { latitude: center?.y, longitude: center?.x } });
+        }
     };
 
     useEffect(() => {
@@ -119,15 +167,24 @@ export const MapProvider = ({ children, places: initPlaces }: PropsWithChildren<
 
     useEffect(() => {
         removeAroundMarker();
-        setPlaces(initPlaces);
+
+        if (initPlaces?.value) {
+            setPlaces(initPlaces.value);
+        }
     }, [initPlaces]);
 
     useEffect(() => {
         if (loaded) {
-            // getAddress();
             init();
         }
     }, [loaded]);
+
+    const reset = () => {
+        setTimeout(() => {
+            init();
+            setAroundMarker();
+        }, 100);
+    };
 
     const value = useMemo(
         () => ({
@@ -135,8 +192,13 @@ export const MapProvider = ({ children, places: initPlaces }: PropsWithChildren<
             loaded,
             research,
             aroundSearch,
+            selectedPlace,
+            type,
+            setType,
+            places,
+            reset,
         }),
-        [research, searchable, loaded, aroundSearch],
+        [research, searchable, loaded, aroundSearch, selectedPlace, type, setType, places],
       );
 
     return (<MapContext.Provider value={value}>{children}</MapContext.Provider>);

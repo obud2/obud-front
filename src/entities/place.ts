@@ -24,4 +24,5 @@ export type Place = {
   viewCount: number;
   latitude: number;
   longitude: number;
+  region: string;
 };

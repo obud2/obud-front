@@ -1,4 +1,7 @@
-import { useMap } from '@/context/MapContext';
+import CustomImage from '@/components/common/image/CustomImage';
+import { DisplayType, useMap } from '@/context/MapContext';
+import Link from 'next/link';
+import { useMemo } from 'react';
 
 const ResearchIcon = () => (
   <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -19,7 +22,17 @@ const Fallback = () => {
 };
 
 const Map = () => {
-    const { loaded, searchable, research } = useMap();
+    const { loaded, searchable, research, selectedPlace, places, setType } = useMap();
+
+    const image = useMemo<string>(() => {
+      const images = selectedPlace?.images ? JSON.parse(selectedPlace.images) : [];
+
+      return images?.[0]?.url || '';
+    }, [selectedPlace]);
+
+    const category = useMemo<string[]>(() => {
+      return selectedPlace?.category ? JSON.parse(selectedPlace.category) : [];
+    }, [selectedPlace]);
 
     return (
       <div
@@ -36,7 +49,27 @@ const Map = () => {
                 {
                     searchable &&
                     <div className="obud-research" onClick={research}><ResearchIcon /><span>현지도에서 재검색</span></div>
+
                 }
+                {
+                  selectedPlace && (
+                    <Link href={`/class/${selectedPlace.id}`}>
+                      <div className="obud-place">
+                        {image && <CustomImage src={image} width={70} height={70} />}
+                        <div className="obud-place-description">
+                          <div className="obud-place-option">
+                            <div>{category.join(',')}</div>|
+                            <div>{selectedPlace.region}</div>
+                          </div>
+                          <div className="obud-place-title">{selectedPlace.title}</div>
+                        </div>
+                      </div>
+
+                    </Link>
+)
+                }
+
+                {places.length > 0 && <div className="obut-map-show-list" onClick={() => setType(DisplayType.LIST)}>리스트로 보기</div>}
               </div>
 )
         }

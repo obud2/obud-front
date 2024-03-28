@@ -115,3 +115,58 @@
   color: #009ef7;
   font-size: 13px;
 }
+
+.obud-place {
+  position: absolute;
+  display: flex;
+  background-color: #ffffff;
+  border: 1px solid #d9d9d9;
+  border-radius: 15px;
+  gap: 10px;
+  width: 134px;
+  height: 33px;
+  align-items: center;
+  transform: translateX(-50%);
+  z-index: 40;
+  left: 50%;
+  bottom: 70px;
+  font-size: 13px;
+  height: 137px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  padding: 30px 40px;
+  width: 95%;
+}
+
+.obud-place-description {
+  display: flex;
+  flex-direction: column;
+}
+
+.obud-place-option {
+  display: flex;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.obud-place-title {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.obut-map-show-list {
+  position: absolute;
+  display: flex;
+  background-color: #344235;
+  border-radius: 15px;
+  gap: 6px;
+  width: 134px;
+  height: 33px;
+  justify-content: center;
+  align-items: center;
+  transform: translateX(-50%);
+  z-index: 40;
+  left: 50%;
+  bottom: 20px;
+  color: #ffffff;
+  font-size: 13px;
+}
